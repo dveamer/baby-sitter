@@ -21,7 +21,7 @@ class ContinuousAwakeDetector(
 
     companion object {
         private const val SIGNAL_WINDOW_MS = 5_000L
-        private const val REQUIRED_CONSECUTIVE_WINDOWS = 4
+        private const val REQUIRED_CONSECUTIVE_WINDOWS = 3
         private const val ACTIVE_SINCE_TTL_MS = 10 * 60 * 1_000L
     }
 

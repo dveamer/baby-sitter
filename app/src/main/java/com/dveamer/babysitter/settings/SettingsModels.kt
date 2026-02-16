@@ -2,12 +2,13 @@ package com.dveamer.babysitter.settings
 
 data class SettingsState(
     val sleepEnabled: Boolean = false,
+    val soundMonitoringEnabled: Boolean = true,
     val cryThresholdSec: Int = 10,
     val movementThresholdSec: Int = 10,
     val cameraMonitoringEnabled: Boolean = false,
     val soothingMusicEnabled: Boolean = true,
     val soothingIotEnabled: Boolean = false,
-    val wakeAlertThresholdMin: Int = 10,
+    val wakeAlertThresholdMin: Int = 1,
     val musicPlaylist: List<String> = emptyList(),
     val telegramBotToken: String = "",
     val telegramChatId: String = "",
@@ -19,6 +20,7 @@ data class SettingsState(
 
 data class SettingsPatch(
     val sleepEnabled: Boolean? = null,
+    val soundMonitoringEnabled: Boolean? = null,
     val cryThresholdSec: Int? = null,
     val movementThresholdSec: Int? = null,
     val cameraMonitoringEnabled: Boolean? = null,

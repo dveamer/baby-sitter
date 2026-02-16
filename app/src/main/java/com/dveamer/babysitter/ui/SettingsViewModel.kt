@@ -25,6 +25,9 @@ class SettingsViewModel(
 
     fun setSleep(enabled: Boolean) = update(SettingsPatch(sleepEnabled = enabled))
 
+    fun setSoundMonitoring(enabled: Boolean) =
+        update(SettingsPatch(soundMonitoringEnabled = enabled))
+
     fun setCryThresholdSec(sec: Int) = update(SettingsPatch(cryThresholdSec = sec.coerceIn(3, 60)))
 
     fun setMovementThresholdSec(sec: Int) =

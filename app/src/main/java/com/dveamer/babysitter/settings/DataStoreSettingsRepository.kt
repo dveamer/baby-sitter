@@ -57,6 +57,7 @@ class DataStoreSettingsRepository(
         val p = update.patch
         return copy(
             sleepEnabled = p.sleepEnabled ?: sleepEnabled,
+            soundMonitoringEnabled = p.soundMonitoringEnabled ?: soundMonitoringEnabled,
             cryThresholdSec = p.cryThresholdSec ?: cryThresholdSec,
             movementThresholdSec = p.movementThresholdSec ?: movementThresholdSec,
             cameraMonitoringEnabled = p.cameraMonitoringEnabled ?: cameraMonitoringEnabled,
@@ -76,12 +77,13 @@ class DataStoreSettingsRepository(
     private fun Preferences.toSettingsState(): SettingsState {
         return SettingsState(
             sleepEnabled = this[Keys.SLEEP_ENABLED] ?: false,
+            soundMonitoringEnabled = this[Keys.SOUND_MONITORING_ENABLED] ?: true,
             cryThresholdSec = this[Keys.CRY_THRESHOLD_SEC] ?: 10,
             movementThresholdSec = this[Keys.MOVEMENT_THRESHOLD_SEC] ?: 10,
             cameraMonitoringEnabled = this[Keys.CAMERA_MONITORING_ENABLED] ?: false,
             soothingMusicEnabled = this[Keys.SOOTHING_MUSIC_ENABLED] ?: true,
             soothingIotEnabled = this[Keys.SOOTHING_IOT_ENABLED] ?: false,
-            wakeAlertThresholdMin = this[Keys.WAKE_ALERT_THRESHOLD_MIN] ?: 10,
+            wakeAlertThresholdMin = this[Keys.WAKE_ALERT_THRESHOLD_MIN] ?: 1,
             musicPlaylist = (this[Keys.MUSIC_PLAYLIST] ?: "")
                 .split(PLAYLIST_DELIMITER)
                 .filter { it.isNotBlank() },
@@ -98,6 +100,7 @@ class DataStoreSettingsRepository(
 
     private fun MutablePreferences.fromSettingsState(state: SettingsState) {
         this[Keys.SLEEP_ENABLED] = state.sleepEnabled
+        this[Keys.SOUND_MONITORING_ENABLED] = state.soundMonitoringEnabled
         this[Keys.CRY_THRESHOLD_SEC] = state.cryThresholdSec
         this[Keys.MOVEMENT_THRESHOLD_SEC] = state.movementThresholdSec
         this[Keys.CAMERA_MONITORING_ENABLED] = state.cameraMonitoringEnabled
@@ -115,6 +118,7 @@ class DataStoreSettingsRepository(
 
     private object Keys {
         val SLEEP_ENABLED = booleanPreferencesKey("sleep_enabled")
+        val SOUND_MONITORING_ENABLED = booleanPreferencesKey("sound_monitoring_enabled")
         val CRY_THRESHOLD_SEC = intPreferencesKey("cry_threshold_sec")
         val MOVEMENT_THRESHOLD_SEC = intPreferencesKey("movement_threshold_sec")
         val CAMERA_MONITORING_ENABLED = booleanPreferencesKey("camera_monitoring_enabled")

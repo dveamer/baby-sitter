@@ -2,6 +2,7 @@ package com.dveamer.babysitter
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.media.MediaPlayer
 import android.media.MediaRecorder
 import android.net.Uri
 import android.os.Build
@@ -13,6 +14,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -24,12 +26,17 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
@@ -38,6 +45,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
@@ -45,6 +53,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.dveamer.babysitter.ui.SettingsViewModel
 import com.dveamer.babysitter.ui.SettingsViewModelFactory
 import java.io.File
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class MainActivity : ComponentActivity() {
 
@@ -54,7 +64,10 @@ class MainActivity : ComponentActivity() {
     }
 
     private val isRecording = mutableStateOf(false)
+    private val currentScreen = mutableStateOf(Screen.HOME)
+    private val playingTrackUri = mutableStateOf<String?>(null)
     private var mediaRecorder: MediaRecorder? = null
+    private var mediaPlayer: MediaPlayer? = null
     private var recordingFilePath: String? = null
     private var pendingRecordStart = false
 
@@ -78,39 +91,79 @@ class MainActivity : ComponentActivity() {
             val recording by isRecording
 
             MaterialTheme(colorScheme = colorScheme) {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    val state by vm.settingsState.collectAsStateWithLifecycle()
-                    SettingsScreen(
-                        state = state,
-                        isRecording = recording,
-                        onSleepToggle = { enabled ->
-                            if (enabled) requestMonitoringPermissions(state.cameraMonitoringEnabled)
-                            vm.setSleep(enabled)
-                        },
-                        onCameraToggle = { enabled ->
-                            if (enabled) requestMonitoringPermissions(cameraEnabled = true)
-                            vm.setCameraMonitoring(enabled)
-                        },
-                        onMusicToggle = vm::setSoothingMusic,
-                        onIotToggle = vm::setSoothingIot,
-                        onCrySecChange = vm::setCryThresholdSec,
-                        onMoveSecChange = vm::setMovementThresholdSec,
-                        onWakeAlertMinChange = vm::setWakeAlertThresholdMin,
-                        onStartRecording = ::startRecording,
-                        onStopRecording = { stopRecording(vm) },
-                        onDeleteTrack = { index ->
-                            state.musicPlaylist.getOrNull(index)?.let { uri ->
-                                deleteTrack(uri)
-                                vm.removeMusicTrackAt(index)
-                            }
-                        },
-                        onTelegramTokenChange = vm::setTelegramBotToken,
-                        onTelegramChatIdChange = vm::setTelegramChatId,
-                        onIotEndpointChange = vm::setIotEndpoint
-                    )
+                val state by vm.settingsState.collectAsStateWithLifecycle()
+                val navigateTo: (Screen) -> Unit = { next ->
+                    if (currentScreen.value == Screen.RECORDINGS && next != Screen.RECORDINGS) {
+                        stopPlayback()
+                    }
+                    if (next == Screen.SETTINGS && currentScreen.value != Screen.SETTINGS) {
+                        vm.setSleep(false)
+                    }
+                    currentScreen.value = next
+                }
+                Scaffold(
+                    topBar = {
+                        AppTopBar(
+                            currentScreen = currentScreen.value
+                        )
+                    },
+                    bottomBar = {
+                        AppBottomBar(
+                            currentScreen = currentScreen.value,
+                            onSelectScreen = navigateTo
+                        )
+                    }
+                ) { innerPadding ->
+                    Surface(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(innerPadding),
+                        color = MaterialTheme.colorScheme.background
+                    ) {
+                        when (currentScreen.value) {
+                            Screen.HOME -> HomeScreen(
+                                sleepEnabled = state.sleepEnabled,
+                                onSleepToggle = { enabled ->
+                                    if (enabled) {
+                                        requestMonitoringPermissions(state.cameraMonitoringEnabled)
+                                    }
+                                    vm.setSleep(enabled)
+                                }
+                            )
+
+                            Screen.SETTINGS -> SettingsScreen(
+                                state = state,
+                                onSoundToggle = vm::setSoundMonitoring,
+                                onCameraToggle = { enabled ->
+                                    if (enabled) requestMonitoringPermissions(cameraEnabled = true)
+                                    vm.setCameraMonitoring(enabled)
+                                },
+                                onMusicToggle = vm::setSoothingMusic,
+                                onWakeAlertMinChange = vm::setWakeAlertThresholdMin,
+                                onOpenRecordings = { navigateTo(Screen.RECORDINGS) },
+                                onTelegramTokenChange = vm::setTelegramBotToken,
+                                onTelegramChatIdChange = vm::setTelegramChatId
+                            )
+
+                            Screen.RECORDINGS -> RecordingManagementScreen(
+                                state = state,
+                                isRecording = recording,
+                                playingUri = playingTrackUri.value,
+                                onStartRecording = ::startRecording,
+                                onStopRecording = { stopRecording(vm) },
+                                onTogglePlay = ::togglePlayback,
+                                onDeleteTrack = { index ->
+                                    state.musicPlaylist.getOrNull(index)?.let { uri ->
+                                        if (playingTrackUri.value == uri) {
+                                            stopPlayback()
+                                        }
+                                        deleteTrack(uri)
+                                        vm.removeMusicTrackAt(index)
+                                    }
+                                }
+                            )
+                        }
+                    }
                 }
             }
         }
@@ -118,6 +171,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onDestroy() {
         releaseRecorder(deleteIncompleteFile = true)
+        stopPlayback()
         super.onDestroy()
     }
 
@@ -154,7 +208,7 @@ class MainActivity : ComponentActivity() {
             return
         }
 
-        val outputFile = File(outputDir, "soothing_${System.currentTimeMillis()}.m4a")
+        val outputFile = File(outputDir, buildRecordingFileName())
         val recorder = MediaRecorder()
 
         runCatching {
@@ -221,6 +275,49 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+    private fun togglePlayback(uriString: String) {
+        if (playingTrackUri.value == uriString) {
+            stopPlayback()
+            return
+        }
+        stopPlayback()
+
+        val uri = runCatching { Uri.parse(uriString) }.getOrNull() ?: return
+        val player = MediaPlayer()
+        runCatching {
+            player.setDataSource(this, uri)
+            player.setOnCompletionListener {
+                stopPlayback()
+            }
+            player.prepare()
+            player.start()
+        }.onSuccess {
+            mediaPlayer = player
+            playingTrackUri.value = uriString
+        }.onFailure { t ->
+            Log.w(TAG, "failed to play track uri=$uriString", t)
+            runCatching { player.release() }
+            mediaPlayer = null
+            playingTrackUri.value = null
+        }
+    }
+
+    private fun stopPlayback() {
+        val player = mediaPlayer
+        mediaPlayer = null
+        playingTrackUri.value = null
+        if (player != null) {
+            runCatching { player.stop() }
+            runCatching { player.release() }
+        }
+    }
+
+    private fun buildRecordingFileName(): String {
+        val now = LocalDateTime.now()
+        val timestamp = now.format(RECORDING_FILE_FORMATTER)
+        return "$timestamp.m4a"
+    }
+
     private fun releaseRecorder(deleteIncompleteFile: Boolean) {
         val recorder = mediaRecorder
         mediaRecorder = null
@@ -243,7 +340,9 @@ class MainActivity : ComponentActivity() {
     companion object {
         private const val TAG = "MainActivity"
         private const val RECORDINGS_DIR = "soothing-recordings"
+        private val RECORDING_FILE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
     }
+
 }
 
 private val DarkColorScheme = darkColorScheme(
@@ -263,20 +362,13 @@ private val LightColorScheme = lightColorScheme(
 @Composable
 private fun SettingsScreen(
     state: com.dveamer.babysitter.settings.SettingsState,
-    isRecording: Boolean,
-    onSleepToggle: (Boolean) -> Unit,
+    onSoundToggle: (Boolean) -> Unit,
     onCameraToggle: (Boolean) -> Unit,
     onMusicToggle: (Boolean) -> Unit,
-    onIotToggle: (Boolean) -> Unit,
-    onCrySecChange: (Int) -> Unit,
-    onMoveSecChange: (Int) -> Unit,
     onWakeAlertMinChange: (Int) -> Unit,
-    onStartRecording: () -> Unit,
-    onStopRecording: () -> Unit,
-    onDeleteTrack: (Int) -> Unit,
+    onOpenRecordings: () -> Unit,
     onTelegramTokenChange: (String) -> Unit,
-    onTelegramChatIdChange: (String) -> Unit,
-    onIotEndpointChange: (String) -> Unit
+    onTelegramChatIdChange: (String) -> Unit
 ) {
     val scrollState = rememberScrollState()
     Column(
@@ -286,61 +378,33 @@ private fun SettingsScreen(
             .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        Text("Sleep Settings", style = MaterialTheme.typography.headlineSmall)
+        Text("Monitoring", style = MaterialTheme.typography.headlineSmall)
 
-        SwitchRow("Sleep ON/OFF", state.sleepEnabled, onSleepToggle)
-        SwitchRow("Camera Monitoring", state.cameraMonitoringEnabled, onCameraToggle)
-        SwitchRow("Music Soothing", state.soothingMusicEnabled, onMusicToggle)
-        SwitchRow("IoT Soothing", state.soothingIotEnabled, onIotToggle)
+        SwitchRow("Sound", state.soundMonitoringEnabled, onSoundToggle)
+        SwitchRow("Motion", state.cameraMonitoringEnabled, onCameraToggle)
 
-        NumberField(
-            label = "Cry Threshold (sec)",
-            value = state.cryThresholdSec,
-            onValueChange = onCrySecChange
+        Text(
+            "Take Action",
+            style = MaterialTheme.typography.headlineSmall,
+            modifier = Modifier.padding(top = 8.dp)
+        )
+        SwitchRow("Play Music", state.soothingMusicEnabled, onMusicToggle)
+
+        Button(
+            onClick = onOpenRecordings,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text("Manage Recording")
+        }
+        Text(
+            "Wake Alert",
+            style = MaterialTheme.typography.headlineSmall,
+            modifier = Modifier.padding(top = 8.dp)
         )
         NumberField(
-            label = "Movement Threshold (sec)",
-            value = state.movementThresholdSec,
-            onValueChange = onMoveSecChange
-        )
-        NumberField(
-            label = "Wake Alert Threshold (min)",
+            label = "Treshold (min)",
             value = state.wakeAlertThresholdMin,
             onValueChange = onWakeAlertMinChange
-        )
-
-        Text("Music Playlist (Recordings)")
-        Button(onClick = { if (isRecording) onStopRecording() else onStartRecording() }) {
-            Text(if (isRecording) "Stop Recording" else "Record New Track")
-        }
-
-        if (state.musicPlaylist.isEmpty()) {
-            Text("No recorded tracks")
-        } else {
-            state.musicPlaylist.forEachIndexed { index, uriString ->
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Text(
-                        text = trackLabel(uriString, index),
-                        modifier = Modifier
-                            .fillMaxWidth(0.8f)
-                            .padding(end = 8.dp)
-                    )
-                    TextButton(onClick = { onDeleteTrack(index) }) {
-                        Text("Delete")
-                    }
-                }
-            }
-        }
-
-        OutlinedTextField(
-            modifier = Modifier.fillMaxWidth(),
-            value = state.iotEndpoint,
-            onValueChange = onIotEndpointChange,
-            label = { Text("IoT Endpoint URL") }
         )
 
         OutlinedTextField(
@@ -361,6 +425,128 @@ private fun SettingsScreen(
         Text(
             text = "Last update: ${state.updatedBy} / v${state.version}",
             style = MaterialTheme.typography.bodySmall
+        )
+    }
+}
+
+@Composable
+private fun RecordingManagementScreen(
+    state: com.dveamer.babysitter.settings.SettingsState,
+    isRecording: Boolean,
+    playingUri: String?,
+    onStartRecording: () -> Unit,
+    onStopRecording: () -> Unit,
+    onTogglePlay: (String) -> Unit,
+    onDeleteTrack: (Int) -> Unit
+) {
+    Surface(
+        modifier = Modifier.fillMaxSize(),
+        color = MaterialTheme.colorScheme.background
+    ) {
+        val scrollState = rememberScrollState()
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(scrollState)
+                .padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp)
+        ) {
+            Text("Recordings", style = MaterialTheme.typography.headlineSmall)
+
+            Button(onClick = { if (isRecording) onStopRecording() else onStartRecording() }) {
+                Text(if (isRecording) "Stop Recording" else "Record New Track")
+            }
+
+            if (state.musicPlaylist.isEmpty()) {
+                Text("No recorded tracks")
+            } else {
+                state.musicPlaylist.forEachIndexed { index, uriString ->
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Text(
+                            text = trackLabel(uriString, index),
+                            modifier = Modifier
+                                .fillMaxWidth(0.5f)
+                                .padding(end = 8.dp)
+                        )
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(4.dp)
+                        ) {
+                            TextButton(onClick = { onTogglePlay(uriString) }) {
+                                Text(if (playingUri == uriString) "Stop" else "Play")
+                            }
+                            TextButton(onClick = { onDeleteTrack(index) }) {
+                                Text("Delete")
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun HomeScreen(
+    sleepEnabled: Boolean,
+    onSleepToggle: (Boolean) -> Unit
+) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        Button(
+            onClick = { onSleepToggle(!sleepEnabled) },
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(64.dp),
+            shape = CircleShape
+        ) {
+            Text(if (sleepEnabled) "Sleep OFF" else "Sleep ON")
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun AppTopBar(
+    currentScreen: Screen
+) {
+    TopAppBar(
+        title = {
+            val title = when (currentScreen) {
+                Screen.HOME -> "Home"
+                Screen.SETTINGS -> "Settings"
+                Screen.RECORDINGS -> "Recordings"
+            }
+            Text(title)
+        }
+    )
+}
+
+@Composable
+private fun AppBottomBar(
+    currentScreen: Screen,
+    onSelectScreen: (Screen) -> Unit
+) {
+    NavigationBar {
+        NavigationBarItem(
+            selected = currentScreen == Screen.HOME,
+            onClick = { onSelectScreen(Screen.HOME) },
+            icon = {},
+            label = { Text("Home") }
+        )
+        NavigationBarItem(
+            selected = currentScreen == Screen.SETTINGS,
+            onClick = { onSelectScreen(Screen.SETTINGS) },
+            icon = {},
+            label = { Text("Settings") }
         )
     }
 }
@@ -400,4 +586,9 @@ private fun NumberField(
         label = { Text(label) },
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
     )
+}
+private enum class Screen {
+    HOME,
+    SETTINGS,
+    RECORDINGS
 }

@@ -104,7 +104,9 @@ class SleepForegroundService : Service() {
         val settings = container.settingsRepository.state.value
 
         val monitors = buildList<Monitor> {
-            add(MicrophoneMonitor(serviceScope))
+            if (settings.soundMonitoringEnabled) {
+                add(MicrophoneMonitor(serviceScope))
+            }
             if (settings.cameraMonitoringEnabled) {
                 add(CameraMonitor(serviceScope))
             }

@@ -15,7 +15,7 @@ import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlin.math.abs
 
-class MicrophoneMonitor(
+    class MicrophoneMonitor(
     private val scope: CoroutineScope,
     override val id: String = "microphone"
 ) : Monitor {
