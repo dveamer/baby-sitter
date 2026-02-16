@@ -42,12 +42,19 @@ class SettingsViewModel(
     fun setSoothingIot(enabled: Boolean) =
         update(SettingsPatch(soothingIotEnabled = enabled))
 
-    fun setMusicPlaylistFromText(text: String) {
-        val list = text
-            .split('\n', ',', ';')
-            .map { it.trim() }
-            .filter { it.isNotBlank() }
-        update(SettingsPatch(musicPlaylist = list))
+    fun addMusicTrack(uri: String) {
+        val cleaned = uri.trim()
+        if (cleaned.isBlank()) return
+        val current = settingsState.value.musicPlaylist
+        if (current.contains(cleaned)) return
+        update(SettingsPatch(musicPlaylist = current + cleaned))
+    }
+
+    fun removeMusicTrackAt(index: Int) {
+        val current = settingsState.value.musicPlaylist
+        if (index !in current.indices) return
+        val next = current.toMutableList().apply { removeAt(index) }
+        update(SettingsPatch(musicPlaylist = next))
     }
 
     fun setTelegramBotToken(token: String) = update(SettingsPatch(telegramBotToken = token.trim()))
