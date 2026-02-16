@@ -129,8 +129,8 @@ class SleepForegroundService : Service() {
                 val now = System.currentTimeMillis()
                 val awake = detector.onSignal(signal, now)
 
-                Log.d("merge", "awake : $awake")
                 if (awake.isAwake && awake.awakeSinceMs != null) {
+                    Log.d("merge", "awake : $awake")
                     soothingCoordinator.soothe(
                         SootheRequest(
                             awakeSinceMs = awake.awakeSinceMs,

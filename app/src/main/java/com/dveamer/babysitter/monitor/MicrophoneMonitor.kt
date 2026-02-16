@@ -100,6 +100,6 @@ class MicrophoneMonitor(
 
     private companion object {
         const val TAG = "MicrophoneMonitor"
-        const val AMPLITUDE_THRESHOLD = 1200.0
+        const val AMPLITUDE_THRESHOLD = 900.0
     }
 }
