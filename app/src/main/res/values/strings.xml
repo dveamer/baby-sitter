@@ -3,4 +3,6 @@
     <string name="fgs_channel_name">Sleep Monitoring</string>
     <string name="fgs_channel_desc">Monitors baby sleep and runs soothing actions.</string>
     <string name="fgs_running">Sleep mode is active</string>
+    <string name="home_no_recordings_guide">Please record a lullaby with mom and dad\'s voice for when your baby wakes up.</string>
+    <string name="manage_recordings">Manage Recordings</string>
 </resources>

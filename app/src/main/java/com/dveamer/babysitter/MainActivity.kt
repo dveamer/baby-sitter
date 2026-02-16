@@ -45,6 +45,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
@@ -123,6 +124,8 @@ class MainActivity : ComponentActivity() {
                         when (currentScreen.value) {
                             Screen.HOME -> HomeScreen(
                                 sleepEnabled = state.sleepEnabled,
+                                hasRecordings = state.musicPlaylist.isNotEmpty(),
+                                onOpenRecordings = { navigateTo(Screen.RECORDINGS) },
                                 onSleepToggle = { enabled ->
                                     if (enabled) {
                                         requestMonitoringPermissions(state.cameraMonitoringEnabled)
@@ -493,14 +496,31 @@ private fun RecordingManagementScreen(
 @Composable
 private fun HomeScreen(
     sleepEnabled: Boolean,
+    hasRecordings: Boolean,
+    onOpenRecordings: () -> Unit,
     onSleepToggle: (Boolean) -> Unit
 ) {
-    Box(
+    Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp),
-        contentAlignment = Alignment.Center
+        verticalArrangement = Arrangement.Center
     ) {
+        if (!hasRecordings) {
+            Text(
+                text = stringResource(R.string.home_no_recordings_guide),
+                style = MaterialTheme.typography.bodyLarge
+            )
+            Spacer(Modifier.height(12.dp))
+            Button(
+                onClick = onOpenRecordings,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(stringResource(R.string.manage_recordings))
+            }
+            Spacer(Modifier.height(16.dp))
+        }
+
         Button(
             onClick = { onSleepToggle(!sleepEnabled) },
             modifier = Modifier

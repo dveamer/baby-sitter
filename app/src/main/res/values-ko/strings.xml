@@ -1,0 +1,4 @@
+<resources>
+    <string name="home_no_recordings_guide">아이가 깨어났을 때 들려줄 엄마, 아빠 목소리가 담긴 자장가를 녹음해주세요.</string>
+    <string name="manage_recordings">Manage Recordings</string>
+</resources>
