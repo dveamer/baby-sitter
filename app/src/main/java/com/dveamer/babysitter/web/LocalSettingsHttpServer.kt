@@ -92,6 +92,25 @@ class LocalSettingsHttpServer(
                         )
                     }
 
+                    path == "/index.html" || path == "/" -> {
+                        writeTextResponse(
+                            socket = socket,
+                            code = 200,
+                            status = "OK",
+                            contentType = "text/html; charset=utf-8",
+                            body = """
+                                <!doctype html>
+                                <html>
+                                <head><meta charset="utf-8"><title>Baby Sitter</title></head>
+                                <body>
+                                <h1>Baby Sitter Web Service</h1>
+                                <p>Use <code>/settings</code> for JSON settings.</p>
+                                </body>
+                                </html>
+                            """.trimIndent()
+                        )
+                    }
+
                     else -> {
                         writeResponse(
                             socket = socket,
@@ -117,6 +136,27 @@ class LocalSettingsHttpServer(
         val header = buildString {
             append("HTTP/1.1 $code $status\r\n")
             append("Content-Type: application/json\r\n")
+            append("Content-Length: ${bytes.size}\r\n")
+            append("Connection: close\r\n")
+            append("\r\n")
+        }
+        val output = socket.getOutputStream()
+        output.write(header.toByteArray(Charsets.UTF_8))
+        output.write(bytes)
+        output.flush()
+    }
+
+    private fun writeTextResponse(
+        socket: Socket,
+        code: Int,
+        status: String,
+        contentType: String,
+        body: String
+    ) {
+        val bytes = body.toByteArray(Charsets.UTF_8)
+        val header = buildString {
+            append("HTTP/1.1 $code $status\r\n")
+            append("Content-Type: $contentType\r\n")
             append("Content-Length: ${bytes.size}\r\n")
             append("Connection: close\r\n")
             append("\r\n")

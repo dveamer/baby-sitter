@@ -2,6 +2,8 @@ package com.dveamer.babysitter
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.Color as AndroidColor
 import android.media.MediaPlayer
 import android.media.MediaRecorder
 import android.net.Uri
@@ -12,6 +14,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -23,8 +26,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
@@ -40,21 +45,27 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.res.stringResource
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.dveamer.babysitter.ui.SettingsViewModel
 import com.dveamer.babysitter.ui.SettingsViewModelFactory
+import com.dveamer.babysitter.web.LocalSettingsHttpServer
+import com.google.zxing.BarcodeFormat
+import com.google.zxing.qrcode.QRCodeWriter
 import java.io.File
 import java.io.FileInputStream
+import java.net.NetworkInterface
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import java.util.Collections
 
 class MainActivity : ComponentActivity() {
 
@@ -66,6 +77,8 @@ class MainActivity : ComponentActivity() {
     private val isRecording = mutableStateOf(false)
     private val currentScreen = mutableStateOf(Screen.HOME)
     private val playingTrackUri = mutableStateOf<String?>(null)
+    private val showQrDialog = mutableStateOf(false)
+    private val qrCodeUrl = mutableStateOf("")
     private var mediaRecorder: MediaRecorder? = null
     private var mediaPlayer: MediaPlayer? = null
     private var recordingFilePath: String? = null
@@ -89,6 +102,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             val colorScheme = if (isSystemInDarkTheme()) DarkColorScheme else LightColorScheme
             val recording by isRecording
+            val qrVisible by showQrDialog
+            val qrUrl by qrCodeUrl
 
             MaterialTheme(colorScheme = colorScheme) {
                 val state by vm.settingsState.collectAsStateWithLifecycle()
@@ -136,6 +151,7 @@ class MainActivity : ComponentActivity() {
                                     vm.setCameraMonitoring(enabled)
                                 },
                                 onMusicToggle = vm::setSoothingMusic,
+                                onShowQrCode = ::showQrCodePopup,
                                 onWakeAlertMinChange = vm::setWakeAlertThresholdMin,
                                 onOpenRecordings = { navigateTo(Screen.RECORDINGS) },
                                 onTelegramTokenChange = vm::setTelegramBotToken,
@@ -160,6 +176,12 @@ class MainActivity : ComponentActivity() {
                                 }
                             )
                         }
+                    }
+                    if (qrVisible) {
+                        QrCodeDialog(
+                            qrContent = qrUrl,
+                            onDismiss = { showQrDialog.value = false }
+                        )
                     }
                 }
             }
@@ -332,6 +354,33 @@ class MainActivity : ComponentActivity() {
         return "$timestamp.m4a"
     }
 
+    private fun showQrCodePopup() {
+        val ip = resolvePrivateIpv4Address()
+        val content = if (ip != null) {
+            "http://$ip:${LocalSettingsHttpServer.PORT}/index.html"
+        } else {
+            ""
+        }
+        qrCodeUrl.value = content
+        showQrDialog.value = true
+    }
+
+    private fun resolvePrivateIpv4Address(): String? {
+        return runCatching {
+            val interfaces = NetworkInterface.getNetworkInterfaces() ?: return@runCatching null
+            Collections.list(interfaces)
+                .asSequence()
+                .flatMap { networkInterface -> Collections.list(networkInterface.inetAddresses).asSequence() }
+                .firstOrNull { address ->
+                    !address.isLoopbackAddress &&
+                        !address.isLinkLocalAddress &&
+                        address.hostAddress?.contains(':') == false &&
+                        address.isSiteLocalAddress
+                }
+                ?.hostAddress
+        }.getOrNull()
+    }
+
     private fun releaseRecorder(deleteIncompleteFile: Boolean) {
         val recorder = mediaRecorder
         mediaRecorder = null
@@ -380,6 +429,7 @@ private fun SettingsScreen(
     onSoundToggle: (Boolean) -> Unit,
     onCameraToggle: (Boolean) -> Unit,
     onMusicToggle: (Boolean) -> Unit,
+    onShowQrCode: () -> Unit,
     onWakeAlertMinChange: (Int) -> Unit,
     onOpenRecordings: () -> Unit,
     onTelegramTokenChange: (String) -> Unit,
@@ -437,8 +487,47 @@ private fun SettingsScreen(
         )
 
         SwitchRow("Web Service", state.webServiceEnabled, onWebServiceToggle)
+        Button(
+            onClick = onShowQrCode,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text("QR Code")
+        }
 
     }
+}
+
+@Composable
+private fun QrCodeDialog(
+    qrContent: String,
+    onDismiss: () -> Unit
+) {
+    val qrBitmap = remember(qrContent) {
+        if (qrContent.isBlank()) null else createQrCodeBitmap(qrContent, 900)
+    }
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        confirmButton = {
+            TextButton(onClick = onDismiss) {
+                Text("Close")
+            }
+        },
+        title = { Text("QR Code") },
+        text = {
+            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                if (qrBitmap != null) {
+                    Image(
+                        bitmap = qrBitmap.asImageBitmap(),
+                        contentDescription = "Web service QR code",
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                    Text(qrContent, style = MaterialTheme.typography.bodySmall)
+                } else {
+                    Text("Unable to resolve local Wi-Fi IP on this device.")
+                }
+            }
+        }
+    )
 }
 
 @Composable
@@ -574,6 +663,21 @@ private fun keepWordsUnbroken(text: String): String {
     return text.split(" ").joinToString(" ") { word ->
         word.toCharArray().joinToString(wordJoiner)
     }
+}
+
+private fun createQrCodeBitmap(content: String, size: Int): Bitmap {
+    val matrix = QRCodeWriter().encode(content, BarcodeFormat.QR_CODE, size, size)
+    val bitmap = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888)
+    for (x in 0 until size) {
+        for (y in 0 until size) {
+            bitmap.setPixel(
+                x,
+                y,
+                if (matrix[x, y]) AndroidColor.BLACK else AndroidColor.WHITE
+            )
+        }
+    }
+    return bitmap
 }
 
 @Composable
