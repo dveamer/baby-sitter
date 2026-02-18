@@ -7,12 +7,28 @@ android {
     namespace = "com.dveamer.babysitter"
     compileSdk = 35
 
+    signingConfigs {
+        create("release") {
+            val ksPath = System.getenv("ANDROID_KEYSTORE_PATH")
+            val ksAlias = System.getenv("ANDROID_BABYSITTER_KEY_ALIAS")
+            val ksPassword = System.getenv("ANDROID_KEYSTORE_PSWD")
+            val keyPwd = System.getenv("ANDROID_BABYSITTER_KEY_PSWD")
+
+            if (!ksPath.isNullOrBlank() && !ksAlias.isNullOrBlank()) {
+                storeFile = file(ksPath)
+                keyAlias = ksAlias
+                storePassword = ksPassword
+                keyPassword = keyPwd
+            }
+        }
+    }
+
     defaultConfig {
         applicationId = "com.dveamer.babysitter"
         minSdk = 28
         targetSdk = 35
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 2026021800
+        versionName = "2026021800"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -22,10 +38,17 @@ android {
 
     buildTypes {
         release {
+            val releaseSigning = signingConfigs.getByName("release")
+            if (releaseSigning.storeFile != null) {
+                signingConfig = releaseSigning
+            } else {
+                throw GradleException(
+                    "Release signing is not configured. Set ANDROID_KEYSTORE_PATH and ANDROID_BABYSITTER_KEY_ALIAS."
+                )
+            }
             isMinifyEnabled = false
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
             )
         }
     }
