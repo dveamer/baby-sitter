@@ -2,6 +2,8 @@ package com.dveamer.babysitter.web
 
 import android.content.Context
 import android.util.Log
+import com.dveamer.babysitter.settings.MotionSensitivity
+import com.dveamer.babysitter.settings.SoundSensitivity
 import com.dveamer.babysitter.settings.SettingsController
 import com.dveamer.babysitter.settings.SettingsPatch
 import com.dveamer.babysitter.settings.SettingsRepository
@@ -200,7 +202,9 @@ class LocalSettingsHttpServer(
             val patch = SettingsPatch(
                 webCameraEnabled = json.optBooleanOrNull("webCameraEnabled"),
                 soundMonitoringEnabled = json.optBooleanOrNull("soundMonitoringEnabled"),
+                soundSensitivity = json.optEnumOrNull("soundSensitivity", SoundSensitivity::valueOf),
                 cameraMonitoringEnabled = json.optBooleanOrNull("cameraMonitoringEnabled"),
+                motionSensitivity = json.optEnumOrNull("motionSensitivity", MotionSensitivity::valueOf),
                 soothingMusicEnabled = json.optBooleanOrNull("soothingMusicEnabled"),
                 wakeAlertThresholdMin = json.optIntOrNull("wakeAlertThresholdMin")
             )
@@ -266,9 +270,11 @@ class LocalSettingsHttpServer(
             .put("sleepEnabled", state.sleepEnabled)
             .put("webCameraEnabled", state.webCameraEnabled)
             .put("soundMonitoringEnabled", state.soundMonitoringEnabled)
+            .put("soundSensitivity", state.soundSensitivity.name)
             .put("cryThresholdSec", state.cryThresholdSec)
             .put("movementThresholdSec", state.movementThresholdSec)
             .put("cameraMonitoringEnabled", state.cameraMonitoringEnabled)
+            .put("motionSensitivity", state.motionSensitivity.name)
             .put("soothingMusicEnabled", state.soothingMusicEnabled)
             .put("wakeAlertThresholdMin", state.wakeAlertThresholdMin)
             .toString()
@@ -286,4 +292,14 @@ private fun JSONObject.optBooleanOrNull(key: String): Boolean? {
 
 private fun JSONObject.optIntOrNull(key: String): Int? {
     return if (has(key) && !isNull(key)) optInt(key) else null
+}
+
+private inline fun <T> JSONObject.optEnumOrNull(
+    key: String,
+    parse: (String) -> T
+): T? {
+    if (!has(key) || isNull(key)) return null
+    val raw = optString(key, "").trim()
+    if (raw.isEmpty()) return null
+    return runCatching { parse(raw.uppercase()) }.getOrNull()
 }

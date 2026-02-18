@@ -81,6 +81,10 @@
       text-align: right;
       background: #fff;
     }
+    select.input {
+      text-align: left;
+      min-width: 120px;
+    }
     .actions {
       display: flex;
       gap: 8px;
@@ -175,8 +179,24 @@
         <input id="soundMonitoringEnabled" class="input" type="checkbox">
       </div>
       <div class="row">
+        <div class="label">Sound Sensitivity</div>
+        <select id="soundSensitivity" class="input">
+          <option value="HIGH">High</option>
+          <option value="MEDIUM">Medium</option>
+          <option value="LOW">Low</option>
+        </select>
+      </div>
+      <div class="row">
         <div class="label">Motion</div>
         <input id="cameraMonitoringEnabled" class="input" type="checkbox">
+      </div>
+      <div class="row">
+        <div class="label">Motion Sensitivity</div>
+        <select id="motionSensitivity" class="input">
+          <option value="HIGH">High</option>
+          <option value="MEDIUM">Medium</option>
+          <option value="LOW">Low</option>
+        </select>
       </div>
     </section>
 
@@ -227,7 +247,11 @@
     const cameraFeed = document.getElementById("cameraFeed");
 
     const soundInput = document.getElementById("soundMonitoringEnabled");
+    const soundSensitivityRow = document.getElementById("soundSensitivity").closest(".row");
+    const soundSensitivityInput = document.getElementById("soundSensitivity");
     const motionInput = document.getElementById("cameraMonitoringEnabled");
+    const motionSensitivityRow = document.getElementById("motionSensitivity").closest(".row");
+    const motionSensitivityInput = document.getElementById("motionSensitivity");
     const playMusicInput = document.getElementById("soothingMusicEnabled");
     const wakeAlertInput = document.getElementById("wakeAlertThresholdMin");
 
@@ -255,6 +279,11 @@
       successEl.textContent = "";
     }
 
+    function updateSensitivityVisibility() {
+      soundSensitivityRow.style.display = soundInput.checked ? "flex" : "none";
+      motionSensitivityRow.style.display = motionInput.checked ? "flex" : "none";
+    }
+
     async function loadSettings() {
       try {
         const res = await fetch("/settings", { headers: { "Accept": "application/json" } });
@@ -263,10 +292,13 @@
         hideError();
         hideSuccess();
         soundInput.checked = !!settings.soundMonitoringEnabled;
+        soundSensitivityInput.value = settings.soundSensitivity || "MEDIUM";
         motionInput.checked = !!settings.cameraMonitoringEnabled;
+        motionSensitivityInput.value = settings.motionSensitivity || "MEDIUM";
         playMusicInput.checked = !!settings.soothingMusicEnabled;
         wakeAlertInput.value = String(settings.wakeAlertThresholdMin ?? 3);
         cameraActions.style.display = settings.webCameraEnabled ? "flex" : "none";
+        updateSensitivityVisibility();
         updatedAtEl.textContent = "Last updated: " + new Date().toLocaleTimeString();
       } catch (e) {
         showError("Failed to load settings: " + e.message);
@@ -277,7 +309,9 @@
       try {
         const payload = {
           soundMonitoringEnabled: soundInput.checked,
+          soundSensitivity: soundSensitivityInput.value,
           cameraMonitoringEnabled: motionInput.checked,
+          motionSensitivity: motionSensitivityInput.value,
           soothingMusicEnabled: playMusicInput.checked,
           wakeAlertThresholdMin: Math.max(1, Math.min(60, Number(wakeAlertInput.value) || 1))
         };
@@ -310,13 +344,14 @@
 
     refreshBtn.addEventListener("click", loadSettings);
     saveBtn.addEventListener("click", saveSettings);
+    soundInput.addEventListener("change", updateSensitivityVisibility);
+    motionInput.addEventListener("change", updateSensitivityVisibility);
     cameraBtn.addEventListener("click", openCameraModal);
     cameraCloseBtn.addEventListener("click", closeCameraModal);
     cameraModal.addEventListener("click", (event) => {
       if (event.target === cameraModal) closeCameraModal();
     });
     loadSettings();
-    setInterval(loadSettings, 5000);
   </script>
 </body>
 </html>
