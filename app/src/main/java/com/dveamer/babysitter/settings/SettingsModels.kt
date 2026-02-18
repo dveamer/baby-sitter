@@ -8,7 +8,7 @@ data class SettingsState(
     val cameraMonitoringEnabled: Boolean = false,
     val soothingMusicEnabled: Boolean = true,
     val soothingIotEnabled: Boolean = false,
-    val wakeAlertThresholdMin: Int = 1,
+    val wakeAlertThresholdMin: Int = 3,
     val musicPlaylist: List<String> = emptyList(),
     val telegramBotToken: String = "",
     val telegramChatId: String = "",

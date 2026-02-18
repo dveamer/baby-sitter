@@ -115,7 +115,7 @@ class DataStoreSettingsRepository(
             cameraMonitoringEnabled = this[Keys.CAMERA_MONITORING_ENABLED] ?: false,
             soothingMusicEnabled = this[Keys.SOOTHING_MUSIC_ENABLED] ?: true,
             soothingIotEnabled = this[Keys.SOOTHING_IOT_ENABLED] ?: false,
-            wakeAlertThresholdMin = this[Keys.WAKE_ALERT_THRESHOLD_MIN] ?: 1,
+            wakeAlertThresholdMin = this[Keys.WAKE_ALERT_THRESHOLD_MIN] ?: 3,
             musicPlaylist = (this[Keys.MUSIC_PLAYLIST] ?: "")
                 .split(PLAYLIST_DELIMITER)
                 .filter { it.isNotBlank() },
