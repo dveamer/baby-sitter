@@ -42,8 +42,10 @@ android {
             if (releaseSigning.storeFile != null) {
                 signingConfig = releaseSigning
             } else {
-                throw GradleException(
-                    "Release signing is not configured. Set ANDROID_KEYSTORE_PATH and ANDROID_BABYSITTER_KEY_ALIAS."
+                logger.lifecycle(
+                    "Release signing is not configured. " +
+                        "Skipping release signing because ANDROID_KEYSTORE_PATH / " +
+                        "ANDROID_BABYSITTER_KEY_ALIAS are not set."
                 )
             }
             isMinifyEnabled = false
