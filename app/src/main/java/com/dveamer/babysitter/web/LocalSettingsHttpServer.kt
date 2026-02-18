@@ -1,5 +1,6 @@
 package com.dveamer.babysitter.web
 
+import android.content.Context
 import android.util.Log
 import com.dveamer.babysitter.settings.SettingsRepository
 import com.dveamer.babysitter.settings.SettingsState
@@ -18,8 +19,10 @@ import kotlinx.coroutines.launch
 import org.json.JSONObject
 
 class LocalSettingsHttpServer(
+    context: Context,
     private val settingsRepository: SettingsRepository
 ) {
+    private val appContext = context.applicationContext
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
     private var acceptJob: Job? = null
     private var serverSocket: ServerSocket? = null
@@ -93,21 +96,13 @@ class LocalSettingsHttpServer(
                     }
 
                     path == "/index.html" || path == "/" -> {
+                        val html = loadIndexHtml()
                         writeTextResponse(
                             socket = socket,
                             code = 200,
                             status = "OK",
                             contentType = "text/html; charset=utf-8",
-                            body = """
-                                <!doctype html>
-                                <html>
-                                <head><meta charset="utf-8"><title>Baby Sitter</title></head>
-                                <body>
-                                <h1>Baby Sitter Web Service</h1>
-                                <p>Use <code>/settings</code> for JSON settings.</p>
-                                </body>
-                                </html>
-                            """.trimIndent()
+                            body = html
                         )
                     }
 
@@ -165,6 +160,15 @@ class LocalSettingsHttpServer(
         output.write(header.toByteArray(Charsets.UTF_8))
         output.write(bytes)
         output.flush()
+    }
+
+    private fun loadIndexHtml(): String {
+        return runCatching {
+            appContext.assets.open("index.html").bufferedReader(Charsets.UTF_8).use { it.readText() }
+        }.getOrElse { e ->
+            Log.w(TAG, "failed to load assets/index.html", e)
+            "<html><body><h1>Baby Sitter Web Service</h1></body></html>"
+        }
     }
 
     private fun settingsToJson(state: SettingsState): String {
