@@ -92,8 +92,10 @@ class DataStoreSettingsRepository(
             webServiceEnabled = p.webServiceEnabled ?: webServiceEnabled,
             webCameraEnabled = p.webCameraEnabled ?: webCameraEnabled,
             soundMonitoringEnabled = p.soundMonitoringEnabled ?: soundMonitoringEnabled,
+            soundSensitivity = p.soundSensitivity ?: soundSensitivity,
             cryThresholdSec = p.cryThresholdSec ?: cryThresholdSec,
             movementThresholdSec = p.movementThresholdSec ?: movementThresholdSec,
+            motionSensitivity = p.motionSensitivity ?: motionSensitivity,
             cameraMonitoringEnabled = p.cameraMonitoringEnabled ?: cameraMonitoringEnabled,
             soothingMusicEnabled = p.soothingMusicEnabled ?: soothingMusicEnabled,
             soothingIotEnabled = p.soothingIotEnabled ?: soothingIotEnabled,
@@ -115,8 +117,14 @@ class DataStoreSettingsRepository(
             webServiceEnabled = this[Keys.WEB_SERVICE_ENABLED] ?: false,
             webCameraEnabled = this[Keys.WEB_CAMERA_ENABLED] ?: false,
             soundMonitoringEnabled = this[Keys.SOUND_MONITORING_ENABLED] ?: true,
+            soundSensitivity = this[Keys.SOUND_SENSITIVITY]
+                ?.let { runCatching { SoundSensitivity.valueOf(it) }.getOrNull() }
+                ?: SoundSensitivity.MEDIUM,
             cryThresholdSec = this[Keys.CRY_THRESHOLD_SEC] ?: 10,
             movementThresholdSec = this[Keys.MOVEMENT_THRESHOLD_SEC] ?: 10,
+            motionSensitivity = this[Keys.MOTION_SENSITIVITY]
+                ?.let { runCatching { MotionSensitivity.valueOf(it) }.getOrNull() }
+                ?: MotionSensitivity.MEDIUM,
             cameraMonitoringEnabled = this[Keys.CAMERA_MONITORING_ENABLED] ?: false,
             soothingMusicEnabled = this[Keys.SOOTHING_MUSIC_ENABLED] ?: true,
             soothingIotEnabled = this[Keys.SOOTHING_IOT_ENABLED] ?: false,
@@ -141,8 +149,10 @@ class DataStoreSettingsRepository(
         this[Keys.WEB_SERVICE_ENABLED] = state.webServiceEnabled
         this[Keys.WEB_CAMERA_ENABLED] = state.webCameraEnabled
         this[Keys.SOUND_MONITORING_ENABLED] = state.soundMonitoringEnabled
+        this[Keys.SOUND_SENSITIVITY] = state.soundSensitivity.name
         this[Keys.CRY_THRESHOLD_SEC] = state.cryThresholdSec
         this[Keys.MOVEMENT_THRESHOLD_SEC] = state.movementThresholdSec
+        this[Keys.MOTION_SENSITIVITY] = state.motionSensitivity.name
         this[Keys.CAMERA_MONITORING_ENABLED] = state.cameraMonitoringEnabled
         this[Keys.SOOTHING_MUSIC_ENABLED] = state.soothingMusicEnabled
         this[Keys.SOOTHING_IOT_ENABLED] = state.soothingIotEnabled
@@ -162,8 +172,10 @@ class DataStoreSettingsRepository(
         val WEB_SERVICE_ENABLED = booleanPreferencesKey("web_service_enabled")
         val WEB_CAMERA_ENABLED = booleanPreferencesKey("web_camera_enabled")
         val SOUND_MONITORING_ENABLED = booleanPreferencesKey("sound_monitoring_enabled")
+        val SOUND_SENSITIVITY = stringPreferencesKey("sound_sensitivity")
         val CRY_THRESHOLD_SEC = intPreferencesKey("cry_threshold_sec")
         val MOVEMENT_THRESHOLD_SEC = intPreferencesKey("movement_threshold_sec")
+        val MOTION_SENSITIVITY = stringPreferencesKey("motion_sensitivity")
         val CAMERA_MONITORING_ENABLED = booleanPreferencesKey("camera_monitoring_enabled")
         val SOOTHING_MUSIC_ENABLED = booleanPreferencesKey("soothing_music_enabled")
         val SOOTHING_IOT_ENABLED = booleanPreferencesKey("soothing_iot_enabled")

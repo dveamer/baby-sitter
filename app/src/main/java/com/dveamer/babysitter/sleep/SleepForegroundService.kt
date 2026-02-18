@@ -18,6 +18,8 @@ import com.dveamer.babysitter.alert.AwakeAlertController
 import com.dveamer.babysitter.monitor.CameraMonitor
 import com.dveamer.babysitter.monitor.MicrophoneMonitor
 import com.dveamer.babysitter.monitor.Monitor
+import com.dveamer.babysitter.settings.MotionSensitivity
+import com.dveamer.babysitter.settings.SoundSensitivity
 import com.dveamer.babysitter.soothing.IotSoothingListener
 import com.dveamer.babysitter.soothing.MusicSoothingListener
 import com.dveamer.babysitter.soothing.SequentialSoothingCoordinator
@@ -105,10 +107,27 @@ class SleepForegroundService : Service() {
 
         val monitors = buildList<Monitor> {
             if (settings.soundMonitoringEnabled) {
-                add(MicrophoneMonitor(serviceScope))
+                val soundThreshold = when (settings.soundSensitivity) {
+                    SoundSensitivity.HIGH -> 650.0
+                    SoundSensitivity.MEDIUM -> 900.0
+                    SoundSensitivity.LOW -> 1300.0
+                }
+                add(MicrophoneMonitor(serviceScope, amplitudeThreshold = soundThreshold))
             }
             if (settings.cameraMonitoringEnabled) {
-                add(CameraMonitor(serviceScope))
+                val (diffThreshold, minChangedRatio) = when (settings.motionSensitivity) {
+                    MotionSensitivity.HIGH -> 14 to 0.012
+                    MotionSensitivity.MEDIUM -> 20 to 0.03
+                    MotionSensitivity.LOW -> 28 to 0.06
+                }
+                add(
+                    CameraMonitor(
+                        scope = serviceScope,
+                        appContext = this@SleepForegroundService,
+                        diffThreshold = diffThreshold,
+                        minChangedRatio = minChangedRatio
+                    )
+                )
             }
         }
 

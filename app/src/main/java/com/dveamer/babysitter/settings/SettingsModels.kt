@@ -5,8 +5,10 @@ data class SettingsState(
     val webServiceEnabled: Boolean = false,
     val webCameraEnabled: Boolean = false,
     val soundMonitoringEnabled: Boolean = true,
+    val soundSensitivity: SoundSensitivity = SoundSensitivity.MEDIUM,
     val cryThresholdSec: Int = 10,
     val movementThresholdSec: Int = 10,
+    val motionSensitivity: MotionSensitivity = MotionSensitivity.MEDIUM,
     val cameraMonitoringEnabled: Boolean = false,
     val soothingMusicEnabled: Boolean = true,
     val soothingIotEnabled: Boolean = false,
@@ -26,8 +28,10 @@ data class SettingsPatch(
     val webServiceEnabled: Boolean? = null,
     val webCameraEnabled: Boolean? = null,
     val soundMonitoringEnabled: Boolean? = null,
+    val soundSensitivity: SoundSensitivity? = null,
     val cryThresholdSec: Int? = null,
     val movementThresholdSec: Int? = null,
+    val motionSensitivity: MotionSensitivity? = null,
     val cameraMonitoringEnabled: Boolean? = null,
     val soothingMusicEnabled: Boolean? = null,
     val soothingIotEnabled: Boolean? = null,
@@ -43,6 +47,18 @@ enum class UpdateSource {
     LOCAL_UI,
     REMOTE,
     SYSTEM
+}
+
+enum class MotionSensitivity {
+    LOW,
+    MEDIUM,
+    HIGH
+}
+
+enum class SoundSensitivity {
+    LOW,
+    MEDIUM,
+    HIGH
 }
 
 data class SettingsUpdate(

@@ -3,9 +3,11 @@ package com.dveamer.babysitter.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dveamer.babysitter.settings.SettingsController
+import com.dveamer.babysitter.settings.MotionSensitivity
 import com.dveamer.babysitter.settings.SettingsPatch
 import com.dveamer.babysitter.settings.SettingsRepository
 import com.dveamer.babysitter.settings.SettingsState
+import com.dveamer.babysitter.settings.SoundSensitivity
 import com.dveamer.babysitter.settings.UpdateSource
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -34,10 +36,16 @@ class SettingsViewModel(
     fun setSoundMonitoring(enabled: Boolean) =
         update(SettingsPatch(soundMonitoringEnabled = enabled))
 
+    fun setSoundSensitivity(value: SoundSensitivity) =
+        update(SettingsPatch(soundSensitivity = value))
+
     fun setCryThresholdSec(sec: Int) = update(SettingsPatch(cryThresholdSec = sec.coerceIn(3, 60)))
 
     fun setMovementThresholdSec(sec: Int) =
         update(SettingsPatch(movementThresholdSec = sec.coerceIn(3, 60)))
+
+    fun setMotionSensitivity(value: MotionSensitivity) =
+        update(SettingsPatch(motionSensitivity = value))
 
     fun setWakeAlertThresholdMin(min: Int) =
         update(SettingsPatch(wakeAlertThresholdMin = min.coerceIn(1, 60)))

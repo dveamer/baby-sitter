@@ -40,6 +40,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
@@ -56,6 +57,8 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.dveamer.babysitter.settings.MotionSensitivity
+import com.dveamer.babysitter.settings.SoundSensitivity
 import com.dveamer.babysitter.ui.SettingsViewModel
 import com.dveamer.babysitter.ui.SettingsViewModelFactory
 import com.dveamer.babysitter.web.LocalSettingsHttpServer
@@ -180,10 +183,12 @@ class MainActivity : ComponentActivity() {
                                     }
                                 },
                                 onSoundToggle = vm::setSoundMonitoring,
+                                onSoundSensitivityChange = vm::setSoundSensitivity,
                                 onCameraToggle = { enabled ->
                                     if (enabled) requestMonitoringPermissions(cameraEnabled = true)
                                     vm.setCameraMonitoring(enabled)
                                 },
+                                onMotionSensitivityChange = vm::setMotionSensitivity,
                                 onMusicToggle = vm::setSoothingMusic,
                                 onShowQrCode = ::showQrCodePopup,
                                 onWakeAlertToggle = vm::setWakeAlert,
@@ -463,7 +468,9 @@ private fun SettingsScreen(
     onWebServiceToggle: (Boolean) -> Unit,
     onWebCameraToggle: (Boolean) -> Unit,
     onSoundToggle: (Boolean) -> Unit,
+    onSoundSensitivityChange: (SoundSensitivity) -> Unit,
     onCameraToggle: (Boolean) -> Unit,
+    onMotionSensitivityChange: (MotionSensitivity) -> Unit,
     onMusicToggle: (Boolean) -> Unit,
     onShowQrCode: () -> Unit,
     onWakeAlertToggle: (Boolean) -> Unit,
@@ -483,7 +490,19 @@ private fun SettingsScreen(
         Text("Monitoring", style = MaterialTheme.typography.headlineSmall)
 
         SwitchRow("Sound", state.soundMonitoringEnabled, onSoundToggle)
+        if (state.soundMonitoringEnabled) {
+            SoundSensitivitySelector(
+                selected = state.soundSensitivity,
+                onSelect = onSoundSensitivityChange
+            )
+        }
         SwitchRow("Motion", state.cameraMonitoringEnabled, onCameraToggle)
+        if (state.cameraMonitoringEnabled) {
+            MotionSensitivitySelector(
+                selected = state.motionSensitivity,
+                onSelect = onMotionSensitivityChange
+            )
+        }
 
         Text(
             "Take Action",
@@ -761,6 +780,65 @@ private fun NumberField(
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
     )
 }
+
+@Composable
+private fun MotionSensitivitySelector(
+    selected: MotionSensitivity,
+    onSelect: (MotionSensitivity) -> Unit
+) {
+    Text("Sensitivity")
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+        listOf(
+            MotionSensitivity.HIGH to "High",
+            MotionSensitivity.MEDIUM to "Medium",
+            MotionSensitivity.LOW to "Low"
+        ).forEach { (value, label) ->
+            Button(
+                onClick = { onSelect(value) },
+                modifier = Modifier.weight(1f),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = if (selected == value) Color(0xFF4A148C) else MaterialTheme.colorScheme.primary,
+                    contentColor = Color.White
+                )
+            ) {
+                Text(label)
+            }
+        }
+    }
+}
+
+@Composable
+private fun SoundSensitivitySelector(
+    selected: SoundSensitivity,
+    onSelect: (SoundSensitivity) -> Unit
+) {
+    Text("Sensitivity")
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+        listOf(
+            SoundSensitivity.HIGH to "High",
+            SoundSensitivity.MEDIUM to "Medium",
+            SoundSensitivity.LOW to "Low"
+        ).forEach { (value, label) ->
+            Button(
+                onClick = { onSelect(value) },
+                modifier = Modifier.weight(1f),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = if (selected == value) Color(0xFF4A148C) else MaterialTheme.colorScheme.primary,
+                    contentColor = Color.White
+                )
+            ) {
+                Text(label)
+            }
+        }
+    }
+}
+
 private enum class Screen {
     HOME,
     SETTINGS,

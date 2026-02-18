@@ -15,8 +15,9 @@ import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlin.math.abs
 
-    class MicrophoneMonitor(
+class MicrophoneMonitor(
     private val scope: CoroutineScope,
+    private val amplitudeThreshold: Double = AMPLITUDE_THRESHOLD_DEFAULT,
     override val id: String = "microphone"
 ) : Monitor {
 
@@ -74,7 +75,7 @@ import kotlin.math.abs
                     .map { abs(it.toInt()) }
                     .average()
 
-                val active = avgAmplitude > AMPLITUDE_THRESHOLD
+                val active = avgAmplitude > amplitudeThreshold
                 mutableSignals.tryEmit(
                     MonitorSignal(
                         monitorId = id,
@@ -100,6 +101,6 @@ import kotlin.math.abs
 
     private companion object {
         const val TAG = "MicrophoneMonitor"
-        const val AMPLITUDE_THRESHOLD = 900.0
+        const val AMPLITUDE_THRESHOLD_DEFAULT = 900.0
     }
 }
