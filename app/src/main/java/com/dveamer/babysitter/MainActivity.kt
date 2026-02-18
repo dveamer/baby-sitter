@@ -191,11 +191,7 @@ class MainActivity : ComponentActivity() {
                                 onMotionSensitivityChange = vm::setMotionSensitivity,
                                 onMusicToggle = vm::setSoothingMusic,
                                 onShowQrCode = ::showQrCodePopup,
-                                onWakeAlertToggle = vm::setWakeAlert,
-                                onWakeAlertMinChange = vm::setWakeAlertThresholdMin,
-                                onOpenRecordings = { navigateTo(Screen.RECORDINGS) },
-                                onTelegramTokenChange = vm::setTelegramBotToken,
-                                onTelegramChatIdChange = vm::setTelegramChatId
+                                onOpenRecordings = { navigateTo(Screen.RECORDINGS) }
                             )
 
                             Screen.RECORDINGS -> RecordingManagementScreen(
@@ -473,11 +469,7 @@ private fun SettingsScreen(
     onMotionSensitivityChange: (MotionSensitivity) -> Unit,
     onMusicToggle: (Boolean) -> Unit,
     onShowQrCode: () -> Unit,
-    onWakeAlertToggle: (Boolean) -> Unit,
-    onWakeAlertMinChange: (Int) -> Unit,
-    onOpenRecordings: () -> Unit,
-    onTelegramTokenChange: (String) -> Unit,
-    onTelegramChatIdChange: (String) -> Unit
+    onOpenRecordings: () -> Unit
 ) {
     val scrollState = rememberScrollState()
     Column(
@@ -518,33 +510,6 @@ private fun SettingsScreen(
             ) {
                 Text("Manage Recording")
             }
-        }
-        SwitchRow(
-            "Wake Alert",
-            state.wakeAlertEnabled,
-            onWakeAlertToggle,
-            textStyle = MaterialTheme.typography.headlineSmall
-        )
-        if (state.wakeAlertEnabled) {
-            NumberField(
-                label = "Treshold (min)",
-                value = state.wakeAlertThresholdMin,
-                onValueChange = onWakeAlertMinChange
-            )
-
-            OutlinedTextField(
-                modifier = Modifier.fillMaxWidth(),
-                value = state.telegramBotToken,
-                onValueChange = onTelegramTokenChange,
-                label = { Text("Telegram Bot Token") }
-            )
-
-            OutlinedTextField(
-                modifier = Modifier.fillMaxWidth(),
-                value = state.telegramChatId,
-                onValueChange = onTelegramChatIdChange,
-                label = { Text("Telegram Chat ID") }
-            )
         }
 
         SwitchRow(

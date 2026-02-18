@@ -209,14 +209,6 @@
       </div>
     </section>
 
-    <section class="panel">
-      <h2 class="title">Wake Alert</h2>
-      <div class="row">
-        <div class="label">Treshold (min)</div>
-        <input id="wakeAlertThresholdMin" class="input" type="number" min="1" max="60">
-      </div>
-    </section>
-
     <div class="actions">
       <button id="saveBtn" class="btn" type="button">Save</button>
     </div>
@@ -258,7 +250,6 @@
     const motionSensitivityRow = document.getElementById("motionSensitivity").closest(".row");
     const motionSensitivityInput = document.getElementById("motionSensitivity");
     const playMusicInput = document.getElementById("soothingMusicEnabled");
-    const wakeAlertInput = document.getElementById("wakeAlertThresholdMin");
     let sleepEnabled = false;
 
     function showError(message) {
@@ -304,7 +295,6 @@
         motionInput.checked = !!settings.cameraMonitoringEnabled;
         motionSensitivityInput.value = settings.motionSensitivity || "MEDIUM";
         playMusicInput.checked = !!settings.soothingMusicEnabled;
-        wakeAlertInput.value = String(settings.wakeAlertThresholdMin ?? 3);
         cameraActions.style.display = settings.webCameraEnabled ? "flex" : "none";
         updateSensitivityVisibility();
         updatedAtEl.textContent = "Last updated: " + new Date().toLocaleTimeString();
@@ -320,8 +310,7 @@
           soundSensitivity: soundSensitivityInput.value,
           cameraMonitoringEnabled: motionInput.checked,
           motionSensitivity: motionSensitivityInput.value,
-          soothingMusicEnabled: playMusicInput.checked,
-          wakeAlertThresholdMin: Math.max(1, Math.min(60, Number(wakeAlertInput.value) || 1))
+          soothingMusicEnabled: playMusicInput.checked
         };
         const res = await fetch("/settings", {
           method: "PUT",

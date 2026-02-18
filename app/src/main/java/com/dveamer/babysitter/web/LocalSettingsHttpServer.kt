@@ -206,8 +206,7 @@ class LocalSettingsHttpServer(
                 soundSensitivity = json.optEnumOrNull("soundSensitivity", SoundSensitivity::valueOf),
                 cameraMonitoringEnabled = json.optBooleanOrNull("cameraMonitoringEnabled"),
                 motionSensitivity = json.optEnumOrNull("motionSensitivity", MotionSensitivity::valueOf),
-                soothingMusicEnabled = json.optBooleanOrNull("soothingMusicEnabled"),
-                wakeAlertThresholdMin = json.optIntOrNull("wakeAlertThresholdMin")
+                soothingMusicEnabled = json.optBooleanOrNull("soothingMusicEnabled")
             )
             settingsController.update(patch, UpdateSource.REMOTE)
         }.getOrElse { e ->
@@ -277,7 +276,6 @@ class LocalSettingsHttpServer(
             .put("cameraMonitoringEnabled", state.cameraMonitoringEnabled)
             .put("motionSensitivity", state.motionSensitivity.name)
             .put("soothingMusicEnabled", state.soothingMusicEnabled)
-            .put("wakeAlertThresholdMin", state.wakeAlertThresholdMin)
             .toString()
     }
 
