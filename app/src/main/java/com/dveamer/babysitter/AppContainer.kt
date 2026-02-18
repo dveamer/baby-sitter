@@ -11,6 +11,8 @@ import com.dveamer.babysitter.settings.VersionProvider
 import com.dveamer.babysitter.sleep.ForegroundServiceSleepRuntime
 import com.dveamer.babysitter.sleep.SleepRuntime
 import com.dveamer.babysitter.sleep.SleepRuntimeOrchestrator
+import com.dveamer.babysitter.web.LocalSettingsHttpServer
+import com.dveamer.babysitter.web.WebServiceOrchestrator
 import java.util.concurrent.atomic.AtomicLong
 
 class AppContainer(context: Context) {
@@ -34,6 +36,8 @@ class AppContainer(context: Context) {
     private val sleepRuntime: SleepRuntime = ForegroundServiceSleepRuntime(appContext)
 
     val sleepRuntimeOrchestrator = SleepRuntimeOrchestrator(settingsRepository, sleepRuntime)
+    private val localSettingsHttpServer = LocalSettingsHttpServer(settingsRepository)
+    val webServiceOrchestrator = WebServiceOrchestrator(settingsRepository, localSettingsHttpServer)
 
     suspend fun initialize() {
         dataStoreRepository.initialize()

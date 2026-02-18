@@ -89,6 +89,7 @@ class DataStoreSettingsRepository(
         val p = update.patch
         return copy(
             sleepEnabled = p.sleepEnabled ?: sleepEnabled,
+            webServiceEnabled = p.webServiceEnabled ?: webServiceEnabled,
             soundMonitoringEnabled = p.soundMonitoringEnabled ?: soundMonitoringEnabled,
             cryThresholdSec = p.cryThresholdSec ?: cryThresholdSec,
             movementThresholdSec = p.movementThresholdSec ?: movementThresholdSec,
@@ -109,6 +110,7 @@ class DataStoreSettingsRepository(
     private fun Preferences.toSettingsState(): SettingsState {
         return SettingsState(
             sleepEnabled = this[Keys.SLEEP_ENABLED] ?: false,
+            webServiceEnabled = this[Keys.WEB_SERVICE_ENABLED] ?: false,
             soundMonitoringEnabled = this[Keys.SOUND_MONITORING_ENABLED] ?: true,
             cryThresholdSec = this[Keys.CRY_THRESHOLD_SEC] ?: 10,
             movementThresholdSec = this[Keys.MOVEMENT_THRESHOLD_SEC] ?: 10,
@@ -132,6 +134,7 @@ class DataStoreSettingsRepository(
 
     private fun MutablePreferences.fromSettingsState(state: SettingsState) {
         this[Keys.SLEEP_ENABLED] = state.sleepEnabled
+        this[Keys.WEB_SERVICE_ENABLED] = state.webServiceEnabled
         this[Keys.SOUND_MONITORING_ENABLED] = state.soundMonitoringEnabled
         this[Keys.CRY_THRESHOLD_SEC] = state.cryThresholdSec
         this[Keys.MOVEMENT_THRESHOLD_SEC] = state.movementThresholdSec
@@ -150,6 +153,7 @@ class DataStoreSettingsRepository(
 
     private object Keys {
         val SLEEP_ENABLED = booleanPreferencesKey("sleep_enabled")
+        val WEB_SERVICE_ENABLED = booleanPreferencesKey("web_service_enabled")
         val SOUND_MONITORING_ENABLED = booleanPreferencesKey("sound_monitoring_enabled")
         val CRY_THRESHOLD_SEC = intPreferencesKey("cry_threshold_sec")
         val MOVEMENT_THRESHOLD_SEC = intPreferencesKey("movement_threshold_sec")

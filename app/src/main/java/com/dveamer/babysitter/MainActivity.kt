@@ -129,6 +129,7 @@ class MainActivity : ComponentActivity() {
 
                             Screen.SETTINGS -> SettingsScreen(
                                 state = state,
+                                onWebServiceToggle = vm::setWebService,
                                 onSoundToggle = vm::setSoundMonitoring,
                                 onCameraToggle = { enabled ->
                                     if (enabled) requestMonitoringPermissions(cameraEnabled = true)
@@ -375,6 +376,7 @@ private val LightColorScheme = lightColorScheme(
 @Composable
 private fun SettingsScreen(
     state: com.dveamer.babysitter.settings.SettingsState,
+    onWebServiceToggle: (Boolean) -> Unit,
     onSoundToggle: (Boolean) -> Unit,
     onCameraToggle: (Boolean) -> Unit,
     onMusicToggle: (Boolean) -> Unit,
@@ -433,6 +435,8 @@ private fun SettingsScreen(
             onValueChange = onTelegramChatIdChange,
             label = { Text("Telegram Chat ID") }
         )
+
+        SwitchRow("Web Service", state.webServiceEnabled, onWebServiceToggle)
 
     }
 }

@@ -20,6 +20,7 @@ class BabySitterApplication : Application() {
         applicationScope.launch {
             container.initialize()
             container.sleepRuntimeOrchestrator.start(this)
+            container.webServiceOrchestrator.start(this)
         }
     }
 }

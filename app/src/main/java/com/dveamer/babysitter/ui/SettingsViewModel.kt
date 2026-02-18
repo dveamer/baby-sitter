@@ -25,6 +25,9 @@ class SettingsViewModel(
 
     fun setSleep(enabled: Boolean) = update(SettingsPatch(sleepEnabled = enabled))
 
+    fun setWebService(enabled: Boolean) =
+        update(SettingsPatch(webServiceEnabled = enabled))
+
     fun setSoundMonitoring(enabled: Boolean) =
         update(SettingsPatch(soundMonitoringEnabled = enabled))
 
