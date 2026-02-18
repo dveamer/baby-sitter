@@ -97,6 +97,7 @@ class DataStoreSettingsRepository(
             cameraMonitoringEnabled = p.cameraMonitoringEnabled ?: cameraMonitoringEnabled,
             soothingMusicEnabled = p.soothingMusicEnabled ?: soothingMusicEnabled,
             soothingIotEnabled = p.soothingIotEnabled ?: soothingIotEnabled,
+            wakeAlertEnabled = p.wakeAlertEnabled ?: wakeAlertEnabled,
             wakeAlertThresholdMin = p.wakeAlertThresholdMin ?: wakeAlertThresholdMin,
             musicPlaylist = p.musicPlaylist ?: musicPlaylist,
             telegramBotToken = p.telegramBotToken ?: telegramBotToken,
@@ -119,6 +120,7 @@ class DataStoreSettingsRepository(
             cameraMonitoringEnabled = this[Keys.CAMERA_MONITORING_ENABLED] ?: false,
             soothingMusicEnabled = this[Keys.SOOTHING_MUSIC_ENABLED] ?: true,
             soothingIotEnabled = this[Keys.SOOTHING_IOT_ENABLED] ?: false,
+            wakeAlertEnabled = this[Keys.WAKE_ALERT_ENABLED] ?: true,
             wakeAlertThresholdMin = this[Keys.WAKE_ALERT_THRESHOLD_MIN] ?: 3,
             musicPlaylist = (this[Keys.MUSIC_PLAYLIST] ?: "")
                 .split(PLAYLIST_DELIMITER)
@@ -144,6 +146,7 @@ class DataStoreSettingsRepository(
         this[Keys.CAMERA_MONITORING_ENABLED] = state.cameraMonitoringEnabled
         this[Keys.SOOTHING_MUSIC_ENABLED] = state.soothingMusicEnabled
         this[Keys.SOOTHING_IOT_ENABLED] = state.soothingIotEnabled
+        this[Keys.WAKE_ALERT_ENABLED] = state.wakeAlertEnabled
         this[Keys.WAKE_ALERT_THRESHOLD_MIN] = state.wakeAlertThresholdMin
         this[Keys.MUSIC_PLAYLIST] = state.musicPlaylist.joinToString(PLAYLIST_DELIMITER)
         this[Keys.TELEGRAM_BOT_TOKEN] = state.telegramBotToken
@@ -164,6 +167,7 @@ class DataStoreSettingsRepository(
         val CAMERA_MONITORING_ENABLED = booleanPreferencesKey("camera_monitoring_enabled")
         val SOOTHING_MUSIC_ENABLED = booleanPreferencesKey("soothing_music_enabled")
         val SOOTHING_IOT_ENABLED = booleanPreferencesKey("soothing_iot_enabled")
+        val WAKE_ALERT_ENABLED = booleanPreferencesKey("wake_alert_enabled")
         val WAKE_ALERT_THRESHOLD_MIN = intPreferencesKey("wake_alert_threshold_min")
         val MUSIC_PLAYLIST = stringPreferencesKey("music_playlist")
         val TELEGRAM_BOT_TOKEN = stringPreferencesKey("telegram_bot_token")

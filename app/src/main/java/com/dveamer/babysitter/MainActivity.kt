@@ -51,6 +51,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
@@ -185,6 +186,7 @@ class MainActivity : ComponentActivity() {
                                 },
                                 onMusicToggle = vm::setSoothingMusic,
                                 onShowQrCode = ::showQrCodePopup,
+                                onWakeAlertToggle = vm::setWakeAlert,
                                 onWakeAlertMinChange = vm::setWakeAlertThresholdMin,
                                 onOpenRecordings = { navigateTo(Screen.RECORDINGS) },
                                 onTelegramTokenChange = vm::setTelegramBotToken,
@@ -464,6 +466,7 @@ private fun SettingsScreen(
     onCameraToggle: (Boolean) -> Unit,
     onMusicToggle: (Boolean) -> Unit,
     onShowQrCode: () -> Unit,
+    onWakeAlertToggle: (Boolean) -> Unit,
     onWakeAlertMinChange: (Int) -> Unit,
     onOpenRecordings: () -> Unit,
     onTelegramTokenChange: (String) -> Unit,
@@ -489,38 +492,48 @@ private fun SettingsScreen(
         )
         SwitchRow("Play Music", state.soothingMusicEnabled, onMusicToggle)
 
-        Button(
-            onClick = onOpenRecordings,
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text("Manage Recording")
+        if (state.soothingMusicEnabled) {
+            Button(
+                onClick = onOpenRecordings,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text("Manage Recording")
+            }
         }
-        Text(
+        SwitchRow(
             "Wake Alert",
-            style = MaterialTheme.typography.headlineSmall,
-            modifier = Modifier.padding(top = 8.dp)
+            state.wakeAlertEnabled,
+            onWakeAlertToggle,
+            textStyle = MaterialTheme.typography.headlineSmall
         )
-        NumberField(
-            label = "Treshold (min)",
-            value = state.wakeAlertThresholdMin,
-            onValueChange = onWakeAlertMinChange
-        )
+        if (state.wakeAlertEnabled) {
+            NumberField(
+                label = "Treshold (min)",
+                value = state.wakeAlertThresholdMin,
+                onValueChange = onWakeAlertMinChange
+            )
 
-        OutlinedTextField(
-            modifier = Modifier.fillMaxWidth(),
-            value = state.telegramBotToken,
-            onValueChange = onTelegramTokenChange,
-            label = { Text("Telegram Bot Token") }
-        )
+            OutlinedTextField(
+                modifier = Modifier.fillMaxWidth(),
+                value = state.telegramBotToken,
+                onValueChange = onTelegramTokenChange,
+                label = { Text("Telegram Bot Token") }
+            )
 
-        OutlinedTextField(
-            modifier = Modifier.fillMaxWidth(),
-            value = state.telegramChatId,
-            onValueChange = onTelegramChatIdChange,
-            label = { Text("Telegram Chat ID") }
-        )
+            OutlinedTextField(
+                modifier = Modifier.fillMaxWidth(),
+                value = state.telegramChatId,
+                onValueChange = onTelegramChatIdChange,
+                label = { Text("Telegram Chat ID") }
+            )
+        }
 
-        SwitchRow("Web Service", state.webServiceEnabled, onWebServiceToggle)
+        SwitchRow(
+            "Web Service",
+            state.webServiceEnabled,
+            onWebServiceToggle,
+            textStyle = MaterialTheme.typography.headlineSmall
+        )
         if (state.webServiceEnabled) {
             SwitchRow("Camera", state.webCameraEnabled, onWebCameraToggle)
             Button(
@@ -721,14 +734,15 @@ private fun createQrCodeBitmap(content: String, size: Int): Bitmap {
 private fun SwitchRow(
     label: String,
     checked: Boolean,
-    onCheckedChange: (Boolean) -> Unit
+    onCheckedChange: (Boolean) -> Unit,
+    textStyle: TextStyle = MaterialTheme.typography.bodyLarge
 ) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        Text(label)
+        Text(label, style = textStyle)
         Switch(checked = checked, onCheckedChange = onCheckedChange)
     }
 }

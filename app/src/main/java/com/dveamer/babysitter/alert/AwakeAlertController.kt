@@ -9,6 +9,7 @@ class AwakeAlertController(
     private var lastAlertedAwakeSince: Long? = null
 
     suspend fun onAwake(awakeSinceMs: Long, nowMs: Long, settings: SettingsState) {
+        if (!settings.wakeAlertEnabled) return
         val thresholdMs = settings.wakeAlertThresholdMin * 60_000L
         val awakeDurationMs = nowMs - awakeSinceMs
 

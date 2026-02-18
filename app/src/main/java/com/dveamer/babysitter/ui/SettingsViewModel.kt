@@ -42,6 +42,9 @@ class SettingsViewModel(
     fun setWakeAlertThresholdMin(min: Int) =
         update(SettingsPatch(wakeAlertThresholdMin = min.coerceIn(1, 60)))
 
+    fun setWakeAlert(enabled: Boolean) =
+        update(SettingsPatch(wakeAlertEnabled = enabled))
+
     fun setCameraMonitoring(enabled: Boolean) =
         update(SettingsPatch(cameraMonitoringEnabled = enabled))
 
