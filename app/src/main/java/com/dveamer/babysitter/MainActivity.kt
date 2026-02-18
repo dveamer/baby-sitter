@@ -124,7 +124,6 @@ class MainActivity : ComponentActivity() {
                         when (currentScreen.value) {
                             Screen.HOME -> HomeScreen(
                                 sleepEnabled = state.sleepEnabled,
-                                hasRecordings = state.musicPlaylist.isNotEmpty(),
                                 onOpenRecordings = { navigateTo(Screen.RECORDINGS) },
                                 onSleepToggle = { enabled ->
                                     if (enabled) {
@@ -496,7 +495,6 @@ private fun RecordingManagementScreen(
 @Composable
 private fun HomeScreen(
     sleepEnabled: Boolean,
-    hasRecordings: Boolean,
     onOpenRecordings: () -> Unit,
     onSleepToggle: (Boolean) -> Unit
 ) {
@@ -506,20 +504,18 @@ private fun HomeScreen(
             .padding(16.dp),
         verticalArrangement = Arrangement.Center
     ) {
-        if (!hasRecordings) {
-            Text(
-                text = stringResource(R.string.home_no_recordings_guide),
-                style = MaterialTheme.typography.bodyLarge
-            )
-            Spacer(Modifier.height(12.dp))
-            Button(
-                onClick = onOpenRecordings,
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Text(stringResource(R.string.manage_recordings))
-            }
-            Spacer(Modifier.height(16.dp))
+        Text(
+            text = stringResource(R.string.home_no_recordings_guide),
+            style = MaterialTheme.typography.bodyLarge
+        )
+        Spacer(Modifier.height(12.dp))
+        Button(
+            onClick = onOpenRecordings,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text(stringResource(R.string.manage_recordings))
         }
+        Spacer(Modifier.height(16.dp))
 
         Button(
             onClick = { onSleepToggle(!sleepEnabled) },
@@ -574,6 +570,9 @@ private fun AppBottomBar(
 private fun trackLabel(uriString: String, index: Int): String {
     val uri = runCatching { Uri.parse(uriString) }.getOrNull()
     val segment = uri?.lastPathSegment?.substringAfterLast('/')?.takeIf { it.isNotBlank() }
+    if (segment == "lkoliks-lullaby-baby-sleep-music-331777.mp3") {
+        return "lkoliks-lullaby-baby-sleep-music"
+    }
     return segment ?: "Recording ${index + 1}"
 }
 

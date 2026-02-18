@@ -1,6 +1,7 @@
 package com.dveamer.babysitter.settings
 
 import android.content.Context
+import android.net.Uri
 import androidx.datastore.preferences.core.MutablePreferences
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
@@ -14,10 +15,14 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.first
+import com.dveamer.babysitter.R
+import java.io.File
 import java.io.IOException
 
 private const val DATASTORE_NAME = "baby_sitter_settings"
 private const val PLAYLIST_DELIMITER = "\u0001"
+private const val RECORDINGS_DIR = "soothing-recordings"
+private const val DEFAULT_BUNDLED_RECORDING_FILE_NAME = "lkoliks-lullaby-baby-sleep-music-331777.mp3"
 
 private val Context.dataStore by preferencesDataStore(name = DATASTORE_NAME)
 
@@ -29,6 +34,7 @@ class DataStoreSettingsRepository(
     override val state: StateFlow<SettingsState> = mutableState
 
     suspend fun initialize() {
+        ensureDefaultRecordingIfNeeded()
         mutableState.value = readPreferences().toSettingsState()
     }
 
@@ -51,6 +57,32 @@ class DataStoreSettingsRepository(
         return context.dataStore.data
             .catch { e -> if (e is IOException) emit(emptyPreferences()) else throw e }
             .first()
+    }
+
+    private suspend fun ensureDefaultRecordingIfNeeded() {
+        context.dataStore.edit { prefs ->
+            val current = prefs.toSettingsState()
+            if (current.musicPlaylist.isNotEmpty()) return@edit
+
+            val defaultFile = ensureBundledRecordingFile()
+            val defaultUri = Uri.fromFile(defaultFile).toString()
+            prefs.fromSettingsState(current.copy(musicPlaylist = listOf(defaultUri)))
+        }
+    }
+
+    private fun ensureBundledRecordingFile(): File {
+        val outputDir = File(context.filesDir, RECORDINGS_DIR).apply { mkdirs() }
+        val outputFile = File(outputDir, DEFAULT_BUNDLED_RECORDING_FILE_NAME)
+        if (outputFile.exists() && outputFile.length() > 0L) {
+            return outputFile
+        }
+
+        context.resources.openRawResource(R.raw.lkoliks_lullaby_baby_sleep_music_331777).use { input ->
+            outputFile.outputStream().use { output ->
+                input.copyTo(output)
+            }
+        }
+        return outputFile
     }
 
     private fun SettingsState.merge(update: SettingsUpdate): SettingsState {
