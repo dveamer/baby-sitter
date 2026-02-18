@@ -6,6 +6,8 @@ import android.media.MediaPlayer
 import android.net.Uri
 import android.util.Log
 import com.dveamer.babysitter.settings.SettingsRepository
+import java.io.File
+import java.io.FileInputStream
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -81,6 +83,7 @@ class MusicSoothingListener(
                 }
 
                 val player = MediaPlayer()
+                var fileInput: FileInputStream? = null
                 player.setAudioAttributes(
                     AudioAttributes.Builder()
                         .setUsage(AudioAttributes.USAGE_MEDIA)
@@ -89,7 +92,16 @@ class MusicSoothingListener(
                 )
 
                 runCatching {
-                    player.setDataSource(context, uri)
+                    if (uri.scheme == "file" && !uri.path.isNullOrBlank()) {
+                        val file = File(uri.path!!)
+                        if (!file.exists() || file.length() <= 0L) {
+                            throw IllegalStateException("recording file invalid: ${file.absolutePath}")
+                        }
+                        fileInput = FileInputStream(file)
+                        player.setDataSource(fileInput!!.fd)
+                    } else {
+                        player.setDataSource(context, uri)
+                    }
                     player.setOnPreparedListener { mp ->
                         runCatching { mp.start() }.onFailure { e ->
                             runCatching { mp.release() }
@@ -97,22 +109,30 @@ class MusicSoothingListener(
                         }
                     }
                     player.setOnCompletionListener {
+                        runCatching { fileInput?.close() }
+                        fileInput = null
                         runCatching { it.release() }
                         if (cont.isActive) cont.resume(Unit)
                     }
                     player.setOnErrorListener { mp, _, _ ->
+                        runCatching { fileInput?.close() }
+                        fileInput = null
                         runCatching { mp.release() }
                         if (cont.isActive) cont.resumeWithException(IllegalStateException("media error"))
                         true
                     }
                     player.prepareAsync()
                 }.onFailure { e ->
+                    runCatching { fileInput?.close() }
+                    fileInput = null
                     runCatching { player.release() }
                     if (cont.isActive) cont.resumeWithException(e)
                 }
 
                 cont.invokeOnCancellation {
                     runCatching {
+                        runCatching { fileInput?.close() }
+                        fileInput = null
                         if (player.isPlaying) player.stop()
                         player.release()
                     }

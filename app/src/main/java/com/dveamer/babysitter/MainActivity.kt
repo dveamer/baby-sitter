@@ -26,7 +26,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -36,7 +35,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
@@ -54,6 +52,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.dveamer.babysitter.ui.SettingsViewModel
 import com.dveamer.babysitter.ui.SettingsViewModelFactory
 import java.io.File
+import java.io.FileInputStream
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -103,11 +102,6 @@ class MainActivity : ComponentActivity() {
                     currentScreen.value = next
                 }
                 Scaffold(
-                    topBar = {
-                        AppTopBar(
-                            currentScreen = currentScreen.value
-                        )
-                    },
                     bottomBar = {
                         AppBottomBar(
                             currentScreen = currentScreen.value,
@@ -217,8 +211,6 @@ class MainActivity : ComponentActivity() {
             recorder.setAudioSource(MediaRecorder.AudioSource.MIC)
             recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
             recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
-            recorder.setAudioEncodingBitRate(128_000)
-            recorder.setAudioSamplingRate(44_100)
             recorder.setOutputFile(outputFile.absolutePath)
             recorder.prepare()
             recorder.start()
@@ -287,7 +279,17 @@ class MainActivity : ComponentActivity() {
         val uri = runCatching { Uri.parse(uriString) }.getOrNull() ?: return
         val player = MediaPlayer()
         runCatching {
-            player.setDataSource(this, uri)
+            if (uri.scheme == "file" && !uri.path.isNullOrBlank()) {
+                val file = File(uri.path!!)
+                if (!file.exists() || file.length() <= 0L) {
+                    throw IllegalStateException("recording file invalid: ${file.absolutePath}")
+                }
+                FileInputStream(file).use { input ->
+                    player.setDataSource(input.fd)
+                }
+            } else {
+                player.setDataSource(this, uri)
+            }
             player.setOnCompletionListener {
                 stopPlayback()
             }
@@ -297,7 +299,16 @@ class MainActivity : ComponentActivity() {
             mediaPlayer = player
             playingTrackUri.value = uriString
         }.onFailure { t ->
-            Log.w(TAG, "failed to play track uri=$uriString", t)
+            val fileInfo = runCatching {
+                val parsed = Uri.parse(uriString)
+                if (parsed.scheme == "file" && !parsed.path.isNullOrBlank()) {
+                    val file = File(parsed.path!!)
+                    " exists=${file.exists()} len=${file.length()} path=${file.absolutePath}"
+                } else {
+                    ""
+                }
+            }.getOrDefault("")
+            Log.w(TAG, "failed to play track uri=$uriString$fileInfo", t)
             runCatching { player.release() }
             mediaPlayer = null
             playingTrackUri.value = null
@@ -500,7 +511,7 @@ private fun HomeScreen(
         verticalArrangement = Arrangement.Center
     ) {
         Text(
-            text = stringResource(R.string.home_no_recordings_guide),
+            text = keepWordsUnbroken(stringResource(R.string.home_no_recordings_guide)),
             style = MaterialTheme.typography.bodyLarge
         )
         Spacer(Modifier.height(12.dp))
@@ -522,23 +533,6 @@ private fun HomeScreen(
             Text(if (sleepEnabled) "Sleep OFF" else "Sleep ON")
         }
     }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-private fun AppTopBar(
-    currentScreen: Screen
-) {
-    TopAppBar(
-        title = {
-            val title = when (currentScreen) {
-                Screen.HOME -> "Home"
-                Screen.SETTINGS -> "Settings"
-                Screen.RECORDINGS -> "Recordings"
-            }
-            Text(title)
-        }
-    )
 }
 
 @Composable
@@ -569,6 +563,13 @@ private fun trackLabel(uriString: String, index: Int): String {
         return "lkoliks-lullaby-baby-sleep-music"
     }
     return segment ?: "Recording ${index + 1}"
+}
+
+private fun keepWordsUnbroken(text: String): String {
+    val wordJoiner = "\u2060"
+    return text.split(" ").joinToString(" ") { word ->
+        word.toCharArray().joinToString(wordJoiner)
+    }
 }
 
 @Composable
