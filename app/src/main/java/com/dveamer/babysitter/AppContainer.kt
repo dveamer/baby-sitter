@@ -36,7 +36,8 @@ class AppContainer(context: Context) {
     private val sleepRuntime: SleepRuntime = ForegroundServiceSleepRuntime(appContext)
 
     val sleepRuntimeOrchestrator = SleepRuntimeOrchestrator(settingsRepository, sleepRuntime)
-    private val localSettingsHttpServer = LocalSettingsHttpServer(appContext, settingsRepository)
+    private val localSettingsHttpServer =
+        LocalSettingsHttpServer(appContext, settingsRepository, settingsController)
     val webServiceOrchestrator = WebServiceOrchestrator(settingsRepository, localSettingsHttpServer)
 
     suspend fun initialize() {

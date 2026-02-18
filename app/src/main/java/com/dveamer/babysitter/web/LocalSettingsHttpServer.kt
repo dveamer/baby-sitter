@@ -2,8 +2,11 @@ package com.dveamer.babysitter.web
 
 import android.content.Context
 import android.util.Log
+import com.dveamer.babysitter.settings.SettingsController
+import com.dveamer.babysitter.settings.SettingsPatch
 import com.dveamer.babysitter.settings.SettingsRepository
 import com.dveamer.babysitter.settings.SettingsState
+import com.dveamer.babysitter.settings.UpdateSource
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.InetSocketAddress
@@ -20,7 +23,8 @@ import org.json.JSONObject
 
 class LocalSettingsHttpServer(
     context: Context,
-    private val settingsRepository: SettingsRepository
+    private val settingsRepository: SettingsRepository,
+    private val settingsController: SettingsController
 ) {
     private val appContext = context.applicationContext
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
@@ -61,15 +65,35 @@ class LocalSettingsHttpServer(
         Log.i(TAG, "Web service stopped")
     }
 
-    private fun handleClient(client: Socket) {
+    private suspend fun handleClient(client: Socket) {
         client.use { socket ->
             runCatching {
                 val reader = BufferedReader(InputStreamReader(socket.getInputStream(), Charsets.UTF_8))
                 val requestLine = reader.readLine().orEmpty()
-                // Consume headers.
+                val headers = mutableMapOf<String, String>()
                 while (true) {
                     val line = reader.readLine() ?: break
                     if (line.isEmpty()) break
+                    val sep = line.indexOf(':')
+                    if (sep > 0) {
+                        val key = line.substring(0, sep).trim().lowercase()
+                        val value = line.substring(sep + 1).trim()
+                        headers[key] = value
+                    }
+                }
+
+                val contentLength = headers["content-length"]?.toIntOrNull() ?: 0
+                val body = if (contentLength > 0) {
+                    val buffer = CharArray(contentLength)
+                    var offset = 0
+                    while (offset < contentLength) {
+                        val read = reader.read(buffer, offset, contentLength - offset)
+                        if (read < 0) break
+                        offset += read
+                    }
+                    String(buffer, 0, offset)
+                } else {
+                    ""
                 }
 
                 val parts = requestLine.split(" ")
@@ -77,16 +101,7 @@ class LocalSettingsHttpServer(
                 val target = parts.getOrNull(1).orEmpty()
                 val path = target.substringBefore('?')
                 when {
-                    method != "GET" -> {
-                        writeResponse(
-                            socket = socket,
-                            code = 405,
-                            status = "Method Not Allowed",
-                            body = """{"error":"method_not_allowed"}"""
-                        )
-                    }
-
-                    path == "/settings" -> {
+                    method == "GET" && path == "/settings" -> {
                         writeResponse(
                             socket = socket,
                             code = 200,
@@ -95,7 +110,26 @@ class LocalSettingsHttpServer(
                         )
                     }
 
-                    path == "/index.html" || path == "/" -> {
+                    method == "PUT" && path == "/settings" -> {
+                        val result = updateSettingsFromJson(body)
+                        if (result) {
+                            writeResponse(
+                                socket = socket,
+                                code = 200,
+                                status = "OK",
+                                body = settingsToJson(settingsRepository.state.value)
+                            )
+                        } else {
+                            writeResponse(
+                                socket = socket,
+                                code = 400,
+                                status = "Bad Request",
+                                body = """{"error":"invalid_payload"}"""
+                            )
+                        }
+                    }
+
+                    method == "GET" && (path == "/index.html" || path == "/") -> {
                         val html = loadIndexHtml()
                         writeTextResponse(
                             socket = socket,
@@ -103,6 +137,15 @@ class LocalSettingsHttpServer(
                             status = "OK",
                             contentType = "text/html; charset=utf-8",
                             body = html
+                        )
+                    }
+
+                    method != "GET" && method != "PUT" -> {
+                        writeResponse(
+                            socket = socket,
+                            code = 405,
+                            status = "Method Not Allowed",
+                            body = """{"error":"method_not_allowed"}"""
                         )
                     }
 
@@ -118,6 +161,22 @@ class LocalSettingsHttpServer(
             }.onFailure { e ->
                 Log.w(TAG, "client handling failed", e)
             }
+        }
+    }
+
+    private suspend fun updateSettingsFromJson(body: String): Boolean {
+        return runCatching {
+            val json = JSONObject(body)
+            val patch = SettingsPatch(
+                soundMonitoringEnabled = json.optBooleanOrNull("soundMonitoringEnabled"),
+                cameraMonitoringEnabled = json.optBooleanOrNull("cameraMonitoringEnabled"),
+                soothingMusicEnabled = json.optBooleanOrNull("soothingMusicEnabled"),
+                wakeAlertThresholdMin = json.optIntOrNull("wakeAlertThresholdMin")
+            )
+            settingsController.update(patch, UpdateSource.REMOTE)
+        }.getOrElse { e ->
+            Log.w(TAG, "failed to update settings from payload", e)
+            false
         }
     }
 
@@ -187,4 +246,12 @@ class LocalSettingsHttpServer(
         private const val TAG = "LocalSettingsHttpServer"
         const val PORT = 8901
     }
+}
+
+private fun JSONObject.optBooleanOrNull(key: String): Boolean? {
+    return if (has(key) && !isNull(key)) optBoolean(key) else null
+}
+
+private fun JSONObject.optIntOrNull(key: String): Int? {
+    return if (has(key) && !isNull(key)) optInt(key) else null
 }
