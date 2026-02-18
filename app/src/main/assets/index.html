@@ -91,6 +91,7 @@
       margin-top: 12px;
     }
     #saveBtn,
+    #sleepBtn,
     #cameraBtn {
       width: 100%;
       min-height: 48px;
@@ -219,6 +220,9 @@
     <div class="actions">
       <button id="saveBtn" class="btn" type="button">Save</button>
     </div>
+    <div class="actions">
+      <button id="sleepBtn" class="btn" type="button">Sleep Off</button>
+    </div>
     <div id="cameraActions" class="actions">
       <button id="cameraBtn" class="btn" type="button">Camera</button>
     </div>
@@ -240,6 +244,7 @@
     const updatedAtEl = document.getElementById("updatedAt");
     const refreshBtn = document.getElementById("refreshBtn");
     const saveBtn = document.getElementById("saveBtn");
+    const sleepBtn = document.getElementById("sleepBtn");
     const cameraActions = document.getElementById("cameraActions");
     const cameraBtn = document.getElementById("cameraBtn");
     const cameraModal = document.getElementById("cameraModal");
@@ -254,6 +259,7 @@
     const motionSensitivityInput = document.getElementById("motionSensitivity");
     const playMusicInput = document.getElementById("soothingMusicEnabled");
     const wakeAlertInput = document.getElementById("wakeAlertThresholdMin");
+    let sleepEnabled = false;
 
     function showError(message) {
       successEl.style.display = "none";
@@ -291,6 +297,8 @@
         const settings = await res.json();
         hideError();
         hideSuccess();
+        sleepEnabled = !!settings.sleepEnabled;
+        sleepBtn.textContent = sleepEnabled ? "Sleep On" : "Sleep Off";
         soundInput.checked = !!settings.soundMonitoringEnabled;
         soundSensitivityInput.value = settings.soundSensitivity || "MEDIUM";
         motionInput.checked = !!settings.cameraMonitoringEnabled;
@@ -332,6 +340,26 @@
       }
     }
 
+    async function toggleSleep() {
+      try {
+        const nextSleepEnabled = !sleepEnabled;
+        const res = await fetch("/settings", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+          body: JSON.stringify({ sleepEnabled: nextSleepEnabled })
+        });
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        hideError();
+        showSuccess(nextSleepEnabled ? "Sleep enabled" : "Sleep disabled");
+        await loadSettings();
+      } catch (e) {
+        showError("Failed to toggle sleep: " + e.message);
+      }
+    }
+
     function openCameraModal() {
       cameraModal.style.display = "flex";
       cameraFeed.src = "/camera/stream?ts=" + Date.now();
@@ -344,6 +372,7 @@
 
     refreshBtn.addEventListener("click", loadSettings);
     saveBtn.addEventListener("click", saveSettings);
+    sleepBtn.addEventListener("click", toggleSleep);
     soundInput.addEventListener("change", updateSensitivityVisibility);
     motionInput.addEventListener("change", updateSensitivityVisibility);
     cameraBtn.addEventListener("click", openCameraModal);

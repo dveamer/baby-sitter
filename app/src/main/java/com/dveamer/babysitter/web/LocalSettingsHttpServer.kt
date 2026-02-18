@@ -200,6 +200,7 @@ class LocalSettingsHttpServer(
         return runCatching {
             val json = JSONObject(body)
             val patch = SettingsPatch(
+                sleepEnabled = json.optBooleanOrNull("sleepEnabled"),
                 webCameraEnabled = json.optBooleanOrNull("webCameraEnabled"),
                 soundMonitoringEnabled = json.optBooleanOrNull("soundMonitoringEnabled"),
                 soundSensitivity = json.optEnumOrNull("soundSensitivity", SoundSensitivity::valueOf),
