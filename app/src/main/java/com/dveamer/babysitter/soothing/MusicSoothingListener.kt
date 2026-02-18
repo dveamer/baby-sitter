@@ -12,7 +12,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
-import kotlinx.coroutines.withTimeout
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlinx.coroutines.suspendCancellableCoroutine
@@ -73,69 +72,67 @@ class MusicSoothingListener(
     }
 
     private suspend fun playOnce(uri: Uri): Unit = withContext(Dispatchers.IO) {
-        withTimeout(PREPARE_TIMEOUT_MS) {
-            suspendCancellableCoroutine { cont ->
-                if (!SUPPORTED_URI_SCHEMES.contains(uri.scheme)) {
-                    cont.resumeWithException(
-                        IllegalArgumentException("unsupported uri scheme: ${uri.scheme}")
-                    )
-                    return@suspendCancellableCoroutine
-                }
-
-                val player = MediaPlayer()
-                var fileInput: FileInputStream? = null
-                player.setAudioAttributes(
-                    AudioAttributes.Builder()
-                        .setUsage(AudioAttributes.USAGE_MEDIA)
-                        .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
-                        .build()
+        suspendCancellableCoroutine { cont ->
+            if (!SUPPORTED_URI_SCHEMES.contains(uri.scheme)) {
+                cont.resumeWithException(
+                    IllegalArgumentException("unsupported uri scheme: ${uri.scheme}")
                 )
+                return@suspendCancellableCoroutine
+            }
 
-                runCatching {
-                    if (uri.scheme == "file" && !uri.path.isNullOrBlank()) {
-                        val file = File(uri.path!!)
-                        if (!file.exists() || file.length() <= 0L) {
-                            throw IllegalStateException("recording file invalid: ${file.absolutePath}")
-                        }
-                        fileInput = FileInputStream(file)
-                        player.setDataSource(fileInput!!.fd)
-                    } else {
-                        player.setDataSource(context, uri)
+            val player = MediaPlayer()
+            var fileInput: FileInputStream? = null
+            player.setAudioAttributes(
+                AudioAttributes.Builder()
+                    .setUsage(AudioAttributes.USAGE_MEDIA)
+                    .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                    .build()
+            )
+
+            runCatching {
+                if (uri.scheme == "file" && !uri.path.isNullOrBlank()) {
+                    val file = File(uri.path!!)
+                    if (!file.exists() || file.length() <= 0L) {
+                        throw IllegalStateException("recording file invalid: ${file.absolutePath}")
                     }
-                    player.setOnPreparedListener { mp ->
-                        runCatching { mp.start() }.onFailure { e ->
-                            runCatching { mp.release() }
-                            if (cont.isActive) cont.resumeWithException(e)
-                        }
-                    }
-                    player.setOnCompletionListener {
-                        runCatching { fileInput?.close() }
-                        fileInput = null
-                        runCatching { it.release() }
-                        if (cont.isActive) cont.resume(Unit)
-                    }
-                    player.setOnErrorListener { mp, _, _ ->
-                        runCatching { fileInput?.close() }
-                        fileInput = null
+                    fileInput = FileInputStream(file)
+                    player.setDataSource(fileInput!!.fd)
+                } else {
+                    player.setDataSource(context, uri)
+                }
+                player.setOnPreparedListener { mp ->
+                    runCatching { mp.start() }.onFailure { e ->
                         runCatching { mp.release() }
-                        if (cont.isActive) cont.resumeWithException(IllegalStateException("media error"))
-                        true
+                        if (cont.isActive) cont.resumeWithException(e)
                     }
-                    player.prepareAsync()
-                }.onFailure { e ->
+                }
+                player.setOnCompletionListener {
                     runCatching { fileInput?.close() }
                     fileInput = null
-                    runCatching { player.release() }
-                    if (cont.isActive) cont.resumeWithException(e)
+                    runCatching { it.release() }
+                    if (cont.isActive) cont.resume(Unit)
                 }
+                player.setOnErrorListener { mp, _, _ ->
+                    runCatching { fileInput?.close() }
+                    fileInput = null
+                    runCatching { mp.release() }
+                    if (cont.isActive) cont.resumeWithException(IllegalStateException("media error"))
+                    true
+                }
+                player.prepareAsync()
+            }.onFailure { e ->
+                runCatching { fileInput?.close() }
+                fileInput = null
+                runCatching { player.release() }
+                if (cont.isActive) cont.resumeWithException(e)
+            }
 
-                cont.invokeOnCancellation {
-                    runCatching {
-                        runCatching { fileInput?.close() }
-                        fileInput = null
-                        if (player.isPlaying) player.stop()
-                        player.release()
-                    }
+            cont.invokeOnCancellation {
+                runCatching {
+                    runCatching { fileInput?.close() }
+                    fileInput = null
+                    if (player.isPlaying) player.stop()
+                    player.release()
                 }
             }
         }
@@ -143,7 +140,6 @@ class MusicSoothingListener(
 
     private companion object {
         const val TAG = "MusicSoothing"
-        const val PREPARE_TIMEOUT_MS = 20_000L
         const val RETRY_BACKOFF_MS = 60_000L
         val SUPPORTED_URI_SCHEMES = setOf("http", "https", "content", "file", "android.resource")
     }
