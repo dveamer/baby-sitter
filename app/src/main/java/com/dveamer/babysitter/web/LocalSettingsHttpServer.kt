@@ -27,6 +27,7 @@ class LocalSettingsHttpServer(
     private val settingsController: SettingsController
 ) {
     private val appContext = context.applicationContext
+    private val cameraStream = RearCameraMjpegSource(appContext)
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
     private var acceptJob: Job? = null
     private var serverSocket: ServerSocket? = null
@@ -62,6 +63,7 @@ class LocalSettingsHttpServer(
         serverSocket = null
         acceptJob?.cancelAndJoin()
         acceptJob = null
+        cameraStream.stopAll()
         Log.i(TAG, "Web service stopped")
     }
 
@@ -108,6 +110,34 @@ class LocalSettingsHttpServer(
                             status = "OK",
                             body = settingsToJson(settingsRepository.state.value)
                         )
+                    }
+
+                    method == "GET" && path == "/camera/stream" -> {
+                        if (!settingsRepository.state.value.webCameraEnabled) {
+                            writeResponse(
+                                socket = socket,
+                                code = 403,
+                                status = "Forbidden",
+                                body = """{"error":"camera_disabled"}"""
+                            )
+                            return@runCatching
+                        }
+                        runCatching {
+                            cameraStream.stream(socket) {
+                                settingsRepository.state.value.webCameraEnabled
+                            }
+                        }.onFailure { e ->
+                            if (e is SecurityException) {
+                                writeResponse(
+                                    socket = socket,
+                                    code = 403,
+                                    status = "Forbidden",
+                                    body = """{"error":"camera_permission_required"}"""
+                                )
+                            } else {
+                                throw e
+                            }
+                        }
                     }
 
                     method == "PUT" && path == "/settings" -> {
@@ -168,6 +198,7 @@ class LocalSettingsHttpServer(
         return runCatching {
             val json = JSONObject(body)
             val patch = SettingsPatch(
+                webCameraEnabled = json.optBooleanOrNull("webCameraEnabled"),
                 soundMonitoringEnabled = json.optBooleanOrNull("soundMonitoringEnabled"),
                 cameraMonitoringEnabled = json.optBooleanOrNull("cameraMonitoringEnabled"),
                 soothingMusicEnabled = json.optBooleanOrNull("soothingMusicEnabled"),
@@ -233,6 +264,7 @@ class LocalSettingsHttpServer(
     private fun settingsToJson(state: SettingsState): String {
         return JSONObject()
             .put("sleepEnabled", state.sleepEnabled)
+            .put("webCameraEnabled", state.webCameraEnabled)
             .put("soundMonitoringEnabled", state.soundMonitoringEnabled)
             .put("cryThresholdSec", state.cryThresholdSec)
             .put("movementThresholdSec", state.movementThresholdSec)

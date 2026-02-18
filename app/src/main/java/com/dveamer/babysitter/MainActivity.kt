@@ -83,6 +83,7 @@ class MainActivity : ComponentActivity() {
     private var mediaPlayer: MediaPlayer? = null
     private var recordingFilePath: String? = null
     private var pendingRecordStart = false
+    private var pendingWebCameraEnable = false
 
     private val permissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { }
@@ -95,6 +96,14 @@ class MainActivity : ComponentActivity() {
             } else {
                 pendingRecordStart = false
             }
+        }
+
+    private val cameraPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
+            if (pendingWebCameraEnable) {
+                vm.setWebCamera(granted)
+            }
+            pendingWebCameraEnable = false
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -144,7 +153,31 @@ class MainActivity : ComponentActivity() {
 
                             Screen.SETTINGS -> SettingsScreen(
                                 state = state,
-                                onWebServiceToggle = vm::setWebService,
+                                onWebServiceToggle = { enabled ->
+                                    if (!enabled) {
+                                        vm.setWebService(false)
+                                        vm.setWebCamera(false)
+                                    } else {
+                                        vm.setWebService(true)
+                                    }
+                                },
+                                onWebCameraToggle = { enabled ->
+                                    if (!enabled) {
+                                        pendingWebCameraEnable = false
+                                        vm.setWebCamera(false)
+                                    } else {
+                                        val granted = ContextCompat.checkSelfPermission(
+                                            this,
+                                            Manifest.permission.CAMERA
+                                        ) == PackageManager.PERMISSION_GRANTED
+                                        if (granted) {
+                                            vm.setWebCamera(true)
+                                        } else {
+                                            pendingWebCameraEnable = true
+                                            cameraPermissionLauncher.launch(Manifest.permission.CAMERA)
+                                        }
+                                    }
+                                },
                                 onSoundToggle = vm::setSoundMonitoring,
                                 onCameraToggle = { enabled ->
                                     if (enabled) requestMonitoringPermissions(cameraEnabled = true)
@@ -426,6 +459,7 @@ private val LightColorScheme = lightColorScheme(
 private fun SettingsScreen(
     state: com.dveamer.babysitter.settings.SettingsState,
     onWebServiceToggle: (Boolean) -> Unit,
+    onWebCameraToggle: (Boolean) -> Unit,
     onSoundToggle: (Boolean) -> Unit,
     onCameraToggle: (Boolean) -> Unit,
     onMusicToggle: (Boolean) -> Unit,
@@ -487,11 +521,14 @@ private fun SettingsScreen(
         )
 
         SwitchRow("Web Service", state.webServiceEnabled, onWebServiceToggle)
-        Button(
-            onClick = onShowQrCode,
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text("QR Code")
+        if (state.webServiceEnabled) {
+            SwitchRow("Camera", state.webCameraEnabled, onWebCameraToggle)
+            Button(
+                onClick = onShowQrCode,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text("QR Code")
+            }
         }
 
     }

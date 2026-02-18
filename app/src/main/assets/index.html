@@ -86,11 +86,15 @@
       gap: 8px;
       margin-top: 12px;
     }
-    #saveBtn {
+    #saveBtn,
+    #cameraBtn {
       width: 100%;
       min-height: 48px;
       font-size: 16px;
       font-weight: 700;
+    }
+    #cameraActions {
+      display: none;
     }
     .success {
       background: #edfdf0;
@@ -100,6 +104,46 @@
       padding: 10px;
       margin-bottom: 12px;
       display: none;
+    }
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      z-index: 1000;
+    }
+    .modal-content {
+      width: min(900px, 100%);
+      background: #000;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid #333;
+    }
+    .modal-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 12px;
+      background: #111;
+      color: #fff;
+    }
+    .camera-feed {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: contain;
+      background: #000;
+      display: block;
+    }
+    .btn-ghost {
+      background: transparent;
+      color: #fff;
+      border: 1px solid #444;
+      border-radius: 8px;
+      padding: 6px 10px;
+      cursor: pointer;
     }
     .status-on { color: #127a28; }
     .status-off { color: #9f1d1d; }
@@ -155,7 +199,20 @@
     <div class="actions">
       <button id="saveBtn" class="btn" type="button">Save</button>
     </div>
+    <div id="cameraActions" class="actions">
+      <button id="cameraBtn" class="btn" type="button">Camera</button>
+    </div>
   </main>
+
+  <div id="cameraModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-head">
+        <div>Rear Camera</div>
+        <button id="cameraCloseBtn" class="btn-ghost" type="button">Close</button>
+      </div>
+      <img id="cameraFeed" class="camera-feed" alt="Rear camera stream">
+    </div>
+  </div>
 
   <script>
     const errorEl = document.getElementById("error");
@@ -163,6 +220,11 @@
     const updatedAtEl = document.getElementById("updatedAt");
     const refreshBtn = document.getElementById("refreshBtn");
     const saveBtn = document.getElementById("saveBtn");
+    const cameraActions = document.getElementById("cameraActions");
+    const cameraBtn = document.getElementById("cameraBtn");
+    const cameraModal = document.getElementById("cameraModal");
+    const cameraCloseBtn = document.getElementById("cameraCloseBtn");
+    const cameraFeed = document.getElementById("cameraFeed");
 
     const soundInput = document.getElementById("soundMonitoringEnabled");
     const motionInput = document.getElementById("cameraMonitoringEnabled");
@@ -204,6 +266,7 @@
         motionInput.checked = !!settings.cameraMonitoringEnabled;
         playMusicInput.checked = !!settings.soothingMusicEnabled;
         wakeAlertInput.value = String(settings.wakeAlertThresholdMin ?? 3);
+        cameraActions.style.display = settings.webCameraEnabled ? "flex" : "none";
         updatedAtEl.textContent = "Last updated: " + new Date().toLocaleTimeString();
       } catch (e) {
         showError("Failed to load settings: " + e.message);
@@ -235,8 +298,23 @@
       }
     }
 
+    function openCameraModal() {
+      cameraModal.style.display = "flex";
+      cameraFeed.src = "/camera/stream?ts=" + Date.now();
+    }
+
+    function closeCameraModal() {
+      cameraModal.style.display = "none";
+      cameraFeed.src = "";
+    }
+
     refreshBtn.addEventListener("click", loadSettings);
     saveBtn.addEventListener("click", saveSettings);
+    cameraBtn.addEventListener("click", openCameraModal);
+    cameraCloseBtn.addEventListener("click", closeCameraModal);
+    cameraModal.addEventListener("click", (event) => {
+      if (event.target === cameraModal) closeCameraModal();
+    });
     loadSettings();
     setInterval(loadSettings, 5000);
   </script>

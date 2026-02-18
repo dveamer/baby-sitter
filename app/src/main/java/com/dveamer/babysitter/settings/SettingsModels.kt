@@ -3,6 +3,7 @@ package com.dveamer.babysitter.settings
 data class SettingsState(
     val sleepEnabled: Boolean = false,
     val webServiceEnabled: Boolean = false,
+    val webCameraEnabled: Boolean = false,
     val soundMonitoringEnabled: Boolean = true,
     val cryThresholdSec: Int = 10,
     val movementThresholdSec: Int = 10,
@@ -22,6 +23,7 @@ data class SettingsState(
 data class SettingsPatch(
     val sleepEnabled: Boolean? = null,
     val webServiceEnabled: Boolean? = null,
+    val webCameraEnabled: Boolean? = null,
     val soundMonitoringEnabled: Boolean? = null,
     val cryThresholdSec: Int? = null,
     val movementThresholdSec: Int? = null,

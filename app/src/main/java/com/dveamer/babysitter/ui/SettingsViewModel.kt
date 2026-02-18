@@ -28,6 +28,9 @@ class SettingsViewModel(
     fun setWebService(enabled: Boolean) =
         update(SettingsPatch(webServiceEnabled = enabled))
 
+    fun setWebCamera(enabled: Boolean) =
+        update(SettingsPatch(webCameraEnabled = enabled))
+
     fun setSoundMonitoring(enabled: Boolean) =
         update(SettingsPatch(soundMonitoringEnabled = enabled))
 
