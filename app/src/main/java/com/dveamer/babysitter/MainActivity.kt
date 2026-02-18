@@ -423,11 +423,6 @@ private fun SettingsScreen(
             label = { Text("Telegram Chat ID") }
         )
 
-        Spacer(Modifier.height(6.dp))
-        Text(
-            text = "Last update: ${state.updatedBy} / v${state.version}",
-            style = MaterialTheme.typography.bodySmall
-        )
     }
 }
 
