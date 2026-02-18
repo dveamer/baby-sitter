@@ -496,7 +496,7 @@ private fun HomeScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp),
+            .padding(horizontal = 32.dp, vertical = 48.dp),
         verticalArrangement = Arrangement.Center
     ) {
         Text(
@@ -510,7 +510,7 @@ private fun HomeScreen(
         ) {
             Text(stringResource(R.string.manage_recordings))
         }
-        Spacer(Modifier.height(16.dp))
+        Spacer(Modifier.height(48.dp))
 
         Button(
             onClick = { onSleepToggle(!sleepEnabled) },
