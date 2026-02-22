@@ -26,6 +26,7 @@ import com.dveamer.babysitter.soothing.SequentialSoothingCoordinator
 import com.dveamer.babysitter.soothing.SootheRequest
 import com.dveamer.babysitter.soothing.SoothingListener
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
@@ -37,7 +38,12 @@ import kotlinx.coroutines.sync.withLock
 
 class SleepForegroundService : Service() {
 
-    private val serviceScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
+    private val serviceExceptionHandler = CoroutineExceptionHandler { _, throwable ->
+        Log.e(TAG, "unhandled service coroutine error", throwable)
+    }
+    private val serviceScope = CoroutineScope(
+        SupervisorJob() + Dispatchers.Default + serviceExceptionHandler
+    )
     private val startStopLock = Mutex()
 
     private var monitoringJob: Job? = null
@@ -63,7 +69,15 @@ class SleepForegroundService : Service() {
             }
 
             ACTION_START, ACTION_REFRESH, null -> {
-                startForeground(NOTIFICATION_ID, buildNotification())
+                val started = runCatching {
+                    startForeground(NOTIFICATION_ID, buildNotification())
+                }.onFailure { e ->
+                    Log.w(TAG, "failed to enter foreground mode", e)
+                }.isSuccess
+                if (!started) {
+                    stopSelfResult(startId)
+                    return START_NOT_STICKY
+                }
                 serviceScope.launch {
                     restartMonitoring()
                 }
@@ -146,6 +160,10 @@ class SleepForegroundService : Service() {
 
         try {
             monitors.forEach { it.start() }
+            if (monitors.isEmpty()) {
+                Log.w(TAG, "monitoring is enabled but no monitor is available")
+                return
+            }
             merge(*monitors.map { it.signals }.toTypedArray()).collect { signal ->
                 val now = System.currentTimeMillis()
                 val awake = detector.onSignal(signal, now)
@@ -225,6 +243,7 @@ class SleepForegroundService : Service() {
         const val ACTION_STOP = "com.dveamer.babysitter.action.STOP"
         const val ACTION_REFRESH = "com.dveamer.babysitter.action.REFRESH"
 
+        private const val TAG = "SleepForegroundSvc"
         private const val CHANNEL_ID = "sleep_monitor_channel"
         private const val NOTIFICATION_ID = 1001
     }

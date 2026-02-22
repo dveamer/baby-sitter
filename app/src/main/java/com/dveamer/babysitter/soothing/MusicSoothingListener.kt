@@ -90,13 +90,15 @@ class MusicSoothingListener(
             )
 
             runCatching {
-                if (uri.scheme == "file" && !uri.path.isNullOrBlank()) {
-                    val file = File(uri.path!!)
+                if (uri.scheme == "file") {
+                    val filePath = uri.path ?: throw IllegalStateException("file uri path is null: $uri")
+                    val file = File(filePath)
                     if (!file.exists() || file.length() <= 0L) {
                         throw IllegalStateException("recording file invalid: ${file.absolutePath}")
                     }
                     fileInput = FileInputStream(file)
-                    player.setDataSource(fileInput!!.fd)
+                    val input = fileInput ?: throw IllegalStateException("file input is not initialized")
+                    player.setDataSource(input.fd)
                 } else {
                     player.setDataSource(context, uri)
                 }

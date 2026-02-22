@@ -44,6 +44,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -120,6 +121,17 @@ class MainActivity : ComponentActivity() {
 
             MaterialTheme(colorScheme = colorScheme) {
                 val state by vm.settingsState.collectAsStateWithLifecycle()
+                val monitoringEnabled = state.soundMonitoringEnabled || state.cameraMonitoringEnabled
+                val hasM4aRecording = state.musicPlaylist.any(::isM4aRecordingUri)
+                LaunchedEffect(
+                    state.soundMonitoringEnabled,
+                    state.cameraMonitoringEnabled,
+                    state.sleepEnabled
+                ) {
+                    if (!monitoringEnabled && state.sleepEnabled) {
+                        vm.setSleep(false)
+                    }
+                }
                 val navigateTo: (Screen) -> Unit = { next ->
                     if (currentScreen.value == Screen.RECORDINGS && next != Screen.RECORDINGS) {
                         stopPlayback()
@@ -146,12 +158,18 @@ class MainActivity : ComponentActivity() {
                         when (currentScreen.value) {
                             Screen.HOME -> HomeScreen(
                                 sleepEnabled = state.sleepEnabled,
+                                sleepToggleEnabled = monitoringEnabled,
+                                hasM4aRecording = hasM4aRecording,
                                 onOpenRecordings = { navigateTo(Screen.RECORDINGS) },
                                 onSleepToggle = { enabled ->
-                                    if (enabled) {
-                                        requestMonitoringPermissions(state.cameraMonitoringEnabled)
+                                    if (!monitoringEnabled) {
+                                        vm.setSleep(false)
+                                    } else {
+                                        if (enabled) {
+                                            requestMonitoringPermissions(state.cameraMonitoringEnabled)
+                                        }
+                                        vm.setSleep(enabled)
                                     }
-                                    vm.setSleep(enabled)
                                 }
                             )
 
@@ -182,11 +200,19 @@ class MainActivity : ComponentActivity() {
                                         }
                                     }
                                 },
-                                onSoundToggle = vm::setSoundMonitoring,
+                                onSoundToggle = { enabled ->
+                                    vm.setSoundMonitoring(enabled)
+                                    if (!enabled && !state.cameraMonitoringEnabled && state.sleepEnabled) {
+                                        vm.setSleep(false)
+                                    }
+                                },
                                 onSoundSensitivityChange = vm::setSoundSensitivity,
                                 onCameraToggle = { enabled ->
                                     if (enabled) requestMonitoringPermissions(cameraEnabled = true)
                                     vm.setCameraMonitoring(enabled)
+                                    if (!enabled && !state.soundMonitoringEnabled && state.sleepEnabled) {
+                                        vm.setSleep(false)
+                                    }
                                 },
                                 onMotionSensitivityChange = vm::setMotionSensitivity,
                                 onMusicToggle = vm::setSoothingMusic,
@@ -338,8 +364,9 @@ class MainActivity : ComponentActivity() {
         val uri = runCatching { Uri.parse(uriString) }.getOrNull() ?: return
         val player = MediaPlayer()
         runCatching {
-            if (uri.scheme == "file" && !uri.path.isNullOrBlank()) {
-                val file = File(uri.path!!)
+            if (uri.scheme == "file") {
+                val filePath = uri.path ?: throw IllegalStateException("file uri path is null: $uri")
+                val file = File(filePath)
                 if (!file.exists() || file.length() <= 0L) {
                     throw IllegalStateException("recording file invalid: ${file.absolutePath}")
                 }
@@ -360,8 +387,9 @@ class MainActivity : ComponentActivity() {
         }.onFailure { t ->
             val fileInfo = runCatching {
                 val parsed = Uri.parse(uriString)
-                if (parsed.scheme == "file" && !parsed.path.isNullOrBlank()) {
-                    val file = File(parsed.path!!)
+                val path = parsed.path
+                if (parsed.scheme == "file" && path != null) {
+                    val file = File(path)
                     " exists=${file.exists()} len=${file.length()} path=${file.absolutePath}"
                 } else {
                     ""
@@ -628,6 +656,8 @@ private fun RecordingManagementScreen(
 @Composable
 private fun HomeScreen(
     sleepEnabled: Boolean,
+    sleepToggleEnabled: Boolean,
+    hasM4aRecording: Boolean,
     onOpenRecordings: () -> Unit,
     onSleepToggle: (Boolean) -> Unit
 ) {
@@ -637,24 +667,27 @@ private fun HomeScreen(
             .padding(horizontal = 32.dp, vertical = 48.dp),
         verticalArrangement = Arrangement.Center
     ) {
-        Text(
-            text = keepWordsUnbroken(stringResource(R.string.home_no_recordings_guide)),
-            style = MaterialTheme.typography.bodyLarge
-        )
-        Spacer(Modifier.height(12.dp))
-        Button(
-            onClick = onOpenRecordings,
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text(stringResource(R.string.manage_recordings))
+        if (!hasM4aRecording) {
+            Text(
+                text = keepWordsUnbroken(stringResource(R.string.home_no_recordings_guide)),
+                style = MaterialTheme.typography.bodyLarge
+            )
+            Spacer(Modifier.height(12.dp))
+            Button(
+                onClick = onOpenRecordings,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(stringResource(R.string.manage_recordings))
+            }
+            Spacer(Modifier.height(48.dp))
         }
-        Spacer(Modifier.height(48.dp))
 
         Button(
             onClick = { onSleepToggle(!sleepEnabled) },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(64.dp),
+            enabled = sleepToggleEnabled,
             shape = CircleShape
         ) {
             Text(if (sleepEnabled) "Sleep OFF" else "Sleep ON")
@@ -690,6 +723,12 @@ private fun trackLabel(uriString: String, index: Int): String {
         return "lkoliks-lullaby-baby-sleep-music"
     }
     return segment ?: "Recording ${index + 1}"
+}
+
+private fun isM4aRecordingUri(uriString: String): Boolean {
+    val uri = runCatching { Uri.parse(uriString) }.getOrNull() ?: return false
+    val name = uri.lastPathSegment?.substringAfterLast('/') ?: return false
+    return name.substringAfterLast('.', "").equals("m4a", ignoreCase = true)
 }
 
 private fun keepWordsUnbroken(text: String): String {

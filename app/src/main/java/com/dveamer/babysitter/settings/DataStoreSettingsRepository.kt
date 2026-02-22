@@ -116,7 +116,7 @@ class DataStoreSettingsRepository(
             sleepEnabled = this[Keys.SLEEP_ENABLED] ?: false,
             webServiceEnabled = this[Keys.WEB_SERVICE_ENABLED] ?: false,
             webCameraEnabled = this[Keys.WEB_CAMERA_ENABLED] ?: false,
-            soundMonitoringEnabled = this[Keys.SOUND_MONITORING_ENABLED] ?: true,
+            soundMonitoringEnabled = this[Keys.SOUND_MONITORING_ENABLED] ?: false,
             soundSensitivity = this[Keys.SOUND_SENSITIVITY]
                 ?.let { runCatching { SoundSensitivity.valueOf(it) }.getOrNull() }
                 ?: SoundSensitivity.MEDIUM,

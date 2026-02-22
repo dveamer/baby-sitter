@@ -4,7 +4,7 @@ data class SettingsState(
     val sleepEnabled: Boolean = false,
     val webServiceEnabled: Boolean = false,
     val webCameraEnabled: Boolean = false,
-    val soundMonitoringEnabled: Boolean = true,
+    val soundMonitoringEnabled: Boolean = false,
     val soundSensitivity: SoundSensitivity = SoundSensitivity.MEDIUM,
     val cryThresholdSec: Int = 10,
     val movementThresholdSec: Int = 10,
