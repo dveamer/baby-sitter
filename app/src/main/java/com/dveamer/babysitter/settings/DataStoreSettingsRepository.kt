@@ -120,8 +120,8 @@ class DataStoreSettingsRepository(
             soundSensitivity = this[Keys.SOUND_SENSITIVITY]
                 ?.let { runCatching { SoundSensitivity.valueOf(it) }.getOrNull() }
                 ?: SoundSensitivity.MEDIUM,
-            cryThresholdSec = this[Keys.CRY_THRESHOLD_SEC] ?: 10,
-            movementThresholdSec = this[Keys.MOVEMENT_THRESHOLD_SEC] ?: 10,
+            cryThresholdSec = this[Keys.CRY_THRESHOLD_SEC] ?: 700,
+            movementThresholdSec = this[Keys.MOVEMENT_THRESHOLD_SEC] ?: 20,
             motionSensitivity = this[Keys.MOTION_SENSITIVITY]
                 ?.let { runCatching { MotionSensitivity.valueOf(it) }.getOrNull() }
                 ?: MotionSensitivity.MEDIUM,

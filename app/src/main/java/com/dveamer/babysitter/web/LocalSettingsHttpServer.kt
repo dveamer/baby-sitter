@@ -204,8 +204,10 @@ class LocalSettingsHttpServer(
                 webCameraEnabled = json.optBooleanOrNull("webCameraEnabled"),
                 soundMonitoringEnabled = json.optBooleanOrNull("soundMonitoringEnabled"),
                 soundSensitivity = json.optEnumOrNull("soundSensitivity", SoundSensitivity::valueOf),
+                cryThresholdSec = json.optIntOrNull("cryThresholdSec"),
                 cameraMonitoringEnabled = json.optBooleanOrNull("cameraMonitoringEnabled"),
                 motionSensitivity = json.optEnumOrNull("motionSensitivity", MotionSensitivity::valueOf),
+                movementThresholdSec = json.optIntOrNull("movementThresholdSec"),
                 soothingMusicEnabled = json.optBooleanOrNull("soothingMusicEnabled")
             )
             settingsController.update(patch, UpdateSource.REMOTE)

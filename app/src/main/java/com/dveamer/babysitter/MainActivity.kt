@@ -27,15 +27,14 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Slider
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
@@ -54,7 +53,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -206,7 +204,16 @@ class MainActivity : ComponentActivity() {
                                         vm.setSleep(false)
                                     }
                                 },
-                                onSoundSensitivityChange = vm::setSoundSensitivity,
+                                onSoundSensitivityChange = { sensitivity ->
+                                    vm.setSoundSensitivity(sensitivity)
+                                    val preset = when (sensitivity) {
+                                        SoundSensitivity.HIGH -> 300
+                                        SoundSensitivity.MEDIUM -> 700
+                                        SoundSensitivity.LOW -> 1000
+                                    }
+                                    vm.setCryThresholdSec(preset)
+                                },
+                                onSoundThresholdChange = vm::setCryThresholdSec,
                                 onCameraToggle = { enabled ->
                                     if (enabled) requestMonitoringPermissions(cameraEnabled = true)
                                     vm.setCameraMonitoring(enabled)
@@ -214,7 +221,16 @@ class MainActivity : ComponentActivity() {
                                         vm.setSleep(false)
                                     }
                                 },
-                                onMotionSensitivityChange = vm::setMotionSensitivity,
+                                onMotionSensitivityChange = { sensitivity ->
+                                    vm.setMotionSensitivity(sensitivity)
+                                    val preset = when (sensitivity) {
+                                        MotionSensitivity.HIGH -> 14
+                                        MotionSensitivity.MEDIUM -> 20
+                                        MotionSensitivity.LOW -> 28
+                                    }
+                                    vm.setMovementThresholdSec(preset)
+                                },
+                                onMotionThresholdChange = vm::setMovementThresholdSec,
                                 onMusicToggle = vm::setSoothingMusic,
                                 onShowQrCode = ::showQrCodePopup,
                                 onOpenRecordings = { navigateTo(Screen.RECORDINGS) }
@@ -493,8 +509,10 @@ private fun SettingsScreen(
     onWebCameraToggle: (Boolean) -> Unit,
     onSoundToggle: (Boolean) -> Unit,
     onSoundSensitivityChange: (SoundSensitivity) -> Unit,
+    onSoundThresholdChange: (Int) -> Unit,
     onCameraToggle: (Boolean) -> Unit,
     onMotionSensitivityChange: (MotionSensitivity) -> Unit,
+    onMotionThresholdChange: (Int) -> Unit,
     onMusicToggle: (Boolean) -> Unit,
     onShowQrCode: () -> Unit,
     onOpenRecordings: () -> Unit
@@ -512,15 +530,17 @@ private fun SettingsScreen(
         SwitchRow("Sound", state.soundMonitoringEnabled, onSoundToggle)
         if (state.soundMonitoringEnabled) {
             SoundSensitivitySelector(
-                selected = state.soundSensitivity,
-                onSelect = onSoundSensitivityChange
+                onSelect = onSoundSensitivityChange,
+                thresholdValue = state.cryThresholdSec,
+                onThresholdValueChange = onSoundThresholdChange
             )
         }
         SwitchRow("Motion", state.cameraMonitoringEnabled, onCameraToggle)
         if (state.cameraMonitoringEnabled) {
             MotionSensitivitySelector(
-                selected = state.motionSensitivity,
-                onSelect = onMotionSensitivityChange
+                onSelect = onMotionSensitivityChange,
+                thresholdValue = state.movementThresholdSec,
+                onThresholdValueChange = onMotionThresholdChange
             )
         }
 
@@ -771,26 +791,18 @@ private fun SwitchRow(
 }
 
 @Composable
-private fun NumberField(
-    label: String,
-    value: Int,
-    onValueChange: (Int) -> Unit
-) {
-    OutlinedTextField(
-        modifier = Modifier.fillMaxWidth(),
-        value = value.toString(),
-        onValueChange = { raw -> raw.toIntOrNull()?.let(onValueChange) },
-        label = { Text(label) },
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
-    )
-}
-
-@Composable
 private fun MotionSensitivitySelector(
-    selected: MotionSensitivity,
-    onSelect: (MotionSensitivity) -> Unit
+    onSelect: (MotionSensitivity) -> Unit,
+    thresholdValue: Int,
+    onThresholdValueChange: (Int) -> Unit
 ) {
-    Text("Sensitivity")
+    val selectedPreset = when (thresholdValue) {
+        14 -> MotionSensitivity.HIGH
+        20 -> MotionSensitivity.MEDIUM
+        28 -> MotionSensitivity.LOW
+        else -> null
+    }
+    Text("Sensitivity ($thresholdValue)")
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(8.dp)
@@ -804,7 +816,7 @@ private fun MotionSensitivitySelector(
                 onClick = { onSelect(value) },
                 modifier = Modifier.weight(1f),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = if (selected == value) Color(0xFF4A148C) else MaterialTheme.colorScheme.primary,
+                    containerColor = if (selectedPreset == value) Color(0xFF4A148C) else MaterialTheme.colorScheme.primary,
                     contentColor = Color.White
                 )
             ) {
@@ -812,14 +824,26 @@ private fun MotionSensitivitySelector(
             }
         }
     }
+    Slider(
+        value = thresholdValue.toFloat().coerceIn(5f, 100f),
+        onValueChange = { onThresholdValueChange(it.toInt().coerceIn(5, 100)) },
+        valueRange = 5f..100f
+    )
 }
 
 @Composable
 private fun SoundSensitivitySelector(
-    selected: SoundSensitivity,
-    onSelect: (SoundSensitivity) -> Unit
+    onSelect: (SoundSensitivity) -> Unit,
+    thresholdValue: Int,
+    onThresholdValueChange: (Int) -> Unit
 ) {
-    Text("Sensitivity")
+    val selectedPreset = when (thresholdValue) {
+        300 -> SoundSensitivity.HIGH
+        700 -> SoundSensitivity.MEDIUM
+        1000 -> SoundSensitivity.LOW
+        else -> null
+    }
+    Text("Sensitivity ($thresholdValue)")
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(8.dp)
@@ -833,7 +857,7 @@ private fun SoundSensitivitySelector(
                 onClick = { onSelect(value) },
                 modifier = Modifier.weight(1f),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = if (selected == value) Color(0xFF4A148C) else MaterialTheme.colorScheme.primary,
+                    containerColor = if (selectedPreset == value) Color(0xFF4A148C) else MaterialTheme.colorScheme.primary,
                     contentColor = Color.White
                 )
             ) {
@@ -841,6 +865,11 @@ private fun SoundSensitivitySelector(
             }
         }
     }
+    Slider(
+        value = thresholdValue.toFloat().coerceIn(50f, 2000f),
+        onValueChange = { onThresholdValueChange(it.toInt().coerceIn(50, 2_000)) },
+        valueRange = 50f..2000f
+    )
 }
 
 private enum class Screen {

@@ -121,18 +121,15 @@ class SleepForegroundService : Service() {
 
         val monitors = buildList<Monitor> {
             if (settings.soundMonitoringEnabled) {
-                val soundThreshold = when (settings.soundSensitivity) {
-                    SoundSensitivity.HIGH -> 300.0
-                    SoundSensitivity.MEDIUM -> 700.0
-                    SoundSensitivity.LOW -> 1000.0
-                }
+                val soundThreshold = settings.cryThresholdSec.coerceIn(50, 2_000).toDouble()
                 add(MicrophoneMonitor(serviceScope, amplitudeThreshold = soundThreshold))
             }
             if (settings.cameraMonitoringEnabled) {
-                val (diffThreshold, minChangedRatio) = when (settings.motionSensitivity) {
-                    MotionSensitivity.HIGH -> 14 to 0.012
-                    MotionSensitivity.MEDIUM -> 20 to 0.03
-                    MotionSensitivity.LOW -> 28 to 0.06
+                val diffThreshold = settings.movementThresholdSec.coerceIn(5, 100)
+                val minChangedRatio = when (settings.motionSensitivity) {
+                    MotionSensitivity.HIGH -> 0.012
+                    MotionSensitivity.MEDIUM -> 0.03
+                    MotionSensitivity.LOW -> 0.06
                 }
                 add(
                     CameraMonitor(
