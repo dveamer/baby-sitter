@@ -375,6 +375,8 @@
 
     function startCameraStream() {
       if (!webCameraEnabled) return;
+      cameraAttemptToken += 1;
+      cameraFeed.src = "";
       hideCameraError();
       const attempt = ++cameraAttemptToken;
       cameraFeed.src = "/camera/stream?ts=" + Date.now();

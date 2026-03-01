@@ -28,7 +28,7 @@ class RearCameraMjpegSource(
 
     private val lock = Any()
     private val clientCount = AtomicInteger(0)
-    private val latestFrame = AtomicReference<ByteArray?>(null)
+    private val latestFrame = AtomicReference<FrameData?>(null)
 
     private var handlerThread: HandlerThread? = null
     private var handler: Handler? = null
@@ -36,6 +36,8 @@ class RearCameraMjpegSource(
     private var cameraDevice: CameraDevice? = null
     private var captureSession: CameraCaptureSession? = null
     private var isCameraStarted = false
+    private var cameraStartedAtMs = 0L
+    private var lastRecoveryAttemptAtMs = 0L
 
     fun stream(
         socket: Socket,
@@ -60,17 +62,25 @@ class RearCameraMjpegSource(
                 }
                 val frame = latestFrame.get()
                 if (frame == null) {
+                    maybeRecoverCamera(nowMs = System.currentTimeMillis(), frameMissing = true)
+                    Thread.sleep(100L)
+                    continue
+                }
+                val now = System.currentTimeMillis()
+                val staleMs = now - frame.capturedAtMs
+                if (staleMs > FRAME_STALE_TIMEOUT_MS) {
+                    maybeRecoverCamera(nowMs = now, frameMissing = false)
                     Thread.sleep(100L)
                     continue
                 }
                 val partHeader = buildString {
                     append("--$BOUNDARY\r\n")
                     append("Content-Type: image/jpeg\r\n")
-                    append("Content-Length: ${frame.size}\r\n")
+                    append("Content-Length: ${frame.jpeg.size}\r\n")
                     append("\r\n")
                 }
                 output.write(partHeader.toByteArray(Charsets.UTF_8))
-                output.write(frame)
+                output.write(frame.jpeg)
                 output.write("\r\n".toByteArray(Charsets.UTF_8))
                 output.flush()
                 Thread.sleep(FRAME_INTERVAL_MS)
@@ -134,7 +144,7 @@ class RearCameraMjpegSource(
                     val buffer = image.planes.firstOrNull()?.buffer ?: return@setOnImageAvailableListener
                     val bytes = ByteArray(buffer.remaining())
                     buffer.get(bytes)
-                    latestFrame.set(bytes)
+                    latestFrame.set(FrameData(jpeg = bytes, capturedAtMs = System.currentTimeMillis()))
                 } finally {
                     image.close()
                 }
@@ -171,6 +181,7 @@ class RearCameraMjpegSource(
                                 session.setRepeatingRequest(requestBuilder.build(), null, callbackHandler)
                             }.onSuccess {
                                 isCameraStarted = true
+                                cameraStartedAtMs = System.currentTimeMillis()
                             }.onFailure { e ->
                                 startError = e
                             }
@@ -223,6 +234,27 @@ class RearCameraMjpegSource(
         handlerThread = null
         latestFrame.set(null)
         isCameraStarted = false
+        cameraStartedAtMs = 0L
+    }
+
+    private fun maybeRecoverCamera(nowMs: Long, frameMissing: Boolean) {
+        synchronized(lock) {
+            if (nowMs - lastRecoveryAttemptAtMs < RECOVERY_RETRY_INTERVAL_MS) return
+            val missingTooLong = frameMissing &&
+                isCameraStarted &&
+                cameraStartedAtMs > 0L &&
+                (nowMs - cameraStartedAtMs > FRAME_STALE_TIMEOUT_MS)
+            val staleOrStopped = !frameMissing
+            val shouldRestart = missingTooLong || staleOrStopped || !isCameraStarted
+            if (!shouldRestart) return
+            lastRecoveryAttemptAtMs = nowMs
+            runCatching {
+                stopCameraLocked()
+                startCameraLocked()
+            }.onFailure { e ->
+                Log.w(TAG, "camera recovery failed", e)
+            }
+        }
     }
 
     private fun selectRearCameraId(): String? {
@@ -238,6 +270,13 @@ class RearCameraMjpegSource(
         private const val WIDTH = 640
         private const val HEIGHT = 480
         private const val FRAME_INTERVAL_MS = 120L
+        private const val FRAME_STALE_TIMEOUT_MS = 1_500L
+        private const val RECOVERY_RETRY_INTERVAL_MS = 1_000L
         private const val BOUNDARY = "frame"
     }
 }
+
+private data class FrameData(
+    val jpeg: ByteArray,
+    val capturedAtMs: Long
+)
