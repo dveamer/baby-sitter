@@ -81,6 +81,10 @@
       text-align: right;
       background: #fff;
     }
+    .input:disabled {
+      opacity: 1;
+      cursor: default;
+    }
     select.input {
       text-align: left;
       min-width: 120px;
@@ -90,15 +94,13 @@
       gap: 8px;
       margin-top: 12px;
     }
-    #saveBtn,
-    #sleepBtn,
-    #cameraBtn {
+    #sleepBtn {
       width: 100%;
       min-height: 48px;
       font-size: 16px;
       font-weight: 700;
     }
-    #cameraActions {
+    #cameraPanel {
       display: none;
     }
     .success {
@@ -110,45 +112,13 @@
       margin-bottom: 12px;
       display: none;
     }
-    .modal {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.6);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 16px;
-      z-index: 1000;
-    }
-    .modal-content {
-      width: min(900px, 100%);
-      background: #000;
-      border-radius: 12px;
-      overflow: hidden;
-      border: 1px solid #333;
-    }
-    .modal-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 12px;
-      background: #111;
-      color: #fff;
-    }
     .camera-feed {
       width: 100%;
       aspect-ratio: 4 / 3;
       object-fit: contain;
       background: #000;
       display: block;
-    }
-    .btn-ghost {
-      background: transparent;
-      color: #fff;
-      border: 1px solid #444;
-      border-radius: 8px;
-      padding: 6px 10px;
-      cursor: pointer;
+      border-radius: 10px;
     }
     .status-on { color: #127a28; }
     .status-off { color: #9f1d1d; }
@@ -160,6 +130,10 @@
       padding: 10px;
       margin-bottom: 12px;
       display: none;
+    }
+    .camera-error {
+      margin-top: 10px;
+      margin-bottom: 0;
     }
   </style>
 </head>
@@ -173,15 +147,25 @@
       <button id="refreshBtn" class="btn" type="button">Refresh</button>
     </div>
 
+    <section id="cameraPanel" class="panel">
+      <h2 class="title">Camera</h2>
+      <img id="cameraFeed" class="camera-feed" alt="camera stream">
+      <div id="cameraError" class="error camera-error"></div>
+    </section>
+
+    <div class="actions">
+      <button id="sleepBtn" class="btn" type="button">Sleep Off</button>
+    </div>
+
     <section class="panel">
       <h2 class="title">Monitoring</h2>
       <div class="row">
         <div class="label">Sound</div>
-        <input id="soundMonitoringEnabled" class="input" type="checkbox">
+        <input id="soundMonitoringEnabled" class="input" type="checkbox" disabled>
       </div>
       <div class="row">
         <div class="label">Sound Sensitivity</div>
-        <select id="soundSensitivity" class="input">
+        <select id="soundSensitivity" class="input" disabled>
           <option value="HIGH">High</option>
           <option value="MEDIUM">Medium</option>
           <option value="LOW">Low</option>
@@ -189,11 +173,11 @@
       </div>
       <div class="row">
         <div class="label">Motion</div>
-        <input id="cameraMonitoringEnabled" class="input" type="checkbox">
+        <input id="cameraMonitoringEnabled" class="input" type="checkbox" disabled>
       </div>
       <div class="row">
         <div class="label">Motion Sensitivity</div>
-        <select id="motionSensitivity" class="input">
+        <select id="motionSensitivity" class="input" disabled>
           <option value="HIGH">High</option>
           <option value="MEDIUM">Medium</option>
           <option value="LOW">Low</option>
@@ -204,44 +188,22 @@
     <section class="panel">
       <h2 class="title">Take Action</h2>
       <div class="row">
-        <div class="label">Play Music</div>
-        <input id="soothingMusicEnabled" class="input" type="checkbox">
+        <div class="label">Play Lullaby</div>
+        <input id="soothingMusicEnabled" class="input" type="checkbox" disabled>
       </div>
     </section>
 
-    <div class="actions">
-      <button id="saveBtn" class="btn" type="button">Save</button>
-    </div>
-    <div class="actions">
-      <button id="sleepBtn" class="btn" type="button">Sleep Off</button>
-    </div>
-    <div id="cameraActions" class="actions">
-      <button id="cameraBtn" class="btn" type="button">Camera</button>
-    </div>
   </main>
-
-  <div id="cameraModal" class="modal">
-    <div class="modal-content">
-      <div class="modal-head">
-        <div>Rear Camera</div>
-        <button id="cameraCloseBtn" class="btn-ghost" type="button">Close</button>
-      </div>
-      <img id="cameraFeed" class="camera-feed" alt="Rear camera stream">
-    </div>
-  </div>
 
   <script>
     const errorEl = document.getElementById("error");
     const successEl = document.getElementById("success");
     const updatedAtEl = document.getElementById("updatedAt");
     const refreshBtn = document.getElementById("refreshBtn");
-    const saveBtn = document.getElementById("saveBtn");
     const sleepBtn = document.getElementById("sleepBtn");
-    const cameraActions = document.getElementById("cameraActions");
-    const cameraBtn = document.getElementById("cameraBtn");
-    const cameraModal = document.getElementById("cameraModal");
-    const cameraCloseBtn = document.getElementById("cameraCloseBtn");
+    const cameraPanel = document.getElementById("cameraPanel");
     const cameraFeed = document.getElementById("cameraFeed");
+    const cameraErrorEl = document.getElementById("cameraError");
 
     const soundInput = document.getElementById("soundMonitoringEnabled");
     const soundSensitivityRow = document.getElementById("soundSensitivity").closest(".row");
@@ -250,7 +212,15 @@
     const motionSensitivityRow = document.getElementById("motionSensitivity").closest(".row");
     const motionSensitivityInput = document.getElementById("motionSensitivity");
     const playMusicInput = document.getElementById("soothingMusicEnabled");
+
     let sleepEnabled = false;
+    let webCameraEnabled = false;
+    let cameraConnectTimeoutId = null;
+    let cameraAttemptToken = 0;
+    const isKoreanUser = (navigator.language || "").toLowerCase().startsWith("ko");
+    const cameraConnectionFailedMessage = isKoreanUser
+      ? "연결에 실패했습니다. Baby Sitter 앱이 더 강한 안드로이드 카메라 권한을 필요로 합니다."
+      : "Connection failed. The Baby Sitter app requires stronger Android camera permissions.";
 
     function showError(message) {
       successEl.style.display = "none";
@@ -281,13 +251,52 @@
       motionSensitivityRow.style.display = motionInput.checked ? "flex" : "none";
     }
 
+    function clearCameraConnectTimeout() {
+      if (cameraConnectTimeoutId) {
+        clearTimeout(cameraConnectTimeoutId);
+        cameraConnectTimeoutId = null;
+      }
+    }
+
+    function hideCameraError() {
+      cameraErrorEl.style.display = "none";
+      cameraErrorEl.textContent = "";
+      clearCameraConnectTimeout();
+    }
+
+    function showCameraError() {
+      cameraErrorEl.style.display = "block";
+      cameraErrorEl.textContent = cameraConnectionFailedMessage;
+      clearCameraConnectTimeout();
+    }
+
+    function startCameraStream() {
+      if (!webCameraEnabled) return;
+      hideCameraError();
+      const attempt = ++cameraAttemptToken;
+      cameraFeed.src = "/camera/stream?ts=" + Date.now();
+      cameraConnectTimeoutId = setTimeout(() => {
+        if (attempt !== cameraAttemptToken) return;
+        cameraFeed.src = "";
+        showCameraError();
+      }, 8000);
+    }
+
+    function stopCameraStream() {
+      cameraAttemptToken += 1;
+      hideCameraError();
+      cameraFeed.src = "";
+    }
+
     async function loadSettings() {
       try {
         const res = await fetch("/settings", { headers: { "Accept": "application/json" } });
         if (!res.ok) throw new Error("HTTP " + res.status);
         const settings = await res.json();
+
         hideError();
         hideSuccess();
+
         sleepEnabled = !!settings.sleepEnabled;
         sleepBtn.textContent = sleepEnabled ? "Sleep On" : "Sleep Off";
         soundInput.checked = !!settings.soundMonitoringEnabled;
@@ -295,37 +304,19 @@
         motionInput.checked = !!settings.cameraMonitoringEnabled;
         motionSensitivityInput.value = settings.motionSensitivity || "MEDIUM";
         playMusicInput.checked = !!settings.soothingMusicEnabled;
-        cameraActions.style.display = settings.webCameraEnabled ? "flex" : "none";
+
+        webCameraEnabled = !!settings.webCameraEnabled;
+        cameraPanel.style.display = webCameraEnabled ? "block" : "none";
+        if (webCameraEnabled) {
+          startCameraStream();
+        } else {
+          stopCameraStream();
+        }
+
         updateSensitivityVisibility();
         updatedAtEl.textContent = "Last updated: " + new Date().toLocaleTimeString();
       } catch (e) {
         showError("Failed to load settings: " + e.message);
-      }
-    }
-
-    async function saveSettings() {
-      try {
-        const payload = {
-          soundMonitoringEnabled: soundInput.checked,
-          soundSensitivity: soundSensitivityInput.value,
-          cameraMonitoringEnabled: motionInput.checked,
-          motionSensitivity: motionSensitivityInput.value,
-          soothingMusicEnabled: playMusicInput.checked
-        };
-        const res = await fetch("/settings", {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-          },
-          body: JSON.stringify(payload)
-        });
-        if (!res.ok) throw new Error("HTTP " + res.status);
-        hideError();
-        showSuccess("Saved");
-        await loadSettings();
-      } catch (e) {
-        showError("Failed to save settings: " + e.message);
       }
     }
 
@@ -341,6 +332,7 @@
           body: JSON.stringify({ sleepEnabled: nextSleepEnabled })
         });
         if (!res.ok) throw new Error("HTTP " + res.status);
+
         hideError();
         showSuccess(nextSleepEnabled ? "Sleep enabled" : "Sleep disabled");
         await loadSettings();
@@ -349,26 +341,15 @@
       }
     }
 
-    function openCameraModal() {
-      cameraModal.style.display = "flex";
-      cameraFeed.src = "/camera/stream?ts=" + Date.now();
-    }
-
-    function closeCameraModal() {
-      cameraModal.style.display = "none";
-      cameraFeed.src = "";
-    }
-
     refreshBtn.addEventListener("click", loadSettings);
-    saveBtn.addEventListener("click", saveSettings);
     sleepBtn.addEventListener("click", toggleSleep);
-    soundInput.addEventListener("change", updateSensitivityVisibility);
-    motionInput.addEventListener("change", updateSensitivityVisibility);
-    cameraBtn.addEventListener("click", openCameraModal);
-    cameraCloseBtn.addEventListener("click", closeCameraModal);
-    cameraModal.addEventListener("click", (event) => {
-      if (event.target === cameraModal) closeCameraModal();
+    cameraFeed.addEventListener("load", hideCameraError);
+    cameraFeed.addEventListener("error", () => {
+      if (!webCameraEnabled) return;
+      cameraFeed.src = "";
+      showCameraError();
     });
+
     loadSettings();
   </script>
 </body>

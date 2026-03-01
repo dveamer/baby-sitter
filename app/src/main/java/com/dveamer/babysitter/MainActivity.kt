@@ -549,7 +549,7 @@ private fun SettingsScreen(
             style = MaterialTheme.typography.headlineSmall,
             modifier = Modifier.padding(top = 8.dp)
         )
-        SwitchRow("Play Music", state.soothingMusicEnabled, onMusicToggle)
+        SwitchRow("Play Lullaby", state.soothingMusicEnabled, onMusicToggle)
 
         if (state.soothingMusicEnabled) {
             Button(
@@ -561,7 +561,7 @@ private fun SettingsScreen(
         }
 
         SwitchRow(
-            "Web Service",
+            "Web Service (Remote)",
             state.webServiceEnabled,
             onWebServiceToggle,
             textStyle = MaterialTheme.typography.headlineSmall
