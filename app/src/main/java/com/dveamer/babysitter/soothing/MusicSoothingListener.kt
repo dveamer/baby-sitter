@@ -19,6 +19,7 @@ import kotlinx.coroutines.suspendCancellableCoroutine
 class MusicSoothingListener(
     private val context: Context,
     private val settingsRepository: SettingsRepository,
+    private val onPlaybackStateChanged: (Boolean) -> Unit = {},
     override val id: String = "music"
 ) : SoothingListener {
 
@@ -41,6 +42,7 @@ class MusicSoothingListener(
             if (playlist.isEmpty()) return@withLock SootheResult.IGNORED
 
             isPlaying = true
+            onPlaybackStateChanged(true)
             try {
                 var playedCount = 0
                 playlist.forEach { uriString ->
@@ -67,6 +69,7 @@ class MusicSoothingListener(
                 SootheResult.FAILED
             } finally {
                 isPlaying = false
+                onPlaybackStateChanged(false)
             }
         }
     }

@@ -58,6 +58,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.dveamer.babysitter.settings.MotionSensitivity
 import com.dveamer.babysitter.settings.SoundSensitivity
+import com.dveamer.babysitter.sleep.SleepRuntimeStatusStore
 import com.dveamer.babysitter.ui.SettingsViewModel
 import com.dveamer.babysitter.ui.SettingsViewModelFactory
 import com.dveamer.babysitter.web.LocalSettingsHttpServer
@@ -119,6 +120,7 @@ class MainActivity : ComponentActivity() {
 
             MaterialTheme(colorScheme = colorScheme) {
                 val state by vm.settingsState.collectAsStateWithLifecycle()
+                val runtimeStatus by SleepRuntimeStatusStore.state.collectAsStateWithLifecycle()
                 val monitoringEnabled = state.soundMonitoringEnabled || state.cameraMonitoringEnabled
                 val hasM4aRecording = state.musicPlaylist.any(::isM4aRecordingUri)
                 LaunchedEffect(
@@ -158,6 +160,12 @@ class MainActivity : ComponentActivity() {
                                 sleepEnabled = state.sleepEnabled,
                                 sleepToggleEnabled = monitoringEnabled,
                                 hasM4aRecording = hasM4aRecording,
+                                soundMonitoringEnabled = state.soundMonitoringEnabled,
+                                motionMonitoringEnabled = state.cameraMonitoringEnabled,
+                                soothingMusicEnabled = state.soothingMusicEnabled,
+                                hasPlaylist = state.musicPlaylist.isNotEmpty(),
+                                monitoringActive = runtimeStatus.monitoringActive,
+                                lullabyActive = runtimeStatus.lullabyActive,
                                 onOpenRecordings = { navigateTo(Screen.RECORDINGS) },
                                 onSleepToggle = { enabled ->
                                     if (!monitoringEnabled) {
@@ -678,9 +686,28 @@ private fun HomeScreen(
     sleepEnabled: Boolean,
     sleepToggleEnabled: Boolean,
     hasM4aRecording: Boolean,
+    soundMonitoringEnabled: Boolean,
+    motionMonitoringEnabled: Boolean,
+    soothingMusicEnabled: Boolean,
+    hasPlaylist: Boolean,
+    monitoringActive: Boolean,
+    lullabyActive: Boolean,
     onOpenRecordings: () -> Unit,
     onSleepToggle: (Boolean) -> Unit
 ) {
+    val monitoringReady = soundMonitoringEnabled || motionMonitoringEnabled
+    val monitoringStatus = when {
+        !monitoringReady -> "not ready"
+        sleepEnabled && monitoringActive -> "active"
+        else -> "ready"
+    }
+    val lullabyReady = soothingMusicEnabled && hasPlaylist
+    val lullabyStatus = when {
+        lullabyActive -> "active"
+        !lullabyReady -> "not ready"
+        else -> "ready"
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -712,6 +739,17 @@ private fun HomeScreen(
         ) {
             Text(if (sleepEnabled) "Sleep OFF" else "Sleep ON")
         }
+        Spacer(Modifier.height(12.dp))
+        Text(
+            text = "• Monitoring : $monitoringStatus",
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            style = MaterialTheme.typography.bodyMedium
+        )
+        Text(
+            text = "• Lullaby : $lullabyStatus",
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            style = MaterialTheme.typography.bodyMedium
+        )
     }
 }
 

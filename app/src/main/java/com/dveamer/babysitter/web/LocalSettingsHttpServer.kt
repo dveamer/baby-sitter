@@ -9,6 +9,7 @@ import com.dveamer.babysitter.settings.SettingsPatch
 import com.dveamer.babysitter.settings.SettingsRepository
 import com.dveamer.babysitter.settings.SettingsState
 import com.dveamer.babysitter.settings.UpdateSource
+import com.dveamer.babysitter.sleep.SleepRuntimeStatusStore
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.InetSocketAddress
@@ -268,6 +269,7 @@ class LocalSettingsHttpServer(
     }
 
     private fun settingsToJson(state: SettingsState): String {
+        val runtime = SleepRuntimeStatusStore.state.value
         return JSONObject()
             .put("sleepEnabled", state.sleepEnabled)
             .put("webCameraEnabled", state.webCameraEnabled)
@@ -278,6 +280,9 @@ class LocalSettingsHttpServer(
             .put("cameraMonitoringEnabled", state.cameraMonitoringEnabled)
             .put("motionSensitivity", state.motionSensitivity.name)
             .put("soothingMusicEnabled", state.soothingMusicEnabled)
+            .put("musicPlaylistCount", state.musicPlaylist.size)
+            .put("monitoringActive", runtime.monitoringActive)
+            .put("lullabyActive", runtime.lullabyActive)
             .toString()
     }
 

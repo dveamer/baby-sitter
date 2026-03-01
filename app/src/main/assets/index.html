@@ -95,13 +95,20 @@
       margin-top: 12px;
     }
     #sleepActions {
-      margin-bottom: 12px;
+      margin-bottom: 8px;
     }
     #sleepBtn {
       width: 100%;
       min-height: 48px;
       font-size: 16px;
       font-weight: 700;
+    }
+    .sleep-status {
+      margin-bottom: 12px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+      padding-left: 4px;
     }
     #cameraPanel {
       display: none;
@@ -194,6 +201,10 @@
     <div id="sleepActions" class="actions">
       <button id="sleepBtn" class="btn" type="button">Sleep Off</button>
     </div>
+    <div class="sleep-status">
+      <div id="monitoringStatusLine">* Monitoring : ready</div>
+      <div id="lullabyStatusLine">* Lullaby : ready</div>
+    </div>
 
     <section class="panel">
       <h2 class="title">Monitoring</h2>
@@ -218,14 +229,6 @@
       <div id="monitoringEmptyMessage" class="error monitoring-empty"></div>
     </section>
 
-    <section class="panel">
-      <h2 class="title">Take Action</h2>
-      <div class="row">
-        <div class="label">Play Lullaby</div>
-        <input id="soothingMusicEnabled" class="input" type="checkbox" disabled>
-      </div>
-    </section>
-
   </main>
 
   <script>
@@ -247,12 +250,17 @@
     const motionPresetButtonsEl = document.getElementById("motionPresetButtons");
     const motionThresholdSlider = document.getElementById("motionThresholdSlider");
     const monitoringEmptyMessageEl = document.getElementById("monitoringEmptyMessage");
-    const playMusicInput = document.getElementById("soothingMusicEnabled");
+    const monitoringStatusLineEl = document.getElementById("monitoringStatusLine");
+    const lullabyStatusLineEl = document.getElementById("lullabyStatusLine");
 
     let sleepEnabled = false;
     let webCameraEnabled = false;
     let soundMonitoringEnabled = false;
     let motionMonitoringEnabled = false;
+    let soothingMusicEnabled = false;
+    let musicPlaylistCount = 0;
+    let monitoringActive = false;
+    let lullabyActive = false;
     let soundSensitivity = "MEDIUM";
     let motionSensitivity = "MEDIUM";
     let cryThresholdSec = 700;
@@ -335,6 +343,20 @@
       }
     }
 
+    function renderSleepStatus() {
+      const monitoringReady = soundMonitoringEnabled || motionMonitoringEnabled;
+      const monitoringStatus = !monitoringReady
+        ? "not ready"
+        : (sleepEnabled && monitoringActive ? "active" : "ready");
+      monitoringStatusLineEl.textContent = "* Monitoring : " + monitoringStatus;
+
+      const lullabyReady = soothingMusicEnabled && musicPlaylistCount > 0;
+      const lullabyStatus = lullabyActive
+        ? "active"
+        : (lullabyReady ? "ready" : "not ready");
+      lullabyStatusLineEl.textContent = "* Lullaby : " + lullabyStatus;
+    }
+
     async function updateSettingsPatch(patch) {
       try {
         const res = await fetch("/settings", {
@@ -403,14 +425,17 @@
         hideSuccess();
 
         sleepEnabled = !!settings.sleepEnabled;
-        sleepBtn.textContent = sleepEnabled ? "Sleep On" : "Sleep Off";
+        sleepBtn.textContent = sleepEnabled ? "Sleep Off" : "Sleep On";
         soundMonitoringEnabled = !!settings.soundMonitoringEnabled;
         soundSensitivity = settings.soundSensitivity || "MEDIUM";
         cryThresholdSec = Number(settings.cryThresholdSec ?? 700);
         motionMonitoringEnabled = !!settings.cameraMonitoringEnabled;
         motionSensitivity = settings.motionSensitivity || "MEDIUM";
         movementThresholdSec = Number(settings.movementThresholdSec ?? 20);
-        playMusicInput.checked = !!settings.soothingMusicEnabled;
+        soothingMusicEnabled = !!settings.soothingMusicEnabled;
+        musicPlaylistCount = Number(settings.musicPlaylistCount ?? 0);
+        monitoringActive = !!settings.monitoringActive;
+        lullabyActive = !!settings.lullabyActive;
 
         webCameraEnabled = !!settings.webCameraEnabled;
         cameraPanel.style.display = webCameraEnabled ? "block" : "none";
@@ -422,6 +447,7 @@
 
         renderSensitivityControls();
         updateSensitivityVisibility();
+        renderSleepStatus();
         updatedAtEl.textContent = "Last updated: " + new Date().toLocaleTimeString();
       } catch (e) {
         showError("Failed to load settings: " + e.message);

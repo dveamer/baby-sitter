@@ -95,6 +95,7 @@ class SleepForegroundService : Service() {
     private suspend fun restartMonitoring() {
         startStopLock.withLock {
             stopMonitoring()
+            SleepRuntimeStatusStore.reset()
             acquireWakeLock()
             monitoringJob = serviceScope.launch {
                 runEngine()
@@ -113,6 +114,7 @@ class SleepForegroundService : Service() {
     private fun stopMonitoring() {
         monitoringJob?.cancel()
         monitoringJob = null
+        SleepRuntimeStatusStore.reset()
         releaseWakeLock()
     }
 
@@ -144,7 +146,13 @@ class SleepForegroundService : Service() {
 
         val soothingListeners = buildList<SoothingListener> {
             if (settings.soothingMusicEnabled) {
-                add(MusicSoothingListener(this@SleepForegroundService, container.settingsRepository))
+                add(
+                    MusicSoothingListener(
+                        context = this@SleepForegroundService,
+                        settingsRepository = container.settingsRepository,
+                        onPlaybackStateChanged = SleepRuntimeStatusStore::setLullabyActive
+                    )
+                )
             }
             if (settings.soothingIotEnabled) {
                 add(IotSoothingListener(container.settingsRepository))
@@ -161,6 +169,7 @@ class SleepForegroundService : Service() {
                 Log.w(TAG, "monitoring is enabled but no monitor is available")
                 return
             }
+            SleepRuntimeStatusStore.setMonitoringActive(true)
             merge(*monitors.map { it.signals }.toTypedArray()).collect { signal ->
                 val now = System.currentTimeMillis()
                 val awake = detector.onSignal(signal, now)
@@ -184,6 +193,7 @@ class SleepForegroundService : Service() {
                 }
             }
         } finally {
+            SleepRuntimeStatusStore.reset()
             monitors.forEach { it.stop() }
         }
     }
