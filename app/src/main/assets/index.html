@@ -94,6 +94,9 @@
       gap: 8px;
       margin-top: 12px;
     }
+    #sleepActions {
+      margin-bottom: 12px;
+    }
     #sleepBtn {
       width: 100%;
       min-height: 48px;
@@ -135,6 +138,41 @@
       margin-top: 10px;
       margin-bottom: 0;
     }
+    .monitoring-empty {
+      margin-top: 10px;
+      margin-bottom: 0;
+    }
+    .sensitivity-block {
+      border-top: 1px solid var(--line);
+      padding: 10px 0;
+    }
+    .sensitivity-block:first-of-type {
+      border-top: none;
+      padding-top: 0;
+    }
+    .sensitivity-title {
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+    .preset-buttons {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .preset-btn {
+      width: 100%;
+      min-height: 40px;
+      font-weight: 700;
+    }
+    .preset-btn.selected {
+      background: #1f4ea3;
+      color: #fff;
+      border-color: #1f4ea3;
+    }
+    .sensitivity-slider {
+      width: 100%;
+    }
   </style>
 </head>
 <body>
@@ -153,36 +191,31 @@
       <div id="cameraError" class="error camera-error"></div>
     </section>
 
-    <div class="actions">
+    <div id="sleepActions" class="actions">
       <button id="sleepBtn" class="btn" type="button">Sleep Off</button>
     </div>
 
     <section class="panel">
       <h2 class="title">Monitoring</h2>
-      <div class="row">
-        <div class="label">Sound</div>
-        <input id="soundMonitoringEnabled" class="input" type="checkbox" disabled>
+      <div id="soundSensitivityRow" class="sensitivity-block">
+        <div class="sensitivity-title">Sound Sensitivity (<span id="soundThresholdValue">700</span>)</div>
+        <div id="soundPresetButtons" class="preset-buttons">
+          <button class="btn preset-btn" type="button" data-value="HIGH">High</button>
+          <button class="btn preset-btn" type="button" data-value="MEDIUM">Medium</button>
+          <button class="btn preset-btn" type="button" data-value="LOW">Low</button>
+        </div>
+        <input id="soundThresholdSlider" class="sensitivity-slider" type="range" min="50" max="2000" step="1">
       </div>
-      <div class="row">
-        <div class="label">Sound Sensitivity</div>
-        <select id="soundSensitivity" class="input" disabled>
-          <option value="HIGH">High</option>
-          <option value="MEDIUM">Medium</option>
-          <option value="LOW">Low</option>
-        </select>
+      <div id="motionSensitivityRow" class="sensitivity-block">
+        <div class="sensitivity-title">Motion Sensitivity (<span id="motionThresholdValue">20</span>)</div>
+        <div id="motionPresetButtons" class="preset-buttons">
+          <button class="btn preset-btn" type="button" data-value="HIGH">High</button>
+          <button class="btn preset-btn" type="button" data-value="MEDIUM">Medium</button>
+          <button class="btn preset-btn" type="button" data-value="LOW">Low</button>
+        </div>
+        <input id="motionThresholdSlider" class="sensitivity-slider" type="range" min="5" max="100" step="1">
       </div>
-      <div class="row">
-        <div class="label">Motion</div>
-        <input id="cameraMonitoringEnabled" class="input" type="checkbox" disabled>
-      </div>
-      <div class="row">
-        <div class="label">Motion Sensitivity</div>
-        <select id="motionSensitivity" class="input" disabled>
-          <option value="HIGH">High</option>
-          <option value="MEDIUM">Medium</option>
-          <option value="LOW">Low</option>
-        </select>
-      </div>
+      <div id="monitoringEmptyMessage" class="error monitoring-empty"></div>
     </section>
 
     <section class="panel">
@@ -205,22 +238,36 @@
     const cameraFeed = document.getElementById("cameraFeed");
     const cameraErrorEl = document.getElementById("cameraError");
 
-    const soundInput = document.getElementById("soundMonitoringEnabled");
-    const soundSensitivityRow = document.getElementById("soundSensitivity").closest(".row");
-    const soundSensitivityInput = document.getElementById("soundSensitivity");
-    const motionInput = document.getElementById("cameraMonitoringEnabled");
-    const motionSensitivityRow = document.getElementById("motionSensitivity").closest(".row");
-    const motionSensitivityInput = document.getElementById("motionSensitivity");
+    const soundSensitivityRow = document.getElementById("soundSensitivityRow");
+    const soundThresholdValueEl = document.getElementById("soundThresholdValue");
+    const soundPresetButtonsEl = document.getElementById("soundPresetButtons");
+    const soundThresholdSlider = document.getElementById("soundThresholdSlider");
+    const motionSensitivityRow = document.getElementById("motionSensitivityRow");
+    const motionThresholdValueEl = document.getElementById("motionThresholdValue");
+    const motionPresetButtonsEl = document.getElementById("motionPresetButtons");
+    const motionThresholdSlider = document.getElementById("motionThresholdSlider");
+    const monitoringEmptyMessageEl = document.getElementById("monitoringEmptyMessage");
     const playMusicInput = document.getElementById("soothingMusicEnabled");
 
     let sleepEnabled = false;
     let webCameraEnabled = false;
+    let soundMonitoringEnabled = false;
+    let motionMonitoringEnabled = false;
+    let soundSensitivity = "MEDIUM";
+    let motionSensitivity = "MEDIUM";
+    let cryThresholdSec = 700;
+    let movementThresholdSec = 20;
     let cameraConnectTimeoutId = null;
     let cameraAttemptToken = 0;
+    const SOUND_PRESET_VALUES = { HIGH: 300, MEDIUM: 700, LOW: 1000 };
+    const MOTION_PRESET_VALUES = { HIGH: 14, MEDIUM: 20, LOW: 28 };
     const isKoreanUser = (navigator.language || "").toLowerCase().startsWith("ko");
     const cameraConnectionFailedMessage = isKoreanUser
       ? "연결에 실패했습니다. Baby Sitter 앱이 더 강한 안드로이드 카메라 권한을 필요로 합니다."
       : "Connection failed. The Baby Sitter app requires stronger Android camera permissions.";
+    const monitoringDisabledMessage = isKoreanUser
+      ? "Sound, Motion 모두 사용되지 않도록 설정되어 아기가 깼는지 감지할 수 없습니다."
+      : "Both Sound and Motion are disabled, so the app cannot detect whether the baby has woken up.";
 
     function showError(message) {
       successEl.style.display = "none";
@@ -246,9 +293,65 @@
       successEl.textContent = "";
     }
 
+    function selectedSoundPreset(value) {
+      if (value === SOUND_PRESET_VALUES.HIGH) return "HIGH";
+      if (value === SOUND_PRESET_VALUES.MEDIUM) return "MEDIUM";
+      if (value === SOUND_PRESET_VALUES.LOW) return "LOW";
+      return null;
+    }
+
+    function selectedMotionPreset(value) {
+      if (value === MOTION_PRESET_VALUES.HIGH) return "HIGH";
+      if (value === MOTION_PRESET_VALUES.MEDIUM) return "MEDIUM";
+      if (value === MOTION_PRESET_VALUES.LOW) return "LOW";
+      return null;
+    }
+
+    function markSelectedPreset(container, preset) {
+      container.querySelectorAll(".preset-btn").forEach((button) => {
+        button.classList.toggle("selected", button.dataset.value === preset);
+      });
+    }
+
+    function renderSensitivityControls() {
+      soundThresholdValueEl.textContent = String(cryThresholdSec);
+      soundThresholdSlider.value = String(cryThresholdSec);
+      markSelectedPreset(soundPresetButtonsEl, selectedSoundPreset(cryThresholdSec));
+
+      motionThresholdValueEl.textContent = String(movementThresholdSec);
+      motionThresholdSlider.value = String(movementThresholdSec);
+      markSelectedPreset(motionPresetButtonsEl, selectedMotionPreset(movementThresholdSec));
+    }
+
     function updateSensitivityVisibility() {
-      soundSensitivityRow.style.display = soundInput.checked ? "flex" : "none";
-      motionSensitivityRow.style.display = motionInput.checked ? "flex" : "none";
+      soundSensitivityRow.style.display = soundMonitoringEnabled ? "block" : "none";
+      motionSensitivityRow.style.display = motionMonitoringEnabled ? "block" : "none";
+      if (!soundMonitoringEnabled && !motionMonitoringEnabled) {
+        monitoringEmptyMessageEl.style.display = "block";
+        monitoringEmptyMessageEl.textContent = monitoringDisabledMessage;
+      } else {
+        monitoringEmptyMessageEl.style.display = "none";
+        monitoringEmptyMessageEl.textContent = "";
+      }
+    }
+
+    async function updateSettingsPatch(patch) {
+      try {
+        const res = await fetch("/settings", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+          body: JSON.stringify(patch)
+        });
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        hideError();
+        hideSuccess();
+      } catch (e) {
+        showError("Failed to update settings: " + e.message);
+        await loadSettings();
+      }
     }
 
     function clearCameraConnectTimeout() {
@@ -299,10 +402,12 @@
 
         sleepEnabled = !!settings.sleepEnabled;
         sleepBtn.textContent = sleepEnabled ? "Sleep On" : "Sleep Off";
-        soundInput.checked = !!settings.soundMonitoringEnabled;
-        soundSensitivityInput.value = settings.soundSensitivity || "MEDIUM";
-        motionInput.checked = !!settings.cameraMonitoringEnabled;
-        motionSensitivityInput.value = settings.motionSensitivity || "MEDIUM";
+        soundMonitoringEnabled = !!settings.soundMonitoringEnabled;
+        soundSensitivity = settings.soundSensitivity || "MEDIUM";
+        cryThresholdSec = Number(settings.cryThresholdSec ?? 700);
+        motionMonitoringEnabled = !!settings.cameraMonitoringEnabled;
+        motionSensitivity = settings.motionSensitivity || "MEDIUM";
+        movementThresholdSec = Number(settings.movementThresholdSec ?? 20);
         playMusicInput.checked = !!settings.soothingMusicEnabled;
 
         webCameraEnabled = !!settings.webCameraEnabled;
@@ -313,6 +418,7 @@
           stopCameraStream();
         }
 
+        renderSensitivityControls();
         updateSensitivityVisibility();
         updatedAtEl.textContent = "Last updated: " + new Date().toLocaleTimeString();
       } catch (e) {
@@ -343,6 +449,42 @@
 
     refreshBtn.addEventListener("click", loadSettings);
     sleepBtn.addEventListener("click", toggleSleep);
+    soundPresetButtonsEl.addEventListener("click", async (event) => {
+      const button = event.target.closest(".preset-btn");
+      if (!button || !soundMonitoringEnabled) return;
+      const preset = button.dataset.value;
+      if (!preset || !Object.prototype.hasOwnProperty.call(SOUND_PRESET_VALUES, preset)) return;
+      soundSensitivity = preset;
+      cryThresholdSec = SOUND_PRESET_VALUES[preset];
+      renderSensitivityControls();
+      await updateSettingsPatch({ soundSensitivity, cryThresholdSec });
+    });
+    motionPresetButtonsEl.addEventListener("click", async (event) => {
+      const button = event.target.closest(".preset-btn");
+      if (!button || !motionMonitoringEnabled) return;
+      const preset = button.dataset.value;
+      if (!preset || !Object.prototype.hasOwnProperty.call(MOTION_PRESET_VALUES, preset)) return;
+      motionSensitivity = preset;
+      movementThresholdSec = MOTION_PRESET_VALUES[preset];
+      renderSensitivityControls();
+      await updateSettingsPatch({ motionSensitivity, movementThresholdSec });
+    });
+    soundThresholdSlider.addEventListener("input", () => {
+      cryThresholdSec = Number(soundThresholdSlider.value);
+      renderSensitivityControls();
+    });
+    soundThresholdSlider.addEventListener("change", async () => {
+      if (!soundMonitoringEnabled) return;
+      await updateSettingsPatch({ cryThresholdSec });
+    });
+    motionThresholdSlider.addEventListener("input", () => {
+      movementThresholdSec = Number(motionThresholdSlider.value);
+      renderSensitivityControls();
+    });
+    motionThresholdSlider.addEventListener("change", async () => {
+      if (!motionMonitoringEnabled) return;
+      await updateSettingsPatch({ movementThresholdSec });
+    });
     cameraFeed.addEventListener("load", hideCameraError);
     cameraFeed.addEventListener("error", () => {
       if (!webCameraEnabled) return;
