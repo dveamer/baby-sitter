@@ -3,7 +3,10 @@ package com.dveamer.babysitter.web
 import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.ImageFormat
+import android.graphics.Matrix
 import android.hardware.camera2.CameraCaptureSession
 import android.hardware.camera2.CameraCharacteristics
 import android.hardware.camera2.CameraDevice
@@ -14,6 +17,7 @@ import android.os.Handler
 import android.os.HandlerThread
 import android.util.Log
 import androidx.core.content.ContextCompat
+import java.io.ByteArrayOutputStream
 import java.net.Socket
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
@@ -144,7 +148,12 @@ class RearCameraMjpegSource(
                     val buffer = image.planes.firstOrNull()?.buffer ?: return@setOnImageAvailableListener
                     val bytes = ByteArray(buffer.remaining())
                     buffer.get(bytes)
-                    latestFrame.set(FrameData(jpeg = bytes, capturedAtMs = System.currentTimeMillis()))
+                    latestFrame.set(
+                        FrameData(
+                            jpeg = rotateJpegForWebPreview(bytes),
+                            capturedAtMs = System.currentTimeMillis()
+                        )
+                    )
                 } finally {
                     image.close()
                 }
@@ -257,6 +266,20 @@ class RearCameraMjpegSource(
         }
     }
 
+    private fun rotateJpegForWebPreview(source: ByteArray): ByteArray {
+        if (WEB_PREVIEW_ROTATION_DEGREES % 360 == 0) return source
+        return runCatching {
+            val bitmap = BitmapFactory.decodeByteArray(source, 0, source.size) ?: return source
+            val matrix = Matrix().apply { postRotate(WEB_PREVIEW_ROTATION_DEGREES.toFloat()) }
+            val rotated = Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true)
+            bitmap.recycle()
+            val output = ByteArrayOutputStream()
+            rotated.compress(Bitmap.CompressFormat.JPEG, WEB_PREVIEW_JPEG_QUALITY, output)
+            rotated.recycle()
+            output.toByteArray()
+        }.getOrElse { source }
+    }
+
     private fun selectRearCameraId(): String? {
         return cameraManager.cameraIdList.firstOrNull { id ->
             val facing = cameraManager.getCameraCharacteristics(id)
@@ -272,6 +295,8 @@ class RearCameraMjpegSource(
         private const val FRAME_INTERVAL_MS = 120L
         private const val FRAME_STALE_TIMEOUT_MS = 1_500L
         private const val RECOVERY_RETRY_INTERVAL_MS = 1_000L
+        private const val WEB_PREVIEW_ROTATION_DEGREES = 90
+        private const val WEB_PREVIEW_JPEG_QUALITY = 85
         private const val BOUNDARY = "frame"
     }
 }
