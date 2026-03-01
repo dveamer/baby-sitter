@@ -104,11 +104,45 @@
       font-weight: 700;
     }
     .sleep-status {
-      margin-bottom: 12px;
-      color: var(--muted);
+      margin-bottom: 14px;
+      display: grid;
+      gap: 8px;
+    }
+    .sleep-status-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 1px solid var(--line);
+      background: #f9fafc;
+      border-radius: 10px;
+      padding: 10px 12px;
+    }
+    .sleep-status-label {
+      color: #4a5568;
+      font-weight: 600;
       font-size: 14px;
-      line-height: 1.5;
-      padding-left: 4px;
+    }
+    .sleep-status-value {
+      font-size: 13px;
+      font-weight: 700;
+      border-radius: 999px;
+      padding: 4px 10px;
+      background: #e7eefb;
+      color: #1f4ea3;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
+    .sleep-status-value.ready {
+      background: #e7eefb;
+      color: #1f4ea3;
+    }
+    .sleep-status-value.not-ready {
+      background: #fff1f1;
+      color: #9f1d1d;
+    }
+    .sleep-status-value.active {
+      background: #e9f9ed;
+      color: #127a28;
     }
     #cameraPanel {
       display: none;
@@ -202,8 +236,14 @@
       <button id="sleepBtn" class="btn" type="button">Sleep Off</button>
     </div>
     <div class="sleep-status">
-      <div id="monitoringStatusLine">* Monitoring : ready</div>
-      <div id="lullabyStatusLine">* Lullaby : ready</div>
+      <div class="sleep-status-row">
+        <span class="sleep-status-label">Monitoring</span>
+        <span id="monitoringStatusValue" class="sleep-status-value ready">READY</span>
+      </div>
+      <div class="sleep-status-row">
+        <span class="sleep-status-label">Lullaby</span>
+        <span id="lullabyStatusValue" class="sleep-status-value ready">READY</span>
+      </div>
     </div>
 
     <section class="panel">
@@ -250,8 +290,8 @@
     const motionPresetButtonsEl = document.getElementById("motionPresetButtons");
     const motionThresholdSlider = document.getElementById("motionThresholdSlider");
     const monitoringEmptyMessageEl = document.getElementById("monitoringEmptyMessage");
-    const monitoringStatusLineEl = document.getElementById("monitoringStatusLine");
-    const lullabyStatusLineEl = document.getElementById("lullabyStatusLine");
+    const monitoringStatusValueEl = document.getElementById("monitoringStatusValue");
+    const lullabyStatusValueEl = document.getElementById("lullabyStatusValue");
 
     let sleepEnabled = false;
     let webCameraEnabled = false;
@@ -267,6 +307,7 @@
     let movementThresholdSec = 20;
     let cameraConnectTimeoutId = null;
     let cameraAttemptToken = 0;
+    let sleepStatusPollTimeoutId = null;
     const SOUND_PRESET_VALUES = { HIGH: 300, MEDIUM: 700, LOW: 1000 };
     const MOTION_PRESET_VALUES = { HIGH: 14, MEDIUM: 20, LOW: 28 };
     const isKoreanUser = (navigator.language || "").toLowerCase().startsWith("ko");
@@ -348,13 +389,15 @@
       const monitoringStatus = !monitoringReady
         ? "not ready"
         : (sleepEnabled && monitoringActive ? "active" : "ready");
-      monitoringStatusLineEl.textContent = "* Monitoring : " + monitoringStatus;
+      monitoringStatusValueEl.textContent = monitoringStatus.toUpperCase();
+      monitoringStatusValueEl.className = "sleep-status-value " + monitoringStatus.replace(" ", "-");
 
       const lullabyReady = soothingMusicEnabled && musicPlaylistCount > 0;
       const lullabyStatus = lullabyActive
         ? "active"
         : (lullabyReady ? "ready" : "not ready");
-      lullabyStatusLineEl.textContent = "* Lullaby : " + lullabyStatus;
+      lullabyStatusValueEl.textContent = lullabyStatus.toUpperCase();
+      lullabyStatusValueEl.className = "sleep-status-value " + lullabyStatus.replace(" ", "-");
     }
 
     async function updateSettingsPatch(patch) {
@@ -395,6 +438,21 @@
       clearCameraConnectTimeout();
     }
 
+    function clearSleepStatusPoll() {
+      if (sleepStatusPollTimeoutId) {
+        clearTimeout(sleepStatusPollTimeoutId);
+        sleepStatusPollTimeoutId = null;
+      }
+    }
+
+    function scheduleSleepStatusPoll() {
+      clearSleepStatusPoll();
+      if (!sleepEnabled) return;
+      sleepStatusPollTimeoutId = setTimeout(() => {
+        loadSettings({ silent: true });
+      }, 1500);
+    }
+
     function startCameraStream() {
       if (!webCameraEnabled) return;
       cameraAttemptToken += 1;
@@ -415,7 +473,9 @@
       cameraFeed.src = "";
     }
 
-    async function loadSettings() {
+    async function loadSettings(options = {}) {
+      const { silent = false } = options;
+      clearSleepStatusPoll();
       try {
         const res = await fetch("/settings", { headers: { "Accept": "application/json" } });
         if (!res.ok) throw new Error("HTTP " + res.status);
@@ -449,8 +509,12 @@
         updateSensitivityVisibility();
         renderSleepStatus();
         updatedAtEl.textContent = "Last updated: " + new Date().toLocaleTimeString();
+        scheduleSleepStatusPoll();
       } catch (e) {
-        showError("Failed to load settings: " + e.message);
+        if (!silent) {
+          showError("Failed to load settings: " + e.message);
+        }
+        scheduleSleepStatusPoll();
       }
     }
 
