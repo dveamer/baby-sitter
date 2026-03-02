@@ -75,7 +75,6 @@ class MicrophoneMonitor(
                     .map { abs(it.toInt()) }
                     .average()
 
-                Log.d(TAG, "avgAmplitude : $avgAmplitude")
                 val active = avgAmplitude > amplitudeThreshold
                 mutableSignals.tryEmit(
                     MonitorSignal(

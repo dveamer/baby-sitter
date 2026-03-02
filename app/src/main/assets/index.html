@@ -307,6 +307,8 @@
     let movementThresholdSec = 20;
     let cameraConnectTimeoutId = null;
     let cameraAttemptToken = 0;
+    let cameraStreaming = false;
+    let cameraStreamMode = null;
     let sleepStatusPollTimeoutId = null;
     const SOUND_PRESET_VALUES = { HIGH: 300, MEDIUM: 700, LOW: 1000 };
     const MOTION_PRESET_VALUES = { HIGH: 14, MEDIUM: 20, LOW: 28 };
@@ -453,15 +455,24 @@
       }, 1500);
     }
 
-    function startCameraStream() {
+    function desiredCameraStreamMode() {
+      return sleepEnabled && motionMonitoringEnabled ? "motion" : "rear";
+    }
+
+    function startCameraStream(mode) {
       if (!webCameraEnabled) return;
+      const nextMode = mode || desiredCameraStreamMode();
+      if (cameraStreaming && cameraStreamMode === nextMode && cameraFeed.src) return;
       cameraAttemptToken += 1;
+      cameraStreaming = true;
+      cameraStreamMode = nextMode;
       cameraFeed.src = "";
       hideCameraError();
       const attempt = ++cameraAttemptToken;
-      cameraFeed.src = "/camera/stream?ts=" + Date.now();
+      cameraFeed.src = "/camera/stream?mode=" + nextMode + "&ts=" + Date.now();
       cameraConnectTimeoutId = setTimeout(() => {
         if (attempt !== cameraAttemptToken) return;
+        cameraStreaming = false;
         cameraFeed.src = "";
         showCameraError();
       }, 8000);
@@ -469,6 +480,8 @@
 
     function stopCameraStream() {
       cameraAttemptToken += 1;
+      cameraStreaming = false;
+      cameraStreamMode = null;
       hideCameraError();
       cameraFeed.src = "";
     }
@@ -500,7 +513,8 @@
         webCameraEnabled = !!settings.webCameraEnabled;
         cameraPanel.style.display = webCameraEnabled ? "block" : "none";
         if (webCameraEnabled) {
-          startCameraStream();
+          const nextMode = desiredCameraStreamMode();
+          startCameraStream(nextMode);
         } else {
           stopCameraStream();
         }
@@ -577,9 +591,13 @@
       if (!motionMonitoringEnabled) return;
       await updateSettingsPatch({ movementThresholdSec });
     });
-    cameraFeed.addEventListener("load", hideCameraError);
+    cameraFeed.addEventListener("load", () => {
+      cameraStreaming = true;
+      hideCameraError();
+    });
     cameraFeed.addEventListener("error", () => {
       if (!webCameraEnabled) return;
+      cameraStreaming = false;
       cameraFeed.src = "";
       showCameraError();
     });
