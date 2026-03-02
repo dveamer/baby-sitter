@@ -40,7 +40,7 @@ class SettingsViewModel(
         update(SettingsPatch(soundSensitivity = value))
 
     fun setCryThresholdSec(sec: Int) =
-        update(SettingsPatch(cryThresholdSec = sec.coerceIn(50, 2_000)))
+        update(SettingsPatch(cryThresholdSec = sec.coerceIn(10, 1_000)))
 
     fun setMovementThresholdSec(sec: Int) =
         update(SettingsPatch(movementThresholdSec = sec.coerceIn(5, 100)))

@@ -6,7 +6,7 @@ data class SettingsState(
     val webCameraEnabled: Boolean = false,
     val soundMonitoringEnabled: Boolean = false,
     val soundSensitivity: SoundSensitivity = SoundSensitivity.MEDIUM,
-    val cryThresholdSec: Int = 100,
+    val cryThresholdSec: Int = 250,
     val movementThresholdSec: Int = 20,
     val motionSensitivity: MotionSensitivity = MotionSensitivity.MEDIUM,
     val cameraMonitoringEnabled: Boolean = false,

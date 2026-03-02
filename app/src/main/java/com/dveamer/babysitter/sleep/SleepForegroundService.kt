@@ -134,9 +134,9 @@ class SleepForegroundService : Service() {
         val monitors = buildList<Monitor> {
             if (settings.soundMonitoringEnabled) {
                 val soundThreshold = when (settings.soundSensitivity) {
-                    SoundSensitivity.HIGH -> 150.0
-                    SoundSensitivity.MEDIUM -> 500.0
-                    SoundSensitivity.LOW -> 1000.0
+                    SoundSensitivity.HIGH -> 50.0
+                    SoundSensitivity.MEDIUM -> 250.0
+                    SoundSensitivity.LOW -> 700.0
                 }
                 add(MicrophoneMonitor(serviceScope, amplitudeThreshold = soundThreshold))
             }

@@ -93,7 +93,7 @@ class DataStoreSettingsRepository(
             webCameraEnabled = p.webCameraEnabled ?: webCameraEnabled,
             soundMonitoringEnabled = p.soundMonitoringEnabled ?: soundMonitoringEnabled,
             soundSensitivity = p.soundSensitivity ?: soundSensitivity,
-            cryThresholdSec = p.cryThresholdSec ?: cryThresholdSec,
+            cryThresholdSec = (p.cryThresholdSec ?: cryThresholdSec).coerceIn(10, 1_000),
             movementThresholdSec = p.movementThresholdSec ?: movementThresholdSec,
             motionSensitivity = p.motionSensitivity ?: motionSensitivity,
             cameraMonitoringEnabled = p.cameraMonitoringEnabled ?: cameraMonitoringEnabled,
@@ -130,7 +130,7 @@ class DataStoreSettingsRepository(
             soundSensitivity = this[Keys.SOUND_SENSITIVITY]
                 ?.let { runCatching { SoundSensitivity.valueOf(it) }.getOrNull() }
                 ?: SoundSensitivity.MEDIUM,
-            cryThresholdSec = this[Keys.CRY_THRESHOLD_SEC] ?: 700,
+            cryThresholdSec = (this[Keys.CRY_THRESHOLD_SEC] ?: 250).coerceIn(10, 1_000),
             movementThresholdSec = this[Keys.MOVEMENT_THRESHOLD_SEC] ?: 20,
             motionSensitivity = this[Keys.MOTION_SENSITIVITY]
                 ?.let { runCatching { MotionSensitivity.valueOf(it) }.getOrNull() }
