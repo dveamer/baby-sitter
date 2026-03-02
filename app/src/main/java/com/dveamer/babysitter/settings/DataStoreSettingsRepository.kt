@@ -87,7 +87,7 @@ class DataStoreSettingsRepository(
 
     private fun SettingsState.merge(update: SettingsUpdate): SettingsState {
         val p = update.patch
-        return copy(
+        var next = copy(
             sleepEnabled = p.sleepEnabled ?: sleepEnabled,
             webServiceEnabled = p.webServiceEnabled ?: webServiceEnabled,
             webCameraEnabled = p.webCameraEnabled ?: webCameraEnabled,
@@ -104,7 +104,17 @@ class DataStoreSettingsRepository(
             musicPlaylist = p.musicPlaylist ?: musicPlaylist,
             telegramBotToken = p.telegramBotToken ?: telegramBotToken,
             telegramChatId = p.telegramChatId ?: telegramChatId,
-            iotEndpoint = p.iotEndpoint ?: iotEndpoint,
+            iotEndpoint = p.iotEndpoint ?: iotEndpoint
+        )
+
+        if (!next.webServiceEnabled && next.webCameraEnabled) {
+            next = next.copy(webCameraEnabled = false)
+        }
+        if (next.sleepEnabled && !next.soundMonitoringEnabled && !next.cameraMonitoringEnabled) {
+            next = next.copy(sleepEnabled = false)
+        }
+
+        return next.copy(
             version = update.version,
             updatedAtEpochMs = update.updatedAtEpochMs,
             updatedBy = update.source

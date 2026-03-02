@@ -2,6 +2,8 @@ package com.dveamer.babysitter.web
 
 import android.content.Context
 import android.util.Log
+import com.dveamer.babysitter.monitor.CameraFrameBus
+import com.dveamer.babysitter.monitor.CameraFrameSnapshot
 import com.dveamer.babysitter.settings.MotionSensitivity
 import com.dveamer.babysitter.settings.SoundSensitivity
 import com.dveamer.babysitter.settings.SettingsController
@@ -11,10 +13,13 @@ import com.dveamer.babysitter.settings.SettingsState
 import com.dveamer.babysitter.settings.UpdateSource
 import com.dveamer.babysitter.sleep.SleepRuntimeStatusStore
 import java.io.BufferedReader
+import java.io.EOFException
+import java.io.InterruptedIOException
 import java.io.InputStreamReader
 import java.net.InetSocketAddress
 import java.net.ServerSocket
 import java.net.Socket
+import java.net.SocketException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -116,7 +121,8 @@ class LocalSettingsHttpServer(
                     }
 
                     method == "GET" && path == "/camera/stream" -> {
-                        if (!settingsRepository.state.value.webCameraEnabled) {
+                        val state = settingsRepository.state.value
+                        if (!state.webCameraEnabled) {
                             writeResponse(
                                 socket = socket,
                                 code = 403,
@@ -125,20 +131,25 @@ class LocalSettingsHttpServer(
                             )
                             return@runCatching
                         }
-                        runCatching {
-                            cameraStream.stream(socket) {
-                                settingsRepository.state.value.webCameraEnabled
-                            }
-                        }.onFailure { e ->
-                            if (e is SecurityException) {
-                                writeResponse(
-                                    socket = socket,
-                                    code = 403,
-                                    status = "Forbidden",
-                                    body = """{"error":"camera_permission_required"}"""
-                                )
-                            } else {
-                                throw e
+                        if (state.sleepEnabled && state.cameraMonitoringEnabled) {
+                            streamFromMotionCamera(socket)
+                        } else {
+                            runCatching {
+                                cameraStream.stream(socket) {
+                                    val current = settingsRepository.state.value
+                                    current.webCameraEnabled && !(current.sleepEnabled && current.cameraMonitoringEnabled)
+                                }
+                            }.onFailure { e ->
+                                if (e is SecurityException) {
+                                    writeResponse(
+                                        socket = socket,
+                                        code = 403,
+                                        status = "Forbidden",
+                                        body = """{"error":"camera_permission_required"}"""
+                                    )
+                                } else {
+                                    throw e
+                                }
                             }
                         }
                     }
@@ -192,7 +203,11 @@ class LocalSettingsHttpServer(
                     }
                 }
             }.onFailure { e ->
-                Log.w(TAG, "client handling failed", e)
+                if (isClientDisconnect(e)) {
+                    Log.d(TAG, "client disconnected during request handling")
+                } else {
+                    Log.w(TAG, "client handling failed", e)
+                }
             }
         }
     }
@@ -268,10 +283,56 @@ class LocalSettingsHttpServer(
         }
     }
 
+    private fun streamFromMotionCamera(socket: Socket) {
+        try {
+            val output = socket.getOutputStream()
+            val headers = buildString {
+                append("HTTP/1.1 200 OK\r\n")
+                append("Content-Type: multipart/x-mixed-replace; boundary=$MOTION_BOUNDARY\r\n")
+                append("Cache-Control: no-cache\r\n")
+                append("Connection: close\r\n")
+                append("\r\n")
+            }
+            output.write(headers.toByteArray(Charsets.UTF_8))
+            output.flush()
+            while (!socket.isClosed) {
+                val state = settingsRepository.state.value
+                if (!state.webCameraEnabled || !state.sleepEnabled || !state.cameraMonitoringEnabled) break
+                val frame = CameraFrameBus.latest()
+                if (frame == null || isStale(frame)) {
+                    Thread.sleep(MOTION_STREAM_WAIT_MS)
+                    continue
+                }
+                val partHeader = buildString {
+                    append("--$MOTION_BOUNDARY\r\n")
+                    append("Content-Type: image/jpeg\r\n")
+                    append("Content-Length: ${frame.jpeg.size}\r\n")
+                    append("\r\n")
+                }
+                output.write(partHeader.toByteArray(Charsets.UTF_8))
+                output.write(frame.jpeg)
+                output.write("\r\n".toByteArray(Charsets.UTF_8))
+                output.flush()
+                Thread.sleep(MOTION_STREAM_INTERVAL_MS)
+            }
+        } catch (e: Throwable) {
+            if (isClientDisconnect(e)) {
+                Log.d(TAG, "motion camera stream client disconnected")
+            } else {
+                throw e
+            }
+        }
+    }
+
+    private fun isStale(frame: CameraFrameSnapshot): Boolean {
+        return System.currentTimeMillis() - frame.capturedAtMs > MOTION_STREAM_STALE_MS
+    }
+
     private fun settingsToJson(state: SettingsState): String {
         val runtime = SleepRuntimeStatusStore.state.value
         return JSONObject()
             .put("sleepEnabled", state.sleepEnabled)
+            .put("webServiceEnabled", state.webServiceEnabled)
             .put("webCameraEnabled", state.webCameraEnabled)
             .put("soundMonitoringEnabled", state.soundMonitoringEnabled)
             .put("soundSensitivity", state.soundSensitivity.name)
@@ -289,6 +350,26 @@ class LocalSettingsHttpServer(
     companion object {
         private const val TAG = "LocalSettingsHttpServer"
         const val PORT = 8901
+        private const val MOTION_BOUNDARY = "motion-frame"
+        private const val MOTION_STREAM_INTERVAL_MS = 120L
+        private const val MOTION_STREAM_WAIT_MS = 100L
+        private const val MOTION_STREAM_STALE_MS = 2_000L
+    }
+
+    private fun isClientDisconnect(t: Throwable): Boolean {
+        if (t is EOFException || t is InterruptedIOException) return true
+        if (t is SocketException) {
+            val msg = t.message?.lowercase().orEmpty()
+            if (
+                msg.contains("broken pipe") ||
+                msg.contains("connection reset") ||
+                msg.contains("socket closed") ||
+                msg.contains("software caused connection abort")
+            ) {
+                return true
+            }
+        }
+        return false
     }
 }
 

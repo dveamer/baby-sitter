@@ -18,7 +18,10 @@ import android.os.HandlerThread
 import android.util.Log
 import androidx.core.content.ContextCompat
 import java.io.ByteArrayOutputStream
+import java.io.EOFException
+import java.io.InterruptedIOException
 import java.net.Socket
+import java.net.SocketException
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicInteger
@@ -90,7 +93,11 @@ class RearCameraMjpegSource(
                 Thread.sleep(FRAME_INTERVAL_MS)
             }
         } catch (e: Throwable) {
-            Log.w(TAG, "camera stream client disconnected or failed", e)
+            if (isClientDisconnect(e)) {
+                Log.d(TAG, "camera stream client disconnected")
+            } else {
+                Log.w(TAG, "camera stream client disconnected or failed", e)
+            }
         } finally {
             removeClient()
         }
@@ -230,7 +237,7 @@ class RearCameraMjpegSource(
     }
 
     private fun stopCameraLocked() {
-        runCatching { captureSession?.stopRepeating() }
+        runCatching { captureSession?.abortCaptures() }
         runCatching { captureSession?.close() }
         runCatching { cameraDevice?.close() }
         runCatching { imageReader?.close() }
@@ -298,6 +305,22 @@ class RearCameraMjpegSource(
         private const val WEB_PREVIEW_ROTATION_DEGREES = 90
         private const val WEB_PREVIEW_JPEG_QUALITY = 85
         private const val BOUNDARY = "frame"
+    }
+
+    private fun isClientDisconnect(t: Throwable): Boolean {
+        if (t is EOFException || t is InterruptedIOException) return true
+        if (t is SocketException) {
+            val msg = t.message?.lowercase().orEmpty()
+            if (
+                msg.contains("broken pipe") ||
+                msg.contains("connection reset") ||
+                msg.contains("socket closed") ||
+                msg.contains("software caused connection abort")
+            ) {
+                return true
+            }
+        }
+        return false
     }
 }
 

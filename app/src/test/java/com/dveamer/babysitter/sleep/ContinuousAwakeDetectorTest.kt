@@ -13,13 +13,13 @@ import org.junit.Test
 class ContinuousAwakeDetectorTest {
 
     @Test
-    fun `12개 5초 윈도우 연속 active 전에는 awake 아님`() {
+    fun `20초 연속 active 전에는 awake 아님`() {
         val detector = ContinuousAwakeDetector { SettingsState() }
         val monitorId = "mic-1"
         val base = 1_000L
 
-        repeat(12) { idx ->
-            val ts = base + idx * 5_000L
+        repeat(20) { idx ->
+            val ts = base + idx * 1_000L
             val state = detector.onSignal(
                 signal = MonitorSignal(
                     monitorId = monitorId,
@@ -34,13 +34,13 @@ class ContinuousAwakeDetectorTest {
     }
 
     @Test
-    fun `12개 5초 윈도우가 완성되면 awake true`() {
+    fun `20초 연속 active가 완성되면 awake true`() {
         val detector = ContinuousAwakeDetector { SettingsState() }
         val monitorId = "mic-1"
         val base = 1_000L
 
-        repeat(12) { idx ->
-            val ts = base + idx * 5_000L
+        repeat(20) { idx ->
+            val ts = base + idx * 1_000L
             detector.onSignal(
                 signal = MonitorSignal(
                     monitorId = monitorId,
@@ -52,7 +52,7 @@ class ContinuousAwakeDetectorTest {
             )
         }
 
-        val triggerTs = base + 12 * 5_000L
+        val triggerTs = base + 20 * 1_000L
         val state = detector.onSignal(
             signal = MonitorSignal(
                 monitorId = monitorId,
@@ -65,8 +65,51 @@ class ContinuousAwakeDetectorTest {
 
         assertTrue(state.isAwake)
         assertNotNull(state.awakeSinceMs)
-        assertEquals(0L, state.awakeSinceMs)
+        assertEquals(base, state.awakeSinceMs)
         assertEquals(monitorId, state.reason)
+    }
+
+    @Test
+    fun `active 신호가 3초 이상 끊기면 awake 연속성이 초기화된다`() {
+        val detector = ContinuousAwakeDetector { SettingsState() }
+        val monitorId = "mic-1"
+        val base = 1_000L
+
+        repeat(10) { idx ->
+            val ts = base + idx * 1_000L
+            detector.onSignal(
+                signal = MonitorSignal(
+                    monitorId = monitorId,
+                    kind = MonitorKind.MICROPHONE,
+                    active = true,
+                    timestampMs = ts
+                ),
+                nowMs = ts
+            )
+        }
+
+        val inactiveTs = base + 13_000L
+        detector.onSignal(
+            signal = MonitorSignal(
+                monitorId = monitorId,
+                kind = MonitorKind.MICROPHONE,
+                active = false,
+                timestampMs = inactiveTs
+            ),
+            nowMs = inactiveTs
+        )
+
+        assertNull(activeSince(detector)[monitorId])
+        val resumed = detector.onSignal(
+            signal = MonitorSignal(
+                monitorId = monitorId,
+                kind = MonitorKind.MICROPHONE,
+                active = true,
+                timestampMs = inactiveTs + 1_000L
+            ),
+            nowMs = inactiveTs + 1_000L
+        )
+        assertFalse(resumed.isAwake)
     }
 
     @Test
@@ -87,19 +130,8 @@ class ContinuousAwakeDetectorTest {
 
         detector.onSignal(
             signal = MonitorSignal(
-                monitorId = monitorId,
-                kind = MonitorKind.MICROPHONE,
-                active = false,
-                timestampMs = base + (10 * 60 * 1_000L) - 1_000L
-            ),
-            nowMs = base + (10 * 60 * 1_000L) - 1_000L
-        )
-        assertEquals(base, activeSince(detector)[monitorId])
-
-        detector.onSignal(
-            signal = MonitorSignal(
-                monitorId = monitorId,
-                kind = MonitorKind.MICROPHONE,
+                monitorId = "camera-1",
+                kind = MonitorKind.CAMERA,
                 active = false,
                 timestampMs = base + (10 * 60 * 1_000L)
             ),

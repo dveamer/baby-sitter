@@ -215,8 +215,8 @@ class MainActivity : ComponentActivity() {
                                 onSoundSensitivityChange = { sensitivity ->
                                     vm.setSoundSensitivity(sensitivity)
                                     val preset = when (sensitivity) {
-                                        SoundSensitivity.HIGH -> 300
-                                        SoundSensitivity.MEDIUM -> 700
+                                        SoundSensitivity.HIGH -> 100
+                                        SoundSensitivity.MEDIUM -> 500
                                         SoundSensitivity.LOW -> 1000
                                     }
                                     vm.setCryThresholdSec(preset)
@@ -876,8 +876,8 @@ private fun SoundSensitivitySelector(
     onThresholdValueChange: (Int) -> Unit
 ) {
     val selectedPreset = when (thresholdValue) {
-        300 -> SoundSensitivity.HIGH
-        700 -> SoundSensitivity.MEDIUM
+        100 -> SoundSensitivity.HIGH
+        500 -> SoundSensitivity.MEDIUM
         1000 -> SoundSensitivity.LOW
         else -> null
     }

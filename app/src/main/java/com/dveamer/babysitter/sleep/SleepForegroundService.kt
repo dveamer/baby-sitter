@@ -96,7 +96,12 @@ class SleepForegroundService : Service() {
         startStopLock.withLock {
             stopMonitoring()
             SleepRuntimeStatusStore.reset()
-            acquireWakeLock()
+            val shouldHoldWakeLock = container.settingsRepository.state.value.sleepEnabled
+            if (shouldHoldWakeLock) {
+                acquireWakeLock()
+            } else {
+                releaseWakeLock()
+            }
             monitoringJob = serviceScope.launch {
                 runEngine()
             }
@@ -120,10 +125,19 @@ class SleepForegroundService : Service() {
 
     private suspend fun runEngine() {
         val settings = container.settingsRepository.state.value
+        if (!settings.sleepEnabled) {
+            // Keep foreground process alive for non-sleep features (e.g., web service),
+            // but do not run monitors/soothing.
+            return
+        }
 
         val monitors = buildList<Monitor> {
             if (settings.soundMonitoringEnabled) {
-                val soundThreshold = settings.cryThresholdSec.coerceIn(50, 2_000).toDouble()
+                val soundThreshold = when (settings.soundSensitivity) {
+                    SoundSensitivity.HIGH -> 150.0
+                    SoundSensitivity.MEDIUM -> 500.0
+                    SoundSensitivity.LOW -> 1000.0
+                }
                 add(MicrophoneMonitor(serviceScope, amplitudeThreshold = soundThreshold))
             }
             if (settings.cameraMonitoringEnabled) {
@@ -166,7 +180,9 @@ class SleepForegroundService : Service() {
         try {
             monitors.forEach { it.start() }
             if (monitors.isEmpty()) {
-                Log.w(TAG, "monitoring is enabled but no monitor is available")
+                if (settings.sleepEnabled) {
+                    Log.w(TAG, "sleep enabled but no monitor is available")
+                }
                 return
             }
             SleepRuntimeStatusStore.setMonitoringActive(true)

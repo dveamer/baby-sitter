@@ -47,7 +47,8 @@ class CameraMonitor(
 
     private var handlerThread: HandlerThread? = null
     private var handler: Handler? = null
-    private var imageReader: ImageReader? = null
+    private var yuvImageReader: ImageReader? = null
+    private var jpegImageReader: ImageReader? = null
     private var cameraDevice: CameraDevice? = null
     private var captureSession: CameraCaptureSession? = null
 
@@ -106,13 +107,20 @@ class CameraMonitor(
         handlerThread = thread
         handler = callbackHandler
 
-        val reader = ImageReader.newInstance(CAPTURE_WIDTH, CAPTURE_HEIGHT, ImageFormat.YUV_420_888, 2).apply {
+        val yuvReader = ImageReader.newInstance(CAPTURE_WIDTH, CAPTURE_HEIGHT, ImageFormat.YUV_420_888, 2).apply {
             setOnImageAvailableListener({ ir ->
                 val image = ir.acquireLatestImage() ?: return@setOnImageAvailableListener
-                onImageAvailable(image)
+                onYuvImageAvailable(image)
             }, callbackHandler)
         }
-        imageReader = reader
+        yuvImageReader = yuvReader
+        val jpegReader = ImageReader.newInstance(CAPTURE_WIDTH, CAPTURE_HEIGHT, ImageFormat.JPEG, 2).apply {
+            setOnImageAvailableListener({ ir ->
+                val image = ir.acquireLatestImage() ?: return@setOnImageAvailableListener
+                onJpegImageAvailable(image)
+            }, callbackHandler)
+        }
+        jpegImageReader = jpegReader
 
         val latch = CountDownLatch(1)
         var openError: Throwable? = null
@@ -122,7 +130,8 @@ class CameraMonitor(
                 cameraDevice = camera
                 val requestBuilder = runCatching {
                     camera.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW).apply {
-                        addTarget(reader.surface)
+                        addTarget(yuvReader.surface)
+                        addTarget(jpegReader.surface)
                         set(
                             CaptureRequest.CONTROL_AF_MODE,
                             CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE
@@ -135,7 +144,7 @@ class CameraMonitor(
                 }
 
                 camera.createCaptureSession(
-                    listOf(reader.surface),
+                    listOf(yuvReader.surface, jpegReader.surface),
                     object : CameraCaptureSession.StateCallback() {
                         override fun onConfigured(session: CameraCaptureSession) {
                             captureSession = session
@@ -180,25 +189,46 @@ class CameraMonitor(
     }
 
     private fun stopCameraCapture() {
-        runCatching { captureSession?.stopRepeating() }
+        runCatching { captureSession?.abortCaptures() }
         runCatching { captureSession?.close() }
         runCatching { cameraDevice?.close() }
-        runCatching { imageReader?.close() }
+        runCatching { yuvImageReader?.close() }
+        runCatching { jpegImageReader?.close() }
         runCatching { handlerThread?.quitSafely() }
         captureSession = null
         cameraDevice = null
-        imageReader = null
+        yuvImageReader = null
+        jpegImageReader = null
         handler = null
         handlerThread = null
         latestFrame.set(null)
+        CameraFrameBus.clear()
     }
 
-    private fun onImageAvailable(image: Image) {
+    private fun onYuvImageAvailable(image: Image) {
         try {
             val frame = preprocessFrame(image)
             latestFrame.set(frame)
         } catch (t: Throwable) {
             Log.w(TAG, "frame preprocess failed", t)
+        } finally {
+            image.close()
+        }
+    }
+
+    private fun onJpegImageAvailable(image: Image) {
+        try {
+            val buffer = image.planes.firstOrNull()?.buffer ?: return
+            val bytes = ByteArray(buffer.remaining())
+            buffer.get(bytes)
+            CameraFrameBus.publish(
+                CameraFrameSnapshot(
+                    jpeg = bytes,
+                    capturedAtMs = System.currentTimeMillis()
+                )
+            )
+        } catch (t: Throwable) {
+            Log.w(TAG, "jpeg frame read failed", t)
         } finally {
             image.close()
         }
