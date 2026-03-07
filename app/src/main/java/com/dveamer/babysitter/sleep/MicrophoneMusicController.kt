@@ -8,30 +8,40 @@ enum class MicrophoneMusicAction {
 
 class MicrophoneMusicController {
     private var microphoneOwnedPlayback = false
+    private var lastActive = false
+    private var lastLullabyActive = false
 
     fun onSignal(
         active: Boolean,
         lullabyActive: Boolean
     ): MicrophoneMusicAction {
-        if (!active && !lullabyActive) {
-            microphoneOwnedPlayback = false
-            return MicrophoneMusicAction.NONE
+        val action = when {
+            !active && !lullabyActive -> {
+                microphoneOwnedPlayback = false
+                MicrophoneMusicAction.NONE
+            }
+
+            active && !lullabyActive && (!lastActive || lastLullabyActive || !microphoneOwnedPlayback) -> {
+                microphoneOwnedPlayback = true
+                MicrophoneMusicAction.START
+            }
+
+            !active && lullabyActive && microphoneOwnedPlayback -> {
+                microphoneOwnedPlayback = false
+                MicrophoneMusicAction.STOP
+            }
+
+            else -> MicrophoneMusicAction.NONE
         }
 
-        if (active && !lullabyActive && !microphoneOwnedPlayback) {
-            microphoneOwnedPlayback = true
-            return MicrophoneMusicAction.START
-        }
-
-        if (!active && lullabyActive && microphoneOwnedPlayback) {
-            microphoneOwnedPlayback = false
-            return MicrophoneMusicAction.STOP
-        }
-
-        return MicrophoneMusicAction.NONE
+        lastActive = active
+        lastLullabyActive = lullabyActive
+        return action
     }
 
     fun reset() {
         microphoneOwnedPlayback = false
+        lastActive = false
+        lastLullabyActive = false
     }
 }

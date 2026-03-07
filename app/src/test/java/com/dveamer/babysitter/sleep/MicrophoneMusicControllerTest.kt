@@ -27,6 +27,21 @@ class MicrophoneMusicControllerTest {
     }
 
     @Test
+    fun `마이크가 active인 동안 lullaby가 자연 종료되면 다시 start한다`() {
+        val controller = MicrophoneMusicController()
+
+        assertEquals(MicrophoneMusicAction.START, controller.onSignal(active = true, lullabyActive = false))
+        assertEquals(MicrophoneMusicAction.NONE, controller.onSignal(active = true, lullabyActive = true))
+
+        val action = controller.onSignal(
+            active = true,
+            lullabyActive = false
+        )
+
+        assertEquals(MicrophoneMusicAction.START, action)
+    }
+
+    @Test
     fun `마이크가 시작한 lullaby는 inactive가 되면 stop`() {
         val controller = MicrophoneMusicController()
 

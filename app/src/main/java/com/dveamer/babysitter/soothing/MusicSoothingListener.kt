@@ -72,11 +72,12 @@ class MusicSoothingListener(
                 try {
                     playlist.forEach { uriString ->
                         val uri = Uri.parse(uriString)
-                        runCatching {
+                        try {
                             playOnce(uri)
-                        }.onSuccess {
                             playedCount += 1
-                        }.onFailure { t ->
+                        } catch (cancelled: CancellationException) {
+                            throw cancelled
+                        } catch (t: Throwable) {
                             Log.w(TAG, "track failed uri=$uri", t)
                         }
                     }
