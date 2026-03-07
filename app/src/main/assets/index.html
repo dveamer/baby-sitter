@@ -421,6 +421,7 @@
     let memoryItems = [];
     let selectedMemoryFile = null;
     let sharingMemoryFile = null;
+    const SLEEP_STATUS_POLL_INTERVAL_MS = 10000;
     const SOUND_PRESET_VALUES = { HIGH: 250, MEDIUM: 500, LOW: 750 };
     const MOTION_PRESET_VALUES = { HIGH: 14, MEDIUM: 20, LOW: 28 };
     const isKoreanUser = (navigator.language || "").toLowerCase().startsWith("ko");
@@ -747,7 +748,7 @@
       if (!sleepEnabled) return;
       sleepStatusPollTimeoutId = setTimeout(() => {
         loadSettings({ silent: true });
-      }, 1500);
+      }, SLEEP_STATUS_POLL_INTERVAL_MS);
     }
 
     function desiredCameraStreamMode() {
