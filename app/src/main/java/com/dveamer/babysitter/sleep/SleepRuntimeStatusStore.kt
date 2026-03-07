@@ -5,7 +5,9 @@ import kotlinx.coroutines.flow.StateFlow
 
 data class SleepRuntimeStatus(
     val monitoringActive: Boolean = false,
-    val lullabyActive: Boolean = false
+    val lullabyActive: Boolean = false,
+    val memoryBuildInProgress: Boolean = false,
+    val lastMemoryBuiltAtMs: Long? = null
 )
 
 object SleepRuntimeStatusStore {
@@ -18,6 +20,14 @@ object SleepRuntimeStatusStore {
 
     fun setLullabyActive(active: Boolean) {
         mutableState.value = mutableState.value.copy(lullabyActive = active)
+    }
+
+    fun setMemoryBuildInProgress(inProgress: Boolean) {
+        mutableState.value = mutableState.value.copy(memoryBuildInProgress = inProgress)
+    }
+
+    fun setLastMemoryBuiltAt(epochMs: Long) {
+        mutableState.value = mutableState.value.copy(lastMemoryBuiltAtMs = epochMs)
     }
 
     fun reset() {

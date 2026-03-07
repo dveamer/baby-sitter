@@ -1,20 +1,6 @@
 package com.dveamer.babysitter.monitor
 
-import android.Manifest
-import android.content.Context
-import android.content.pm.PackageManager
-import android.graphics.ImageFormat
-import android.hardware.camera2.CameraCaptureSession
-import android.hardware.camera2.CameraCharacteristics
-import android.hardware.camera2.CameraDevice
-import android.hardware.camera2.CameraManager
-import android.hardware.camera2.CaptureRequest
-import android.media.Image
-import android.media.ImageReader
-import android.os.Handler
-import android.os.HandlerThread
-import android.util.Log
-import androidx.core.content.ContextCompat
+import android.graphics.BitmapFactory
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -24,16 +10,10 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
-import java.util.concurrent.CountDownLatch
-import java.util.concurrent.TimeUnit
-import java.util.concurrent.atomic.AtomicReference
 import kotlin.math.abs
-import kotlin.math.max
-import kotlin.math.min
 
 class CameraMonitor(
     private val scope: CoroutineScope,
-    private val appContext: Context,
     private val diffThreshold: Int = DEFAULT_DIFF_THRESHOLD,
     private val minChangedRatio: Double = DEFAULT_MIN_CHANGED_RATIO,
     override val id: String = "camera"
@@ -43,31 +23,16 @@ class CameraMonitor(
     override val signals: Flow<MonitorSignal> = mutableSignals.asSharedFlow()
 
     private var job: Job? = null
-    private val latestFrame = AtomicReference<FrameData?>(null)
-
-    private var handlerThread: HandlerThread? = null
-    private var handler: Handler? = null
-    private var yuvImageReader: ImageReader? = null
-    private var jpegImageReader: ImageReader? = null
-    private var cameraDevice: CameraDevice? = null
-    private var captureSession: CameraCaptureSession? = null
 
     override suspend fun start() {
         if (job != null) return
-        if (ContextCompat.checkSelfPermission(appContext, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            Log.w(TAG, "camera permission denied")
-            return
-        }
-
-        val started = runCatching { startCameraCapture() }
-            .onFailure { Log.w(TAG, "camera start failed", it) }
-            .isSuccess
-        if (!started) return
 
         job = scope.launch(Dispatchers.Default) {
             var previous: FrameData? = null
             while (isActive) {
-                val current = latestFrame.get()
+                val snapshot = CameraFrameBus.latest()
+                val current = snapshot?.takeIf { !isStale(it) }?.let { decodeFrame(it.jpeg, it.capturedAtMs) }
+
                 val active = when {
                     current == null -> false
                     previous == null -> false
@@ -86,7 +51,7 @@ class CameraMonitor(
                 if (current != null) {
                     previous = current
                 }
-                delay(1_000)
+                delay(POLL_INTERVAL_MS)
             }
         }
     }
@@ -94,184 +59,34 @@ class CameraMonitor(
     override suspend fun stop() {
         job?.cancel()
         job = null
-        stopCameraCapture()
     }
 
-    @Suppress("MissingPermission")
-    private fun startCameraCapture() {
-        val manager = appContext.getSystemService(Context.CAMERA_SERVICE) as CameraManager
-        val cameraId = selectRearCameraId(manager) ?: throw IllegalStateException("rear camera not found")
-
-        val thread = HandlerThread("CameraMonitor").apply { start() }
-        val callbackHandler = Handler(thread.looper)
-        handlerThread = thread
-        handler = callbackHandler
-
-        val yuvReader = ImageReader.newInstance(CAPTURE_WIDTH, CAPTURE_HEIGHT, ImageFormat.YUV_420_888, 2).apply {
-            setOnImageAvailableListener({ ir ->
-                val image = ir.acquireLatestImage() ?: return@setOnImageAvailableListener
-                onYuvImageAvailable(image)
-            }, callbackHandler)
+    private fun decodeFrame(jpeg: ByteArray, capturedAtMs: Long): FrameData? {
+        val options = BitmapFactory.Options().apply {
+            inPreferredConfig = android.graphics.Bitmap.Config.ARGB_8888
+            inSampleSize = 8
         }
-        yuvImageReader = yuvReader
-        val jpegReader = ImageReader.newInstance(CAPTURE_WIDTH, CAPTURE_HEIGHT, ImageFormat.JPEG, 2).apply {
-            setOnImageAvailableListener({ ir ->
-                val image = ir.acquireLatestImage() ?: return@setOnImageAvailableListener
-                onJpegImageAvailable(image)
-            }, callbackHandler)
+        val bmp = runCatching { BitmapFactory.decodeByteArray(jpeg, 0, jpeg.size, options) }.getOrNull()
+            ?: return null
+        val width = bmp.width
+        val height = bmp.height
+        if (width <= 0 || height <= 0) {
+            bmp.recycle()
+            return null
         }
-        jpegImageReader = jpegReader
+        val pixels = IntArray(width * height)
+        bmp.getPixels(pixels, 0, width, 0, 0, width, height)
+        bmp.recycle()
 
-        val latch = CountDownLatch(1)
-        var openError: Throwable? = null
-
-        manager.openCamera(cameraId, object : CameraDevice.StateCallback() {
-            override fun onOpened(camera: CameraDevice) {
-                cameraDevice = camera
-                val requestBuilder = runCatching {
-                    camera.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW).apply {
-                        addTarget(yuvReader.surface)
-                        addTarget(jpegReader.surface)
-                        set(
-                            CaptureRequest.CONTROL_AF_MODE,
-                            CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE
-                        )
-                    }
-                }.getOrElse { e ->
-                    openError = e
-                    latch.countDown()
-                    return
-                }
-
-                camera.createCaptureSession(
-                    listOf(yuvReader.surface, jpegReader.surface),
-                    object : CameraCaptureSession.StateCallback() {
-                        override fun onConfigured(session: CameraCaptureSession) {
-                            captureSession = session
-                            runCatching {
-                                session.setRepeatingRequest(requestBuilder.build(), null, callbackHandler)
-                            }.onFailure { e ->
-                                openError = e
-                            }
-                            latch.countDown()
-                        }
-
-                        override fun onConfigureFailed(session: CameraCaptureSession) {
-                            openError = IllegalStateException("camera session configure failed")
-                            latch.countDown()
-                        }
-                    },
-                    callbackHandler
-                )
-            }
-
-            override fun onDisconnected(camera: CameraDevice) {
-                openError = IllegalStateException("camera disconnected")
-                runCatching { camera.close() }
-                latch.countDown()
-            }
-
-            override fun onError(camera: CameraDevice, error: Int) {
-                openError = IllegalStateException("camera open error=$error")
-                runCatching { camera.close() }
-                latch.countDown()
-            }
-        }, callbackHandler)
-
-        if (!latch.await(5, TimeUnit.SECONDS)) {
-            stopCameraCapture()
-            throw IllegalStateException("camera start timeout")
+        val gray = IntArray(pixels.size)
+        for (i in pixels.indices) {
+            val c = pixels[i]
+            val r = (c shr 16) and 0xFF
+            val g = (c shr 8) and 0xFF
+            val b = c and 0xFF
+            gray[i] = (r * 30 + g * 59 + b * 11) / 100
         }
-        openError?.let {
-            stopCameraCapture()
-            throw it
-        }
-    }
-
-    private fun stopCameraCapture() {
-        runCatching { captureSession?.abortCaptures() }
-        runCatching { captureSession?.close() }
-        runCatching { cameraDevice?.close() }
-        runCatching { yuvImageReader?.close() }
-        runCatching { jpegImageReader?.close() }
-        runCatching { handlerThread?.quitSafely() }
-        captureSession = null
-        cameraDevice = null
-        yuvImageReader = null
-        jpegImageReader = null
-        handler = null
-        handlerThread = null
-        latestFrame.set(null)
-        CameraFrameBus.clear()
-    }
-
-    private fun onYuvImageAvailable(image: Image) {
-        try {
-            val frame = preprocessFrame(image)
-            latestFrame.set(frame)
-        } catch (t: Throwable) {
-            Log.w(TAG, "frame preprocess failed", t)
-        } finally {
-            image.close()
-        }
-    }
-
-    private fun onJpegImageAvailable(image: Image) {
-        try {
-            val buffer = image.planes.firstOrNull()?.buffer ?: return
-            val bytes = ByteArray(buffer.remaining())
-            buffer.get(bytes)
-            CameraFrameBus.publish(
-                CameraFrameSnapshot(
-                    jpeg = bytes,
-                    capturedAtMs = System.currentTimeMillis()
-                )
-            )
-        } catch (t: Throwable) {
-            Log.w(TAG, "jpeg frame read failed", t)
-        } finally {
-            image.close()
-        }
-    }
-
-    private fun preprocessFrame(image: Image): FrameData {
-        val plane = image.planes.first()
-        val buffer = plane.buffer
-        val rowStride = plane.rowStride
-        val width = image.width
-        val height = image.height
-        val src = ByteArray(buffer.remaining())
-        buffer.get(src)
-
-        val targetW = max(1, width / DOWNSAMPLE_FACTOR)
-        val targetH = max(1, height / DOWNSAMPLE_FACTOR)
-        val downsampled = IntArray(targetW * targetH)
-
-        for (ty in 0 until targetH) {
-            val srcY0 = ty * DOWNSAMPLE_FACTOR
-            for (tx in 0 until targetW) {
-                val srcX0 = tx * DOWNSAMPLE_FACTOR
-                var sum = 0
-                var count = 0
-                for (dy in 0 until DOWNSAMPLE_FACTOR) {
-                    val sy = srcY0 + dy
-                    if (sy >= height) continue
-                    val rowStart = sy * rowStride
-                    for (dx in 0 until DOWNSAMPLE_FACTOR) {
-                        val sx = srcX0 + dx
-                        if (sx >= width) continue
-                        val idx = rowStart + sx
-                        if (idx >= src.size) continue
-                        sum += src[idx].toInt() and 0xFF
-                        count += 1
-                    }
-                }
-                downsampled[ty * targetW + tx] = if (count > 0) sum / count else 0
-            }
-        }
-
-        val blurred = boxBlur(downsampled, targetW, targetH)
-        return FrameData(gray = blurred, width = targetW, height = targetH, timestampMs = System.currentTimeMillis())
+        return FrameData(gray, width, height, capturedAtMs)
     }
 
     private fun detectMovement(prev: FrameData, current: FrameData): Boolean {
@@ -294,28 +109,6 @@ class CameraMonitor(
         val changedRatio = changedPixels.toDouble() / size.toDouble()
 
         return changedPixels >= MIN_CHANGED_PIXELS && changedRatio >= ratioThreshold
-    }
-
-    private fun boxBlur(src: IntArray, width: Int, height: Int): IntArray {
-        val out = IntArray(src.size)
-        for (y in 0 until height) {
-            for (x in 0 until width) {
-                var sum = 0
-                var count = 0
-                for (dy in -1..1) {
-                    val ny = y + dy
-                    if (ny !in 0 until height) continue
-                    for (dx in -1..1) {
-                        val nx = x + dx
-                        if (nx !in 0 until width) continue
-                        sum += src[ny * width + nx]
-                        count += 1
-                    }
-                }
-                out[y * width + x] = if (count > 0) sum / count else src[y * width + x]
-            }
-        }
-        return out
     }
 
     private fun erode(src: IntArray, width: Int, height: Int): IntArray {
@@ -368,11 +161,8 @@ class CameraMonitor(
         return out
     }
 
-    private fun selectRearCameraId(manager: CameraManager): String? {
-        return manager.cameraIdList.firstOrNull { id ->
-            val facing = manager.getCameraCharacteristics(id).get(CameraCharacteristics.LENS_FACING)
-            facing == CameraCharacteristics.LENS_FACING_BACK
-        } ?: manager.cameraIdList.firstOrNull()
+    private fun isStale(snapshot: CameraFrameSnapshot): Boolean {
+        return System.currentTimeMillis() - snapshot.capturedAtMs > STALE_TIMEOUT_MS
     }
 
     private data class FrameData(
@@ -383,12 +173,10 @@ class CameraMonitor(
     )
 
     private companion object {
-        const val TAG = "CameraMonitor"
-        const val CAPTURE_WIDTH = 640
-        const val CAPTURE_HEIGHT = 480
-        const val DOWNSAMPLE_FACTOR = 4
         const val DEFAULT_DIFF_THRESHOLD = 20
         const val MIN_CHANGED_PIXELS = 120
         const val DEFAULT_MIN_CHANGED_RATIO = 0.03
+        const val STALE_TIMEOUT_MS = 2_000L
+        const val POLL_INTERVAL_MS = 1_000L
     }
 }

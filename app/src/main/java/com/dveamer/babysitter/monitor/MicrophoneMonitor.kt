@@ -1,8 +1,6 @@
 package com.dveamer.babysitter.monitor
 
-import android.media.AudioFormat
-import android.media.AudioRecord
-import android.media.MediaRecorder
+import com.dveamer.babysitter.collect.CollectAudioBus
 import android.util.Log
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -13,7 +11,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
-import kotlin.math.abs
+import kotlin.math.max
 
 class MicrophoneMonitor(
     private val scope: CoroutineScope,
@@ -25,66 +23,67 @@ class MicrophoneMonitor(
     override val signals: Flow<MonitorSignal> = mutableSignals.asSharedFlow()
 
     private var job: Job? = null
-    private var recorder: AudioRecord? = null
 
     override suspend fun start() {
         if (job != null) return
 
-        val sampleRate = 16_000
-        val minBuffer = AudioRecord.getMinBufferSize(
-            sampleRate,
-            AudioFormat.CHANNEL_IN_MONO,
-            AudioFormat.ENCODING_PCM_16BIT
-        )
-        val bufferSize = if (minBuffer > 0) minBuffer * 2 else 4096
+        job = scope.launch(Dispatchers.Default) {
+            var noiseFloor = 0.0
+            var activeStreak = 0
+            var inactiveStreak = 0
+            var currentActive = false
+            var pollCount = 0L
 
-        val audio = try {
-            AudioRecord(
-                MediaRecorder.AudioSource.MIC,
-                sampleRate,
-                AudioFormat.CHANNEL_IN_MONO,
-                AudioFormat.ENCODING_PCM_16BIT,
-                bufferSize
-            ).also { it.startRecording() }
-        } catch (se: SecurityException) {
-            Log.w(TAG, "microphone permission denied", se)
-            return
-        } catch (t: Throwable) {
-            Log.w(TAG, "microphone start failed", t)
-            return
-        }
-        recorder = audio
-
-        job = scope.launch(Dispatchers.IO) {
-            val buffer = ShortArray(bufferSize / 2)
             while (isActive) {
-                val read = runCatching {
-                    audio.read(buffer, 0, buffer.size, AudioRecord.READ_BLOCKING)
-                }.getOrElse {
-                    Log.w(TAG, "microphone read failed", it)
-                    -1
+                val snapshot = CollectAudioBus.latest()
+                val amplitude = snapshot?.averageAmplitude ?: 0.0
+                val fresh = snapshot != null && (System.currentTimeMillis() - snapshot.capturedAtMs) <= STALE_TIMEOUT_MS
+                var dynamicThreshold = amplitudeThreshold
+                var rawActive = false
+
+                if (!fresh) {
+                    activeStreak = 0
+                    inactiveStreak += 1
+                } else {
+                    noiseFloor = updateNoiseFloor(noiseFloor, amplitude)
+                    dynamicThreshold = max(
+                        amplitudeThreshold,
+                        max(noiseFloor * NOISE_MULTIPLIER, noiseFloor + NOISE_OFFSET)
+                    )
+                    rawActive = amplitude >= dynamicThreshold
+
+                    if (rawActive) {
+                        activeStreak += 1
+                        inactiveStreak = 0
+                    } else {
+                        inactiveStreak += 1
+                        activeStreak = 0
+                    }
                 }
 
-                if (read <= 0) {
-                    delay(500)
-                    continue
+                currentActive = when {
+                    currentActive && inactiveStreak >= INACTIVE_HOLD_POLLS -> false
+                    !currentActive && activeStreak >= ACTIVE_HOLD_POLLS -> true
+                    else -> currentActive
                 }
 
-                val avgAmplitude = buffer
-                    .take(read)
-                    .map { abs(it.toInt()) }
-                    .average()
+                pollCount += 1
+                if (pollCount % LOG_EVERY_N_POLLS == 0L) {
+                    Log.d(
+                        TAG,
+                        "mic level amplitude=${amplitude.toInt()} noiseFloor=${noiseFloor.toInt()} threshold=${dynamicThreshold.toInt()} rawActive=$rawActive active=$currentActive fresh=$fresh streakA=$activeStreak streakI=$inactiveStreak"
+                    )
+                }
 
-                val active = avgAmplitude > amplitudeThreshold
                 mutableSignals.tryEmit(
                     MonitorSignal(
                         monitorId = id,
                         kind = MonitorKind.MICROPHONE,
-                        active = active
+                        active = currentActive
                     )
                 )
 
-                delay(1_000)
+                delay(POLL_INTERVAL_MS)
             }
         }
     }
@@ -92,15 +91,23 @@ class MicrophoneMonitor(
     override suspend fun stop() {
         job?.cancel()
         job = null
-        recorder?.run {
-            runCatching { stop() }
-            runCatching { release() }
-        }
-        recorder = null
+    }
+
+    private fun updateNoiseFloor(previous: Double, amplitude: Double): Double {
+        if (previous <= 0.0) return amplitude
+        val alpha = if (amplitude <= previous * 1.2) 0.25 else 0.04
+        return (previous * (1.0 - alpha)) + (amplitude * alpha)
     }
 
     private companion object {
         const val TAG = "MicrophoneMonitor"
         const val AMPLITUDE_THRESHOLD_DEFAULT = 900.0
+        const val POLL_INTERVAL_MS = 1_000L
+        const val STALE_TIMEOUT_MS = 2_000L
+        const val ACTIVE_HOLD_POLLS = 2
+        const val INACTIVE_HOLD_POLLS = 3
+        const val NOISE_MULTIPLIER = 2.0
+        const val NOISE_OFFSET = 140.0
+        const val LOG_EVERY_N_POLLS = 1
     }
 }

@@ -2,6 +2,7 @@ package com.dveamer.babysitter.web
 
 import android.content.Context
 import android.util.Log
+import com.dveamer.babysitter.collect.MemoryRepository
 import com.dveamer.babysitter.monitor.CameraFrameBus
 import com.dveamer.babysitter.monitor.CameraFrameSnapshot
 import com.dveamer.babysitter.settings.MotionSensitivity
@@ -16,6 +17,7 @@ import java.io.BufferedReader
 import java.io.EOFException
 import java.io.InterruptedIOException
 import java.io.InputStreamReader
+import java.io.RandomAccessFile
 import java.net.InetSocketAddress
 import java.net.ServerSocket
 import java.net.Socket
@@ -32,10 +34,10 @@ import org.json.JSONObject
 class LocalSettingsHttpServer(
     context: Context,
     private val settingsRepository: SettingsRepository,
-    private val settingsController: SettingsController
+    private val settingsController: SettingsController,
+    private val memoryRepository: MemoryRepository
 ) {
     private val appContext = context.applicationContext
-    private val cameraStream = RearCameraMjpegSource(appContext)
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
     private var acceptJob: Job? = null
     private var serverSocket: ServerSocket? = null
@@ -71,7 +73,6 @@ class LocalSettingsHttpServer(
         serverSocket = null
         acceptJob?.cancelAndJoin()
         acceptJob = null
-        cameraStream.stopAll()
         Log.i(TAG, "Web service stopped")
     }
 
@@ -131,27 +132,44 @@ class LocalSettingsHttpServer(
                             )
                             return@runCatching
                         }
-                        if (state.sleepEnabled && state.cameraMonitoringEnabled) {
-                            streamFromMotionCamera(socket)
-                        } else {
-                            runCatching {
-                                cameraStream.stream(socket) {
-                                    val current = settingsRepository.state.value
-                                    current.webCameraEnabled && !(current.sleepEnabled && current.cameraMonitoringEnabled)
-                                }
-                            }.onFailure { e ->
-                                if (e is SecurityException) {
-                                    writeResponse(
-                                        socket = socket,
-                                        code = 403,
-                                        status = "Forbidden",
-                                        body = """{"error":"camera_permission_required"}"""
-                                    )
-                                } else {
-                                    throw e
-                                }
+                        streamFromMotionCamera(socket)
+                    }
+
+                    method == "GET" && path == "/memory" -> {
+                        val memoryBody = JSONObject().put(
+                            "items",
+                            memoryRepository.listLatest().fold(org.json.JSONArray()) { arr, item ->
+                                arr.put(
+                                    JSONObject()
+                                        .put("fileName", item.fileName)
+                                        .put("startEpochMs", item.startEpochMs)
+                                        .put("sizeBytes", item.sizeBytes)
+                                        .put("durationMs", item.durationMs)
+                                )
+                                arr
                             }
+                        ).toString()
+                        writeResponse(
+                            socket = socket,
+                            code = 200,
+                            status = "OK",
+                            body = memoryBody
+                        )
+                    }
+
+                    method == "GET" && path.startsWith("/memory/") -> {
+                        val fileName = path.removePrefix("/memory/")
+                        val file = memoryRepository.findByName(fileName)
+                        if (file == null || !file.exists()) {
+                            writeResponse(
+                                socket = socket,
+                                code = 404,
+                                status = "Not Found",
+                                body = """{"error":"memory_not_found"}"""
+                            )
+                            return@runCatching
                         }
+                        writeMemoryStream(socket, file, headers["range"])
                     }
 
                     method == "PUT" && path == "/settings" -> {
@@ -274,6 +292,62 @@ class LocalSettingsHttpServer(
         output.flush()
     }
 
+    private fun writeMemoryStream(
+        socket: Socket,
+        file: java.io.File,
+        rangeHeader: String?
+    ) {
+        val fileLength = file.length()
+        val (start, end, partial) = parseRange(rangeHeader, fileLength)
+        val length = (end - start + 1).coerceAtLeast(0L)
+        val header = buildString {
+            append("HTTP/1.1 ${if (partial) "206 Partial Content" else "200 OK"}\r\n")
+            append("Content-Type: video/mp4\r\n")
+            append("Accept-Ranges: bytes\r\n")
+            append("Content-Length: $length\r\n")
+            if (partial) {
+                append("Content-Range: bytes $start-$end/$fileLength\r\n")
+            }
+            append("Connection: close\r\n")
+            append("\r\n")
+        }
+        val output = socket.getOutputStream()
+        output.write(header.toByteArray(Charsets.UTF_8))
+
+        RandomAccessFile(file, "r").use { raf ->
+            raf.seek(start)
+            val buffer = ByteArray(16 * 1024)
+            var remaining = length
+            while (remaining > 0) {
+                val chunk = minOf(buffer.size.toLong(), remaining).toInt()
+                val read = raf.read(buffer, 0, chunk)
+                if (read <= 0) break
+                output.write(buffer, 0, read)
+                remaining -= read.toLong()
+            }
+        }
+        output.flush()
+    }
+
+    private fun parseRange(rangeHeader: String?, totalLength: Long): Triple<Long, Long, Boolean> {
+        if (totalLength <= 0L) {
+            return Triple(0L, -1L, false)
+        }
+        if (rangeHeader.isNullOrBlank() || !rangeHeader.startsWith("bytes=")) {
+            val end = (totalLength - 1L).coerceAtLeast(0L)
+            return Triple(0L, end, false)
+        }
+        val range = rangeHeader.removePrefix("bytes=").substringBefore(",").trim()
+        val startRaw = range.substringBefore("-").trim()
+        val endRaw = range.substringAfter("-", "").trim()
+        val start = startRaw.toLongOrNull() ?: 0L
+        val end = (endRaw.toLongOrNull() ?: (totalLength - 1L)).coerceAtMost(totalLength - 1L)
+        if (start < 0L || start > end) {
+            return Triple(0L, (totalLength - 1L).coerceAtLeast(0L), false)
+        }
+        return Triple(start, end, true)
+    }
+
     private fun loadIndexHtml(): String {
         return runCatching {
             appContext.assets.open("index.html").bufferedReader(Charsets.UTF_8).use { it.readText() }
@@ -297,7 +371,7 @@ class LocalSettingsHttpServer(
             output.flush()
             while (!socket.isClosed) {
                 val state = settingsRepository.state.value
-                if (!state.webCameraEnabled || !state.sleepEnabled || !state.cameraMonitoringEnabled) break
+                if (!state.webCameraEnabled) break
                 val frame = CameraFrameBus.latest()
                 if (frame == null || isStale(frame)) {
                     Thread.sleep(MOTION_STREAM_WAIT_MS)
@@ -344,6 +418,8 @@ class LocalSettingsHttpServer(
             .put("musicPlaylistCount", state.musicPlaylist.size)
             .put("monitoringActive", runtime.monitoringActive)
             .put("lullabyActive", runtime.lullabyActive)
+            .put("memoryBuildInProgress", runtime.memoryBuildInProgress)
+            .put("lastMemoryBuiltAtMs", runtime.lastMemoryBuiltAtMs)
             .toString()
     }
 

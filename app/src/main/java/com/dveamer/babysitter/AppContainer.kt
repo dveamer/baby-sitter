@@ -2,6 +2,10 @@ package com.dveamer.babysitter
 
 import android.content.Context
 import com.dveamer.babysitter.alert.TelegramAlertSender
+import com.dveamer.babysitter.collect.CollectCatalog
+import com.dveamer.babysitter.collect.CollectRecorderCoordinator
+import com.dveamer.babysitter.collect.CollectStoragePaths
+import com.dveamer.babysitter.collect.MemoryRepository
 import com.dveamer.babysitter.remote.RemoteCommandHandler
 import com.dveamer.babysitter.settings.Clock
 import com.dveamer.babysitter.settings.DataStoreSettingsRepository
@@ -9,6 +13,7 @@ import com.dveamer.babysitter.settings.SettingsController
 import com.dveamer.babysitter.settings.SettingsRepository
 import com.dveamer.babysitter.settings.VersionProvider
 import com.dveamer.babysitter.sleep.ForegroundServiceSleepRuntime
+import com.dveamer.babysitter.sleep.MemoryAssembler
 import com.dveamer.babysitter.sleep.SleepRuntime
 import com.dveamer.babysitter.sleep.SleepRuntimeOrchestrator
 import com.dveamer.babysitter.web.LocalSettingsHttpServer
@@ -33,14 +38,26 @@ class AppContainer(context: Context) {
 
     val alertSender = TelegramAlertSender(appContext)
 
+    val collectStoragePaths = CollectStoragePaths(appContext)
+    val collectCatalog = CollectCatalog(collectStoragePaths)
+    val collectRecorderCoordinator = CollectRecorderCoordinator(collectStoragePaths)
+    val memoryAssembler = MemoryAssembler(collectStoragePaths, collectCatalog)
+    val memoryRepository = MemoryRepository(collectCatalog)
+
     private val sleepRuntime: SleepRuntime = ForegroundServiceSleepRuntime(appContext)
 
     val sleepRuntimeOrchestrator = SleepRuntimeOrchestrator(settingsRepository, sleepRuntime)
     private val localSettingsHttpServer =
-        LocalSettingsHttpServer(appContext, settingsRepository, settingsController)
+        LocalSettingsHttpServer(
+            context = appContext,
+            settingsRepository = settingsRepository,
+            settingsController = settingsController,
+            memoryRepository = memoryRepository
+        )
     val webServiceOrchestrator = WebServiceOrchestrator(settingsRepository, localSettingsHttpServer)
 
     suspend fun initialize() {
+        collectStoragePaths.ensureDirectories()
         dataStoreRepository.initialize()
     }
 }

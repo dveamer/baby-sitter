@@ -15,9 +15,14 @@ import com.dveamer.babysitter.BabySitterApplication
 import com.dveamer.babysitter.MainActivity
 import com.dveamer.babysitter.R
 import com.dveamer.babysitter.alert.AwakeAlertController
+import com.dveamer.babysitter.collect.CollectAudioSource
+import com.dveamer.babysitter.collect.CollectCameraSource
+import com.dveamer.babysitter.collect.CollectClosedFileBus
+import com.dveamer.babysitter.collect.CollectFileType
 import com.dveamer.babysitter.monitor.CameraMonitor
 import com.dveamer.babysitter.monitor.MicrophoneMonitor
 import com.dveamer.babysitter.monitor.Monitor
+import com.dveamer.babysitter.monitor.MonitorKind
 import com.dveamer.babysitter.settings.MotionSensitivity
 import com.dveamer.babysitter.settings.SoundSensitivity
 import com.dveamer.babysitter.soothing.IotSoothingListener
@@ -25,12 +30,13 @@ import com.dveamer.babysitter.soothing.MusicSoothingListener
 import com.dveamer.babysitter.soothing.SequentialSoothingCoordinator
 import com.dveamer.babysitter.soothing.SootheRequest
 import com.dveamer.babysitter.soothing.SoothingListener
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
@@ -44,13 +50,26 @@ class SleepForegroundService : Service() {
     private val serviceScope = CoroutineScope(
         SupervisorJob() + Dispatchers.Default + serviceExceptionHandler
     )
+    private val fileWorkerDispatcher = Dispatchers.IO.limitedParallelism(1)
     private val startStopLock = Mutex()
 
     private var monitoringJob: Job? = null
     private var wakeLock: PowerManager.WakeLock? = null
+    private var wakeMemoryManager: WakeMemoryManager = WakeMemoryManager()
+    private var collectCameraSource: CollectCameraSource? = null
+    private var collectAudioSource: CollectAudioSource? = null
 
     private val container by lazy {
         (application as BabySitterApplication).container
+    }
+
+    private val maintenanceScheduler by lazy {
+        MaintenanceScheduler(
+            paths = container.collectStoragePaths,
+            catalog = container.collectCatalog,
+            isAwakeSessionActive = { wakeMemoryManager.isAwakeSessionActive() },
+            workerDispatcher = fileWorkerDispatcher
+        )
     }
 
     override fun onBind(intent: Intent?): IBinder? = null
@@ -96,12 +115,25 @@ class SleepForegroundService : Service() {
         startStopLock.withLock {
             stopMonitoring()
             SleepRuntimeStatusStore.reset()
-            val shouldHoldWakeLock = container.settingsRepository.state.value.sleepEnabled
+            wakeMemoryManager = WakeMemoryManager()
+            CollectClosedFileBus.clear()
+
+            val current = container.settingsRepository.state.value
+            container.collectRecorderCoordinator.start()
+            container.collectRecorderCoordinator.updateInputs(
+                cameraMonitoringEnabled = current.cameraMonitoringEnabled,
+                webCameraEnabled = current.webCameraEnabled,
+                soundMonitoringEnabled = current.soundMonitoringEnabled
+            )
+            ensureCollectSourcesRunning()
+
+            val shouldHoldWakeLock = current.sleepEnabled
             if (shouldHoldWakeLock) {
                 acquireWakeLock()
             } else {
                 releaseWakeLock()
             }
+            maintenanceScheduler.start(serviceScope)
             monitoringJob = serviceScope.launch {
                 runEngine()
             }
@@ -119,6 +151,13 @@ class SleepForegroundService : Service() {
     private fun stopMonitoring() {
         monitoringJob?.cancel()
         monitoringJob = null
+        maintenanceScheduler.stop()
+        container.collectRecorderCoordinator.stop()
+        collectCameraSource?.stop()
+        collectAudioSource?.stop()
+        collectCameraSource = null
+        collectAudioSource = null
+        CollectClosedFileBus.clear()
         SleepRuntimeStatusStore.reset()
         releaseWakeLock()
     }
@@ -126,18 +165,13 @@ class SleepForegroundService : Service() {
     private suspend fun runEngine() {
         val settings = container.settingsRepository.state.value
         if (!settings.sleepEnabled) {
-            // Keep foreground process alive for non-sleep features (e.g., web service),
-            // but do not run monitors/soothing.
             return
         }
 
         val monitors = buildList<Monitor> {
             if (settings.soundMonitoringEnabled) {
-                val soundThreshold = when (settings.soundSensitivity) {
-                    SoundSensitivity.HIGH -> 50.0
-                    SoundSensitivity.MEDIUM -> 250.0
-                    SoundSensitivity.LOW -> 700.0
-                }
+                val baseThreshold = settings.cryThresholdSec.coerceIn(50, 8_000)
+                val soundThreshold = (baseThreshold * 0.75).coerceIn(120.0, 2_500.0)
                 add(MicrophoneMonitor(serviceScope, amplitudeThreshold = soundThreshold))
             }
             if (settings.cameraMonitoringEnabled) {
@@ -150,7 +184,6 @@ class SleepForegroundService : Service() {
                 add(
                     CameraMonitor(
                         scope = serviceScope,
-                        appContext = this@SleepForegroundService,
                         diffThreshold = diffThreshold,
                         minChangedRatio = minChangedRatio
                     )
@@ -186,19 +219,44 @@ class SleepForegroundService : Service() {
                 return
             }
             SleepRuntimeStatusStore.setMonitoringActive(true)
+            var lastLullabyActiveAtMs: Long = 0L
+            var micSuppressedUntilMs: Long = 0L
+            var lastSoothedAwakeSinceMs: Long? = null
             merge(*monitors.map { it.signals }.toTypedArray()).collect { signal ->
                 val now = System.currentTimeMillis()
-                val awake = detector.onSignal(signal, now)
+                val lullabyActive = SleepRuntimeStatusStore.state.value.lullabyActive
+                if (lullabyActive) {
+                    lastLullabyActiveAtMs = now
+                }
+                val shouldSuppressMic = signal.kind == MonitorKind.MICROPHONE &&
+                    (
+                        lullabyActive ||
+                            now <= micSuppressedUntilMs ||
+                            now - lastLullabyActiveAtMs <= MIC_SUPPRESS_AFTER_LULLABY_MS
+                        )
+                val effectiveSignal = if (shouldSuppressMic && signal.active) {
+                    signal.copy(active = false)
+                } else {
+                    signal
+                }
+                val awake = detector.onSignal(effectiveSignal, now)
 
                 if (awake.isAwake && awake.awakeSinceMs != null) {
-                    Log.d("merge", "awake : $awake")
-                    soothingCoordinator.soothe(
-                        SootheRequest(
-                            awakeSinceMs = awake.awakeSinceMs,
-                            reason = awake.reason,
-                            requestedAtMs = now
+                    Log.d(TAG, "awake signal reason=${awake.reason} awakeSince=${awake.awakeSinceMs}")
+                    wakeMemoryManager.onAwakeSignal(now)
+                    if (lastSoothedAwakeSinceMs != awake.awakeSinceMs) {
+                        soothingCoordinator.soothe(
+                            SootheRequest(
+                                awakeSinceMs = awake.awakeSinceMs,
+                                reason = awake.reason,
+                                requestedAtMs = now
+                            )
                         )
-                    )
+                        if (awake.reason.contains("microphone")) {
+                            micSuppressedUntilMs = now + MIC_SUPPRESS_AFTER_SOOTHE_MS
+                        }
+                        lastSoothedAwakeSinceMs = awake.awakeSinceMs
+                    }
                     alertController.onAwake(
                         awakeSinceMs = awake.awakeSinceMs,
                         nowMs = now,
@@ -206,12 +264,111 @@ class SleepForegroundService : Service() {
                     )
                 } else {
                     alertController.onSleep()
+                    lastSoothedAwakeSinceMs = null
+                    val trigger = wakeMemoryManager.onPassiveSignal(
+                        lullabyActive = lullabyActive,
+                        nowMs = now
+                    )
+                    if (trigger != null) {
+                        Log.i(
+                            TAG,
+                            "wake memory trigger awakeStartedAt=${trigger.awakeStartedAt} sleepStableEndedAt=${trigger.sleepStableEndedAt}"
+                        )
+                        launchMemoryBuild(trigger)
+                    }
                 }
             }
         } finally {
             SleepRuntimeStatusStore.reset()
             monitors.forEach { it.stop() }
         }
+    }
+
+    private fun ensureCollectSourcesRunning() {
+        if (container.collectRecorderCoordinator.isCameraInputEnabled()) {
+            if (collectCameraSource == null) {
+                collectCameraSource = CollectCameraSource(
+                    context = this,
+                    paths = container.collectStoragePaths,
+                    scope = serviceScope
+                )
+            }
+            collectCameraSource?.start()
+        } else {
+            collectCameraSource?.stop()
+            collectCameraSource = null
+        }
+
+        if (container.collectRecorderCoordinator.isAudioInputEnabled()) {
+            if (collectAudioSource == null) {
+                collectAudioSource = CollectAudioSource(
+                    paths = container.collectStoragePaths,
+                    scope = serviceScope
+                )
+            }
+            collectAudioSource?.start()
+        } else {
+            collectAudioSource?.stop()
+            collectAudioSource = null
+        }
+    }
+
+    private fun launchMemoryBuild(trigger: WakeMemoryTrigger) {
+        serviceScope.launch(fileWorkerDispatcher) {
+            SleepRuntimeStatusStore.setMemoryBuildInProgress(true)
+            val rangeStart = trigger.awakeStartedAt - WakeMemoryManager.PRE_ROLL_MS
+            var result: MemoryBuildResult? = null
+            var lastEffectiveEnd = trigger.sleepStableEndedAt
+            for (attempt in 0 until MEMORY_BUILD_MAX_WAIT_ATTEMPTS) {
+                val effectiveEnd = resolveMemoryRangeEndMs(trigger.sleepStableEndedAt)
+                lastEffectiveEnd = effectiveEnd
+                if (effectiveEnd >= rangeStart) {
+                    result = runCatching {
+                        container.memoryAssembler.build(
+                            MemoryBuildRequest(
+                                rangeStartMs = rangeStart,
+                                rangeEndMs = effectiveEnd
+                            )
+                        )
+                    }.onFailure {
+                        Log.w(TAG, "memory build failed", it)
+                    }.getOrNull()
+                    break
+                }
+                if (attempt < MEMORY_BUILD_MAX_WAIT_ATTEMPTS - 1) {
+                    delay(MEMORY_BUILD_WAIT_MS)
+                }
+            }
+
+            result?.outputFile?.let {
+                SleepRuntimeStatusStore.setLastMemoryBuiltAt(System.currentTimeMillis())
+                Log.i(
+                    TAG,
+                    "memory generated file=${it.name} videos=${result.usedVideoFiles} audios=${result.usedAudioFiles}"
+                )
+            }
+            if (result == null) {
+                Log.w(
+                    TAG,
+                    "memory build skipped: no eligible closed collect range start=$rangeStart end=$lastEffectiveEnd"
+                )
+            } else if (result.outputFile == null) {
+                Log.w(
+                    TAG,
+                    "memory build produced no file: reason=${result.skippedReason} videos=${result.usedVideoFiles} audios=${result.usedAudioFiles} start=$rangeStart end=$lastEffectiveEnd"
+                )
+            }
+
+            wakeMemoryManager.markMemoryBuildFinished()
+            SleepRuntimeStatusStore.setMemoryBuildInProgress(false)
+        }
+    }
+
+    private fun resolveMemoryRangeEndMs(triggerEndMs: Long): Long {
+        val closedVideo = CollectClosedFileBus.latest(CollectFileType.VIDEO)
+            ?: return triggerEndMs
+        val closedEndMs = closedVideo.startMs + CLOSED_MINUTE_DURATION_MS
+        return minOf(triggerEndMs, closedEndMs)
     }
 
     private fun acquireWakeLock() {
@@ -269,5 +426,10 @@ class SleepForegroundService : Service() {
         private const val TAG = "SleepForegroundSvc"
         private const val CHANNEL_ID = "sleep_monitor_channel"
         private const val NOTIFICATION_ID = 1001
+        private const val CLOSED_MINUTE_DURATION_MS = 59_999L
+        private const val MEMORY_BUILD_WAIT_MS = 15_000L
+        private const val MEMORY_BUILD_MAX_WAIT_ATTEMPTS = 4
+        private const val MIC_SUPPRESS_AFTER_LULLABY_MS = 20_000L
+        private const val MIC_SUPPRESS_AFTER_SOOTHE_MS = 60_000L
     }
 }

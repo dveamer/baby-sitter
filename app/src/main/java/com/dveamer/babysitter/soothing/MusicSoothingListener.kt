@@ -8,7 +8,14 @@ import android.util.Log
 import com.dveamer.babysitter.settings.SettingsRepository
 import java.io.File
 import java.io.FileInputStream
+import java.util.concurrent.atomic.AtomicBoolean
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
@@ -85,6 +92,42 @@ class MusicSoothingListener(
 
             val player = MediaPlayer()
             var fileInput: FileInputStream? = null
+            val finished = AtomicBoolean(false)
+            val watchdogScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
+            var watchdogJob: Job? = null
+
+            fun cleanup() {
+                runCatching { fileInput?.close() }
+                fileInput = null
+                runCatching {
+                    if (player.isPlaying) player.stop()
+                }
+                runCatching { player.release() }
+            }
+
+            fun finish(error: Throwable? = null) {
+                if (!finished.compareAndSet(false, true)) return
+                watchdogJob?.cancel()
+                watchdogScope.cancel()
+                cleanup()
+                if (!cont.isActive) return
+                if (error == null) {
+                    cont.resume(Unit)
+                } else {
+                    cont.resumeWithException(error)
+                }
+            }
+
+            fun armWatchdog(delayMs: Long, onTimeout: () -> Unit) {
+                watchdogJob?.cancel()
+                watchdogJob = watchdogScope.launch {
+                    delay(delayMs)
+                    if (!finished.get()) {
+                        onTimeout()
+                    }
+                }
+            }
+
             player.setAudioAttributes(
                 AudioAttributes.Builder()
                     .setUsage(AudioAttributes.USAGE_MEDIA)
@@ -106,39 +149,45 @@ class MusicSoothingListener(
                     player.setDataSource(context, uri)
                 }
                 player.setOnPreparedListener { mp ->
+                    val durationMs = runCatching { mp.duration.toLong() }.getOrDefault(-1L)
+                    val playbackTimeoutMs = if (durationMs > 0L) {
+                        durationMs + PLAYBACK_COMPLETION_GRACE_MS
+                    } else {
+                        UNKNOWN_DURATION_TIMEOUT_MS
+                    }
                     runCatching { mp.start() }.onFailure { e ->
-                        runCatching { mp.release() }
-                        if (cont.isActive) cont.resumeWithException(e)
+                        finish(e)
+                    }.onSuccess {
+                        armWatchdog(playbackTimeoutMs) {
+                            Log.w(
+                                TAG,
+                                "playback watchdog fired uri=$uri durationMs=$durationMs timeoutMs=$playbackTimeoutMs"
+                            )
+                            finish()
+                        }
                     }
                 }
                 player.setOnCompletionListener {
-                    runCatching { fileInput?.close() }
-                    fileInput = null
-                    runCatching { it.release() }
-                    if (cont.isActive) cont.resume(Unit)
+                    finish()
                 }
-                player.setOnErrorListener { mp, _, _ ->
-                    runCatching { fileInput?.close() }
-                    fileInput = null
-                    runCatching { mp.release() }
-                    if (cont.isActive) cont.resumeWithException(IllegalStateException("media error"))
+                player.setOnErrorListener { _, what, extra ->
+                    finish(IllegalStateException("media error what=$what extra=$extra uri=$uri"))
                     true
+                }
+                armWatchdog(PREPARE_TIMEOUT_MS) {
+                    Log.w(TAG, "prepare watchdog fired uri=$uri")
+                    finish(IllegalStateException("media prepare timeout uri=$uri"))
                 }
                 player.prepareAsync()
             }.onFailure { e ->
-                runCatching { fileInput?.close() }
-                fileInput = null
-                runCatching { player.release() }
-                if (cont.isActive) cont.resumeWithException(e)
+                finish(e)
             }
 
             cont.invokeOnCancellation {
-                runCatching {
-                    runCatching { fileInput?.close() }
-                    fileInput = null
-                    if (player.isPlaying) player.stop()
-                    player.release()
-                }
+                if (!finished.compareAndSet(false, true)) return@invokeOnCancellation
+                watchdogJob?.cancel()
+                watchdogScope.cancel()
+                cleanup()
             }
         }
     }
@@ -146,6 +195,9 @@ class MusicSoothingListener(
     private companion object {
         const val TAG = "MusicSoothing"
         const val RETRY_BACKOFF_MS = 60_000L
+        const val PREPARE_TIMEOUT_MS = 15_000L
+        const val PLAYBACK_COMPLETION_GRACE_MS = 3_000L
+        const val UNKNOWN_DURATION_TIMEOUT_MS = 5 * 60 * 1000L
         val SUPPORTED_URI_SCHEMES = setOf("http", "https", "content", "file", "android.resource")
     }
 }

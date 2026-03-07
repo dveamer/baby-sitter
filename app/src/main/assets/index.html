@@ -183,6 +183,49 @@
       margin-top: 10px;
       margin-bottom: 0;
     }
+    .memory-actions {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 10px;
+    }
+    .memory-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 8px;
+      max-height: 220px;
+      overflow: auto;
+    }
+    .memory-item {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 10px;
+      cursor: pointer;
+      background: #fff;
+    }
+    .memory-item.selected {
+      border-color: #1f4ea3;
+      background: #eff4ff;
+    }
+    .memory-meta {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 4px;
+    }
+    .memory-video {
+      width: 100%;
+      margin-top: 10px;
+      border-radius: 10px;
+      background: #000;
+    }
+    .memory-empty {
+      color: var(--muted);
+      font-size: 14px;
+      padding: 10px;
+      border: 1px dashed var(--line);
+      border-radius: 10px;
+    }
     .sensitivity-block {
       border-top: 1px solid var(--line);
       padding: 10px 0;
@@ -269,6 +312,16 @@
       <div id="monitoringEmptyMessage" class="error monitoring-empty"></div>
     </section>
 
+    <section class="panel">
+      <h2 class="title">Memory</h2>
+      <div class="memory-actions">
+        <button id="memoryRefreshBtn" class="btn" type="button">Reload</button>
+      </div>
+      <div id="memoryEmpty" class="memory-empty">No memory videos.</div>
+      <ul id="memoryList" class="memory-list"></ul>
+      <video id="memoryVideo" class="memory-video" controls playsinline></video>
+    </section>
+
   </main>
 
   <script>
@@ -292,6 +345,10 @@
     const monitoringEmptyMessageEl = document.getElementById("monitoringEmptyMessage");
     const monitoringStatusValueEl = document.getElementById("monitoringStatusValue");
     const lullabyStatusValueEl = document.getElementById("lullabyStatusValue");
+    const memoryRefreshBtn = document.getElementById("memoryRefreshBtn");
+    const memoryListEl = document.getElementById("memoryList");
+    const memoryVideoEl = document.getElementById("memoryVideo");
+    const memoryEmptyEl = document.getElementById("memoryEmpty");
 
     let sleepEnabled = false;
     let webCameraEnabled = false;
@@ -310,6 +367,8 @@
     let cameraStreaming = false;
     let cameraStreamMode = null;
     let sleepStatusPollTimeoutId = null;
+    let memoryItems = [];
+    let selectedMemoryFile = null;
     const SOUND_PRESET_VALUES = { HIGH: 300, MEDIUM: 700, LOW: 1000 };
     const MOTION_PRESET_VALUES = { HIGH: 14, MEDIUM: 20, LOW: 28 };
     const isKoreanUser = (navigator.language || "").toLowerCase().startsWith("ko");
@@ -400,6 +459,61 @@
         : (lullabyReady ? "ready" : "not ready");
       lullabyStatusValueEl.textContent = lullabyStatus.toUpperCase();
       lullabyStatusValueEl.className = "sleep-status-value " + lullabyStatus.replace(" ", "-");
+    }
+
+    function formatBytes(bytes) {
+      if (!Number.isFinite(bytes) || bytes < 1024) return bytes + " B";
+      if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + " KB";
+      return (bytes / (1024 * 1024)).toFixed(1) + " MB";
+    }
+
+    function formatDuration(ms) {
+      const totalSec = Math.max(0, Math.floor((ms || 0) / 1000));
+      const min = Math.floor(totalSec / 60);
+      const sec = totalSec % 60;
+      return min + "m " + sec + "s";
+    }
+
+    function renderMemoryList() {
+      memoryListEl.innerHTML = "";
+      if (!memoryItems.length) {
+        memoryEmptyEl.style.display = "block";
+        return;
+      }
+      memoryEmptyEl.style.display = "none";
+      memoryItems.forEach((item) => {
+        const li = document.createElement("li");
+        li.className = "memory-item" + (selectedMemoryFile === item.fileName ? " selected" : "");
+        li.dataset.fileName = item.fileName;
+        const startedAt = new Date(item.startEpochMs).toLocaleString();
+        li.innerHTML = `
+          <div>${startedAt}</div>
+          <div class="memory-meta">${formatDuration(item.durationMs)} / ${formatBytes(item.sizeBytes)}</div>
+        `;
+        memoryListEl.appendChild(li);
+      });
+    }
+
+    async function loadMemoryList() {
+      try {
+        const res = await fetch("/memory", { headers: { "Accept": "application/json" } });
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        const data = await res.json();
+        memoryItems = Array.isArray(data.items) ? data.items : [];
+        if (!memoryItems.some((it) => it.fileName === selectedMemoryFile)) {
+          selectedMemoryFile = null;
+          memoryVideoEl.src = "";
+        }
+        renderMemoryList();
+      } catch (e) {
+        showError("Failed to load memory list: " + e.message);
+      }
+    }
+
+    function selectMemory(fileName) {
+      selectedMemoryFile = fileName;
+      memoryVideoEl.src = "/memory/" + encodeURIComponent(fileName);
+      renderMemoryList();
     }
 
     async function updateSettingsPatch(patch) {
@@ -554,6 +668,12 @@
     }
 
     refreshBtn.addEventListener("click", loadSettings);
+    memoryRefreshBtn.addEventListener("click", loadMemoryList);
+    memoryListEl.addEventListener("click", (event) => {
+      const item = event.target.closest(".memory-item");
+      if (!item) return;
+      selectMemory(item.dataset.fileName);
+    });
     sleepBtn.addEventListener("click", toggleSleep);
     soundPresetButtonsEl.addEventListener("click", async (event) => {
       const button = event.target.closest(".preset-btn");
@@ -603,6 +723,7 @@
     });
 
     loadSettings();
+    loadMemoryList();
   </script>
 </body>
 </html>
