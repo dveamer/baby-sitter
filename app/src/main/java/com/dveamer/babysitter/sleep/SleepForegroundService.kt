@@ -18,7 +18,6 @@ import com.dveamer.babysitter.alert.AwakeAlertController
 import com.dveamer.babysitter.collect.CollectAudioSource
 import com.dveamer.babysitter.collect.CollectCameraSource
 import com.dveamer.babysitter.collect.CollectClosedFileBus
-import com.dveamer.babysitter.collect.CollectFileType
 import com.dveamer.babysitter.monitor.CameraMonitor
 import com.dveamer.babysitter.monitor.MicrophoneMonitor
 import com.dveamer.babysitter.monitor.Monitor
@@ -38,7 +37,6 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
@@ -383,60 +381,23 @@ class SleepForegroundService : Service() {
 
     private fun launchMemoryBuild(trigger: WakeMemoryTrigger) {
         serviceScope.launch(fileWorkerDispatcher) {
-            SleepRuntimeStatusStore.setMemoryBuildInProgress(true)
-            val rangeStart = trigger.awakeStartedAt - WakeMemoryManager.PRE_ROLL_MS
-            var result: MemoryBuildResult? = null
-            var lastEffectiveEnd = trigger.sleepStableEndedAt
-            for (attempt in 0 until MEMORY_BUILD_MAX_WAIT_ATTEMPTS) {
-                val effectiveEnd = resolveMemoryRangeEndMs(trigger.sleepStableEndedAt)
-                lastEffectiveEnd = effectiveEnd
-                if (effectiveEnd >= rangeStart) {
-                    result = runCatching {
-                        container.memoryAssembler.build(
-                            MemoryBuildRequest(
-                                rangeStartMs = rangeStart,
-                                rangeEndMs = effectiveEnd
-                            )
-                        )
-                    }.onFailure {
-                        Log.w(TAG, "memory build failed", it)
-                    }.getOrNull()
-                    break
-                }
-                if (attempt < MEMORY_BUILD_MAX_WAIT_ATTEMPTS - 1) {
-                    delay(MEMORY_BUILD_WAIT_MS)
-                }
-            }
+            val result = container.memoryBuildCoordinator.buildWakeMemory(trigger)
 
-            result?.outputFile?.let {
-                SleepRuntimeStatusStore.setLastMemoryBuiltAt(System.currentTimeMillis())
+            result.outputFile?.let {
                 Log.i(
                     TAG,
                     "memory generated file=${it.name} videos=${result.usedVideoFiles} audios=${result.usedAudioFiles}"
                 )
             }
-            if (result == null) {
+            if (result.outputFile == null) {
                 Log.w(
                     TAG,
-                    "memory build skipped: no eligible closed collect range start=$rangeStart end=$lastEffectiveEnd"
-                )
-            } else if (result.outputFile == null) {
-                Log.w(
-                    TAG,
-                    "memory build produced no file: reason=${result.skippedReason} videos=${result.usedVideoFiles} audios=${result.usedAudioFiles} start=$rangeStart end=$lastEffectiveEnd"
+                    "memory build produced no file: reason=${result.skippedReason} videos=${result.usedVideoFiles} audios=${result.usedAudioFiles} start=${result.rangeStartMs} end=${result.effectiveRangeEndMs ?: result.requestedRangeEndMs}"
                 )
             }
 
             wakeMemoryManager.markMemoryBuildFinished()
-            SleepRuntimeStatusStore.setMemoryBuildInProgress(false)
         }
-    }
-
-    private fun resolveMemoryRangeEndMs(triggerEndMs: Long): Long {
-        val closedVideo = CollectClosedFileBus.latest(CollectFileType.VIDEO)
-            ?: return triggerEndMs
-        val closedEndMs = closedVideo.startMs + CLOSED_MINUTE_DURATION_MS
-        return minOf(triggerEndMs, closedEndMs)
     }
 
     private fun acquireWakeLock() {
@@ -494,9 +455,6 @@ class SleepForegroundService : Service() {
         private const val TAG = "SleepForegroundSvc"
         private const val CHANNEL_ID = "sleep_monitor_channel"
         private const val NOTIFICATION_ID = 1001
-        private const val CLOSED_MINUTE_DURATION_MS = 59_999L
-        private const val MEMORY_BUILD_WAIT_MS = 15_000L
-        private const val MEMORY_BUILD_MAX_WAIT_ATTEMPTS = 4
         private const val MIC_SUPPRESS_AFTER_LULLABY_MS = 20_000L
         private const val MIC_SUPPRESS_AFTER_SOOTHE_MS = 60_000L
         private const val AWAKE_MUSIC_STOP_GRACE_MS = 15_000L

@@ -12,6 +12,7 @@ import com.dveamer.babysitter.settings.DataStoreSettingsRepository
 import com.dveamer.babysitter.settings.SettingsController
 import com.dveamer.babysitter.settings.SettingsRepository
 import com.dveamer.babysitter.settings.VersionProvider
+import com.dveamer.babysitter.sleep.MemoryBuildCoordinator
 import com.dveamer.babysitter.sleep.ForegroundServiceSleepRuntime
 import com.dveamer.babysitter.sleep.MemoryAssembler
 import com.dveamer.babysitter.sleep.SleepRuntime
@@ -42,6 +43,7 @@ class AppContainer(context: Context) {
     val collectCatalog = CollectCatalog(collectStoragePaths)
     val collectRecorderCoordinator = CollectRecorderCoordinator(collectStoragePaths)
     val memoryAssembler = MemoryAssembler(collectStoragePaths, collectCatalog)
+    val memoryBuildCoordinator = MemoryBuildCoordinator(memoryAssembler, collectCatalog)
     val memoryRepository = MemoryRepository(collectCatalog)
 
     private val sleepRuntime: SleepRuntime = ForegroundServiceSleepRuntime(appContext)
@@ -52,7 +54,8 @@ class AppContainer(context: Context) {
             context = appContext,
             settingsRepository = settingsRepository,
             settingsController = settingsController,
-            memoryRepository = memoryRepository
+            memoryRepository = memoryRepository,
+            memoryBuildCoordinator = memoryBuildCoordinator
         )
     val webServiceOrchestrator = WebServiceOrchestrator(settingsRepository, localSettingsHttpServer)
 

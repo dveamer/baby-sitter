@@ -80,6 +80,32 @@
       font-size: 20px;
       font-weight: 700;
     }
+    .camera-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+    .camera-header .title {
+      margin-bottom: 0;
+    }
+    .camera-record-btn {
+      border-color: #fecaca;
+      background: #fff1f2;
+      color: #b42318;
+    }
+    .camera-record-icon {
+      width: 18px;
+      height: 18px;
+      display: block;
+    }
+    .camera-hint {
+      margin-bottom: 10px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.4;
+    }
     .row {
       display: flex;
       justify-content: space-between;
@@ -320,7 +346,17 @@
     </div>
 
     <section id="cameraPanel" class="panel">
-      <h2 class="title">Camera</h2>
+      <div class="camera-header">
+        <h2 class="title">Camera</h2>
+        <button id="cameraMemoryBtn" class="btn icon-btn camera-record-btn" type="button" aria-label="Save memory" title="Save memory">
+          <svg class="camera-record-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"></circle>
+            <circle cx="12" cy="12" r="5" fill="currentColor"></circle>
+          </svg>
+          <span class="sr-only">Save memory</span>
+        </button>
+      </div>
+      <div id="cameraMemoryHint" class="camera-hint"></div>
       <img id="cameraFeed" class="camera-feed" alt="camera stream">
       <div id="cameraError" class="error camera-error"></div>
     </section>
@@ -382,6 +418,8 @@
     const sleepBtn = document.getElementById("sleepBtn");
     const cameraPanel = document.getElementById("cameraPanel");
     const cameraFeed = document.getElementById("cameraFeed");
+    const cameraMemoryBtn = document.getElementById("cameraMemoryBtn");
+    const cameraMemoryHintEl = document.getElementById("cameraMemoryHint");
     const cameraErrorEl = document.getElementById("cameraError");
 
     const soundSensitivityRow = document.getElementById("soundSensitivityRow");
@@ -409,6 +447,9 @@
     let musicPlaylistCount = 0;
     let monitoringActive = false;
     let lullabyActive = false;
+    let memoryBuildInProgress = false;
+    let manualMemoryRequestInProgress = false;
+    let cameraMemoryAvailable = false;
     let soundSensitivity = "MEDIUM";
     let motionSensitivity = "MEDIUM";
     let cryThresholdSec = 500;
@@ -421,6 +462,7 @@
     let memoryItems = [];
     let selectedMemoryFile = null;
     let sharingMemoryFile = null;
+    let manualMemorySaving = false;
     const SLEEP_STATUS_POLL_INTERVAL_MS = 10000;
     const SOUND_PRESET_VALUES = { HIGH: 250, MEDIUM: 500, LOW: 750 };
     const MOTION_PRESET_VALUES = { HIGH: 14, MEDIUM: 20, LOW: 28 };
@@ -429,6 +471,30 @@
     const cameraConnectionFailedMessage = isKoreanUser
       ? "연결에 실패했습니다. Baby Sitter 앱이 더 강한 안드로이드 카메라 권한을 필요로 합니다."
       : "Connection failed. The Baby Sitter app requires stronger Android camera permissions.";
+    const cameraMemoryButtonLabel = isKoreanUser
+      ? "전후 5분 Memory 저장"
+      : "Save 5-minute memory";
+    const cameraMemorySavingLabel = isKoreanUser
+      ? "Memory 저장 중"
+      : "Saving memory";
+    const cameraMemoryHintText = isKoreanUser
+      ? "녹화 버튼을 누르면 전후 총 5분 구간의 영상이 Memory 로 저장됩니다."
+      : "Press the record button to save a 5-minute video around that moment as Memory.";
+    const cameraMemorySuccessMessage = isKoreanUser
+      ? "전후 5분 Memory를 저장했습니다."
+      : "Saved the surrounding 5-minute memory.";
+    const cameraMemoryNotReadyMessage = isKoreanUser
+      ? "필요한 collect 파일이 아직 모두 닫히지 않았습니다. 잠시 후 다시 시도해 주세요."
+      : "The required collect files are not closed yet. Try again shortly.";
+    const cameraMemoryUnavailableMessage = isKoreanUser
+      ? "memory를 만들 collect 영상이 충분하지 않습니다."
+      : "There is not enough collected video to build a memory.";
+    const cameraMemoryFailedMessage = isKoreanUser
+      ? "Memory 저장에 실패했습니다."
+      : "Failed to save the memory.";
+    const cameraMemoryAlreadyPendingMessage = isKoreanUser
+      ? "이미 다른 수동 Memory 저장 요청이 진행 중입니다."
+      : "Another manual memory request is already running.";
     const monitoringDisabledMessage = isKoreanUser
       ? "Sound, Motion 모두 사용되지 않도록 설정되어 아기가 깼는지 감지할 수 없습니다."
       : "Both Sound and Motion are disabled, so the app cannot detect whether the baby has woken up.";
@@ -523,6 +589,18 @@
         : (lullabyReady ? "ready" : "not ready");
       lullabyStatusValueEl.textContent = lullabyStatus.toUpperCase();
       lullabyStatusValueEl.className = "sleep-status-value " + lullabyStatus.replace(" ", "-");
+    }
+
+    function renderCameraMemoryControls() {
+      const busy = manualMemorySaving || manualMemoryRequestInProgress || memoryBuildInProgress;
+      cameraMemoryBtn.disabled = manualMemorySaving || !cameraMemoryAvailable;
+      cameraMemoryBtn.setAttribute("aria-label", busy ? cameraMemorySavingLabel : cameraMemoryButtonLabel);
+      cameraMemoryBtn.title = busy ? cameraMemorySavingLabel : cameraMemoryButtonLabel;
+      const srLabel = cameraMemoryBtn.querySelector(".sr-only");
+      if (srLabel) {
+        srLabel.textContent = busy ? cameraMemorySavingLabel : cameraMemoryButtonLabel;
+      }
+      cameraMemoryHintEl.textContent = cameraMemoryHintText;
     }
 
     function formatBytes(bytes) {
@@ -676,9 +754,13 @@
       });
     }
 
-    async function loadMemoryList() {
+    async function loadMemoryList(options = {}) {
+      const { noStore = false } = options;
       try {
-        const res = await fetch("/memory", { headers: { "Accept": "application/json" } });
+        const res = await fetch("/memory", {
+          headers: { "Accept": "application/json" },
+          cache: noStore ? "no-store" : "default"
+        });
         if (!res.ok) throw new Error("HTTP " + res.status);
         const data = await res.json();
         memoryItems = Array.isArray(data.items) ? data.items : [];
@@ -689,6 +771,45 @@
         renderMemoryList();
       } catch (e) {
         showError("Failed to load memory list: " + e.message);
+      }
+    }
+
+    function manualMemoryErrorMessage(payload) {
+      const reason = payload && payload.skippedReason ? String(payload.skippedReason) : "";
+      if (reason === "manual_request_in_progress") return cameraMemoryAlreadyPendingMessage;
+      if (reason === "memory_range_not_ready") return cameraMemoryNotReadyMessage;
+      if (reason === "no_video_collect" || reason === "start_not_found" || reason === "no_video_in_range" || reason === "no_closed_video_range") {
+        return cameraMemoryUnavailableMessage;
+      }
+      return cameraMemoryFailedMessage;
+    }
+
+    async function saveCameraMemory() {
+      if (manualMemorySaving || manualMemoryRequestInProgress || memoryBuildInProgress || !cameraMemoryAvailable) return;
+      manualMemorySaving = true;
+      hideError();
+      hideSuccess();
+      renderCameraMemoryControls();
+      try {
+        const res = await fetch("/memory/manual", {
+          method: "POST",
+          headers: { "Accept": "application/json" }
+        });
+        const payload = await res.json().catch(() => null);
+        if (!res.ok) {
+          throw new Error(manualMemoryErrorMessage(payload));
+        }
+        await loadMemoryList({ noStore: true });
+        if (payload && payload.fileName) {
+          selectMemory(payload.fileName);
+        }
+        showSuccess(cameraMemorySuccessMessage);
+      } catch (e) {
+        showError(e && e.message ? e.message : cameraMemoryFailedMessage);
+      } finally {
+        manualMemorySaving = false;
+        await loadSettings({ silent: true });
+        renderCameraMemoryControls();
       }
     }
 
@@ -745,7 +866,7 @@
 
     function scheduleSleepStatusPoll() {
       clearSleepStatusPoll();
-      if (!sleepEnabled) return;
+      if (!sleepEnabled && !manualMemoryRequestInProgress && !memoryBuildInProgress) return;
       sleepStatusPollTimeoutId = setTimeout(() => {
         loadSettings({ silent: true });
       }, SLEEP_STATUS_POLL_INTERVAL_MS);
@@ -790,8 +911,10 @@
         if (!res.ok) throw new Error("HTTP " + res.status);
         const settings = await res.json();
 
-        hideError();
-        hideSuccess();
+        if (!silent) {
+          hideError();
+          hideSuccess();
+        }
 
         sleepEnabled = !!settings.sleepEnabled;
         sleepBtn.textContent = sleepEnabled ? "Sleep Off" : "Sleep On";
@@ -805,6 +928,9 @@
         musicPlaylistCount = Number(settings.musicPlaylistCount ?? 0);
         monitoringActive = !!settings.monitoringActive;
         lullabyActive = !!settings.lullabyActive;
+        memoryBuildInProgress = !!settings.memoryBuildInProgress;
+        manualMemoryRequestInProgress = !!settings.manualMemoryRequestInProgress;
+        cameraMemoryAvailable = !!settings.cameraMemoryAvailable;
 
         webCameraEnabled = !!settings.webCameraEnabled;
         cameraPanel.style.display = webCameraEnabled ? "block" : "none";
@@ -818,6 +944,7 @@
         renderSensitivityControls();
         updateSensitivityVisibility();
         renderSleepStatus();
+        renderCameraMemoryControls();
         updatedAtEl.textContent = "Last updated: " + formatAmPmTime(new Date());
         scheduleSleepStatusPoll();
       } catch (e) {
@@ -850,6 +977,7 @@
     }
 
     refreshBtn.addEventListener("click", loadSettings);
+    cameraMemoryBtn.addEventListener("click", saveCameraMemory);
     memoryRefreshBtn.addEventListener("click", loadMemoryList);
     memoryListEl.addEventListener("click", async (event) => {
       const shareButton = event.target.closest(".memory-share-btn");
@@ -909,6 +1037,7 @@
       showCameraError();
     });
 
+    renderCameraMemoryControls();
     loadSettings();
     loadMemoryList();
   </script>

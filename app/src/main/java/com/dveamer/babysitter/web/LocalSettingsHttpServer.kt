@@ -12,6 +12,7 @@ import com.dveamer.babysitter.settings.SettingsPatch
 import com.dveamer.babysitter.settings.SettingsRepository
 import com.dveamer.babysitter.settings.SettingsState
 import com.dveamer.babysitter.settings.UpdateSource
+import com.dveamer.babysitter.sleep.MemoryBuildCoordinator
 import com.dveamer.babysitter.sleep.SleepRuntimeStatusStore
 import java.io.BufferedReader
 import java.io.EOFException
@@ -35,7 +36,8 @@ class LocalSettingsHttpServer(
     context: Context,
     private val settingsRepository: SettingsRepository,
     private val settingsController: SettingsController,
-    private val memoryRepository: MemoryRepository
+    private val memoryRepository: MemoryRepository,
+    private val memoryBuildCoordinator: MemoryBuildCoordinator
 ) {
     private val appContext = context.applicationContext
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
@@ -157,6 +159,46 @@ class LocalSettingsHttpServer(
                         )
                     }
 
+                    method == "POST" && path == "/memory/manual" -> {
+                        val result = memoryBuildCoordinator.buildManualCameraMemory()
+                        val fileName = result.outputFile?.name
+                        val memoryItem = fileName?.let { name ->
+                            memoryRepository.listLatest().firstOrNull { it.fileName == name }
+                        }
+                        val responseBody = JSONObject()
+                            .put("fileName", fileName)
+                            .put("error", result.skippedReason)
+                            .put("rangeStartMs", result.rangeStartMs)
+                            .put("requestedRangeEndMs", result.requestedRangeEndMs)
+                            .put("effectiveRangeEndMs", result.effectiveRangeEndMs)
+                            .put("skippedReason", result.skippedReason)
+                            .apply {
+                                if (memoryItem != null) {
+                                    put("startEpochMs", memoryItem.startEpochMs)
+                                    put("sizeBytes", memoryItem.sizeBytes)
+                                    put("durationMs", memoryItem.durationMs)
+                                }
+                            }
+                            .toString()
+                        val (code, status) = when {
+                            result.outputFile != null -> 201 to "Created"
+                            result.skippedReason == MemoryBuildCoordinator.SKIP_MANUAL_ALREADY_PENDING -> 409 to "Conflict"
+                            result.skippedReason == MemoryBuildCoordinator.SKIP_RANGE_NOT_READY -> 409 to "Conflict"
+                            result.skippedReason == "no_video_collect" ||
+                                result.skippedReason == "start_not_found" ||
+                                result.skippedReason == "no_video_in_range" ||
+                                result.skippedReason == MemoryBuildCoordinator.SKIP_NO_CLOSED_VIDEO_RANGE -> 422 to "Unprocessable Entity"
+
+                            else -> 500 to "Internal Server Error"
+                        }
+                        writeResponse(
+                            socket = socket,
+                            code = code,
+                            status = status,
+                            body = responseBody
+                        )
+                    }
+
                     method == "GET" && path.startsWith("/memory-download/") -> {
                         val fileName = path.removePrefix("/memory-download/")
                         val file = memoryRepository.findByName(fileName)
@@ -222,7 +264,7 @@ class LocalSettingsHttpServer(
                         )
                     }
 
-                    method != "GET" && method != "PUT" -> {
+                    method != "GET" && method != "PUT" && method != "POST" -> {
                         writeResponse(
                             socket = socket,
                             code = 405,
@@ -428,6 +470,8 @@ class LocalSettingsHttpServer(
 
     private fun settingsToJson(state: SettingsState): String {
         val runtime = SleepRuntimeStatusStore.state.value
+        val memoryBuildInProgress = runtime.memoryBuildInProgress || memoryBuildCoordinator.isBuildInProgress()
+        val manualMemoryRequestInProgress = memoryBuildCoordinator.isManualRequestInProgress()
         return JSONObject()
             .put("sleepEnabled", state.sleepEnabled)
             .put("webServiceEnabled", state.webServiceEnabled)
@@ -442,7 +486,9 @@ class LocalSettingsHttpServer(
             .put("musicPlaylistCount", state.musicPlaylist.size)
             .put("monitoringActive", runtime.monitoringActive)
             .put("lullabyActive", runtime.lullabyActive)
-            .put("memoryBuildInProgress", runtime.memoryBuildInProgress)
+            .put("memoryBuildInProgress", memoryBuildInProgress)
+            .put("manualMemoryRequestInProgress", manualMemoryRequestInProgress)
+            .put("cameraMemoryAvailable", state.webCameraEnabled && memoryBuildCoordinator.isManualCameraMemoryAvailable())
             .put("lastMemoryBuiltAtMs", runtime.lastMemoryBuiltAtMs)
             .toString()
     }
