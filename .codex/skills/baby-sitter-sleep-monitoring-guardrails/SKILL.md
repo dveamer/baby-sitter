@@ -11,6 +11,7 @@ description: 이 저장소에서 `sleep`, `sound`, `motion`, `sooth`, 자장가 
 
 - 카메라 하드웨어 직접 접근은 `collect`만 맡기기.
 - `motion`, `webservice camera`, `memory(camera)`는 `collect` 산출물을 재사용하기.
+- 수동 `memory(camera)` 저장도 닫힌 `collect` 파일만으로 만들기. 아직 닫히지 않은 현재/미래 분 파일을 직접 포함하지 않기.
 - `sound`와 `motion` 중 한쪽을 수정해도 다른 쪽의 감지, awake 판정, `sooth`, 자장가 흐름이 유지되는지 확인하기.
 - 자장가 소리가 다시 마이크에 잡혀 `sooth -> 재생 -> 재감지 -> 재sooth` 루프가 생기지 않게 하기.
 
@@ -21,6 +22,7 @@ description: 이 저장소에서 `sleep`, `sound`, `motion`, `sooth`, 자장가 
 - `app/src/main/java/com/dveamer/babysitter/sleep/MicrophoneMusicController.kt`를 읽기. 같은 active 구간에서 자장가 시작이 반복되지 않아야 한다.
 - `app/src/main/java/com/dveamer/babysitter/sleep/WakeMemoryManager.kt`를 읽기. 자장가가 켜져 있으면 sleep stable 타이머가 초기화된다.
 - `app/src/main/java/com/dveamer/babysitter/collect/CollectClosedFileBus.kt`와 `app/src/main/java/com/dveamer/babysitter/sleep/MemoryAssembler.kt`를 읽기. memory 생성 범위가 닫힌 collect 파일 기준인지 확인한다.
+- 수동 memory 저장이나 web camera UI를 건드리면 `app/src/main/java/com/dveamer/babysitter/sleep/MemoryBuildCoordinator.kt`와 `app/src/main/java/com/dveamer/babysitter/web/LocalSettingsHttpServer.kt`, `app/src/main/assets/index.html`도 같이 읽기.
 
 ## 작업 순서
 
@@ -29,6 +31,7 @@ description: 이 저장소에서 `sleep`, `sound`, `motion`, `sooth`, 자장가 
 3. `sound`, `motion`, `sooth`, 자장가 중 하나를 수정하면 `SleepForegroundService`의 마이크 분기와 카메라 분기를 둘 다 다시 읽기.
 4. 자장가나 `sooth` 로직을 수정하면 마이크 억제 조건과 억제 시간 상수를 같이 점검하기.
 5. collect 또는 memory 범위를 수정하면 닫히지 않은 파일을 memory에 포함하지 않는지 확인하기.
+6. 수동 memory 버튼이나 web 상태 표시를 수정하면 서버가 내려주는 진행 상태를 기준으로 새로고침 후에도 중복 요청이 막히는지 확인하기.
 
 ## 반드시 확인할 체크포인트
 
@@ -39,6 +42,8 @@ description: 이 저장소에서 `sleep`, `sound`, `motion`, `sooth`, 자장가 
 - 외부 소리 없이 자장가만으로 반복 재생 루프가 생기지 않는지 확인하기.
 - 자장가가 active일 때 memory용 sleep stable 타이머가 초기화되는지 확인하기.
 - memory 생성 범위가 최근에 닫힌 collect 비디오 파일 범위를 넘지 않는지 확인하기.
+- 수동 memory 저장이 버튼 시점 전후 구간을 다 만들기 전에 부분 영상으로 조립되지 않는지 확인하기.
+- 수동 memory 저장 가능 여부가 클라이언트 임시 상태가 아니라 서버 authoritative 상태(`manualMemoryRequestInProgress`, `cameraMemoryAvailable`, `memoryBuildInProgress`)를 기준으로 갱신되는지 확인하기.
 
 ## 같이 볼 테스트
 
@@ -46,6 +51,7 @@ description: 이 저장소에서 `sleep`, `sound`, `motion`, `sooth`, 자장가 
 - `app/src/test/java/com/dveamer/babysitter/sleep/PlaybackInactivityControllerTest.kt`로 자장가 정지 grace 동작을 확인하기.
 - `app/src/test/java/com/dveamer/babysitter/sleep/WakeMemoryManagerTest.kt`로 lullaby active 시 memory 타이머 초기화를 확인하기.
 - `app/src/test/java/com/dveamer/babysitter/collect/CollectClosedFileBusTest.kt`로 collect 종료 파일 기준 동작을 확인하기.
+- `app/src/test/java/com/dveamer/babysitter/sleep/MemoryBuildCoordinatorTest.kt`로 수동 memory 대기/직렬화/서버 상태 노출 전제를 확인하기.
 
 ## 완료 전 최소 검증
 
