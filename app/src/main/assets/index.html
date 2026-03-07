@@ -292,7 +292,7 @@
     <section class="panel">
       <h2 class="title">Monitoring</h2>
       <div id="soundSensitivityRow" class="sensitivity-block">
-        <div class="sensitivity-title">Sound Sensitivity (<span id="soundThresholdValue">700</span>)</div>
+        <div class="sensitivity-title">Sound Sensitivity (<span id="soundThresholdValue">500</span>)</div>
         <div id="soundPresetButtons" class="preset-buttons">
           <button class="btn preset-btn" type="button" data-value="HIGH">High</button>
           <button class="btn preset-btn" type="button" data-value="MEDIUM">Medium</button>
@@ -360,7 +360,7 @@
     let lullabyActive = false;
     let soundSensitivity = "MEDIUM";
     let motionSensitivity = "MEDIUM";
-    let cryThresholdSec = 700;
+    let cryThresholdSec = 500;
     let movementThresholdSec = 20;
     let cameraConnectTimeoutId = null;
     let cameraAttemptToken = 0;
@@ -369,7 +369,7 @@
     let sleepStatusPollTimeoutId = null;
     let memoryItems = [];
     let selectedMemoryFile = null;
-    const SOUND_PRESET_VALUES = { HIGH: 300, MEDIUM: 700, LOW: 1000 };
+    const SOUND_PRESET_VALUES = { HIGH: 250, MEDIUM: 500, LOW: 750 };
     const MOTION_PRESET_VALUES = { HIGH: 14, MEDIUM: 20, LOW: 28 };
     const isKoreanUser = (navigator.language || "").toLowerCase().startsWith("ko");
     const cameraConnectionFailedMessage = isKoreanUser
@@ -615,7 +615,7 @@
         sleepBtn.textContent = sleepEnabled ? "Sleep Off" : "Sleep On";
         soundMonitoringEnabled = !!settings.soundMonitoringEnabled;
         soundSensitivity = settings.soundSensitivity || "MEDIUM";
-        cryThresholdSec = Number(settings.cryThresholdSec ?? 700);
+        cryThresholdSec = Number(settings.cryThresholdSec ?? 500);
         motionMonitoringEnabled = !!settings.cameraMonitoringEnabled;
         motionSensitivity = settings.motionSensitivity || "MEDIUM";
         movementThresholdSec = Number(settings.movementThresholdSec ?? 20);

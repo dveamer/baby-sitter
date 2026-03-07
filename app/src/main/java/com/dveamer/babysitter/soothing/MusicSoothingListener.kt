@@ -6,13 +6,15 @@ import android.media.MediaPlayer
 import android.net.Uri
 import android.util.Log
 import com.dveamer.babysitter.settings.SettingsRepository
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CoroutineScope
 import java.io.File
 import java.io.FileInputStream
 import java.util.concurrent.atomic.AtomicBoolean
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancelAndJoin
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -24,6 +26,7 @@ import kotlin.coroutines.resumeWithException
 import kotlinx.coroutines.suspendCancellableCoroutine
 
 class MusicSoothingListener(
+    private val scope: CoroutineScope,
     private val context: Context,
     private val settingsRepository: SettingsRepository,
     private val onPlaybackStateChanged: (Boolean) -> Unit = {},
@@ -35,50 +38,84 @@ class MusicSoothingListener(
     private var isPlaying = false
     @Volatile
     private var nextAllowedAttemptAtMs: Long = 0L
+    @Volatile
+    private var playbackJob: Job? = null
 
     override suspend fun soothe(request: SootheRequest): SootheResult {
-        Log.d(TAG, "sooth : $request")
-        if (isPlaying || request.requestedAtMs < nextAllowedAttemptAtMs) return SootheResult.IGNORED
+        if (isPlaying) {
+            Log.d(TAG, "ignore soothe: playback already active request=$request")
+            return SootheResult.IGNORED
+        }
+        if (request.requestedAtMs < nextAllowedAttemptAtMs) {
+            Log.d(
+                TAG,
+                "ignore soothe: retry backoff requestAt=${request.requestedAtMs} nextAllowed=$nextAllowedAttemptAtMs"
+            )
+            return SootheResult.IGNORED
+        }
 
         return lock.withLock {
-            if (isPlaying || request.requestedAtMs < nextAllowedAttemptAtMs) {
+            if (isPlaying || playbackJob?.isActive == true || request.requestedAtMs < nextAllowedAttemptAtMs) {
                 return@withLock SootheResult.IGNORED
             }
 
             val playlist = settingsRepository.state.value.musicPlaylist
-            if (playlist.isEmpty()) return@withLock SootheResult.IGNORED
+            if (playlist.isEmpty()) {
+                Log.w(TAG, "ignore soothe: playlist is empty request=$request")
+                return@withLock SootheResult.IGNORED
+            }
 
             isPlaying = true
             onPlaybackStateChanged(true)
-            try {
+            playbackJob = scope.launch(Dispatchers.IO) {
                 var playedCount = 0
-                playlist.forEach { uriString ->
-                    val uri = Uri.parse(uriString)
-                    runCatching {
-                        playOnce(uri)
-                    }.onSuccess {
-                        playedCount += 1
-                    }.onFailure { t ->
-                        Log.w(TAG, "track failed uri=$uri", t)
+                try {
+                    playlist.forEach { uriString ->
+                        val uri = Uri.parse(uriString)
+                        runCatching {
+                            playOnce(uri)
+                        }.onSuccess {
+                            playedCount += 1
+                        }.onFailure { t ->
+                            Log.w(TAG, "track failed uri=$uri", t)
+                        }
                     }
-                }
-
-                if (playedCount > 0) {
+                    if (playedCount == 0) {
+                        nextAllowedAttemptAtMs = request.requestedAtMs + RETRY_BACKOFF_MS
+                    } else {
+                        nextAllowedAttemptAtMs = 0L
+                    }
+                } catch (cancelled: CancellationException) {
+                    Log.d(TAG, "music soothing cancelled")
                     nextAllowedAttemptAtMs = 0L
-                    SootheResult.STARTED
-                } else {
+                    throw cancelled
+                } catch (t: Throwable) {
+                    Log.w(TAG, "music soothing failed", t)
                     nextAllowedAttemptAtMs = request.requestedAtMs + RETRY_BACKOFF_MS
-                    SootheResult.FAILED
+                } finally {
+                    lock.withLock {
+                        playbackJob = null
+                        isPlaying = false
+                    }
+                    onPlaybackStateChanged(false)
                 }
-            } catch (t: Throwable) {
-                Log.w(TAG, "music soothing failed", t)
-                nextAllowedAttemptAtMs = request.requestedAtMs + RETRY_BACKOFF_MS
-                SootheResult.FAILED
-            } finally {
-                isPlaying = false
-                onPlaybackStateChanged(false)
             }
+
+            Log.d(TAG, "music soothing started request=$request playlistSize=${playlist.size}")
+            SootheResult.STARTED
         }
+    }
+
+    suspend fun stop(reason: String = "manual") {
+        val job = lock.withLock {
+            val current = playbackJob
+            if (current != null) {
+                Log.d(TAG, "stop music soothing reason=$reason")
+            }
+            current
+        } ?: return
+
+        job.cancelAndJoin()
     }
 
     private suspend fun playOnce(uri: Uri): Unit = withContext(Dispatchers.IO) {

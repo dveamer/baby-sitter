@@ -122,15 +122,20 @@ class DataStoreSettingsRepository(
     }
 
     private fun Preferences.toSettingsState(): SettingsState {
+        val storedSoundSensitivity = this[Keys.SOUND_SENSITIVITY]
+            ?.let { runCatching { SoundSensitivity.valueOf(it) }.getOrNull() }
+        val soundSensitivity = storedSoundSensitivity ?: SoundSensitivity.MEDIUM
+
         return SettingsState(
             sleepEnabled = this[Keys.SLEEP_ENABLED] ?: false,
             webServiceEnabled = this[Keys.WEB_SERVICE_ENABLED] ?: false,
             webCameraEnabled = this[Keys.WEB_CAMERA_ENABLED] ?: false,
             soundMonitoringEnabled = this[Keys.SOUND_MONITORING_ENABLED] ?: false,
-            soundSensitivity = this[Keys.SOUND_SENSITIVITY]
-                ?.let { runCatching { SoundSensitivity.valueOf(it) }.getOrNull() }
-                ?: SoundSensitivity.MEDIUM,
-            cryThresholdSec = (this[Keys.CRY_THRESHOLD_SEC] ?: 250).coerceIn(10, 1_000),
+            soundSensitivity = soundSensitivity,
+            cryThresholdSec = normalizeCryThreshold(
+                threshold = this[Keys.CRY_THRESHOLD_SEC],
+                soundSensitivity = storedSoundSensitivity
+            ),
             movementThresholdSec = this[Keys.MOVEMENT_THRESHOLD_SEC] ?: 20,
             motionSensitivity = this[Keys.MOTION_SENSITIVITY]
                 ?.let { runCatching { MotionSensitivity.valueOf(it) }.getOrNull() }
@@ -152,6 +157,33 @@ class DataStoreSettingsRepository(
                 ?.let { runCatching { UpdateSource.valueOf(it) }.getOrNull() }
                 ?: UpdateSource.SYSTEM
         )
+    }
+
+    private fun normalizeCryThreshold(
+        threshold: Int?,
+        soundSensitivity: SoundSensitivity?
+    ): Int {
+        val value = threshold ?: 500
+        val normalized = when (soundSensitivity) {
+            SoundSensitivity.HIGH -> when (value) {
+                50, 300 -> 250
+                else -> value
+            }
+            SoundSensitivity.MEDIUM -> when (value) {
+                250, 700 -> 500
+                else -> value
+            }
+            SoundSensitivity.LOW -> when (value) {
+                700, 1000 -> 750
+                else -> value
+            }
+            null -> when (value) {
+                50, 300 -> 250
+                1000 -> 750
+                else -> value
+            }
+        }
+        return normalized.coerceIn(10, 1_000)
     }
 
     private fun MutablePreferences.fromSettingsState(state: SettingsState) {

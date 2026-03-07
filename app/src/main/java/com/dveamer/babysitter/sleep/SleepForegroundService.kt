@@ -34,6 +34,7 @@ import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
@@ -41,6 +42,7 @@ import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import kotlinx.coroutines.withContext
 
 class SleepForegroundService : Service() {
 
@@ -191,16 +193,19 @@ class SleepForegroundService : Service() {
             }
         }
 
+        val musicSoothingListener = if (settings.soothingMusicEnabled) {
+            MusicSoothingListener(
+                scope = serviceScope,
+                context = this@SleepForegroundService,
+                settingsRepository = container.settingsRepository,
+                onPlaybackStateChanged = SleepRuntimeStatusStore::setLullabyActive
+            )
+        } else {
+            null
+        }
+
         val soothingListeners = buildList<SoothingListener> {
-            if (settings.soothingMusicEnabled) {
-                add(
-                    MusicSoothingListener(
-                        context = this@SleepForegroundService,
-                        settingsRepository = container.settingsRepository,
-                        onPlaybackStateChanged = SleepRuntimeStatusStore::setLullabyActive
-                    )
-                )
-            }
+            musicSoothingListener?.let(::add)
             if (settings.soothingIotEnabled) {
                 add(IotSoothingListener(container.settingsRepository))
             }
@@ -209,6 +214,7 @@ class SleepForegroundService : Service() {
         val detector = ContinuousAwakeDetector { container.settingsRepository.state.value }
         val soothingCoordinator = SequentialSoothingCoordinator(soothingListeners)
         val alertController = AwakeAlertController(container.alertSender)
+        val microphoneMusicController = MicrophoneMusicController()
 
         try {
             monitors.forEach { it.start() }
@@ -221,12 +227,39 @@ class SleepForegroundService : Service() {
             SleepRuntimeStatusStore.setMonitoringActive(true)
             var lastLullabyActiveAtMs: Long = 0L
             var micSuppressedUntilMs: Long = 0L
+            var micMusicRestartAllowedAtMs: Long = 0L
             var lastSoothedAwakeSinceMs: Long? = null
             merge(*monitors.map { it.signals }.toTypedArray()).collect { signal ->
                 val now = System.currentTimeMillis()
                 val lullabyActive = SleepRuntimeStatusStore.state.value.lullabyActive
                 if (lullabyActive) {
                     lastLullabyActiveAtMs = now
+                }
+
+                if (signal.kind == MonitorKind.MICROPHONE && musicSoothingListener != null) {
+                    if (now >= micMusicRestartAllowedAtMs) {
+                        when (microphoneMusicController.onSignal(signal.active, lullabyActive)) {
+                            MicrophoneMusicAction.START -> {
+                                Log.d(TAG, "microphone music start signal=${signal.monitorId}")
+                                wakeMemoryManager.onAwakeSignal(now)
+                                musicSoothingListener.soothe(
+                                    SootheRequest(
+                                        awakeSinceMs = now,
+                                        reason = "${signal.monitorId}:direct",
+                                        requestedAtMs = now
+                                    )
+                                )
+                            }
+
+                            MicrophoneMusicAction.STOP -> {
+                                Log.d(TAG, "microphone music stop signal=${signal.monitorId}")
+                                musicSoothingListener.stop("microphone_inactive")
+                                micMusicRestartAllowedAtMs = now + MUSIC_RESTART_SUPPRESS_AFTER_STOP_MS
+                            }
+
+                            MicrophoneMusicAction.NONE -> Unit
+                        }
+                    }
                 }
                 val shouldSuppressMic = signal.kind == MonitorKind.MICROPHONE &&
                     (
@@ -279,6 +312,10 @@ class SleepForegroundService : Service() {
                 }
             }
         } finally {
+            withContext(NonCancellable) {
+                musicSoothingListener?.stop("engine_finished")
+            }
+            microphoneMusicController.reset()
             SleepRuntimeStatusStore.reset()
             monitors.forEach { it.stop() }
         }
@@ -431,5 +468,6 @@ class SleepForegroundService : Service() {
         private const val MEMORY_BUILD_MAX_WAIT_ATTEMPTS = 4
         private const val MIC_SUPPRESS_AFTER_LULLABY_MS = 20_000L
         private const val MIC_SUPPRESS_AFTER_SOOTHE_MS = 60_000L
+        private const val MUSIC_RESTART_SUPPRESS_AFTER_STOP_MS = 5_000L
     }
 }
