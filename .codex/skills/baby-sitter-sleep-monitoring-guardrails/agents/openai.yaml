@@ -1,0 +1,4 @@
+interface:
+  display_name: "수면 모니터링 가드레일"
+  short_description: "수면 모니터링, sooth, 자장가 상호작용 변경 점검 지침"
+  default_prompt: "$baby-sitter-sleep-monitoring-guardrails 를 사용해 이 저장소의 sound, motion, soothe, 자장가, collect, memory 상호작용 변경을 점검해줘."
