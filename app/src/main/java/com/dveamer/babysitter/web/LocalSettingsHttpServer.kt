@@ -254,7 +254,24 @@ class LocalSettingsHttpServer(
                     }
 
                     method == "GET" && (path == "/index.html" || path == "/") -> {
-                        val html = loadIndexHtml()
+                        val html = loadHtmlAsset(
+                            assetName = "index.html",
+                            fallbackHtml = "<html><body><h1>Baby Sitter Web Service</h1></body></html>"
+                        )
+                        writeTextResponse(
+                            socket = socket,
+                            code = 200,
+                            status = "OK",
+                            contentType = "text/html; charset=utf-8",
+                            body = html
+                        )
+                    }
+
+                    method == "GET" && path == "/share-download.html" -> {
+                        val html = loadHtmlAsset(
+                            assetName = "share-download.html",
+                            fallbackHtml = "<html><body><h1>Baby Sitter Share Download</h1></body></html>"
+                        )
                         writeTextResponse(
                             socket = socket,
                             code = 200,
@@ -414,12 +431,12 @@ class LocalSettingsHttpServer(
         return Triple(start, end, true)
     }
 
-    private fun loadIndexHtml(): String {
+    private fun loadHtmlAsset(assetName: String, fallbackHtml: String): String {
         return runCatching {
-            appContext.assets.open("index.html").bufferedReader(Charsets.UTF_8).use { it.readText() }
+            appContext.assets.open(assetName).bufferedReader(Charsets.UTF_8).use { it.readText() }
         }.getOrElse { e ->
-            Log.w(TAG, "failed to load assets/index.html", e)
-            "<html><body><h1>Baby Sitter Web Service</h1></body></html>"
+            Log.w(TAG, "failed to load assets/$assetName", e)
+            fallbackHtml
         }
     }
 

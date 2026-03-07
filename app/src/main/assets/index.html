@@ -499,13 +499,10 @@
       ? "Sound, Motion 모두 사용되지 않도록 설정되어 아기가 깼는지 감지할 수 없습니다."
       : "Both Sound and Motion are disabled, so the app cannot detect whether the baby has woken up.";
     const shareButtonLabel = isKoreanUser ? "영상 저장 또는 공유" : "Save or share video";
-    const shareFallbackMessage = isKoreanUser
-      ? "이 환경에서는 시스템 공유를 직접 열 수 없어 파일 저장을 시작했습니다."
-      : "Native sharing is unavailable here, so the file download has started.";
+    const sharePageBaseUrl = "https://babysitter.dveamer.com/share-memory.html";
     const shareFailedMessage = isKoreanUser
-      ? "영상 공유를 시작하지 못했습니다"
-      : "Failed to start sharing";
-    const shareTitle = "Baby Sitter memory video";
+      ? "영상 공유 페이지를 열지 못했습니다"
+      : "Failed to open the video share page";
 
     memoryTitleEl.textContent = memoryTitleText;
 
@@ -659,39 +656,16 @@
       return "/memory-download/" + encodeURIComponent(fileName);
     }
 
-    function startMemoryDownload(fileName) {
-      const link = document.createElement("a");
-      link.href = memoryDownloadUrl(fileName);
-      link.download = fileName;
-      link.rel = "noopener";
-      link.style.display = "none";
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+    function memoryDownloadAbsoluteUrl(fileName) {
+      return new URL(memoryDownloadUrl(fileName), window.location.href).toString();
     }
 
-    function isShareCanceled(error) {
-      const name = error && error.name ? String(error.name) : "";
-      const message = error && error.message ? String(error.message).toLowerCase() : "";
-      return name === "AbortError" || (name === "NotAllowedError" && message.includes("cancel"));
-    }
-
-    async function tryShareMemoryFile(fileName) {
-      if (!window.isSecureContext || typeof navigator.share !== "function" || typeof File !== "function") {
-        return false;
-      }
-      const res = await fetch(memoryVideoUrl(fileName), { cache: "no-store" });
-      if (!res.ok) throw new Error("HTTP " + res.status);
-      const blob = await res.blob();
-      const file = new File([blob], fileName, { type: blob.type || "video/mp4" });
-      if (typeof navigator.canShare === "function" && !navigator.canShare({ files: [file] })) {
-        return false;
-      }
-      await navigator.share({
-        title: shareTitle,
-        files: [file]
+    function sharePageUrl(fileName) {
+      const params = new URLSearchParams({
+        url: btoa(memoryDownloadAbsoluteUrl(fileName)),
+        autostart: "1"
       });
-      return true;
+      return sharePageBaseUrl + "?" + params.toString();
     }
 
     async function shareMemory(fileName) {
@@ -701,18 +675,18 @@
       hideError();
       hideSuccess();
       try {
-        const shared = await tryShareMemoryFile(fileName);
-        if (shared) return;
-        startMemoryDownload(fileName);
-        showSuccess(shareFallbackMessage);
-      } catch (e) {
-        if (isShareCanceled(e)) return;
-        if (String(e && e.message || "").startsWith("HTTP ")) {
-          showError(shareFailedMessage + ": " + e.message);
+        const nextUrl = sharePageUrl(fileName);
+        const shareWindow = window.open(nextUrl, "_blank");
+        if (shareWindow) {
+          try {
+            shareWindow.opener = null;
+          } catch (_) {
+          }
           return;
         }
-        startMemoryDownload(fileName);
-        showSuccess(shareFallbackMessage);
+        window.location.assign(nextUrl);
+      } catch (e) {
+        showError(shareFailedMessage + ": " + e.message);
       } finally {
         sharingMemoryFile = null;
         renderMemoryList();

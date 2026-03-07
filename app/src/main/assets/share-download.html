@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Baby Sitter Memory Download</title>
+  <style>
+    :root {
+      --bg: #06101f;
+      --surface: #0f1d31;
+      --line: rgba(255, 255, 255, 0.08);
+      --text: #f8fafc;
+      --muted: rgba(248, 250, 252, 0.72);
+      --accent: #ffa24c;
+    }
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      font-family: "Pretendard", "Noto Sans KR", "Apple SD Gothic Neo", "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top, rgba(255, 162, 76, 0.16), transparent 34%),
+        linear-gradient(180deg, #17335a 0%, var(--bg) 58%);
+    }
+    main {
+      width: min(100%, 320px);
+      padding: 28px 24px;
+      border-radius: 24px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      text-align: center;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.24);
+    }
+    .spinner {
+      width: 40px;
+      height: 40px;
+      margin: 0 auto 18px;
+      border-radius: 50%;
+      border: 3px solid rgba(255, 255, 255, 0.16);
+      border-top-color: var(--accent);
+      animation: spin 0.9s linear infinite;
+    }
+    #status {
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.6;
+    }
+    #subtext {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="spinner" aria-hidden="true"></div>
+    <div id="status"></div>
+    <div id="subtext"></div>
+  </main>
+  <script>
+    (() => {
+      const isKoreanUser = (navigator.language || "").toLowerCase().startsWith("ko");
+      const copy = isKoreanUser
+        ? {
+            preparing: "다운로드를 준비하는 중입니다.",
+            redirecting: "영상 다운로드를 시작합니다.",
+            invalidUrl: "다운로드 주소가 올바르지 않습니다.",
+            retrying: "자동으로 시작되지 않으면 잠시 후 다시 시도해 주세요."
+          }
+        : {
+            preparing: "Preparing the download.",
+            redirecting: "Starting the video download.",
+            invalidUrl: "The download URL is invalid.",
+            retrying: "If it does not start automatically, try again in a moment."
+          };
+
+      const params = new URLSearchParams(window.location.search);
+      const statusEl = document.getElementById("status");
+      const subtextEl = document.getElementById("subtext");
+
+      function setStatus(message) {
+        statusEl.textContent = message;
+      }
+
+      function setSubtext(message) {
+        subtextEl.textContent = message;
+      }
+
+      function decodeDownloadUrl(value) {
+        if (!value) throw new Error("missing_url");
+        const decoded = atob(value);
+        const parsed = new URL(decoded);
+        if (parsed.protocol !== "http:") {
+          throw new Error("invalid_url");
+        }
+        if (parsed.origin !== window.location.origin) {
+          throw new Error("invalid_url");
+        }
+        if (!parsed.pathname.startsWith("/memory-download/")) {
+          throw new Error("invalid_url");
+        }
+        return parsed.toString();
+      }
+
+      function startDownload(downloadUrl) {
+        setStatus(copy.redirecting);
+        setSubtext(copy.retrying);
+        window.setTimeout(() => {
+          const link = document.createElement("a");
+          link.href = downloadUrl;
+          link.rel = "noopener";
+          link.style.display = "none";
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          window.setTimeout(() => {
+            window.close();
+            window.setTimeout(() => {
+              if (!window.closed) {
+                try {
+                  window.open("", "_self");
+                } catch (_) {
+                }
+                window.close();
+              }
+            }, 250);
+          }, 600);
+        }, 120);
+      }
+
+      try {
+        setStatus(copy.preparing);
+        const downloadUrl = decodeDownloadUrl(params.get("url"));
+        startDownload(downloadUrl);
+      } catch (_) {
+        setStatus(copy.invalidUrl);
+        setSubtext("");
+      }
+    })();
+  </script>
+</body>
+</html>
