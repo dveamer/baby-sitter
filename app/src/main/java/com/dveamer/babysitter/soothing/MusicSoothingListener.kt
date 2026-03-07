@@ -40,6 +40,10 @@ class MusicSoothingListener(
     private var nextAllowedAttemptAtMs: Long = 0L
     @Volatile
     private var playbackJob: Job? = null
+    @Volatile
+    private var stopAfterCurrentTrackRequested = false
+    @Volatile
+    private var stopAfterCurrentTrackReason: String? = null
 
     override suspend fun soothe(request: SootheRequest): SootheResult {
         if (isPlaying) {
@@ -66,11 +70,21 @@ class MusicSoothingListener(
             }
 
             isPlaying = true
+            stopAfterCurrentTrackRequested = false
+            stopAfterCurrentTrackReason = null
             onPlaybackStateChanged(true)
             playbackJob = scope.launch(Dispatchers.IO) {
                 var playedCount = 0
                 try {
-                    playlist.forEach { uriString ->
+                    for (index in playlist.indices) {
+                        if (index > 0 && stopAfterCurrentTrackRequested) {
+                            Log.d(
+                                TAG,
+                                "finish music soothing after current track reason=$stopAfterCurrentTrackReason"
+                            )
+                            break
+                        }
+                        val uriString = playlist[index]
                         val uri = Uri.parse(uriString)
                         try {
                             playOnce(uri)
@@ -97,6 +111,8 @@ class MusicSoothingListener(
                     lock.withLock {
                         playbackJob = null
                         isPlaying = false
+                        stopAfterCurrentTrackRequested = false
+                        stopAfterCurrentTrackReason = null
                     }
                     onPlaybackStateChanged(false)
                 }
@@ -113,10 +129,35 @@ class MusicSoothingListener(
             if (current != null) {
                 Log.d(TAG, "stop music soothing reason=$reason")
             }
+            stopAfterCurrentTrackRequested = false
+            stopAfterCurrentTrackReason = null
             current
         } ?: return
 
         job.cancelAndJoin()
+    }
+
+    suspend fun stopAfterCurrentTrack(reason: String) {
+        lock.withLock {
+            if (playbackJob == null) return@withLock
+            if (!stopAfterCurrentTrackRequested) {
+                Log.d(TAG, "stop music soothing after current track reason=$reason")
+            }
+            stopAfterCurrentTrackRequested = true
+            stopAfterCurrentTrackReason = reason
+        }
+    }
+
+    suspend fun clearPendingStop(reason: String) {
+        lock.withLock {
+            if (!stopAfterCurrentTrackRequested) return@withLock
+            Log.d(
+                TAG,
+                "clear music soothing stop request reason=$reason pending=$stopAfterCurrentTrackReason"
+            )
+            stopAfterCurrentTrackRequested = false
+            stopAfterCurrentTrackReason = null
+        }
     }
 
     private suspend fun playOnce(uri: Uri): Unit = withContext(Dispatchers.IO) {

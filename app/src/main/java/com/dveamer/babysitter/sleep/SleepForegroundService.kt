@@ -220,6 +220,7 @@ class SleepForegroundService : Service() {
         val soothingCoordinator = SequentialSoothingCoordinator(soothingListeners)
         val alertController = AwakeAlertController(container.alertSender)
         val microphoneMusicController = MicrophoneMusicController()
+        val awakeMusicStopController = PlaybackInactivityController(AWAKE_MUSIC_STOP_GRACE_MS)
 
         try {
             monitors.forEach { it.start() }
@@ -232,7 +233,6 @@ class SleepForegroundService : Service() {
             SleepRuntimeStatusStore.setMonitoringActive(true)
             var lastLullabyActiveAtMs: Long = 0L
             var micSuppressedUntilMs: Long = 0L
-            var micMusicRestartAllowedAtMs: Long = 0L
             var lastSoothedAwakeSinceMs: Long? = null
             var musicPlaybackOwner: MusicPlaybackOwner? = null
             merge(*monitors.map { it.signals }.toTypedArray()).collect { signal ->
@@ -242,49 +242,59 @@ class SleepForegroundService : Service() {
                     lastLullabyActiveAtMs = now
                 } else {
                     musicPlaybackOwner = null
+                    awakeMusicStopController.reset()
                 }
 
-                if (signal.kind == MonitorKind.MICROPHONE && musicSoothingListener != null) {
-                    if (now >= micMusicRestartAllowedAtMs) {
-                        when (microphoneMusicController.onSignal(signal.active, lullabyActive)) {
-                            MicrophoneMusicAction.START -> {
-                                Log.d(TAG, "microphone music start signal=${signal.monitorId}")
-                                wakeMemoryManager.onAwakeSignal(now)
-                                val result = musicSoothingListener.soothe(
-                                    SootheRequest(
-                                        awakeSinceMs = now,
-                                        reason = "${signal.monitorId}:direct",
-                                        requestedAtMs = now
-                                    )
-                                )
-                                if (result == SootheResult.STARTED) {
-                                    musicPlaybackOwner = MusicPlaybackOwner.MICROPHONE_DIRECT
-                                }
-                            }
-
-                            MicrophoneMusicAction.STOP -> {
-                                Log.d(TAG, "microphone music stop signal=${signal.monitorId}")
-                                musicSoothingListener.stop("microphone_inactive")
-                                musicPlaybackOwner = null
-                                micMusicRestartAllowedAtMs = now + MUSIC_RESTART_SUPPRESS_AFTER_STOP_MS
-                            }
-
-                            MicrophoneMusicAction.NONE -> Unit
-                        }
-                    }
-                }
                 val shouldSuppressMic = signal.kind == MonitorKind.MICROPHONE &&
                     (
                         lullabyActive ||
                             now <= micSuppressedUntilMs ||
                             now - lastLullabyActiveAtMs <= MIC_SUPPRESS_AFTER_LULLABY_MS
                         )
+
+                if (signal.kind == MonitorKind.MICROPHONE && musicSoothingListener != null) {
+                    val directMusicActive = signal.active && !shouldSuppressMic
+                    when (microphoneMusicController.onSignal(directMusicActive)) {
+                        MicrophoneMusicAction.START -> {
+                            Log.d(TAG, "microphone music start signal=${signal.monitorId}")
+                            wakeMemoryManager.onAwakeSignal(now)
+                            val result = musicSoothingListener.soothe(
+                                SootheRequest(
+                                    awakeSinceMs = now,
+                                    reason = "${signal.monitorId}:direct",
+                                    requestedAtMs = now
+                                )
+                            )
+                            if (result == SootheResult.STARTED) {
+                                musicPlaybackOwner = MusicPlaybackOwner.MICROPHONE_DIRECT
+                            }
+                        }
+
+                        MicrophoneMusicAction.NONE -> Unit
+                    }
+                }
                 val effectiveSignal = if (shouldSuppressMic && signal.active) {
                     signal.copy(active = false)
                 } else {
                     signal
                 }
                 val awake = detector.onSignal(effectiveSignal, now)
+
+                if (musicSoothingListener != null && lullabyActive && musicPlaybackOwner == MusicPlaybackOwner.AWAKE) {
+                    when (awakeMusicStopController.onConditionChanged(awake.isAwake, now)) {
+                        PlaybackInactivityAction.REQUEST_STOP_AFTER_CURRENT_TRACK -> {
+                            musicSoothingListener.stopAfterCurrentTrack("awake_inactive")
+                        }
+
+                        PlaybackInactivityAction.CLEAR_STOP_REQUEST -> {
+                            musicSoothingListener.clearPendingStop("awake_resumed")
+                        }
+
+                        PlaybackInactivityAction.NONE -> Unit
+                    }
+                } else {
+                    awakeMusicStopController.reset()
+                }
 
                 if (awake.isAwake && awake.awakeSinceMs != null) {
                     Log.d(TAG, "awake signal reason=${awake.reason} awakeSince=${awake.awakeSinceMs}")
@@ -305,6 +315,7 @@ class SleepForegroundService : Service() {
                         val result = musicSoothingListener.soothe(sootheRequest)
                         if (result == SootheResult.STARTED) {
                             musicPlaybackOwner = MusicPlaybackOwner.AWAKE
+                            awakeMusicStopController.reset()
                             if (awake.reason.contains("microphone")) {
                                 micSuppressedUntilMs = now + MIC_SUPPRESS_AFTER_SOOTHE_MS
                             }
@@ -318,14 +329,6 @@ class SleepForegroundService : Service() {
                 } else {
                     alertController.onSleep()
                     lastSoothedAwakeSinceMs = null
-                    if (
-                        musicSoothingListener != null &&
-                        lullabyActive &&
-                        musicPlaybackOwner == MusicPlaybackOwner.AWAKE
-                    ) {
-                        musicSoothingListener.stop("awake_inactive")
-                        musicPlaybackOwner = null
-                    }
                     val trigger = wakeMemoryManager.onPassiveSignal(
                         lullabyActive = lullabyActive,
                         nowMs = now
@@ -496,6 +499,6 @@ class SleepForegroundService : Service() {
         private const val MEMORY_BUILD_MAX_WAIT_ATTEMPTS = 4
         private const val MIC_SUPPRESS_AFTER_LULLABY_MS = 20_000L
         private const val MIC_SUPPRESS_AFTER_SOOTHE_MS = 60_000L
-        private const val MUSIC_RESTART_SUPPRESS_AFTER_STOP_MS = 5_000L
+        private const val AWAKE_MUSIC_STOP_GRACE_MS = 15_000L
     }
 }
