@@ -157,6 +157,26 @@ class LocalSettingsHttpServer(
                         )
                     }
 
+                    method == "GET" && path.startsWith("/memory-download/") -> {
+                        val fileName = path.removePrefix("/memory-download/")
+                        val file = memoryRepository.findByName(fileName)
+                        if (file == null || !file.exists()) {
+                            writeResponse(
+                                socket = socket,
+                                code = 404,
+                                status = "Not Found",
+                                body = """{"error":"memory_not_found"}"""
+                            )
+                            return@runCatching
+                        }
+                        writeMemoryStream(
+                            socket = socket,
+                            file = file,
+                            rangeHeader = headers["range"],
+                            contentDisposition = """attachment; filename="$fileName""""
+                        )
+                    }
+
                     method == "GET" && path.startsWith("/memory/") -> {
                         val fileName = path.removePrefix("/memory/")
                         val file = memoryRepository.findByName(fileName)
@@ -295,7 +315,8 @@ class LocalSettingsHttpServer(
     private fun writeMemoryStream(
         socket: Socket,
         file: java.io.File,
-        rangeHeader: String?
+        rangeHeader: String?,
+        contentDisposition: String? = null
     ) {
         val fileLength = file.length()
         val (start, end, partial) = parseRange(rangeHeader, fileLength)
@@ -305,6 +326,9 @@ class LocalSettingsHttpServer(
             append("Content-Type: video/mp4\r\n")
             append("Accept-Ranges: bytes\r\n")
             append("Content-Length: $length\r\n")
+            if (!contentDisposition.isNullOrBlank()) {
+                append("Content-Disposition: $contentDisposition\r\n")
+            }
             if (partial) {
                 append("Content-Range: bytes $start-$end/$fileLength\r\n")
             }
