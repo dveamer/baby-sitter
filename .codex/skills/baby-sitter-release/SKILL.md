@@ -46,12 +46,12 @@ description: 이 저장소에서 안드로이드 앱 릴리즈를 준비할 때 
 5. 아래 형식으로 영문과 한글을 함께 제공하기.
 
 ```text
-<en>
+<en-US>
 English release notes
-</en>
-<ko>
+</en-US>
+<ko-KR>
 한국어 릴리즈 노트
-</ko>
+</ko-KR>
 ```
 
 ## 이 저장소에서 우선 볼 변경 축
