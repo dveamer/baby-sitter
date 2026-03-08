@@ -13,7 +13,7 @@ data class MemoryDownloadProductDefinition(
 object MemoryDownloadPassCatalog {
     const val MONTH_MEMORY_DOWNLOAD_10_PER_DAY = "month_memory_download_10_per_day"
     const val SUBSCRIPTION_MONTH_MEMORY_DOWNLOAD_10_PER_DAY =
-        "subscription_month_memory_download_10_per_day"
+        "subscribe_memory_download_10_per_day"
     const val DEFAULT_DAILY_LIMIT = 1
     const val EXPANDED_DAILY_LIMIT = 10
 
