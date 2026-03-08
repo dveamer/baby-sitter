@@ -98,6 +98,7 @@ dependencies {
 
     implementation("androidx.datastore:datastore-preferences:1.1.1")
     implementation("com.google.zxing:core:3.5.3")
+    implementation("com.android.billingclient:billing:8.3.0")
 
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")

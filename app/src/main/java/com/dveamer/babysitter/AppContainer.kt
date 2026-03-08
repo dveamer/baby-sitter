@@ -2,6 +2,8 @@ package com.dveamer.babysitter
 
 import android.content.Context
 import com.dveamer.babysitter.alert.TelegramAlertSender
+import com.dveamer.babysitter.billing.MemoryDownloadEntitlementRepository
+import com.dveamer.babysitter.billing.MemoryDownloadPurchaseManager
 import com.dveamer.babysitter.collect.CollectCatalog
 import com.dveamer.babysitter.collect.CollectRecorderCoordinator
 import com.dveamer.babysitter.collect.CollectStoragePaths
@@ -18,9 +20,9 @@ import com.dveamer.babysitter.sleep.MemoryAssembler
 import com.dveamer.babysitter.sleep.SleepRuntime
 import com.dveamer.babysitter.sleep.SleepRuntimeOrchestrator
 import com.dveamer.babysitter.web.DataStoreMemoryDownloadQuotaStore
+import com.dveamer.babysitter.web.EntitledMemoryDownloadLimitProvider
 import com.dveamer.babysitter.web.LocalSettingsHttpServer
 import com.dveamer.babysitter.web.MemoryDownloadLimiter
-import com.dveamer.babysitter.web.StaticMemoryDownloadLimitProvider
 import com.dveamer.babysitter.web.WebServiceOrchestrator
 import java.util.concurrent.atomic.AtomicLong
 
@@ -48,8 +50,15 @@ class AppContainer(context: Context) {
     val memoryAssembler = MemoryAssembler(collectStoragePaths, collectCatalog)
     val memoryBuildCoordinator = MemoryBuildCoordinator(memoryAssembler, collectCatalog)
     val memoryRepository = MemoryRepository(collectCatalog)
+    val memoryDownloadEntitlementRepository = MemoryDownloadEntitlementRepository(appContext)
+    val memoryDownloadPurchaseManager = MemoryDownloadPurchaseManager(
+        context = appContext,
+        entitlementRepository = memoryDownloadEntitlementRepository
+    )
     private val memoryDownloadQuotaStore = DataStoreMemoryDownloadQuotaStore(appContext)
-    private val memoryDownloadLimitProvider = StaticMemoryDownloadLimitProvider()
+    private val memoryDownloadLimitProvider = EntitledMemoryDownloadLimitProvider(
+        entitlementRepository = memoryDownloadEntitlementRepository
+    )
     val memoryDownloadLimiter = MemoryDownloadLimiter(
         quotaStore = memoryDownloadQuotaStore,
         limitProvider = memoryDownloadLimitProvider
@@ -72,5 +81,6 @@ class AppContainer(context: Context) {
     suspend fun initialize() {
         collectStoragePaths.ensureDirectories()
         dataStoreRepository.initialize()
+        memoryDownloadPurchaseManager.initialize()
     }
 }

@@ -7,6 +7,8 @@ import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import com.dveamer.babysitter.billing.MemoryDownloadEntitlementRepository
+import com.dveamer.babysitter.billing.MemoryDownloadPassCatalog
 import java.io.IOException
 import java.time.Instant
 import java.time.ZoneId
@@ -22,7 +24,9 @@ private val Context.memoryDownloadDataStore by preferencesDataStore(name = MEMOR
 data class MemoryDownloadQuotaSnapshot(
     val dayKey: String,
     val dailyLimit: Int,
-    val downloadsUsedToday: Int
+    val downloadsUsedToday: Int,
+    val benefitProductId: String? = null,
+    val benefitExpiresAtEpochMs: Long? = null
 ) {
     val downloadsRemainingToday: Int
         get() = (dailyLimit - downloadsUsedToday).coerceAtLeast(0)
@@ -41,17 +45,44 @@ data class MemoryDownloadQuotaRecord(
     val downloadsUsedToday: Int = 0
 )
 
+data class MemoryDownloadAccessPolicy(
+    val dailyLimit: Int,
+    val benefitProductId: String? = null,
+    val benefitExpiresAtEpochMs: Long? = null
+)
+
 fun interface MemoryDownloadLimitProvider {
-    fun dailyLimit(): Int
+    fun currentPolicy(nowMs: Long): MemoryDownloadAccessPolicy
 }
 
 class StaticMemoryDownloadLimitProvider(
-    private val limit: Int = DEFAULT_DAILY_MEMORY_DOWNLOAD_LIMIT
+    private val limit: Int = MemoryDownloadPassCatalog.DEFAULT_DAILY_LIMIT
 ) : MemoryDownloadLimitProvider {
-    override fun dailyLimit(): Int = limit
+    override fun currentPolicy(nowMs: Long): MemoryDownloadAccessPolicy {
+        return MemoryDownloadAccessPolicy(dailyLimit = limit)
+    }
 
     companion object {
         const val DEFAULT_DAILY_MEMORY_DOWNLOAD_LIMIT = 1
+    }
+}
+
+class EntitledMemoryDownloadLimitProvider(
+    private val entitlementRepository: MemoryDownloadEntitlementRepository
+) : MemoryDownloadLimitProvider {
+    override fun currentPolicy(nowMs: Long): MemoryDownloadAccessPolicy {
+        val entitlement = entitlementRepository.state.value
+        return if (entitlement.isActive(nowMs)) {
+            MemoryDownloadAccessPolicy(
+                dailyLimit = MemoryDownloadPassCatalog.EXPANDED_DAILY_LIMIT,
+                benefitProductId = entitlement.productId.ifBlank {
+                    MemoryDownloadPassCatalog.MONTH_MEMORY_DOWNLOAD_10_PER_DAY
+                },
+                benefitExpiresAtEpochMs = entitlement.expiresAtEpochMs
+            )
+        } else {
+            MemoryDownloadAccessPolicy(dailyLimit = MemoryDownloadPassCatalog.DEFAULT_DAILY_LIMIT)
+        }
     }
 }
 
@@ -142,11 +173,14 @@ class MemoryDownloadLimiter(
     ): MemoryDownloadQuotaSnapshot {
         val dayKey = resolveDayKey(nowMs)
         val normalized = normalizeRecord(record, dayKey)
-        val dailyLimit = limitProvider.dailyLimit().coerceAtLeast(0)
+        val policy = limitProvider.currentPolicy(nowMs)
+        val dailyLimit = policy.dailyLimit.coerceAtLeast(0)
         return MemoryDownloadQuotaSnapshot(
             dayKey = dayKey,
             dailyLimit = dailyLimit,
-            downloadsUsedToday = normalized.downloadsUsedToday
+            downloadsUsedToday = normalized.downloadsUsedToday,
+            benefitProductId = policy.benefitProductId,
+            benefitExpiresAtEpochMs = policy.benefitExpiresAtEpochMs
         )
     }
 

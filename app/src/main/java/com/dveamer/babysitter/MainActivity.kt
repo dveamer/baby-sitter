@@ -30,7 +30,8 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
@@ -40,6 +41,7 @@ import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
@@ -56,6 +58,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.dveamer.babysitter.billing.MemoryDownloadPurchaseUiState
 import com.dveamer.babysitter.settings.MotionSensitivity
 import com.dveamer.babysitter.settings.SoundSensitivity
 import com.dveamer.babysitter.sleep.SleepRuntimeStatusStore
@@ -67,15 +70,18 @@ import com.google.zxing.qrcode.QRCodeWriter
 import java.io.File
 import java.io.FileInputStream
 import java.net.NetworkInterface
+import java.time.Instant
 import java.time.LocalDateTime
+import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.Collections
 
 class MainActivity : ComponentActivity() {
+    private val appContainer: AppContainer
+        get() = (application as BabySitterApplication).container
 
     private val vm: SettingsViewModel by viewModels {
-        val container = (application as BabySitterApplication).container
-        SettingsViewModelFactory(container.settingsRepository, container.settingsController)
+        SettingsViewModelFactory(appContainer.settingsRepository, appContainer.settingsController)
     }
 
     private val isRecording = mutableStateOf(false)
@@ -121,6 +127,8 @@ class MainActivity : ComponentActivity() {
             MaterialTheme(colorScheme = colorScheme) {
                 val state by vm.settingsState.collectAsStateWithLifecycle()
                 val runtimeStatus by SleepRuntimeStatusStore.state.collectAsStateWithLifecycle()
+                val purchaseState by appContainer.memoryDownloadPurchaseManager.uiState
+                    .collectAsStateWithLifecycle()
                 val monitoringEnabled = state.soundMonitoringEnabled || state.cameraMonitoringEnabled
                 val hasM4aRecording = state.musicPlaylist.any(::isM4aRecordingUri)
                 LaunchedEffect(
@@ -181,6 +189,7 @@ class MainActivity : ComponentActivity() {
 
                             Screen.SETTINGS -> SettingsScreen(
                                 state = state,
+                                purchaseState = purchaseState,
                                 onWebServiceToggle = { enabled ->
                                     if (!enabled) {
                                         vm.setWebService(false)
@@ -241,7 +250,13 @@ class MainActivity : ComponentActivity() {
                                 onMotionThresholdChange = vm::setMovementThresholdSec,
                                 onMusicToggle = vm::setSoothingMusic,
                                 onShowQrCode = ::showQrCodePopup,
-                                onOpenRecordings = { navigateTo(Screen.RECORDINGS) }
+                                onOpenRecordings = { navigateTo(Screen.RECORDINGS) },
+                                onPurchaseMemoryDownloadPass = { productId ->
+                                    appContainer.memoryDownloadPurchaseManager.launchPurchase(
+                                        activity = this@MainActivity,
+                                        productId = productId
+                                    )
+                                }
                             )
 
                             Screen.RECORDINGS -> RecordingManagementScreen(
@@ -272,6 +287,11 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        appContainer.memoryDownloadPurchaseManager.refresh()
     }
 
     override fun onDestroy() {
@@ -513,6 +533,7 @@ private val LightColorScheme = lightColorScheme(
 @Composable
 private fun SettingsScreen(
     state: com.dveamer.babysitter.settings.SettingsState,
+    purchaseState: MemoryDownloadPurchaseUiState,
     onWebServiceToggle: (Boolean) -> Unit,
     onWebCameraToggle: (Boolean) -> Unit,
     onSoundToggle: (Boolean) -> Unit,
@@ -523,7 +544,8 @@ private fun SettingsScreen(
     onMotionThresholdChange: (Int) -> Unit,
     onMusicToggle: (Boolean) -> Unit,
     onShowQrCode: () -> Unit,
-    onOpenRecordings: () -> Unit
+    onOpenRecordings: () -> Unit,
+    onPurchaseMemoryDownloadPass: (String) -> Unit
 ) {
     val scrollState = rememberScrollState()
     Column(
@@ -568,6 +590,16 @@ private fun SettingsScreen(
             }
         }
 
+        Text(
+            "Memory Download",
+            style = MaterialTheme.typography.headlineSmall,
+            modifier = Modifier.padding(top = 8.dp)
+        )
+        MemoryDownloadPassCard(
+            state = purchaseState,
+            onPurchase = onPurchaseMemoryDownloadPass
+        )
+
         SwitchRow(
             "Web Service (Remote)",
             state.webServiceEnabled,
@@ -585,6 +617,97 @@ private fun SettingsScreen(
         }
 
     }
+}
+
+@Composable
+private fun MemoryDownloadPassCard(
+    state: MemoryDownloadPurchaseUiState,
+    onPurchase: (String) -> Unit
+) {
+    Card(
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.45f)
+        )
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(10.dp)
+        ) {
+            Text(
+                text = "Increase Memory downloads from 1/day to 10/day for one month.",
+                style = MaterialTheme.typography.bodyMedium
+            )
+            Text(
+                text = memoryDownloadPassStatusMessage(state),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+            state.products.forEach { product ->
+                Button(
+                    onClick = { onPurchase(product.productId) },
+                    enabled = product.canPurchase,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(memoryDownloadPassButtonLabel(state, product))
+                }
+            }
+        }
+    }
+}
+
+private fun memoryDownloadPassStatusMessage(state: MemoryDownloadPurchaseUiState): String {
+    return when {
+        state.entitlementActive &&
+            state.activeProductType == com.android.billingclient.api.BillingClient.ProductType.SUBS -> {
+            "Google Play subscription is active. Memory downloads remain limited to 10 per day while the subscription stays active."
+        }
+        state.entitlementActive && state.activeUntilEpochMs != null -> {
+            "Active until ${formatBillingDateTime(state.activeUntilEpochMs)}. " +
+                "Memory downloads are now limited to 10 per day."
+        }
+        state.pendingPurchase -> {
+            val productName = state.pendingProductName?.let { "$it " }.orEmpty()
+            "${productName}purchase is pending in Google Play. The 10/day limit is applied after payment completes."
+        }
+        state.loading -> "Loading Google Play purchase status..."
+        state.hasPurchaseOptions -> {
+            "Available in Google Play. Current daily download limit: ${state.currentDailyLimit}."
+        }
+        else -> {
+            "Google Play product is not available yet. Check the Play Console product ID and rollout."
+        }
+    }
+}
+
+private fun memoryDownloadPassButtonLabel(
+    state: MemoryDownloadPurchaseUiState,
+    product: com.dveamer.babysitter.billing.MemoryDownloadProductUiState
+): String {
+    return when {
+        state.entitlementActive && state.activeProductId == product.productId -> "Active"
+        state.entitlementActive -> "Already active"
+        state.pendingPurchase -> "Pending"
+        state.loading -> "Loading..."
+        !product.available -> "Unavailable"
+        product.purchaseInProgress -> "Opening Google Play..."
+        !product.priceText.isNullOrBlank() &&
+            product.productType == com.android.billingclient.api.BillingClient.ProductType.SUBS -> {
+            "Subscribe ${product.priceText}"
+        }
+        !product.priceText.isNullOrBlank() -> "Buy ${product.priceText}"
+        product.productType == com.android.billingclient.api.BillingClient.ProductType.SUBS -> {
+            "Subscribe ${product.productName}"
+        }
+        else -> "Buy ${product.productName}"
+    }
+}
+
+private fun formatBillingDateTime(epochMs: Long): String {
+    return Instant.ofEpochMilli(epochMs)
+        .atZone(ZoneId.systemDefault())
+        .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
 }
 
 @Composable

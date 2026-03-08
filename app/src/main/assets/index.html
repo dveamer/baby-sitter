@@ -241,6 +241,12 @@
     .memory-error {
       margin-bottom: 10px;
     }
+    .memory-download-status {
+      margin-bottom: 10px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
     .memory-list {
       margin: 0;
       padding: 0;
@@ -406,6 +412,7 @@
       <div class="memory-actions">
         <button id="memoryRefreshBtn" class="btn" type="button">Reload</button>
       </div>
+      <div id="memoryDownloadStatus" class="memory-download-status"></div>
       <div id="memoryError" class="error memory-error"></div>
       <div id="memoryEmpty" class="memory-empty">No memory videos.</div>
       <ul id="memoryList" class="memory-list"></ul>
@@ -443,6 +450,7 @@
     const memoryVideoEl = document.getElementById("memoryVideo");
     const memoryErrorEl = document.getElementById("memoryError");
     const memoryEmptyEl = document.getElementById("memoryEmpty");
+    const memoryDownloadStatusEl = document.getElementById("memoryDownloadStatus");
 
     let sleepEnabled = false;
     let webCameraEnabled = false;
@@ -470,6 +478,8 @@
     let memoryDownloadAvailable = true;
     let memoryDownloadDailyLimit = 1;
     let memoryDownloadsUsedToday = 0;
+    let memoryDownloadBenefitActive = false;
+    let memoryDownloadBenefitExpiresAtMs = null;
     let memoryDownloadInProgress = false;
     const SLEEP_STATUS_POLL_INTERVAL_MS = 10000;
     const SOUND_PRESET_VALUES = { HIGH: 250, MEDIUM: 500, LOW: 750 };
@@ -516,6 +526,21 @@
     const memoryDownloadNotFoundMessage = isKoreanUser
       ? "선택한 Memory 영상을 찾을 수 없습니다."
       : "The selected memory video could not be found.";
+    const memoryDownloadPassInactiveMessage = isKoreanUser
+      ? "현재 하루 1회 다운로드가 가능합니다. 앱에서 인앱결제를 구매하면 한 달 동안 하루 10회로 늘어납니다."
+      : "You can currently download 1 video per day. Buy the in-app purchase in the Baby Sitter app to unlock 10 downloads per day for one month.";
+    const memoryDownloadPassActivePrefix = isKoreanUser
+      ? "인앱결제가 적용되어 한 달 동안 하루 10회 다운로드가 가능합니다."
+      : "The in-app purchase is active, so 10 downloads per day are available for one month.";
+    const memoryDownloadSubscriptionActivePrefix = isKoreanUser
+      ? "구독이 활성화되어 하루 10회 다운로드가 가능합니다."
+      : "The subscription is active, so 10 downloads per day are available.";
+    const memoryDownloadPassActiveUntilLabel = isKoreanUser
+      ? "혜택 종료"
+      : "Benefit ends";
+    const memoryDownloadRemainingLabel = isKoreanUser
+      ? "오늘 남은 다운로드"
+      : "Downloads left today";
 
     memoryTitleEl.textContent = memoryTitleText;
 
@@ -686,6 +711,9 @@
       const dailyLimit = hasDailyLimit ? Number(download.dailyLimit) : NaN;
       const usedToday = hasUsedToday ? Number(download.usedToday) : NaN;
       const remainingToday = hasRemainingToday ? Number(download.remainingToday) : NaN;
+      const expiresAtMs = download && Object.prototype.hasOwnProperty.call(download, "benefitExpiresAtMs")
+        ? Number(download.benefitExpiresAtMs)
+        : NaN;
 
       memoryDownloadDailyLimit = Number.isFinite(dailyLimit) && dailyLimit >= 0 ? dailyLimit : 1;
       memoryDownloadsUsedToday = Number.isFinite(usedToday) && usedToday >= 0 ? usedToday : 0;
@@ -694,6 +722,24 @@
         : (Number.isFinite(remainingToday)
           ? remainingToday > 0
           : memoryDownloadsUsedToday < memoryDownloadDailyLimit);
+      memoryDownloadBenefitActive = !!(download && download.benefitActive);
+      memoryDownloadBenefitExpiresAtMs = Number.isFinite(expiresAtMs) && expiresAtMs > 0 ? expiresAtMs : null;
+      renderMemoryDownloadStatus();
+    }
+
+    function renderMemoryDownloadStatus() {
+      const remainingToday = Math.max(0, memoryDownloadDailyLimit - memoryDownloadsUsedToday);
+      const remainingText = `${memoryDownloadRemainingLabel}: ${remainingToday}/${memoryDownloadDailyLimit}`;
+      if (memoryDownloadBenefitActive && memoryDownloadBenefitExpiresAtMs) {
+        memoryDownloadStatusEl.textContent =
+          `${memoryDownloadPassActivePrefix} ${remainingText}. ${memoryDownloadPassActiveUntilLabel}: ${formatDateTime(new Date(memoryDownloadBenefitExpiresAtMs))}`;
+        return;
+      }
+      if (memoryDownloadBenefitActive) {
+        memoryDownloadStatusEl.textContent = `${memoryDownloadSubscriptionActivePrefix} ${remainingText}.`;
+        return;
+      }
+      memoryDownloadStatusEl.textContent = `${memoryDownloadPassInactiveMessage} ${remainingText}.`;
     }
 
     function memoryDownloadErrorMessage(payload) {
@@ -758,7 +804,7 @@
         return;
       }
       memoryEmptyEl.style.display = "none";
-      const downloadDisabled = memoryDownloadInProgress;
+      const downloadDisabled = memoryDownloadInProgress || !memoryDownloadAvailable;
       const downloadTitle = !memoryDownloadAvailable ? memoryDownloadDailyLimitExceededMessage : downloadButtonLabel;
       memoryItems.forEach((item) => {
         const li = document.createElement("li");
@@ -1075,6 +1121,7 @@
     });
 
     renderCameraMemoryControls();
+    renderMemoryDownloadStatus();
     loadSettings();
     loadMemoryList();
   </script>

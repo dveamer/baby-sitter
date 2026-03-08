@@ -494,6 +494,9 @@ class LocalSettingsHttpServer(
             .put("usedToday", snapshot.downloadsUsedToday)
             .put("remainingToday", snapshot.downloadsRemainingToday)
             .put("available", snapshot.downloadAvailableToday)
+            .put("benefitActive", !snapshot.benefitProductId.isNullOrBlank())
+            .put("benefitProductId", snapshot.benefitProductId)
+            .put("benefitExpiresAtMs", snapshot.benefitExpiresAtEpochMs)
     }
 
     private fun settingsToJson(state: SettingsState): String {
