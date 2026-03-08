@@ -37,7 +37,8 @@ class LocalSettingsHttpServer(
     private val settingsRepository: SettingsRepository,
     private val settingsController: SettingsController,
     private val memoryRepository: MemoryRepository,
-    private val memoryBuildCoordinator: MemoryBuildCoordinator
+    private val memoryBuildCoordinator: MemoryBuildCoordinator,
+    private val memoryDownloadLimiter: MemoryDownloadLimiter
 ) {
     private val appContext = context.applicationContext
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
@@ -138,6 +139,7 @@ class LocalSettingsHttpServer(
                     }
 
                     method == "GET" && path == "/memory" -> {
+                        val downloadSnapshot = memoryDownloadLimiter.currentSnapshot()
                         val memoryBody = JSONObject().put(
                             "items",
                             memoryRepository.listLatest().fold(org.json.JSONArray()) { arr, item ->
@@ -150,7 +152,9 @@ class LocalSettingsHttpServer(
                                 )
                                 arr
                             }
-                        ).toString()
+                        )
+                            .put("download", memoryDownloadSnapshotToJson(downloadSnapshot))
+                            .toString()
                         writeResponse(
                             socket = socket,
                             code = 200,
@@ -208,6 +212,19 @@ class LocalSettingsHttpServer(
                                 code = 404,
                                 status = "Not Found",
                                 body = """{"error":"memory_not_found"}"""
+                            )
+                            return@runCatching
+                        }
+                        val decision = memoryDownloadLimiter.tryConsume()
+                        if (!decision.allowed) {
+                            writeResponse(
+                                socket = socket,
+                                code = 429,
+                                status = "Too Many Requests",
+                                body = JSONObject()
+                                    .put("error", ERROR_MEMORY_DOWNLOAD_DAILY_LIMIT_EXCEEDED)
+                                    .put("download", memoryDownloadSnapshotToJson(decision.snapshot))
+                                    .toString()
                             )
                             return@runCatching
                         }
@@ -471,6 +488,14 @@ class LocalSettingsHttpServer(
         return System.currentTimeMillis() - frame.capturedAtMs > MOTION_STREAM_STALE_MS
     }
 
+    private fun memoryDownloadSnapshotToJson(snapshot: MemoryDownloadQuotaSnapshot): JSONObject {
+        return JSONObject()
+            .put("dailyLimit", snapshot.dailyLimit)
+            .put("usedToday", snapshot.downloadsUsedToday)
+            .put("remainingToday", snapshot.downloadsRemainingToday)
+            .put("available", snapshot.downloadAvailableToday)
+    }
+
     private fun settingsToJson(state: SettingsState): String {
         val runtime = SleepRuntimeStatusStore.state.value
         val memoryBuildInProgress = runtime.memoryBuildInProgress || memoryBuildCoordinator.isBuildInProgress()
@@ -498,6 +523,7 @@ class LocalSettingsHttpServer(
 
     companion object {
         private const val TAG = "LocalSettingsHttpServer"
+        private const val ERROR_MEMORY_DOWNLOAD_DAILY_LIMIT_EXCEEDED = "memory_download_daily_limit_exceeded"
         const val PORT = 8901
         private const val MOTION_BOUNDARY = "motion-frame"
         private const val MOTION_STREAM_INTERVAL_MS = 120L

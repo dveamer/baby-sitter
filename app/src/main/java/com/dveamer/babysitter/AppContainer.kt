@@ -17,7 +17,10 @@ import com.dveamer.babysitter.sleep.ForegroundServiceSleepRuntime
 import com.dveamer.babysitter.sleep.MemoryAssembler
 import com.dveamer.babysitter.sleep.SleepRuntime
 import com.dveamer.babysitter.sleep.SleepRuntimeOrchestrator
+import com.dveamer.babysitter.web.DataStoreMemoryDownloadQuotaStore
 import com.dveamer.babysitter.web.LocalSettingsHttpServer
+import com.dveamer.babysitter.web.MemoryDownloadLimiter
+import com.dveamer.babysitter.web.StaticMemoryDownloadLimitProvider
 import com.dveamer.babysitter.web.WebServiceOrchestrator
 import java.util.concurrent.atomic.AtomicLong
 
@@ -45,6 +48,12 @@ class AppContainer(context: Context) {
     val memoryAssembler = MemoryAssembler(collectStoragePaths, collectCatalog)
     val memoryBuildCoordinator = MemoryBuildCoordinator(memoryAssembler, collectCatalog)
     val memoryRepository = MemoryRepository(collectCatalog)
+    private val memoryDownloadQuotaStore = DataStoreMemoryDownloadQuotaStore(appContext)
+    private val memoryDownloadLimitProvider = StaticMemoryDownloadLimitProvider()
+    val memoryDownloadLimiter = MemoryDownloadLimiter(
+        quotaStore = memoryDownloadQuotaStore,
+        limitProvider = memoryDownloadLimitProvider
+    )
 
     private val sleepRuntime: SleepRuntime = ForegroundServiceSleepRuntime(appContext)
 
@@ -55,7 +64,8 @@ class AppContainer(context: Context) {
             settingsRepository = settingsRepository,
             settingsController = settingsController,
             memoryRepository = memoryRepository,
-            memoryBuildCoordinator = memoryBuildCoordinator
+            memoryBuildCoordinator = memoryBuildCoordinator,
+            memoryDownloadLimiter = memoryDownloadLimiter
         )
     val webServiceOrchestrator = WebServiceOrchestrator(settingsRepository, localSettingsHttpServer)
 
