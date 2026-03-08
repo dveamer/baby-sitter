@@ -535,9 +535,6 @@
     const memoryDownloadPassActiveUntilLabel = isKoreanUser
       ? "혜택 종료"
       : "Benefit ends";
-    const memoryDownloadRemainingLabel = isKoreanUser
-      ? "오늘 남은 다운로드"
-      : "Downloads left today";
 
     memoryTitleEl.textContent = memoryTitleText;
 
@@ -725,18 +722,16 @@
     }
 
     function renderMemoryDownloadStatus() {
-      const remainingToday = Math.max(0, memoryDownloadDailyLimit - memoryDownloadsUsedToday);
-      const remainingText = `${memoryDownloadRemainingLabel}: ${remainingToday}/${memoryDownloadDailyLimit}`;
       if (memoryDownloadBenefitActive && memoryDownloadBenefitExpiresAtMs) {
         memoryDownloadStatusEl.textContent =
-          `${memoryDownloadPassActivePrefix} ${remainingText}. ${memoryDownloadPassActiveUntilLabel}: ${formatDateTime(new Date(memoryDownloadBenefitExpiresAtMs))}`;
+          `${memoryDownloadPassActivePrefix} ${memoryDownloadPassActiveUntilLabel}: ${formatDateTime(new Date(memoryDownloadBenefitExpiresAtMs))}`;
         return;
       }
       if (memoryDownloadBenefitActive) {
-        memoryDownloadStatusEl.textContent = `${memoryDownloadSubscriptionActivePrefix} ${remainingText}.`;
+        memoryDownloadStatusEl.textContent = memoryDownloadSubscriptionActivePrefix;
         return;
       }
-      memoryDownloadStatusEl.textContent = remainingText;
+      memoryDownloadStatusEl.textContent = "";
     }
 
     function memoryDownloadErrorMessage(payload) {
@@ -801,7 +796,7 @@
         return;
       }
       memoryEmptyEl.style.display = "none";
-      const downloadDisabled = memoryDownloadInProgress || !memoryDownloadAvailable;
+      const downloadDisabled = memoryDownloadInProgress;
       const downloadTitle = !memoryDownloadAvailable ? memoryDownloadDailyLimitExceededMessage : downloadButtonLabel;
       memoryItems.forEach((item) => {
         const li = document.createElement("li");
