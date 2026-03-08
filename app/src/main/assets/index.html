@@ -526,9 +526,6 @@
     const memoryDownloadNotFoundMessage = isKoreanUser
       ? "선택한 Memory 영상을 찾을 수 없습니다."
       : "The selected memory video could not be found.";
-    const memoryDownloadPassInactiveMessage = isKoreanUser
-      ? "현재 하루 1회 다운로드가 가능합니다. 앱에서 인앱결제를 구매하면 한 달 동안 하루 10회로 늘어납니다."
-      : "You can currently download 1 video per day. Buy the in-app purchase in the Baby Sitter app to unlock 10 downloads per day for one month.";
     const memoryDownloadPassActivePrefix = isKoreanUser
       ? "인앱결제가 적용되어 한 달 동안 하루 10회 다운로드가 가능합니다."
       : "The in-app purchase is active, so 10 downloads per day are available for one month.";
@@ -739,7 +736,7 @@
         memoryDownloadStatusEl.textContent = `${memoryDownloadSubscriptionActivePrefix} ${remainingText}.`;
         return;
       }
-      memoryDownloadStatusEl.textContent = `${memoryDownloadPassInactiveMessage} ${remainingText}.`;
+      memoryDownloadStatusEl.textContent = remainingText;
     }
 
     function memoryDownloadErrorMessage(payload) {
