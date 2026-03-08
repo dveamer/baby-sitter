@@ -210,19 +210,22 @@
       downloadBtn.addEventListener("click", () => {
         try {
           const nextUrl = shareDownloadPageUrl(downloadUrl);
-          const downloadWindow = window.open("about:blank", "_blank");
-          if (downloadWindow) {
-            try {
-              downloadWindow.opener = null;
-            } catch (_) {
-            }
-            downloadWindow.location.replace(nextUrl);
-            return;
-          }
           window.location.replace(nextUrl);
         } catch (_) {
           setMessage(copy.invalidUrl);
         }
+        window.setTimeout(() => {
+          window.close();
+          window.setTimeout(() => {
+            if (!window.closed) {
+              try {
+                window.open("", "_self");
+              } catch (_) {
+              }
+              window.close();
+            }
+          }, 250);
+        }, 3000);
       });
 
       startFlow();

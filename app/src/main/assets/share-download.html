@@ -52,11 +52,18 @@
       font-weight: 700;
       line-height: 1.6;
     }
-    #subtext {
-      margin-top: 10px;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.5;
+    #closeBtn {
+      min-width: 108px;
+      height: 42px;
+      margin-top: 18px;
+      border: 0;
+      border-radius: 999px;
+      padding: 0 18px;
+      font-size: 14px;
+      font-weight: 800;
+      color: #0f172a;
+      background: #fff;
+      cursor: pointer;
     }
     @keyframes spin {
       to {
@@ -69,7 +76,7 @@
   <main>
     <div class="spinner" aria-hidden="true"></div>
     <div id="status"></div>
-    <div id="subtext"></div>
+    <button id="closeBtn" type="button">Close</button>
   </main>
   <script>
     (() => {
@@ -78,26 +85,20 @@
         ? {
             preparing: "다운로드를 준비하는 중입니다.",
             redirecting: "영상 다운로드를 시작합니다.",
-            invalidUrl: "다운로드 주소가 올바르지 않습니다.",
-            retrying: "자동으로 시작되지 않으면 잠시 후 다시 시도해 주세요."
+            invalidUrl: "다운로드 주소가 올바르지 않습니다."
           }
         : {
             preparing: "Preparing the download.",
             redirecting: "Starting the video download.",
-            invalidUrl: "The download URL is invalid.",
-            retrying: "If it does not start automatically, try again in a moment."
+            invalidUrl: "The download URL is invalid."
           };
 
       const params = new URLSearchParams(window.location.search);
       const statusEl = document.getElementById("status");
-      const subtextEl = document.getElementById("subtext");
+      const closeBtn = document.getElementById("closeBtn");
 
       function setStatus(message) {
         statusEl.textContent = message;
-      }
-
-      function setSubtext(message) {
-        subtextEl.textContent = message;
       }
 
       function decodeDownloadUrl(value) {
@@ -116,9 +117,21 @@
         return parsed.toString();
       }
 
+      function closeWindow() {
+        window.close();
+        window.setTimeout(() => {
+          if (!window.closed) {
+            try {
+              window.open("", "_self");
+            } catch (_) {
+            }
+            window.close();
+          }
+        }, 250);
+      }
+
       function startDownload(downloadUrl) {
         setStatus(copy.redirecting);
-        setSubtext(copy.retrying);
         window.setTimeout(() => {
           const link = document.createElement("a");
           link.href = downloadUrl;
@@ -127,20 +140,12 @@
           document.body.appendChild(link);
           link.click();
           document.body.removeChild(link);
-          window.setTimeout(() => {
-            window.close();
-            window.setTimeout(() => {
-              if (!window.closed) {
-                try {
-                  window.open("", "_self");
-                } catch (_) {
-                }
-                window.close();
-              }
-            }, 250);
-          }, 600);
         }, 120);
       }
+
+      closeBtn.addEventListener("click", () => {
+        closeWindow();
+      });
 
       try {
         setStatus(copy.preparing);
@@ -148,7 +153,6 @@
         startDownload(downloadUrl);
       } catch (_) {
         setStatus(copy.invalidUrl);
-        setSubtext("");
       }
     })();
   </script>
