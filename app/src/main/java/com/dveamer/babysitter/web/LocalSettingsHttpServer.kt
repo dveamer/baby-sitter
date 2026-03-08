@@ -267,20 +267,6 @@ class LocalSettingsHttpServer(
                         )
                     }
 
-                    method == "GET" && path == "/share-download.html" -> {
-                        val html = loadHtmlAsset(
-                            assetName = "share-download.html",
-                            fallbackHtml = "<html><body><h1>Baby Sitter Share Download</h1></body></html>"
-                        )
-                        writeTextResponse(
-                            socket = socket,
-                            code = 200,
-                            status = "OK",
-                            contentType = "text/html; charset=utf-8",
-                            body = html
-                        )
-                    }
-
                     method != "GET" && method != "PUT" && method != "POST" -> {
                         writeResponse(
                             socket = socket,

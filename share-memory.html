@@ -151,15 +151,14 @@
         }, DOWNLOAD_BUTTON_DELAY_MS);
       }
 
-      function shareDownloadPageUrl(absoluteDownloadUrl) {
-        const parsed = new URL(absoluteDownloadUrl);
-        if (parsed.protocol !== "http:" || !parsed.pathname.startsWith("/memory-download/")) {
-          throw new Error("invalid_url");
-        }
-        const params = new URLSearchParams({
-          url: btoa(parsed.toString())
-        });
-        return new URL("/share-download.html?" + params.toString(), parsed.origin).toString();
+      function startDownload(absoluteDownloadUrl) {
+        const link = document.createElement("a");
+        link.href = absoluteDownloadUrl;
+        link.rel = "noopener";
+        link.style.display = "none";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
       }
 
       function initAdPlacementApi() {
@@ -209,10 +208,10 @@
 
       downloadBtn.addEventListener("click", () => {
         try {
-          const nextUrl = shareDownloadPageUrl(downloadUrl);
-          window.location.replace(nextUrl);
+          startDownload(downloadUrl);
         } catch (_) {
           setMessage(copy.invalidUrl);
+          return;
         }
         window.setTimeout(() => {
           window.close();

@@ -275,10 +275,10 @@
     .memory-item-actions {
       flex-shrink: 0;
     }
-    .memory-share-btn {
+    .memory-download-btn {
       white-space: nowrap;
     }
-    .memory-share-icon {
+    .memory-download-icon {
       width: 18px;
       height: 18px;
       display: block;
@@ -461,7 +461,6 @@
     let sleepStatusPollTimeoutId = null;
     let memoryItems = [];
     let selectedMemoryFile = null;
-    let sharingMemoryFile = null;
     let manualMemorySaving = false;
     const SLEEP_STATUS_POLL_INTERVAL_MS = 10000;
     const SOUND_PRESET_VALUES = { HIGH: 250, MEDIUM: 500, LOW: 750 };
@@ -498,11 +497,7 @@
     const monitoringDisabledMessage = isKoreanUser
       ? "Sound, Motion 모두 사용되지 않도록 설정되어 아기가 깼는지 감지할 수 없습니다."
       : "Both Sound and Motion are disabled, so the app cannot detect whether the baby has woken up.";
-    const shareButtonLabel = isKoreanUser ? "영상 저장 또는 공유" : "Save or share video";
-    const sharePageBaseUrl = "https://babysitter.dveamer.com/share-memory.html";
-    const shareFailedMessage = isKoreanUser
-      ? "영상 공유 페이지를 열지 못했습니다"
-      : "Failed to open the video share page";
+    const downloadButtonLabel = isKoreanUser ? "영상 다운로드" : "Download video";
 
     memoryTitleEl.textContent = memoryTitleText;
 
@@ -635,7 +630,7 @@
 
     function downloadIconSvg() {
       return `
-        <svg class="memory-share-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <svg class="memory-download-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
           <path
             d="M12 3v10m0 0 4-4m-4 4-4-4M5 15v3a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-3"
             fill="none"
@@ -656,41 +651,18 @@
       return "/memory-download/" + encodeURIComponent(fileName);
     }
 
-    function memoryDownloadAbsoluteUrl(fileName) {
-      return new URL(memoryDownloadUrl(fileName), window.location.href).toString();
-    }
-
-    function sharePageUrl(fileName) {
-      const params = new URLSearchParams({
-        url: btoa(memoryDownloadAbsoluteUrl(fileName)),
-        autostart: "1"
-      });
-      return sharePageBaseUrl + "?" + params.toString();
-    }
-
-    async function shareMemory(fileName) {
-      if (!fileName || sharingMemoryFile) return;
-      sharingMemoryFile = fileName;
-      renderMemoryList();
+    function downloadMemory(fileName) {
+      if (!fileName) return;
       hideError();
       hideSuccess();
-      try {
-        const nextUrl = sharePageUrl(fileName);
-        const shareWindow = window.open(nextUrl, "_blank");
-        if (shareWindow) {
-          try {
-            shareWindow.opener = null;
-          } catch (_) {
-          }
-          return;
-        }
-        window.location.assign(nextUrl);
-      } catch (e) {
-        showError(shareFailedMessage + ": " + e.message);
-      } finally {
-        sharingMemoryFile = null;
-        renderMemoryList();
-      }
+      const link = document.createElement("a");
+      link.href = memoryDownloadUrl(fileName);
+      link.download = fileName;
+      link.rel = "noopener";
+      link.style.display = "none";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     }
 
     function renderMemoryList() {
@@ -705,7 +677,6 @@
         li.className = "memory-item" + (selectedMemoryFile === item.fileName ? " selected" : "");
         li.dataset.fileName = item.fileName;
         const startedAt = formatDateTime(new Date(item.startEpochMs));
-        const isSharing = sharingMemoryFile === item.fileName;
         li.innerHTML = `
           <div class="memory-item-row">
             <div class="memory-item-main">
@@ -714,13 +685,12 @@
             </div>
             <div class="memory-item-actions">
               <button
-                class="btn icon-btn memory-share-btn"
+                class="btn icon-btn memory-download-btn"
                 type="button"
                 data-file-name="${item.fileName}"
-                aria-label="${shareButtonLabel}"
-                title="${shareButtonLabel}"
-                ${isSharing ? "disabled" : ""}
-              >${downloadIconSvg()}<span class="sr-only">${shareButtonLabel}</span></button>
+                aria-label="${downloadButtonLabel}"
+                title="${downloadButtonLabel}"
+              >${downloadIconSvg()}<span class="sr-only">${downloadButtonLabel}</span></button>
             </div>
           </div>
         `;
@@ -953,10 +923,10 @@
     refreshBtn.addEventListener("click", loadSettings);
     cameraMemoryBtn.addEventListener("click", saveCameraMemory);
     memoryRefreshBtn.addEventListener("click", loadMemoryList);
-    memoryListEl.addEventListener("click", async (event) => {
-      const shareButton = event.target.closest(".memory-share-btn");
-      if (shareButton) {
-        await shareMemory(shareButton.dataset.fileName);
+    memoryListEl.addEventListener("click", (event) => {
+      const downloadButton = event.target.closest(".memory-download-btn");
+      if (downloadButton) {
+        downloadMemory(downloadButton.dataset.fileName);
         return;
       }
       const item = event.target.closest(".memory-item");
