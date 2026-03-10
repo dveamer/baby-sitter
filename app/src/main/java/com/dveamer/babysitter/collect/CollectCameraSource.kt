@@ -39,6 +39,7 @@ class CollectCameraSource(
     private val lock = Any()
 
     private var handlerThread: HandlerThread? = null
+    private var callbackHandler: Handler? = null
     private var jpegImageReader: ImageReader? = null
     private var cameraDevice: CameraDevice? = null
     private var captureSession: CameraCaptureSession? = null
@@ -47,6 +48,9 @@ class CollectCameraSource(
     private var currentOutputFile: File? = null
     private var currentOutputStartMs: Long? = null
     private var rotateJob: Job? = null
+
+    @Volatile
+    private var stopping = false
 
     fun start() {
         synchronized(lock) {
@@ -92,6 +96,8 @@ class CollectCameraSource(
         val thread = HandlerThread("CollectCameraSource").apply { start() }
         val callbackHandler = Handler(thread.looper)
         handlerThread = thread
+        this.callbackHandler = callbackHandler
+        stopping = false
 
         val jpegReader = ImageReader.newInstance(CAPTURE_WIDTH, CAPTURE_HEIGHT, ImageFormat.JPEG, 2).apply {
             setOnImageAvailableListener({ ir ->
@@ -171,18 +177,33 @@ class CollectCameraSource(
     }
 
     private fun stopCameraCapture() {
-        runCatching { captureSession?.abortCaptures() }
-        runCatching { captureSession?.close() }
-        runCatching { cameraDevice?.close() }
-        runCatching { jpegImageReader?.close() }
-        mediaRecorder?.let {
+        stopping = true
+
+        val localSession = captureSession
+        val localCamera = cameraDevice
+        val localReader = jpegImageReader
+        val localHandler = callbackHandler
+        val localThread = handlerThread
+        val localMediaRecorder = mediaRecorder
+        val localRecorderSurface = recorderSurface
+        val outputFile = currentOutputFile
+        val outputStartMs = currentOutputStartMs
+
+        runCatching { localSession?.stopRepeating() }
+        runCatching { localSession?.abortCaptures() }
+        runCatching { localSession?.close() }
+        runCatching { localCamera?.close() }
+        runCatching { localReader?.setOnImageAvailableListener(null, null) }
+        drainCallbackQueue(localHandler, localThread)
+        runCatching { localReader?.close() }
+        localMediaRecorder?.let {
             runCatching { it.stop() }
             runCatching { it.reset() }
             runCatching { it.release() }
         }
-        runCatching { recorderSurface?.release() }
-        currentOutputFile?.let { output ->
-            val startMs = currentOutputStartMs ?: CollectFileNaming.minuteFloor(System.currentTimeMillis())
+        runCatching { localRecorderSurface?.release() }
+        outputFile?.let { output ->
+            val startMs = outputStartMs ?: CollectFileNaming.minuteFloor(System.currentTimeMillis())
             if (output.exists() && output.length() > 0L) {
                 Log.d(TAG, "closed collect video file=${output.name} size=${output.length()} startMs=$startMs")
                 CollectClosedFileBus.publish(
@@ -197,21 +218,28 @@ class CollectCameraSource(
                 Log.w(TAG, "collect video file not published file=${output.name} exists=${output.exists()} size=${output.length()}")
             }
         }
-        runCatching { handlerThread?.quitSafely() }
+        runCatching { localThread?.quitSafely() }
+        if (localThread != null && Thread.currentThread() !== localThread) {
+            runCatching { localThread.join(1_000L) }
+        }
         captureSession = null
         cameraDevice = null
+        callbackHandler = null
         jpegImageReader = null
         recorderSurface = null
         mediaRecorder = null
         currentOutputFile = null
         currentOutputStartMs = null
         handlerThread = null
+        stopping = false
         CameraFrameBus.clear()
     }
 
     private fun onJpegImageAvailable(image: Image) {
         try {
-            val buffer = image.planes.firstOrNull()?.buffer ?: return
+            if (stopping) return
+            val buffer = image.planes.firstOrNull()?.buffer?.duplicate() ?: return
+            if (!buffer.hasRemaining()) return
             val bytes = ByteArray(buffer.remaining())
             buffer.get(bytes)
             CameraFrameBus.publish(CameraFrameSnapshot(jpeg = bytes, capturedAtMs = System.currentTimeMillis()))
@@ -219,6 +247,23 @@ class CollectCameraSource(
             Log.w(TAG, "jpeg frame read failed", t)
         } finally {
             image.close()
+        }
+    }
+
+    private fun drainCallbackQueue(handler: Handler?, thread: HandlerThread?) {
+        if (handler == null || thread == null) return
+        if (Thread.currentThread() === thread) return
+
+        val latch = CountDownLatch(1)
+        val posted = runCatching {
+            handler.post {
+                latch.countDown()
+            }
+        }.getOrDefault(false)
+
+        if (!posted) return
+        if (!latch.await(CALLBACK_DRAIN_TIMEOUT_MS, TimeUnit.MILLISECONDS)) {
+            Log.w(TAG, "camera callback drain timeout")
         }
     }
 
@@ -261,5 +306,6 @@ class CollectCameraSource(
         const val TAG = "CollectCameraSource"
         const val CAPTURE_WIDTH = 640
         const val CAPTURE_HEIGHT = 480
+        const val CALLBACK_DRAIN_TIMEOUT_MS = 1_000L
     }
 }
