@@ -282,7 +282,7 @@ class MemoryDownloadPurchaseManager(
             } else {
                 MemoryDownloadPassCatalog.DEFAULT_DAILY_LIMIT
             },
-            products = MemoryDownloadPassCatalog.PRODUCTS.map { definition ->
+            products = MemoryDownloadPassCatalog.USER_VISIBLE_PRODUCTS.map { definition ->
                 val offer = productOffers[definition.productId]
                 val canPurchase = !loading &&
                     activeProductId == null &&
@@ -319,7 +319,7 @@ class MemoryDownloadPurchaseManager(
 
     private suspend fun queryAllProductDetails(): Map<String, ProductOffer> {
         return buildMap {
-            for (definition in MemoryDownloadPassCatalog.PRODUCTS) {
+            for (definition in MemoryDownloadPassCatalog.USER_VISIBLE_PRODUCTS) {
                 val (_, product) = queryProductDetails(definition)
                 val offer = product?.toProductOffer(definition)
                 if (offer != null) {

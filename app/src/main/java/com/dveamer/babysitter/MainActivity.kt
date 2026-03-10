@@ -590,16 +590,6 @@ private fun SettingsScreen(
             }
         }
 
-        Text(
-            "Memory Download",
-            style = MaterialTheme.typography.headlineSmall,
-            modifier = Modifier.padding(top = 8.dp)
-        )
-        MemoryDownloadPassCard(
-            state = purchaseState,
-            onPurchase = onPurchaseMemoryDownloadPass
-        )
-
         SwitchRow(
             "Web Service (Remote)",
             state.webServiceEnabled,
@@ -614,6 +604,16 @@ private fun SettingsScreen(
             ) {
                 Text("QR Code")
             }
+
+            Text(
+                "Memory Download",
+                style = MaterialTheme.typography.headlineSmall,
+                modifier = Modifier.padding(top = 8.dp)
+            )
+            MemoryDownloadPassCard(
+                state = purchaseState,
+                onPurchase = onPurchaseMemoryDownloadPass
+            )
         }
 
     }

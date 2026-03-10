@@ -7,7 +7,8 @@ import java.time.ZoneId
 data class MemoryDownloadProductDefinition(
     val productId: String,
     val productType: String,
-    val defaultName: String
+    val defaultName: String,
+    val userVisible: Boolean = true
 )
 
 object MemoryDownloadPassCatalog {
@@ -20,7 +21,8 @@ object MemoryDownloadPassCatalog {
     val ONE_TIME_PRODUCT = MemoryDownloadProductDefinition(
         productId = MONTH_MEMORY_DOWNLOAD_10_PER_DAY,
         productType = BillingClient.ProductType.INAPP,
-        defaultName = "Memory Download Pass"
+        defaultName = "Memory Download Pass",
+        userVisible = false
     )
 
     val SUBSCRIPTION_PRODUCT = MemoryDownloadProductDefinition(
@@ -30,6 +32,7 @@ object MemoryDownloadPassCatalog {
     )
 
     val PRODUCTS = listOf(ONE_TIME_PRODUCT, SUBSCRIPTION_PRODUCT)
+    val USER_VISIBLE_PRODUCTS = PRODUCTS.filter { it.userVisible }
 
     fun find(productId: String): MemoryDownloadProductDefinition? {
         return PRODUCTS.firstOrNull { it.productId == productId }
