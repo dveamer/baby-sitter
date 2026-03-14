@@ -1,7 +1,9 @@
 package com.dveamer.babysitter.tutorial
 
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class TutorialPlannerTest {
@@ -76,6 +78,43 @@ class TutorialPlannerTest {
     }
 
     @Test
+    fun `shows celebration after remote tutorial finishes and is scheduled`() {
+        val step = TutorialPlanner.resolveStep(
+            tutorialState = TutorialState(
+                welcomeDismissed = true,
+                hasVisitedSettings = true,
+                firstSettingsVisitFinished = true,
+                soundEverEnabled = true,
+                motionEverEnabled = true,
+                soundMotionCoachDismissed = true,
+                remoteCoachReady = true,
+                remoteCoachDismissed = true,
+                celebrationReady = true
+            ),
+            isSettingsScreen = false
+        )
+
+        assertEquals(TutorialStep.CELEBRATION, step)
+    }
+
+    @Test
+    fun `uses bright tutorial theme until celebration starts`() {
+        assertTrue(TutorialState().useBrightTutorialTheme())
+        assertTrue(
+            TutorialState(
+                welcomeDismissed = true,
+                hasVisitedSettings = true,
+                firstSettingsVisitFinished = true,
+                soundEverEnabled = true,
+                motionEverEnabled = true,
+                soundMotionCoachDismissed = true,
+                remoteCoachReady = true,
+                remoteCoachDismissed = true
+            ).useBrightTutorialTheme()
+        )
+    }
+
+    @Test
     fun `does not show sound motion coach after first settings visit ends`() {
         val step = TutorialPlanner.resolveStep(
             tutorialState = TutorialState(
@@ -87,5 +126,22 @@ class TutorialPlannerTest {
         )
 
         assertNull(step)
+    }
+
+    @Test
+    fun `stops bright tutorial theme once celebration starts`() {
+        val useBrightTheme = TutorialState(
+            welcomeDismissed = true,
+            hasVisitedSettings = true,
+            firstSettingsVisitFinished = true,
+            soundEverEnabled = true,
+            motionEverEnabled = true,
+            soundMotionCoachDismissed = true,
+            remoteCoachReady = true,
+            remoteCoachDismissed = true,
+            celebrationReady = true
+        ).useBrightTutorialTheme()
+
+        assertFalse(useBrightTheme)
     }
 }

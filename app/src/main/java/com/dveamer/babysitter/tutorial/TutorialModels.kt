@@ -8,14 +8,17 @@ data class TutorialState(
     val motionEverEnabled: Boolean = false,
     val soundMotionCoachDismissed: Boolean = false,
     val remoteCoachReady: Boolean = false,
-    val remoteCoachDismissed: Boolean = false
+    val remoteCoachDismissed: Boolean = false,
+    val celebrationReady: Boolean = false,
+    val celebrationDismissed: Boolean = false
 )
 
 enum class TutorialStep {
     WELCOME,
     SETTINGS_TAB,
     SOUND_MOTION,
-    REMOTE_WEB_SERVICE
+    REMOTE_WEB_SERVICE,
+    CELEBRATION
 }
 
 object TutorialPlanner {
@@ -35,7 +38,14 @@ object TutorialPlanner {
                 !tutorialState.remoteCoachDismissed &&
                 isSettingsScreen -> TutorialStep.REMOTE_WEB_SERVICE
 
+            tutorialState.celebrationReady &&
+                !tutorialState.celebrationDismissed -> TutorialStep.CELEBRATION
+
             else -> null
         }
     }
+}
+
+fun TutorialState.useBrightTutorialTheme(): Boolean {
+    return !celebrationReady && !celebrationDismissed
 }

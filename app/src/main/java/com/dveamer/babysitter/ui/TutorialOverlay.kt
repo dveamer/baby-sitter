@@ -88,6 +88,7 @@ fun AppTutorialOverlay(
     onOpenSettings: () -> Unit,
     onDismissSoundMotion: () -> Unit,
     onDismissRemote: () -> Unit,
+    onDismissCelebration: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val content = tutorialContent(step)
@@ -107,6 +108,7 @@ fun AppTutorialOverlay(
         TutorialStep.SETTINGS_TAB -> onOpenSettings
         TutorialStep.SOUND_MOTION -> onDismissSoundMotion
         TutorialStep.REMOTE_WEB_SERVICE -> onDismissRemote
+        TutorialStep.CELEBRATION -> onDismissCelebration
     }
 
     BoxWithConstraints(
@@ -349,6 +351,14 @@ private fun tutorialContent(step: TutorialStep): TutorialBubbleContent {
             messageRes = R.string.tutorial_remote_body,
             actionRes = R.string.tutorial_button_ok
         )
+
+        TutorialStep.CELEBRATION -> TutorialBubbleContent(
+            badgeRes = R.string.tutorial_badge_celebration,
+            stepRes = R.string.tutorial_step_five,
+            titleRes = R.string.tutorial_celebration_title,
+            messageRes = R.string.tutorial_celebration_body,
+            actionRes = R.string.tutorial_celebration_button
+        )
     }
 }
 
@@ -366,6 +376,7 @@ private fun resolveTargets(
         TutorialStep.REMOTE_WEB_SERVICE -> listOfNotNull(
             targetBounds[TutorialTargetKey.WEB_SERVICE_ROW]
         )
+        TutorialStep.CELEBRATION -> emptyList()
     }
 }
 

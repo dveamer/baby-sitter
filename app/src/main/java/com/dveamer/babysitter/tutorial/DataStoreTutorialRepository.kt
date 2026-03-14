@@ -28,6 +28,7 @@ class DataStoreTutorialRepository(
 
     suspend fun initialize(settingsState: SettingsState) {
         seedExistingInstallIfNeeded(settingsState)
+        migrateCelebrationStateIfNeeded()
         mutableState.value = readPreferences().toTutorialState()
     }
 
@@ -55,6 +56,12 @@ class DataStoreTutorialRepository(
     override suspend fun dismissRemoteCoach() =
         updateState { copy(remoteCoachDismissed = true) }
 
+    override suspend fun markCelebrationReady() =
+        updateState { copy(celebrationReady = true) }
+
+    override suspend fun dismissCelebration() =
+        updateState { copy(celebrationDismissed = true) }
+
     private suspend fun seedExistingInstallIfNeeded(settingsState: SettingsState) {
         context.tutorialDataStore.edit { prefs ->
             if (prefs.contains(Keys.WELCOME_DISMISSED)) return@edit
@@ -69,9 +76,27 @@ class DataStoreTutorialRepository(
                     motionEverEnabled = settingsState.cameraMonitoringEnabled,
                     soundMotionCoachDismissed = true,
                     remoteCoachReady = true,
-                    remoteCoachDismissed = true
+                    remoteCoachDismissed = true,
+                    celebrationReady = true,
+                    celebrationDismissed = true
                 )
             )
+        }
+    }
+
+    private suspend fun migrateCelebrationStateIfNeeded() {
+        context.tutorialDataStore.edit { prefs ->
+            if (!prefs.contains(Keys.WELCOME_DISMISSED)) return@edit
+            if (prefs.contains(Keys.CELEBRATION_DISMISSED)) return@edit
+
+            val remoteDismissed = prefs[Keys.REMOTE_COACH_DISMISSED] ?: false
+            if (remoteDismissed) {
+                prefs[Keys.CELEBRATION_READY] = true
+                prefs[Keys.CELEBRATION_DISMISSED] = true
+            } else {
+                prefs[Keys.CELEBRATION_READY] = false
+                prefs[Keys.CELEBRATION_DISMISSED] = false
+            }
         }
     }
 
@@ -114,7 +139,9 @@ class DataStoreTutorialRepository(
             motionEverEnabled = this[Keys.MOTION_EVER_ENABLED] ?: false,
             soundMotionCoachDismissed = this[Keys.SOUND_MOTION_COACH_DISMISSED] ?: false,
             remoteCoachReady = this[Keys.REMOTE_COACH_READY] ?: false,
-            remoteCoachDismissed = this[Keys.REMOTE_COACH_DISMISSED] ?: false
+            remoteCoachDismissed = this[Keys.REMOTE_COACH_DISMISSED] ?: false,
+            celebrationReady = this[Keys.CELEBRATION_READY] ?: false,
+            celebrationDismissed = this[Keys.CELEBRATION_DISMISSED] ?: false
         )
     }
 
@@ -127,6 +154,8 @@ class DataStoreTutorialRepository(
         this[Keys.SOUND_MOTION_COACH_DISMISSED] = state.soundMotionCoachDismissed
         this[Keys.REMOTE_COACH_READY] = state.remoteCoachReady
         this[Keys.REMOTE_COACH_DISMISSED] = state.remoteCoachDismissed
+        this[Keys.CELEBRATION_READY] = state.celebrationReady
+        this[Keys.CELEBRATION_DISMISSED] = state.celebrationDismissed
     }
 
     private object Keys {
@@ -139,5 +168,7 @@ class DataStoreTutorialRepository(
             booleanPreferencesKey("sound_motion_coach_dismissed")
         val REMOTE_COACH_READY = booleanPreferencesKey("remote_coach_ready")
         val REMOTE_COACH_DISMISSED = booleanPreferencesKey("remote_coach_dismissed")
+        val CELEBRATION_READY = booleanPreferencesKey("celebration_ready")
+        val CELEBRATION_DISMISSED = booleanPreferencesKey("celebration_dismissed")
     }
 }

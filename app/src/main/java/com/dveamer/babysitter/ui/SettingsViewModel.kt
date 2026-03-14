@@ -111,6 +111,12 @@ class SettingsViewModel(
 
     fun dismissRemoteTutorial() = updateTutorial { tutorialRepository.dismissRemoteCoach() }
 
+    fun markCelebrationTutorialReady() =
+        updateTutorial { tutorialRepository.markCelebrationReady() }
+
+    fun dismissCelebrationTutorial() =
+        updateTutorial { tutorialRepository.dismissCelebration() }
+
     private fun update(patch: SettingsPatch) {
         viewModelScope.launch {
             controller.update(patch, UpdateSource.LOCAL_UI)

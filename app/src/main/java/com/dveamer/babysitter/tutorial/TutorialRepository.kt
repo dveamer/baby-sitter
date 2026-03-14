@@ -20,4 +20,8 @@ interface TutorialRepository {
     suspend fun markRemoteCoachReady()
 
     suspend fun dismissRemoteCoach()
+
+    suspend fun markCelebrationReady()
+
+    suspend fun dismissCelebration()
 }

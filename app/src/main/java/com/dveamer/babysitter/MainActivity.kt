@@ -15,7 +15,6 @@ import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -66,6 +65,7 @@ import com.dveamer.babysitter.settings.MotionSensitivity
 import com.dveamer.babysitter.settings.SoundSensitivity
 import com.dveamer.babysitter.sleep.SleepRuntimeStatusStore
 import com.dveamer.babysitter.tutorial.TutorialPlanner
+import com.dveamer.babysitter.tutorial.useBrightTutorialTheme
 import com.dveamer.babysitter.ui.SettingsViewModel
 import com.dveamer.babysitter.ui.SettingsViewModelFactory
 import com.dveamer.babysitter.ui.AppTutorialOverlay
@@ -132,14 +132,18 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            val colorScheme = if (isSystemInDarkTheme()) DarkColorScheme else LightColorScheme
             val recording by isRecording
             val qrVisible by showQrDialog
             val qrUrl by qrCodeUrl
+            val tutorialState by vm.tutorialState.collectAsStateWithLifecycle()
+            val colorScheme = if (tutorialState.useBrightTutorialTheme()) {
+                TutorialLightColorScheme
+            } else {
+                DarkColorScheme
+            }
 
             MaterialTheme(colorScheme = colorScheme) {
                 val state by vm.settingsState.collectAsStateWithLifecycle()
-                val tutorialState by vm.tutorialState.collectAsStateWithLifecycle()
                 val runtimeStatus by SleepRuntimeStatusStore.state.collectAsStateWithLifecycle()
                 val purchaseState by appContainer.memoryDownloadPurchaseManager.uiState
                     .collectAsStateWithLifecycle()
@@ -217,6 +221,20 @@ class MainActivity : ComponentActivity() {
                 LaunchedEffect(state.webServiceEnabled, tutorialState.remoteCoachDismissed) {
                     if (state.webServiceEnabled && !tutorialState.remoteCoachDismissed) {
                         vm.dismissRemoteTutorial()
+                    }
+                }
+                LaunchedEffect(
+                    tutorialState.remoteCoachDismissed,
+                    tutorialState.celebrationReady,
+                    tutorialState.celebrationDismissed
+                ) {
+                    if (
+                        tutorialState.remoteCoachDismissed &&
+                        !tutorialState.celebrationReady &&
+                        !tutorialState.celebrationDismissed
+                    ) {
+                        delay(TUTORIAL_FINAL_DELAY_MS)
+                        vm.markCelebrationTutorialReady()
                     }
                 }
                 val navigateTo: (Screen) -> Unit = { next ->
@@ -397,7 +415,8 @@ class MainActivity : ComponentActivity() {
                             onDismissWelcome = delayTutorialTransition(vm::dismissWelcomeTutorial),
                             onOpenSettings = delayTutorialTransition { navigateTo(Screen.SETTINGS) },
                             onDismissSoundMotion = delayTutorialTransition(vm::dismissSoundMotionTutorial),
-                            onDismissRemote = delayTutorialTransition(vm::dismissRemoteTutorial)
+                            onDismissRemote = delayTutorialTransition(vm::dismissRemoteTutorial),
+                            onDismissCelebration = vm::dismissCelebrationTutorial
                         )
                     }
                     if (qrVisible) {
@@ -634,6 +653,7 @@ class MainActivity : ComponentActivity() {
         private const val TAG = "MainActivity"
         private const val RECORDINGS_DIR = "soothing-recordings"
         private const val TUTORIAL_STEP_DELAY_MS = 3_000L
+        private const val TUTORIAL_FINAL_DELAY_MS = 10_000L
         private val RECORDING_FILE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
     }
 
@@ -651,6 +671,16 @@ private val LightColorScheme = lightColorScheme(
     surface = Color(0xFFFFFFFF),
     onBackground = Color(0xFF111111),
     onSurface = Color(0xFF111111)
+)
+
+private val TutorialLightColorScheme = lightColorScheme(
+    background = Color(0xFFFFF7EF),
+    surface = Color(0xFFFFFBF6),
+    primary = Color(0xFFE07A9A),
+    secondary = Color(0xFFF2B968),
+    tertiary = Color(0xFF7FC5BF),
+    onBackground = Color(0xFF2D1918),
+    onSurface = Color(0xFF2D1918)
 )
 
 @Composable
