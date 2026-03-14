@@ -121,6 +121,16 @@ class SettingsViewModel(
     fun dismissCelebrationTutorial() =
         updateTutorial { tutorialRepository.dismissCelebration() }
 
+    fun completeCelebrationTutorial() {
+        viewModelScope.launch {
+            tutorialRepository.dismissCelebration()
+            controller.update(
+                patch = SettingsPatch(themeMode = ThemeMode.DARK),
+                source = UpdateSource.LOCAL_UI
+            )
+        }
+    }
+
     private fun update(patch: SettingsPatch) {
         viewModelScope.launch {
             controller.update(patch, UpdateSource.LOCAL_UI)

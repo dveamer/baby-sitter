@@ -229,17 +229,29 @@ class MainActivity : ComponentActivity() {
                     }
                 }
                 LaunchedEffect(
+                    screen,
                     tutorialState.remoteCoachDismissed,
                     tutorialState.celebrationReady,
                     tutorialState.celebrationDismissed
                 ) {
                     if (
+                        screen == Screen.SETTINGS &&
                         tutorialState.remoteCoachDismissed &&
                         !tutorialState.celebrationReady &&
                         !tutorialState.celebrationDismissed
                     ) {
                         delay(TUTORIAL_FINAL_DELAY_MS)
+                        settingsScrollState.animateScrollTo(settingsScrollState.maxValue)
                         vm.markCelebrationTutorialReady()
+                        return@LaunchedEffect
+                    }
+
+                    if (
+                        screen == Screen.SETTINGS &&
+                        tutorialState.celebrationReady &&
+                        !tutorialState.celebrationDismissed
+                    ) {
+                        settingsScrollState.animateScrollTo(settingsScrollState.maxValue)
                     }
                 }
                 val navigateTo: (Screen) -> Unit = { next ->
@@ -425,7 +437,7 @@ class MainActivity : ComponentActivity() {
                             onOpenSettings = delayTutorialTransition { navigateTo(Screen.SETTINGS) },
                             onDismissSoundMotion = delayTutorialTransition(vm::dismissSoundMotionTutorial),
                             onDismissRemote = delayTutorialTransition(vm::dismissRemoteTutorial),
-                            onDismissCelebration = vm::dismissCelebrationTutorial
+                            onDismissCelebration = vm::completeCelebrationTutorial
                         )
                     }
                     if (qrVisible) {
