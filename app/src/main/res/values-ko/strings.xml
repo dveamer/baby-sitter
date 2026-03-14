@@ -1,4 +1,22 @@
 <resources>
     <string name="home_no_recordings_guide">아이가 깨어났을 때 들려줄 엄마, 아빠 목소리가 담긴 자장가를 녹음해주세요.</string>
     <string name="manage_recordings">Manage Recordings</string>
+    <string name="tutorial_badge_welcome">환영</string>
+    <string name="tutorial_badge_setup">설정</string>
+    <string name="tutorial_badge_tip">팁</string>
+    <string name="tutorial_step_one">1단계</string>
+    <string name="tutorial_step_two">2단계</string>
+    <string name="tutorial_step_three">3단계</string>
+    <string name="tutorial_step_four">4단계</string>
+    <string name="tutorial_welcome_title">아기 수면방에 잘 오셨어요</string>
+    <string name="tutorial_welcome_body">아기 수면방에 설치해두시면 아기가 잘 잘 수 있도록 도와드려요! 앱이 왜 이렇게 어둡냐고요? 밝은 빛 때문에 아기가 깨지지 않도록 다크모드만 제공 중이에요. 원격조절 화면은 밝아요~</string>
+    <string name="tutorial_welcome_button">시작할게요</string>
+    <string name="tutorial_settings_title">먼저 Settings로 가주세요</string>
+    <string name="tutorial_settings_body">울음, 움직임 감지 기능을 켜기 위해 Settings로 이동해주세요.</string>
+    <string name="tutorial_settings_button">Settings로 이동</string>
+    <string name="tutorial_sound_motion_title">Sound와 Motion을 켜주세요</string>
+    <string name="tutorial_sound_motion_body">Sound, Motion을 실행시켜주세요. 폰이 꺼지더라도 밤새도록 우리 아기를 돌볼 수 있도록 최대한 높은 권한을 주세요.</string>
+    <string name="tutorial_remote_title">원격조절도 바로 써보세요</string>
+    <string name="tutorial_remote_body">원격조절 기능을 사용해보세요. 같은 Wi-Fi에 접속된 기기로 QR Code가 제공하는 주소에 브라우저로 접속하시면 원격 제어가 가능합니다. 카메라 기능도 켜주시면 원격으로 아기 모습을 볼 수도 있어요.</string>
+    <string name="tutorial_button_ok">좋아요</string>
 </resources>

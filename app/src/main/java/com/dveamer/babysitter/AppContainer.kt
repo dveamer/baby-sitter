@@ -19,6 +19,8 @@ import com.dveamer.babysitter.sleep.ForegroundServiceSleepRuntime
 import com.dveamer.babysitter.sleep.MemoryAssembler
 import com.dveamer.babysitter.sleep.SleepRuntime
 import com.dveamer.babysitter.sleep.SleepRuntimeOrchestrator
+import com.dveamer.babysitter.tutorial.DataStoreTutorialRepository
+import com.dveamer.babysitter.tutorial.TutorialRepository
 import com.dveamer.babysitter.web.DataStoreMemoryDownloadQuotaStore
 import com.dveamer.babysitter.web.EntitledMemoryDownloadLimitProvider
 import com.dveamer.babysitter.web.LocalSettingsHttpServer
@@ -32,7 +34,9 @@ class AppContainer(context: Context) {
     private val versionCounter = AtomicLong(System.currentTimeMillis())
 
     private val dataStoreRepository = DataStoreSettingsRepository(appContext)
+    private val dataStoreTutorialRepository = DataStoreTutorialRepository(appContext)
     val settingsRepository: SettingsRepository = dataStoreRepository
+    val tutorialRepository: TutorialRepository = dataStoreTutorialRepository
 
     val settingsController: SettingsController = SettingsController(
         repository = settingsRepository,
@@ -81,6 +85,7 @@ class AppContainer(context: Context) {
     suspend fun initialize() {
         collectStoragePaths.ensureDirectories()
         dataStoreRepository.initialize()
+        dataStoreTutorialRepository.initialize(settingsRepository.state.value)
         memoryDownloadPurchaseManager.initialize()
     }
 }

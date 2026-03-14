@@ -9,6 +9,8 @@ import com.dveamer.babysitter.settings.SettingsRepository
 import com.dveamer.babysitter.settings.SettingsState
 import com.dveamer.babysitter.settings.SoundSensitivity
 import com.dveamer.babysitter.settings.UpdateSource
+import com.dveamer.babysitter.tutorial.TutorialRepository
+import com.dveamer.babysitter.tutorial.TutorialState
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
@@ -16,13 +18,19 @@ import kotlinx.coroutines.launch
 
 class SettingsViewModel(
     private val repository: SettingsRepository,
-    private val controller: SettingsController
+    private val controller: SettingsController,
+    private val tutorialRepository: TutorialRepository
 ) : ViewModel() {
 
     val settingsState: StateFlow<SettingsState> = repository.state.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000),
         initialValue = repository.state.value
+    )
+    val tutorialState: StateFlow<TutorialState> = tutorialRepository.state.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5_000),
+        initialValue = tutorialRepository.state.value
     )
 
     fun setSleep(enabled: Boolean) = update(SettingsPatch(sleepEnabled = enabled))
@@ -84,9 +92,34 @@ class SettingsViewModel(
 
     fun setIotEndpoint(endpoint: String) = update(SettingsPatch(iotEndpoint = endpoint.trim()))
 
+    fun dismissWelcomeTutorial() = updateTutorial { tutorialRepository.dismissWelcome() }
+
+    fun markSettingsVisited() = updateTutorial { tutorialRepository.markSettingsVisited() }
+
+    fun finishFirstSettingsVisit() =
+        updateTutorial { tutorialRepository.finishFirstSettingsVisit() }
+
+    fun markSoundEnabled() = updateTutorial { tutorialRepository.markSoundEnabled() }
+
+    fun markMotionEnabled() = updateTutorial { tutorialRepository.markMotionEnabled() }
+
+    fun dismissSoundMotionTutorial() =
+        updateTutorial { tutorialRepository.dismissSoundMotionCoach() }
+
+    fun markRemoteTutorialReady() =
+        updateTutorial { tutorialRepository.markRemoteCoachReady() }
+
+    fun dismissRemoteTutorial() = updateTutorial { tutorialRepository.dismissRemoteCoach() }
+
     private fun update(patch: SettingsPatch) {
         viewModelScope.launch {
             controller.update(patch, UpdateSource.LOCAL_UI)
+        }
+    }
+
+    private fun updateTutorial(action: suspend () -> Unit) {
+        viewModelScope.launch {
+            action()
         }
     }
 }

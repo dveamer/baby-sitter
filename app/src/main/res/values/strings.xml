@@ -5,4 +5,22 @@
     <string name="fgs_running">Sleep mode is active</string>
     <string name="home_no_recordings_guide">Please record a lullaby with mom and dad\'s voice for when your baby wakes up.</string>
     <string name="manage_recordings">Manage Recordings</string>
+    <string name="tutorial_badge_welcome">Welcome</string>
+    <string name="tutorial_badge_setup">Setup</string>
+    <string name="tutorial_badge_tip">Tip</string>
+    <string name="tutorial_step_one">Step 1</string>
+    <string name="tutorial_step_two">Step 2</string>
+    <string name="tutorial_step_three">Step 3</string>
+    <string name="tutorial_step_four">Step 4</string>
+    <string name="tutorial_welcome_title">Welcome to Baby Sitter</string>
+    <string name="tutorial_welcome_body">If you leave this phone in your baby\'s sleep room, the app will help your baby sleep better. Wondering why the app looks so dark? We only provide dark mode so bright light does not wake your baby. The remote control screen is bright instead.</string>
+    <string name="tutorial_welcome_button">Let\'s start</string>
+    <string name="tutorial_settings_title">Open Settings first</string>
+    <string name="tutorial_settings_body">Please move to Settings to turn on cry and motion detection.</string>
+    <string name="tutorial_settings_button">Go to Settings</string>
+    <string name="tutorial_sound_motion_title">Turn on Sound and Motion</string>
+    <string name="tutorial_sound_motion_body">Please enable Sound and Motion. Give the app the highest permissions you can so it can keep watching over your baby through the whole night, even when the phone screen is off.</string>
+    <string name="tutorial_remote_title">Now try Remote control</string>
+    <string name="tutorial_remote_body">Try the remote control feature. On another device connected to the same Wi-Fi, open the address from the QR Code in a browser to control the app remotely. If you also turn on Camera, you can see your baby remotely too.</string>
+    <string name="tutorial_button_ok">Got it</string>
 </resources>

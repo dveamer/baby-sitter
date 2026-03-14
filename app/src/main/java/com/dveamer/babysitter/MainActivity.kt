@@ -47,8 +47,11 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -62,8 +65,12 @@ import com.dveamer.babysitter.billing.MemoryDownloadPurchaseUiState
 import com.dveamer.babysitter.settings.MotionSensitivity
 import com.dveamer.babysitter.settings.SoundSensitivity
 import com.dveamer.babysitter.sleep.SleepRuntimeStatusStore
+import com.dveamer.babysitter.tutorial.TutorialPlanner
 import com.dveamer.babysitter.ui.SettingsViewModel
 import com.dveamer.babysitter.ui.SettingsViewModelFactory
+import com.dveamer.babysitter.ui.AppTutorialOverlay
+import com.dveamer.babysitter.ui.TutorialTargetKey
+import com.dveamer.babysitter.ui.captureTutorialBounds
 import com.dveamer.babysitter.web.LocalSettingsHttpServer
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.qrcode.QRCodeWriter
@@ -75,13 +82,19 @@ import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.Collections
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
     private val appContainer: AppContainer
         get() = (application as BabySitterApplication).container
 
     private val vm: SettingsViewModel by viewModels {
-        SettingsViewModelFactory(appContainer.settingsRepository, appContainer.settingsController)
+        SettingsViewModelFactory(
+            appContainer.settingsRepository,
+            appContainer.settingsController,
+            appContainer.tutorialRepository
+        )
     }
 
     private val isRecording = mutableStateOf(false)
@@ -126,11 +139,23 @@ class MainActivity : ComponentActivity() {
 
             MaterialTheme(colorScheme = colorScheme) {
                 val state by vm.settingsState.collectAsStateWithLifecycle()
+                val tutorialState by vm.tutorialState.collectAsStateWithLifecycle()
                 val runtimeStatus by SleepRuntimeStatusStore.state.collectAsStateWithLifecycle()
                 val purchaseState by appContainer.memoryDownloadPurchaseManager.uiState
                     .collectAsStateWithLifecycle()
+                val screen by currentScreen
+                val tutorialScope = rememberCoroutineScope()
+                val settingsScrollState = rememberScrollState()
                 val monitoringEnabled = state.soundMonitoringEnabled || state.cameraMonitoringEnabled
                 val hasM4aRecording = state.musicPlaylist.any(::isM4aRecordingUri)
+                val tutorialTargetBounds = remember { mutableStateMapOf<TutorialTargetKey, androidx.compose.ui.geometry.Rect>() }
+                val activeTutorialCandidate = TutorialPlanner.resolveStep(
+                    tutorialState = tutorialState,
+                    isSettingsScreen = screen == Screen.SETTINGS
+                )
+                var tutorialGateOpen by remember { mutableStateOf(true) }
+                val activeTutorial = activeTutorialCandidate?.takeIf { tutorialGateOpen }
+                var previousScreen by remember { mutableStateOf(screen) }
                 LaunchedEffect(
                     state.soundMonitoringEnabled,
                     state.cameraMonitoringEnabled,
@@ -138,6 +163,60 @@ class MainActivity : ComponentActivity() {
                 ) {
                     if (!monitoringEnabled && state.sleepEnabled) {
                         vm.setSleep(false)
+                    }
+                }
+                LaunchedEffect(screen, tutorialState.hasVisitedSettings, tutorialState.firstSettingsVisitFinished) {
+                    if (screen == Screen.SETTINGS && !tutorialState.hasVisitedSettings) {
+                        vm.markSettingsVisited()
+                    }
+                    if (
+                        previousScreen == Screen.SETTINGS &&
+                        screen != Screen.SETTINGS &&
+                        tutorialState.hasVisitedSettings &&
+                        !tutorialState.firstSettingsVisitFinished
+                    ) {
+                        vm.finishFirstSettingsVisit()
+                    }
+                    previousScreen = screen
+                }
+                LaunchedEffect(state.soundMonitoringEnabled, tutorialState.soundEverEnabled) {
+                    if (state.soundMonitoringEnabled && !tutorialState.soundEverEnabled) {
+                        vm.markSoundEnabled()
+                    }
+                }
+                LaunchedEffect(state.cameraMonitoringEnabled, tutorialState.motionEverEnabled) {
+                    if (state.cameraMonitoringEnabled && !tutorialState.motionEverEnabled) {
+                        vm.markMotionEnabled()
+                    }
+                }
+                LaunchedEffect(
+                    screen,
+                    tutorialState.soundEverEnabled,
+                    tutorialState.motionEverEnabled,
+                    tutorialState.soundMotionCoachDismissed,
+                    tutorialState.remoteCoachReady,
+                    tutorialState.remoteCoachDismissed
+                ) {
+                    val soundMotionCompleted =
+                        tutorialState.soundEverEnabled && tutorialState.motionEverEnabled
+                    if (!soundMotionCompleted) return@LaunchedEffect
+
+                    if (!tutorialState.soundMotionCoachDismissed) {
+                        vm.dismissSoundMotionTutorial()
+                    }
+                    if (
+                        screen == Screen.SETTINGS &&
+                        !tutorialState.remoteCoachReady &&
+                        !tutorialState.remoteCoachDismissed
+                    ) {
+                        delay(TUTORIAL_STEP_DELAY_MS)
+                        settingsScrollState.animateScrollTo(settingsScrollState.maxValue)
+                        vm.markRemoteTutorialReady()
+                    }
+                }
+                LaunchedEffect(state.webServiceEnabled, tutorialState.remoteCoachDismissed) {
+                    if (state.webServiceEnabled && !tutorialState.remoteCoachDismissed) {
+                        vm.dismissRemoteTutorial()
                     }
                 }
                 val navigateTo: (Screen) -> Unit = { next ->
@@ -149,134 +228,177 @@ class MainActivity : ComponentActivity() {
                     }
                     currentScreen.value = next
                 }
-                Scaffold(
-                    bottomBar = {
-                        AppBottomBar(
-                            currentScreen = currentScreen.value,
-                            onSelectScreen = navigateTo
-                        )
+                val delayTutorialTransition: (() -> Unit) -> () -> Unit = { action ->
+                    {
+                        tutorialGateOpen = false
+                        action()
+                        tutorialScope.launch {
+                            delay(TUTORIAL_STEP_DELAY_MS)
+                            tutorialGateOpen = true
+                        }
                     }
-                ) { innerPadding ->
-                    Surface(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(innerPadding),
-                        color = MaterialTheme.colorScheme.background
-                    ) {
-                        when (currentScreen.value) {
-                            Screen.HOME -> HomeScreen(
-                                sleepEnabled = state.sleepEnabled,
-                                sleepToggleEnabled = monitoringEnabled,
-                                hasM4aRecording = hasM4aRecording,
-                                soundMonitoringEnabled = state.soundMonitoringEnabled,
-                                motionMonitoringEnabled = state.cameraMonitoringEnabled,
-                                soothingMusicEnabled = state.soothingMusicEnabled,
-                                hasPlaylist = state.musicPlaylist.isNotEmpty(),
-                                monitoringActive = runtimeStatus.monitoringActive,
-                                lullabyActive = runtimeStatus.lullabyActive,
-                                onOpenRecordings = { navigateTo(Screen.RECORDINGS) },
-                                onSleepToggle = { enabled ->
-                                    if (!monitoringEnabled) {
-                                        vm.setSleep(false)
-                                    } else {
-                                        if (enabled) {
-                                            requestMonitoringPermissions(state.cameraMonitoringEnabled)
-                                        }
-                                        vm.setSleep(enabled)
-                                    }
-                                }
-                            )
-
-                            Screen.SETTINGS -> SettingsScreen(
-                                state = state,
-                                purchaseState = purchaseState,
-                                onWebServiceToggle = { enabled ->
-                                    if (!enabled) {
-                                        vm.setWebService(false)
-                                        vm.setWebCamera(false)
-                                    } else {
-                                        vm.setWebService(true)
-                                    }
-                                },
-                                onWebCameraToggle = { enabled ->
-                                    if (!enabled) {
-                                        pendingWebCameraEnable = false
-                                        vm.setWebCamera(false)
-                                    } else {
-                                        val granted = ContextCompat.checkSelfPermission(
-                                            this,
-                                            Manifest.permission.CAMERA
-                                        ) == PackageManager.PERMISSION_GRANTED
-                                        if (granted) {
-                                            vm.setWebCamera(true)
-                                        } else {
-                                            pendingWebCameraEnable = true
-                                            cameraPermissionLauncher.launch(Manifest.permission.CAMERA)
-                                        }
-                                    }
-                                },
-                                onSoundToggle = { enabled ->
-                                    vm.setSoundMonitoring(enabled)
-                                    if (!enabled && !state.cameraMonitoringEnabled && state.sleepEnabled) {
-                                        vm.setSleep(false)
-                                    }
-                                },
-                                onSoundSensitivityChange = { sensitivity ->
-                                    vm.setSoundSensitivity(sensitivity)
-                                    val preset = when (sensitivity) {
-                                        SoundSensitivity.HIGH -> 250
-                                        SoundSensitivity.MEDIUM -> 500
-                                        SoundSensitivity.LOW -> 750
-                                    }
-                                    vm.setCryThresholdSec(preset)
-                                },
-                                onSoundThresholdChange = vm::setCryThresholdSec,
-                                onCameraToggle = { enabled ->
-                                    if (enabled) requestMonitoringPermissions(cameraEnabled = true)
-                                    vm.setCameraMonitoring(enabled)
-                                    if (!enabled && !state.soundMonitoringEnabled && state.sleepEnabled) {
-                                        vm.setSleep(false)
-                                    }
-                                },
-                                onMotionSensitivityChange = { sensitivity ->
-                                    vm.setMotionSensitivity(sensitivity)
-                                    val preset = when (sensitivity) {
-                                        MotionSensitivity.HIGH -> 14
-                                        MotionSensitivity.MEDIUM -> 20
-                                        MotionSensitivity.LOW -> 28
-                                    }
-                                    vm.setMovementThresholdSec(preset)
-                                },
-                                onMotionThresholdChange = vm::setMovementThresholdSec,
-                                onMusicToggle = vm::setSoothingMusic,
-                                onShowQrCode = ::showQrCodePopup,
-                                onOpenRecordings = { navigateTo(Screen.RECORDINGS) },
-                                onPurchaseMemoryDownloadPass = { productId ->
-                                    appContainer.memoryDownloadPurchaseManager.launchPurchase(
-                                        activity = this@MainActivity,
-                                        productId = productId
-                                    )
-                                }
-                            )
-
-                            Screen.RECORDINGS -> RecordingManagementScreen(
-                                state = state,
-                                isRecording = recording,
-                                playingUri = playingTrackUri.value,
-                                onStartRecording = ::startRecording,
-                                onStopRecording = { stopRecording(vm) },
-                                onTogglePlay = ::togglePlayback,
-                                onDeleteTrack = { index ->
-                                    state.musicPlaylist.getOrNull(index)?.let { uri ->
-                                        if (playingTrackUri.value == uri) {
-                                            stopPlayback()
-                                        }
-                                        deleteTrack(uri)
-                                        vm.removeMusicTrackAt(index)
-                                    }
+                }
+                Box(modifier = Modifier.fillMaxSize()) {
+                    Scaffold(
+                        bottomBar = {
+                            AppBottomBar(
+                                currentScreen = screen,
+                                onSelectScreen = navigateTo,
+                                settingsItemModifier = Modifier.captureTutorialBounds(
+                                    TutorialTargetKey.SETTINGS_TAB
+                                ) { key, rect ->
+                                    tutorialTargetBounds[key] = rect
                                 }
                             )
                         }
+                    ) { innerPadding ->
+                        Surface(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(innerPadding),
+                            color = MaterialTheme.colorScheme.background
+                        ) {
+                            when (screen) {
+                                Screen.HOME -> HomeScreen(
+                                    sleepEnabled = state.sleepEnabled,
+                                    sleepToggleEnabled = monitoringEnabled,
+                                    hasM4aRecording = hasM4aRecording,
+                                    soundMonitoringEnabled = state.soundMonitoringEnabled,
+                                    motionMonitoringEnabled = state.cameraMonitoringEnabled,
+                                    soothingMusicEnabled = state.soothingMusicEnabled,
+                                    hasPlaylist = state.musicPlaylist.isNotEmpty(),
+                                    monitoringActive = runtimeStatus.monitoringActive,
+                                    lullabyActive = runtimeStatus.lullabyActive,
+                                    onOpenRecordings = { navigateTo(Screen.RECORDINGS) },
+                                    onSleepToggle = { enabled ->
+                                        if (!monitoringEnabled) {
+                                            vm.setSleep(false)
+                                        } else {
+                                            if (enabled) {
+                                                requestMonitoringPermissions(state.cameraMonitoringEnabled)
+                                            }
+                                            vm.setSleep(enabled)
+                                        }
+                                    }
+                                )
+
+                                Screen.SETTINGS -> SettingsScreen(
+                                    state = state,
+                                    scrollState = settingsScrollState,
+                                    purchaseState = purchaseState,
+                                    onWebServiceToggle = { enabled ->
+                                        if (!enabled) {
+                                            vm.setWebService(false)
+                                            vm.setWebCamera(false)
+                                        } else {
+                                            vm.setWebService(true)
+                                        }
+                                    },
+                                    onWebCameraToggle = { enabled ->
+                                        if (!enabled) {
+                                            pendingWebCameraEnable = false
+                                            vm.setWebCamera(false)
+                                        } else {
+                                            val granted = ContextCompat.checkSelfPermission(
+                                                this@MainActivity,
+                                                Manifest.permission.CAMERA
+                                            ) == PackageManager.PERMISSION_GRANTED
+                                            if (granted) {
+                                                vm.setWebCamera(true)
+                                            } else {
+                                                pendingWebCameraEnable = true
+                                                cameraPermissionLauncher.launch(Manifest.permission.CAMERA)
+                                            }
+                                        }
+                                    },
+                                    onSoundToggle = { enabled ->
+                                        vm.setSoundMonitoring(enabled)
+                                        if (!enabled && !state.cameraMonitoringEnabled && state.sleepEnabled) {
+                                            vm.setSleep(false)
+                                        }
+                                    },
+                                    onSoundSensitivityChange = { sensitivity ->
+                                        vm.setSoundSensitivity(sensitivity)
+                                        val preset = when (sensitivity) {
+                                            SoundSensitivity.HIGH -> 250
+                                            SoundSensitivity.MEDIUM -> 500
+                                            SoundSensitivity.LOW -> 750
+                                        }
+                                        vm.setCryThresholdSec(preset)
+                                    },
+                                    onSoundThresholdChange = vm::setCryThresholdSec,
+                                    onCameraToggle = { enabled ->
+                                        if (enabled) requestMonitoringPermissions(cameraEnabled = true)
+                                        vm.setCameraMonitoring(enabled)
+                                        if (!enabled && !state.soundMonitoringEnabled && state.sleepEnabled) {
+                                            vm.setSleep(false)
+                                        }
+                                    },
+                                    onMotionSensitivityChange = { sensitivity ->
+                                        vm.setMotionSensitivity(sensitivity)
+                                        val preset = when (sensitivity) {
+                                            MotionSensitivity.HIGH -> 14
+                                            MotionSensitivity.MEDIUM -> 20
+                                            MotionSensitivity.LOW -> 28
+                                        }
+                                        vm.setMovementThresholdSec(preset)
+                                    },
+                                    onMotionThresholdChange = vm::setMovementThresholdSec,
+                                    onMusicToggle = vm::setSoothingMusic,
+                                    onShowQrCode = ::showQrCodePopup,
+                                    onOpenRecordings = { navigateTo(Screen.RECORDINGS) },
+                                    onPurchaseMemoryDownloadPass = { productId ->
+                                        appContainer.memoryDownloadPurchaseManager.launchPurchase(
+                                            activity = this@MainActivity,
+                                            productId = productId
+                                        )
+                                    },
+                                    soundRowModifier = Modifier.captureTutorialBounds(
+                                        TutorialTargetKey.SOUND_ROW
+                                    ) { key, rect ->
+                                        tutorialTargetBounds[key] = rect
+                                    },
+                                    motionRowModifier = Modifier.captureTutorialBounds(
+                                        TutorialTargetKey.MOTION_ROW
+                                    ) { key, rect ->
+                                        tutorialTargetBounds[key] = rect
+                                    },
+                                    webServiceModifier = Modifier.captureTutorialBounds(
+                                        TutorialTargetKey.WEB_SERVICE_ROW
+                                    ) { key, rect ->
+                                        tutorialTargetBounds[key] = rect
+                                    }
+                                )
+
+                                Screen.RECORDINGS -> RecordingManagementScreen(
+                                    state = state,
+                                    isRecording = recording,
+                                    playingUri = playingTrackUri.value,
+                                    onStartRecording = ::startRecording,
+                                    onStopRecording = { stopRecording(vm) },
+                                    onTogglePlay = ::togglePlayback,
+                                    onDeleteTrack = { index ->
+                                        state.musicPlaylist.getOrNull(index)?.let { uri ->
+                                            if (playingTrackUri.value == uri) {
+                                                stopPlayback()
+                                            }
+                                            deleteTrack(uri)
+                                            vm.removeMusicTrackAt(index)
+                                        }
+                                    }
+                                )
+                            }
+                        }
+                    }
+                    if (activeTutorial != null && !qrVisible) {
+                        AppTutorialOverlay(
+                            step = activeTutorial,
+                            targetBounds = tutorialTargetBounds,
+                            onDismissWelcome = delayTutorialTransition(vm::dismissWelcomeTutorial),
+                            onOpenSettings = delayTutorialTransition { navigateTo(Screen.SETTINGS) },
+                            onDismissSoundMotion = delayTutorialTransition(vm::dismissSoundMotionTutorial),
+                            onDismissRemote = delayTutorialTransition(vm::dismissRemoteTutorial)
+                        )
                     }
                     if (qrVisible) {
                         QrCodeDialog(
@@ -511,6 +633,7 @@ class MainActivity : ComponentActivity() {
     companion object {
         private const val TAG = "MainActivity"
         private const val RECORDINGS_DIR = "soothing-recordings"
+        private const val TUTORIAL_STEP_DELAY_MS = 3_000L
         private val RECORDING_FILE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
     }
 
@@ -533,6 +656,7 @@ private val LightColorScheme = lightColorScheme(
 @Composable
 private fun SettingsScreen(
     state: com.dveamer.babysitter.settings.SettingsState,
+    scrollState: androidx.compose.foundation.ScrollState,
     purchaseState: MemoryDownloadPurchaseUiState,
     onWebServiceToggle: (Boolean) -> Unit,
     onWebCameraToggle: (Boolean) -> Unit,
@@ -545,9 +669,11 @@ private fun SettingsScreen(
     onMusicToggle: (Boolean) -> Unit,
     onShowQrCode: () -> Unit,
     onOpenRecordings: () -> Unit,
-    onPurchaseMemoryDownloadPass: (String) -> Unit
+    onPurchaseMemoryDownloadPass: (String) -> Unit,
+    soundRowModifier: Modifier = Modifier,
+    motionRowModifier: Modifier = Modifier,
+    webServiceModifier: Modifier = Modifier
 ) {
-    val scrollState = rememberScrollState()
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -557,7 +683,7 @@ private fun SettingsScreen(
     ) {
         Text("Monitoring", style = MaterialTheme.typography.headlineSmall)
 
-        SwitchRow("Sound", state.soundMonitoringEnabled, onSoundToggle)
+        SwitchRow("Sound", state.soundMonitoringEnabled, onSoundToggle, modifier = soundRowModifier)
         if (state.soundMonitoringEnabled) {
             SoundSensitivitySelector(
                 onSelect = onSoundSensitivityChange,
@@ -565,7 +691,7 @@ private fun SettingsScreen(
                 onThresholdValueChange = onSoundThresholdChange
             )
         }
-        SwitchRow("Motion", state.cameraMonitoringEnabled, onCameraToggle)
+        SwitchRow("Motion", state.cameraMonitoringEnabled, onCameraToggle, modifier = motionRowModifier)
         if (state.cameraMonitoringEnabled) {
             MotionSensitivitySelector(
                 onSelect = onMotionSensitivityChange,
@@ -594,7 +720,8 @@ private fun SettingsScreen(
             "Web Service (Remote)",
             state.webServiceEnabled,
             onWebServiceToggle,
-            textStyle = MaterialTheme.typography.headlineSmall
+            textStyle = MaterialTheme.typography.headlineSmall,
+            modifier = webServiceModifier
         )
         if (state.webServiceEnabled) {
             SwitchRow("Camera", state.webCameraEnabled, onWebCameraToggle)
@@ -879,7 +1006,8 @@ private fun HomeScreen(
 @Composable
 private fun AppBottomBar(
     currentScreen: Screen,
-    onSelectScreen: (Screen) -> Unit
+    onSelectScreen: (Screen) -> Unit,
+    settingsItemModifier: Modifier = Modifier
 ) {
     NavigationBar {
         NavigationBarItem(
@@ -889,6 +1017,7 @@ private fun AppBottomBar(
             label = { Text("Home") }
         )
         NavigationBarItem(
+            modifier = settingsItemModifier,
             selected = currentScreen == Screen.SETTINGS,
             onClick = { onSelectScreen(Screen.SETTINGS) },
             icon = {},
@@ -939,10 +1068,11 @@ private fun SwitchRow(
     label: String,
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
-    textStyle: TextStyle = MaterialTheme.typography.bodyLarge
+    textStyle: TextStyle = MaterialTheme.typography.bodyLarge,
+    modifier: Modifier = Modifier
 ) {
     Row(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
