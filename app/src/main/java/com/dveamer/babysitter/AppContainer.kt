@@ -2,6 +2,7 @@ package com.dveamer.babysitter
 
 import android.content.Context
 import com.dveamer.babysitter.alert.TelegramAlertSender
+import com.dveamer.babysitter.audio.DeviceVolumeController
 import com.dveamer.babysitter.billing.MemoryDownloadEntitlementRepository
 import com.dveamer.babysitter.billing.MemoryDownloadPurchaseManager
 import com.dveamer.babysitter.collect.CollectCatalog
@@ -43,6 +44,7 @@ class AppContainer(context: Context) {
         versionProvider = VersionProvider { versionCounter.incrementAndGet() },
         clock = Clock { System.currentTimeMillis() }
     )
+    val deviceVolumeController = DeviceVolumeController(appContext)
 
     val remoteCommandHandler = RemoteCommandHandler(settingsController)
 
@@ -76,6 +78,7 @@ class AppContainer(context: Context) {
             context = appContext,
             settingsRepository = settingsRepository,
             settingsController = settingsController,
+            deviceVolumeController = deviceVolumeController,
             memoryRepository = memoryRepository,
             memoryBuildCoordinator = memoryBuildCoordinator,
             memoryDownloadLimiter = memoryDownloadLimiter

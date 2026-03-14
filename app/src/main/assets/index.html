@@ -387,6 +387,12 @@
       width: 100%;
       accent-color: var(--primary);
     }
+    .sensitivity-hint {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.4;
+    }
   </style>
 </head>
 <body>
@@ -453,6 +459,13 @@
     </section>
 
     <section class="panel">
+      <h2 class="title">Lullaby Volume</h2>
+      <div class="sensitivity-title"><span id="lullabyVolumeValue">0</span>%</div>
+      <input id="lullabyVolumeSlider" class="sensitivity-slider" type="range" min="0" max="100" step="1">
+      <div id="lullabyVolumeHint" class="sensitivity-hint"></div>
+    </section>
+
+    <section class="panel">
       <h2 id="memoryTitle" class="title">Memory</h2>
       <div class="memory-actions">
         <button id="memoryRefreshBtn" class="btn" type="button">Reload</button>
@@ -486,6 +499,9 @@
     const motionThresholdValueEl = document.getElementById("motionThresholdValue");
     const motionPresetButtonsEl = document.getElementById("motionPresetButtons");
     const motionThresholdSlider = document.getElementById("motionThresholdSlider");
+    const lullabyVolumeValueEl = document.getElementById("lullabyVolumeValue");
+    const lullabyVolumeSlider = document.getElementById("lullabyVolumeSlider");
+    const lullabyVolumeHintEl = document.getElementById("lullabyVolumeHint");
     const monitoringEmptyMessageEl = document.getElementById("monitoringEmptyMessage");
     const monitoringStatusValueEl = document.getElementById("monitoringStatusValue");
     const lullabyStatusValueEl = document.getElementById("lullabyStatusValue");
@@ -508,6 +524,10 @@
     let memoryBuildInProgress = false;
     let manualMemoryRequestInProgress = false;
     let cameraMemoryAvailable = false;
+    let lullabyVolumePercent = 0;
+    let lullabyVolumeLevel = 0;
+    let lullabyVolumeMaxLevel = 0;
+    let lullabyVolumeUpdating = false;
     let soundSensitivity = "MEDIUM";
     let motionSensitivity = "MEDIUM";
     let cryThresholdSec = 500;
@@ -558,6 +578,15 @@
     const cameraMemoryAlreadyPendingMessage = isKoreanUser
       ? "이미 다른 수동 Memory 저장 요청이 진행 중입니다."
       : "Another manual memory request is already running.";
+    const lullabyVolumeHintPrefix = isKoreanUser
+      ? "Baby Sitter 기기의 미디어 볼륨을 변경합니다."
+      : "Changes the media volume on the Baby Sitter device.";
+    const lullabyVolumeUnavailableMessage = isKoreanUser
+      ? "이 기기에서는 자장가 볼륨을 제어할 수 없습니다."
+      : "This device does not support lullaby volume control.";
+    const lullabyVolumeUpdateFailedMessage = isKoreanUser
+      ? "자장가 볼륨 변경에 실패했습니다."
+      : "Failed to update the lullaby volume.";
     const monitoringDisabledMessage = isKoreanUser
       ? "Sound, Motion 모두 사용되지 않도록 설정되어 아기가 깼는지 감지할 수 없습니다."
       : "Both Sound and Motion are disabled, so the app cannot detect whether the baby has woken up.";
@@ -645,6 +674,38 @@
       motionThresholdValueEl.textContent = String(movementThresholdSec);
       motionThresholdSlider.value = String(movementThresholdSec);
       markSelectedPreset(motionPresetButtonsEl, selectedMotionPreset(movementThresholdSec));
+    }
+
+    function applyLullabyVolumeSnapshot(volume) {
+      const percent = volume && Object.prototype.hasOwnProperty.call(volume, "percent")
+        ? Number(volume.percent)
+        : NaN;
+      const currentLevel = volume && Object.prototype.hasOwnProperty.call(volume, "currentLevel")
+        ? Number(volume.currentLevel)
+        : NaN;
+      const maxLevel = volume && Object.prototype.hasOwnProperty.call(volume, "maxLevel")
+        ? Number(volume.maxLevel)
+        : NaN;
+
+      lullabyVolumePercent = Number.isFinite(percent)
+        ? Math.min(100, Math.max(0, percent))
+        : 0;
+      lullabyVolumeLevel = Number.isFinite(currentLevel)
+        ? Math.max(0, currentLevel)
+        : 0;
+      lullabyVolumeMaxLevel = Number.isFinite(maxLevel)
+        ? Math.max(0, maxLevel)
+        : 0;
+    }
+
+    function renderLullabyVolumeControls() {
+      lullabyVolumeValueEl.textContent = String(lullabyVolumePercent);
+      lullabyVolumeSlider.value = String(lullabyVolumePercent);
+      const controllable = lullabyVolumeMaxLevel > 0;
+      lullabyVolumeSlider.disabled = lullabyVolumeUpdating || !controllable;
+      lullabyVolumeHintEl.textContent = controllable
+        ? `${lullabyVolumeHintPrefix} (${lullabyVolumeLevel}/${lullabyVolumeMaxLevel})`
+        : lullabyVolumeUnavailableMessage;
     }
 
     function updateSensitivityVisibility() {
@@ -958,6 +1019,33 @@
       }
     }
 
+    async function updateLullabyVolume(percent) {
+      if (lullabyVolumeUpdating) return;
+      lullabyVolumeUpdating = true;
+      renderLullabyVolumeControls();
+      try {
+        const res = await fetch("/lullaby-volume", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+          body: JSON.stringify({ percent })
+        });
+        const payload = await res.json().catch(() => null);
+        if (!res.ok || !payload) throw new Error(lullabyVolumeUpdateFailedMessage);
+        applyLullabyVolumeSnapshot(payload);
+        hideError();
+        hideSuccess();
+      } catch (e) {
+        showError(e && e.message ? e.message : lullabyVolumeUpdateFailedMessage);
+        await loadSettings({ silent: true });
+      } finally {
+        lullabyVolumeUpdating = false;
+        renderLullabyVolumeControls();
+      }
+    }
+
     function clearCameraConnectTimeout() {
       if (cameraConnectTimeoutId) {
         clearTimeout(cameraConnectTimeoutId);
@@ -1051,6 +1139,7 @@
         memoryBuildInProgress = !!settings.memoryBuildInProgress;
         manualMemoryRequestInProgress = !!settings.manualMemoryRequestInProgress;
         cameraMemoryAvailable = !!settings.cameraMemoryAvailable;
+        applyLullabyVolumeSnapshot(settings.lullabyVolume || null);
 
         webCameraEnabled = !!settings.webCameraEnabled;
         cameraPanel.style.display = webCameraEnabled ? "block" : "none";
@@ -1064,6 +1153,7 @@
         renderSensitivityControls();
         updateSensitivityVisibility();
         renderSleepStatus();
+        renderLullabyVolumeControls();
         renderCameraMemoryControls();
         updatedAtEl.textContent = "Last updated: " + formatAmPmTime(new Date());
         scheduleSleepStatusPoll();
@@ -1146,6 +1236,13 @@
       if (!motionMonitoringEnabled) return;
       await updateSettingsPatch({ movementThresholdSec });
     });
+    lullabyVolumeSlider.addEventListener("input", () => {
+      lullabyVolumePercent = Number(lullabyVolumeSlider.value);
+      renderLullabyVolumeControls();
+    });
+    lullabyVolumeSlider.addEventListener("change", async () => {
+      await updateLullabyVolume(lullabyVolumePercent);
+    });
     cameraFeed.addEventListener("load", () => {
       cameraStreaming = true;
       hideCameraError();
@@ -1158,6 +1255,7 @@
     });
 
     renderCameraMemoryControls();
+    renderLullabyVolumeControls();
     renderMemoryDownloadStatus();
     loadSettings();
     loadMemoryList();

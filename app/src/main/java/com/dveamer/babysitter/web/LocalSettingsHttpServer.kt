@@ -2,6 +2,8 @@ package com.dveamer.babysitter.web
 
 import android.content.Context
 import android.util.Log
+import com.dveamer.babysitter.audio.DeviceVolumeController
+import com.dveamer.babysitter.audio.DeviceVolumeSnapshot
 import com.dveamer.babysitter.collect.MemoryRepository
 import com.dveamer.babysitter.monitor.CameraFrameBus
 import com.dveamer.babysitter.monitor.CameraFrameSnapshot
@@ -37,6 +39,7 @@ class LocalSettingsHttpServer(
     context: Context,
     private val settingsRepository: SettingsRepository,
     private val settingsController: SettingsController,
+    private val deviceVolumeController: DeviceVolumeController,
     private val memoryRepository: MemoryRepository,
     private val memoryBuildCoordinator: MemoryBuildCoordinator,
     private val memoryDownloadLimiter: MemoryDownloadLimiter
@@ -271,6 +274,25 @@ class LocalSettingsHttpServer(
                         }
                     }
 
+                    method == "PUT" && path == "/lullaby-volume" -> {
+                        val snapshot = updateLullabyVolumeFromJson(body)
+                        if (snapshot != null) {
+                            writeResponse(
+                                socket = socket,
+                                code = 200,
+                                status = "OK",
+                                body = deviceVolumeToJson(snapshot).toString()
+                            )
+                        } else {
+                            writeResponse(
+                                socket = socket,
+                                code = 400,
+                                status = "Bad Request",
+                                body = """{"error":"invalid_payload"}"""
+                            )
+                        }
+                    }
+
                     method == "GET" && (path == "/index.html" || path == "/") -> {
                         val html = loadHtmlAsset(
                             assetName = "index.html",
@@ -333,6 +355,21 @@ class LocalSettingsHttpServer(
             Log.w(TAG, "failed to update settings from payload", e)
             false
         }
+    }
+
+    private fun updateLullabyVolumeFromJson(body: String): DeviceVolumeSnapshot? {
+        val json = runCatching { JSONObject(body) }
+            .onFailure { Log.w(TAG, "failed to parse lullaby volume payload", it) }
+            .getOrNull()
+            ?: return null
+        val percent = json.optIntOrNull("percent")
+            ?: json.optIntOrNull("lullabyVolumePercent")
+            ?: return null
+        return runCatching {
+            deviceVolumeController.setMusicVolumePercent(percent)
+        }.onFailure {
+            Log.w(TAG, "failed to update lullaby volume percent=$percent", it)
+        }.getOrNull()
     }
 
     private fun writeResponse(
@@ -501,10 +538,18 @@ class LocalSettingsHttpServer(
             .put("benefitExpiresAtMs", snapshot.benefitExpiresAtEpochMs)
     }
 
+    private fun deviceVolumeToJson(snapshot: DeviceVolumeSnapshot): JSONObject {
+        return JSONObject()
+            .put("currentLevel", snapshot.currentLevel)
+            .put("maxLevel", snapshot.maxLevel)
+            .put("percent", snapshot.percent)
+    }
+
     private fun settingsToJson(state: SettingsState): String {
         val runtime = SleepRuntimeStatusStore.state.value
         val memoryBuildInProgress = runtime.memoryBuildInProgress || memoryBuildCoordinator.isBuildInProgress()
         val manualMemoryRequestInProgress = memoryBuildCoordinator.isManualRequestInProgress()
+        val deviceVolume = deviceVolumeController.currentSnapshot()
         return JSONObject()
             .put("sleepEnabled", state.sleepEnabled)
             .put("webServiceEnabled", state.webServiceEnabled)
@@ -524,6 +569,7 @@ class LocalSettingsHttpServer(
             .put("manualMemoryRequestInProgress", manualMemoryRequestInProgress)
             .put("cameraMemoryAvailable", state.webCameraEnabled && memoryBuildCoordinator.isManualCameraMemoryAvailable())
             .put("lastMemoryBuiltAtMs", runtime.lastMemoryBuiltAtMs)
+            .put("lullabyVolume", deviceVolumeToJson(deviceVolume))
             .toString()
     }
 
