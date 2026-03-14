@@ -683,7 +683,7 @@ class MainActivity : ComponentActivity() {
         private const val RECORDINGS_DIR = "soothing-recordings"
         private const val TUTORIAL_STEP_DELAY_MS = 3_000L
         private const val TUTORIAL_FINAL_DELAY_MS = 10_000L
-        private const val HOMEPAGE_URL = "http://babysitter.dveaemer.com"
+        private const val HOMEPAGE_URL = "https://babysitter.dveaemer.com/index.html"
         private const val DEVELOPER_PAGE_URL =
             "https://play.google.com/store/apps/developer?id=dveamer"
         private val RECORDING_FILE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
