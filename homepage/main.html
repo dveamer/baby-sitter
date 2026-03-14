@@ -47,6 +47,8 @@
       margin: 0;
       font-family: var(--body-font);
       color: var(--text);
+      word-break: keep-all;
+      line-break: strict;
       background:
         radial-gradient(circle at top left, rgba(239, 198, 139, 0.28), transparent 28%),
         radial-gradient(circle at 88% 10%, rgba(157, 216, 202, 0.20), transparent 20%),
@@ -54,6 +56,17 @@
         linear-gradient(180deg, var(--bg) 0%, var(--bg-soft) 100%);
       min-height: 100vh;
       overflow-x: hidden;
+    }
+
+    h1,
+    h2,
+    h3,
+    p,
+    li,
+    a,
+    span,
+    strong {
+      overflow-wrap: break-word;
     }
 
     body::before,
@@ -118,13 +131,18 @@
     }
 
     .brand-mark {
-      width: 34px;
-      height: 34px;
-      border-radius: 12px;
-      background:
-        radial-gradient(circle at 28% 28%, #fff9fb 0 18%, transparent 18%),
-        linear-gradient(135deg, #f0c48b 0%, #e790aa 56%, #b6e6da 100%);
-      box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.75);
+      width: 60px;
+      height: 60px;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+    }
+
+    .brand-mark img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: contain;
     }
 
     .brand-text strong {
@@ -265,6 +283,26 @@
       border-radius: 999px;
       font-weight: 800;
       transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    .btn-with-icon {
+      gap: 10px;
+    }
+
+    .btn-icon {
+      width: 60px;
+      height: 60px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+    }
+
+    .btn-icon img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: contain;
     }
 
     .btn:hover,
@@ -758,7 +796,9 @@
   <main>
     <div class="topbar">
       <div class="brand" aria-label="Baby Sitter">
-        <div class="brand-mark" aria-hidden="true"></div>
+        <div class="brand-mark" aria-hidden="true">
+          <img src="./assets/app-icon.webp" alt="">
+        </div>
         <div class="brand-text">
           <strong>Baby Sitter</strong>
           <span>아기와 부모의 숙면을 위하여</span>
@@ -826,11 +866,10 @@
         <div class="section-header">
           <div>
             <span class="section-kicker">App Story</span>
-            <h2>기술보다, 밤의 분위기를 지키는 쪽에 더 가까워요.</h2>
+            <h2>아기의 숙면, 부모의 평온 그리고 그 순간들의 기록</h2>
           </div>
           <p>
-            Baby Sitter는 기능을 많이 보여주기보다,
-            아기가 편안하게 다시 잠들고 부모도 불안 때문에 자주 뛰어가지 않도록 돕는 데 집중했어요.
+            아기가 다시 잠들 수 있는 중요한 그 순간 자장가를 들려줄거예요.
           </p>
         </div>
 
@@ -840,7 +879,7 @@
             <h3>다시 잠들 수 있게 살짝 도와줘요</h3>
             <p>
               아기가 깨기 시작하면 자동으로 자장가를 틀어줘요.
-              작은 잠 투정이 큰 울음으로 커지기 전에 먼저 손을 내미는 느낌이에요.
+              작은 잠 투정이 큰 울음으로 커지기 전에 먼저 토닥여주는 느낌이에요.
             </p>
             <ul>
               <li>소리와 움직임을 함께 살펴서 잠깐의 변화를 놓치지 않아요.</li>
@@ -853,11 +892,11 @@
             <h3>다른 방에서도 조용히 지켜볼 수 있어요</h3>
             <p>
               아기 방 문을 열지 않고도 자는 모습을 볼 수 있어요.
-              괜히 발소리 내며 들어갔다가 다시 깨울까 걱정할 때 특히 편해요.
+              괜히 문 열어보다가 다시 깨울까봐 걱정할 필요 없어요.
             </p>
             <ul>
               <li>같은 Wi-Fi 안에서만 접속할 수 있게 되어 있어요.</li>
-              <li>가까운 집 안에서만 보는 흐름이라 더 안심하고 쓸 수 있어요.</li>
+              <li>우리 가족만 볼 수 있는 흐름이라 안심하고 쓸 수 있어요.</li>
             </ul>
           </article>
 
@@ -966,8 +1005,7 @@
             <h2>기록 기능도 어렵지 않게 써보세요.</h2>
           </div>
           <p>
-            단순히 보는 데서 끝나지 않고, 다시 보고 싶은 순간을 남기거나
-            왜 깼는지 되짚어보는 데도 도움이 되도록 구성했어요.
+            단순히 보는 데서 끝나지 않고, 다시 보고 싶은 순간을 남기거나 왜 깼는지 되짚어보는 데도 도움이 되도록 구성했어요.
           </p>
         </div>
 
