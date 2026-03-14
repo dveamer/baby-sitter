@@ -3,8 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Baby Sitter | 잠든 밤을 조금 더 편안하게</title>
+  <title id="page-title">Baby Sitter | 잠든 밤을 조금 더 편안하게</title>
   <meta
+    id="page-description"
     name="description"
     content="남는 안드로이드폰 하나로 아기 방을 지켜보고, 깼을 때는 부모 목소리 자장가로 다시 토닥여주는 Baby Sitter 앱 소개 페이지입니다.">
   <style>
@@ -801,41 +802,42 @@
         </div>
         <div class="brand-text">
           <strong>Baby Sitter</strong>
-          <span>아기와 부모의 숙면을 위하여</span>
+          <span data-i18n="brand.subtitle">아기와 부모의 숙면을 위하여</span>
         </div>
       </div>
       <div class="top-links">
-        <a href="#story">앱 소개</a>
-        <a href="#setup">준비물</a>
-        <a href="#how-to-use">사용법</a>
+        <a href="#story" data-i18n="nav.story">앱 소개</a>
+        <a href="#setup" data-i18n="nav.setup">준비물</a>
+        <a href="#how-to-use" data-i18n="nav.howToUse">사용법</a>
       </div>
     </div>
 
     <section class="hero" id="install">
       <div class="hero-copy">
-        <div class="eyebrow">아기 수면을 위한 다정한 보조자</div>
-        <h1>아기가 잠든 밤,<br>부모 마음도 조금 편해지도록.</h1>
-        <p class="hero-lead">
+        <div class="eyebrow" data-i18n="hero.eyebrow">아기 수면을 위한 다정한 보조자</div>
+        <h1 data-i18n-html="hero.title">아기가 잠든 밤,<br>부모 마음도 조금 편해지도록.</h1>
+        <p class="hero-lead" data-i18n="hero.lead">
           Baby Sitter는 아기 방을 지켜보는 앱이에요.
           뒤척임이나 작은 잠 투정을 먼저 알아채고, 녹음된 친숙한 엄마 아빠 목소리 자장가로
           다시 잠들 수 있게 도와줘요.
         </p>
-        <div class="hero-chips" aria-label="핵심 기능">
-          <span class="chip">작은 잠 투정을 큰 울음 전에 잡아줘요</span>
-          <span class="chip">같은 Wi-Fi 안에서만 원격으로 확인해요</span>
-          <span class="chip">놓치기 아쉬운 순간은 Memory로 남겨요</span>
+        <div class="hero-chips" aria-label="핵심 기능" data-i18n-aria-label="hero.chipsLabel">
+          <span class="chip" data-i18n="hero.chip1">작은 잠 투정을 큰 울음 전에 잡아줘요</span>
+          <span class="chip" data-i18n="hero.chip2">같은 Wi-Fi 안에서만 원격으로 확인해요</span>
+          <span class="chip" data-i18n="hero.chip3">놓치기 아쉬운 순간은 Memory로 남겨요</span>
         </div>
         <div class="cta-row">
           <a
             class="btn btn-primary"
             href="https://play.google.com/store/apps/details?id=com.dveamer.babysitter"
             target="_blank"
-            rel="noreferrer">
+            rel="noreferrer"
+            data-i18n="hero.install">
             Google Play에서 설치하기
           </a>
-          <a class="btn btn-secondary" href="#how-to-use">먼저 사용법 보기</a>
+          <a class="btn btn-secondary" href="#how-to-use" data-i18n="hero.viewGuide">먼저 사용법 보기</a>
         </div>
-        <p class="hero-footnote">
+        <p class="hero-footnote" data-i18n="hero.footnote">
           아기 방은 조용하게 두고, 부모는 다른 방에서 편하게 확인할 수 있게 만들었어요.
         </p>
       </div>
@@ -843,19 +845,19 @@
       <div class="hero-visual" aria-hidden="true">
         <div class="dream-window">
           <div class="visual-copy">
-            <strong>낯선 소리 말고, 익숙한 목소리로.</strong>
-            <p>
+            <strong data-i18n="visual.title">낯선 소리 말고, 익숙한 목소리로.</strong>
+            <p data-i18n="visual.body">
               아기가 깨려는 순간마다 방 안을 더 시끄럽게 하지 않고,
               익숙한 자장가로 다시 토닥이는 흐름에 집중했어요.
             </p>
           </div>
           <div class="floating-note note-top">
-            <strong>소리와 움직임을 같이 살펴봐요</strong>
-            <span>작은 뒤척임이 커지기 전에 먼저 반응할 수 있어요.</span>
+            <strong data-i18n="visual.note1Title">소리와 움직임을 같이 살펴봐요</strong>
+            <span data-i18n="visual.note1Body">작은 뒤척임이 커지기 전에 먼저 반응할 수 있어요.</span>
           </div>
           <div class="floating-note note-bottom">
-            <strong>기억하고 싶은 순간은 바로 저장</strong>
-            <span>전후 5분을 남겨서 귀여운 순간을 놓치지 않아요.</span>
+            <strong data-i18n="visual.note2Title">기억하고 싶은 순간은 바로 저장</strong>
+            <span data-i18n="visual.note2Body">전후 5분을 남겨서 귀여운 순간을 놓치지 않아요.</span>
           </div>
         </div>
       </div>
@@ -865,10 +867,10 @@
       <div class="section-card">
         <div class="section-header">
           <div>
-            <span class="section-kicker">App Story</span>
-            <h2>아기의 숙면, 부모의 평온 그리고 그 순간들의 기록</h2>
+            <span class="section-kicker" data-i18n="story.kicker">앱 소개</span>
+            <h2 data-i18n="story.title">아기의 숙면, 부모의 평온 그리고 그 순간들의 기록</h2>
           </div>
-          <p>
+          <p data-i18n="story.body">
             아기가 다시 잠들 수 있는 중요한 그 순간 자장가를 들려줄거예요.
           </p>
         </div>
@@ -876,40 +878,40 @@
         <div class="feature-grid">
           <article class="feature-card">
             <div class="feature-icon">1</div>
-            <h3>다시 잠들 수 있게 살짝 도와줘요</h3>
-            <p>
+            <h3 data-i18n="story.feature1Title">다시 잠들 수 있게 살짝 도와줘요</h3>
+            <p data-i18n="story.feature1Body">
               아기가 깨기 시작하면 자동으로 자장가를 틀어줘요.
               작은 잠 투정이 큰 울음으로 커지기 전에 먼저 토닥여주는 느낌이에요.
             </p>
             <ul>
-              <li>소리와 움직임을 함께 살펴서 잠깐의 변화를 놓치지 않아요.</li>
-              <li>엄마, 아빠 목소리가 담긴 자장가라서 더 익숙하고 편안해요.</li>
+              <li data-i18n="story.feature1Point1">소리와 움직임을 함께 살펴서 잠깐의 변화를 놓치지 않아요.</li>
+              <li data-i18n="story.feature1Point2">엄마, 아빠 목소리가 담긴 자장가라서 더 익숙하고 편안해요.</li>
             </ul>
           </article>
 
           <article class="feature-card">
             <div class="feature-icon">2</div>
-            <h3>다른 방에서도 조용히 지켜볼 수 있어요</h3>
-            <p>
+            <h3 data-i18n="story.feature2Title">다른 방에서도 조용히 지켜볼 수 있어요</h3>
+            <p data-i18n="story.feature2Body">
               아기 방 문을 열지 않고도 자는 모습을 볼 수 있어요.
               괜히 문 열어보다가 다시 깨울까봐 걱정할 필요 없어요.
             </p>
             <ul>
-              <li>같은 Wi-Fi 안에서만 접속할 수 있게 되어 있어요.</li>
-              <li>우리 가족만 볼 수 있는 흐름이라 안심하고 쓸 수 있어요.</li>
+              <li data-i18n="story.feature2Point1">같은 Wi-Fi 안에서만 접속할 수 있게 되어 있어요.</li>
+              <li data-i18n="story.feature2Point2">우리 가족만 볼 수 있는 흐름이라 안심하고 쓸 수 있어요.</li>
             </ul>
           </article>
 
           <article class="feature-card">
             <div class="feature-icon">3</div>
-            <h3>귀여운 순간도, 깬 이유도 남겨줘요</h3>
-            <p>
+            <h3 data-i18n="story.feature3Title">귀여운 순간도, 깬 이유도 남겨줘요</h3>
+            <p data-i18n="story.feature3Body">
               보고 싶었던 순간은 그냥 지나가 버리기 아쉽잖아요.
               Baby Sitter는 나중에 다시 보고 싶은 장면도 챙겨둘 수 있어요.
             </p>
             <ul>
-              <li>촬영 버튼을 누르면 그 순간 전후 5분이 함께 저장돼요.</li>
-              <li>아기가 깨면 깨기 전 3분부터 다시 잠들 때까지 자동으로 남겨줘요.</li>
+              <li data-i18n="story.feature3Point1">촬영 버튼을 누르면 그 순간 전후 5분이 함께 저장돼요.</li>
+              <li data-i18n="story.feature3Point2">아기가 깨면 깨기 전 3분부터 다시 잠들 때까지 자동으로 남겨줘요.</li>
             </ul>
           </article>
         </div>
@@ -920,10 +922,10 @@
       <div class="section-card">
         <div class="section-header">
           <div>
-            <span class="section-kicker">Easy Setup</span>
-            <h2>준비는 생각보다 훨씬 간단해요.</h2>
+            <span class="section-kicker" data-i18n="setup.kicker">준비물</span>
+            <h2 data-i18n="setup.title">준비는 생각보다 훨씬 간단해요.</h2>
           </div>
-          <p>
+          <p data-i18n="setup.body">
             새로운 기기를 또 사지 않아도 돼요.
             집에 있는 안 쓰는 안드로이드폰 하나면 시작할 수 있어요.
           </p>
@@ -931,11 +933,11 @@
 
         <div class="setup-grid">
           <div class="quote-box">
-            <p>
+            <p data-i18n-html="setup.quote">
               집에 사용하지 않는 안드로이드폰 하나씩 갖고 있잖아요?<br>
               <strong>다이소에서 1000원짜리 핸드폰 거치대 하나만 구해오면 끝!</strong>
             </p>
-            <div class="setup-tip">
+            <div class="setup-tip" data-i18n="setup.tip">
               아기 침대가 잘 보이는 자리에 폰을 세워두고,
               부모가 쓰는 다른 폰이나 태블릿은 같은 Wi-Fi에 연결해두면 바로 원격 확인까지 이어져요.
             </div>
@@ -943,14 +945,14 @@
 
           <div class="setup-card">
             <div class="setup-icon">+</div>
-            <h3>이 정도면 충분해요</h3>
+            <h3 data-i18n="setup.cardTitle">이 정도면 충분해요</h3>
             <ul>
-              <li>아기 방에 둘 안 쓰는 안드로이드폰 1대</li>
-              <li>간단한 휴대폰 거치대 1개</li>
-              <li>집 안 Wi-Fi</li>
-              <li>원격으로 볼 부모 폰이나 태블릿 1대</li>
+              <li data-i18n="setup.item1">아기 방에 둘 안 쓰는 안드로이드폰 1대</li>
+              <li data-i18n="setup.item2">간단한 휴대폰 거치대 1개</li>
+              <li data-i18n="setup.item3">집 안 Wi-Fi</li>
+              <li data-i18n="setup.item4">원격으로 볼 부모 폰이나 태블릿 1대</li>
             </ul>
-            <p style="margin-top: 14px;">
+            <p style="margin-top: 14px;" data-i18n="setup.cardBody">
               복잡한 장비보다, 이미 집에 있는 걸로 시작할 수 있다는 게 이 앱의 가장 큰 장점이에요.
             </p>
           </div>
@@ -962,34 +964,34 @@
       <div class="section-card">
         <div class="section-header">
           <div>
-            <span class="section-kicker">How To Use</span>
-            <h2>처음 켜면, 튜토리얼 따라 이렇게만 해보세요.</h2>
+            <span class="section-kicker" data-i18n="howto.kicker">사용법</span>
+            <h2 data-i18n="howto.title">처음 켜면, 튜토리얼 따라 이렇게만 해보세요.</h2>
           </div>
-          <p>
+          <p data-i18n="howto.body">
             앱 안에 이미 튜토리얼이 준비되어 있어서 어렵지 않아요.
             아래 순서대로 따라가면 첫 세팅이 금방 끝나요.
           </p>
         </div>
 
-        <p class="section-copy" style="margin-bottom: 18px;">
+        <p class="section-copy" style="margin-bottom: 18px;" data-i18n="howto.tip">
           시작 전에 Home에서 부모 목소리 자장가를 먼저 녹음해두면,
           아기가 깼을 때 더 자연스럽게 바로 달래줄 수 있어요.
         </p>
 
         <div class="timeline">
           <article class="step-card">
-            <span class="step-label">Settings + Sound &amp; Motion</span>
-            <h3>Settings에서 Sound와 Motion을 켜요</h3>
-            <p>
+            <span class="step-label" data-i18n="howto.step1Label">설정 + 소리/움직임</span>
+            <h3 data-i18n="howto.step1Title">Settings에서 Sound와 Motion을 켜요</h3>
+            <p data-i18n="howto.step1Body">
               Settings에서 Sound와 Motion을 켜고 필요한 권한도 허용해주세요.
               이 단계가 끝나면 아기가 깨는 신호를 더 자연스럽게 알아챌 수 있어요.
             </p>
           </article>
 
           <article class="step-card">
-            <span class="step-label">Remote</span>
-            <h3>같은 Wi-Fi에서 원격으로 봐요</h3>
-            <p>
+            <span class="step-label" data-i18n="howto.step2Label">원격 확인</span>
+            <h3 data-i18n="howto.step2Title">같은 Wi-Fi에서 원격으로 봐요</h3>
+            <p data-i18n="howto.step2Body">
               QR 코드를 이용해서 같은 Wi-Fi의 다른 기기에서 원격 제어와 카메라 공유를 써볼 수 있어요.
             </p>
           </article>
@@ -1001,10 +1003,10 @@
       <div class="section-card">
         <div class="section-header">
           <div>
-            <span class="section-kicker">Memory</span>
-            <h2>기록 기능도 어렵지 않게 써보세요.</h2>
+            <span class="section-kicker" data-i18n="memory.kicker">기록하기</span>
+            <h2 data-i18n="memory.title">기록 기능도 어렵지 않게 써보세요.</h2>
           </div>
-          <p>
+          <p data-i18n="memory.body">
             단순히 보는 데서 끝나지 않고, 다시 보고 싶은 순간을 남기거나 왜 깼는지 되짚어보는 데도 도움이 되도록 구성했어요.
           </p>
         </div>
@@ -1012,8 +1014,8 @@
         <div class="memory-grid">
           <article class="memory-card">
             <div class="memory-icon">A</div>
-            <strong>버튼 한 번으로 전후 5분 저장</strong>
-            <p>
+            <strong data-i18n="memory.card1Title">버튼 한 번으로 전후 5분 저장</strong>
+            <p data-i18n="memory.card1Body">
               촬영 버튼을 누르면 그 순간만 뚝 끊어 저장하는 게 아니라,
               바로 앞뒤 흐름까지 함께 담아줘서 더 자연스럽게 남아요.
             </p>
@@ -1021,8 +1023,8 @@
 
           <article class="memory-card">
             <div class="memory-icon">B</div>
-            <strong>깬 원인을 추측할 수 있게 자동 기록</strong>
-            <p>
+            <strong data-i18n="memory.card2Title">깬 원인을 추측할 수 있게 자동 기록</strong>
+            <p data-i18n="memory.card2Body">
               아기가 자다가 깨면 깨기 전 3분부터 다시 잠들 때까지 기록해줘요.
               나중에 영상을 보면 왜 깼는지 감을 잡는 데 도움이 돼요.
             </p>
@@ -1030,8 +1032,8 @@
 
           <article class="memory-card">
             <div class="memory-icon">C</div>
-            <strong>간직하고 싶은 장면은 다운로드</strong>
-            <p>
+            <strong data-i18n="memory.card3Title">간직하고 싶은 장면은 다운로드</strong>
+            <p data-i18n="memory.card3Body">
               유난히 귀엽던 표정이나 소중한 순간은 따로 내려받아 둘 수 있어요.
               그냥 흘려보내기 아쉬운 밤이 꽤 많더라고요.
             </p>
@@ -1041,9 +1043,9 @@
     </section>
 
     <section class="cta-panel">
-      <span class="section-kicker">Install Now</span>
-      <h2>오늘 밤부터 한 번 써보세요.</h2>
-      <p>
+      <span class="section-kicker" data-i18n="cta.kicker">지금 설치하기</span>
+      <h2 data-i18n="cta.title">오늘 밤부터 한 번 써보세요.</h2>
+      <p data-i18n="cta.body">
         안 쓰는 안드로이드폰 하나, 작은 거치대 하나.
         그 정도 준비만으로도 아기 방은 더 조용하게, 부모 마음은 조금 더 가볍게 만들 수 있어요.
       </p>
@@ -1052,15 +1054,167 @@
           class="btn btn-primary"
           href="https://play.google.com/store/apps/details?id=com.dveamer.babysitter"
           target="_blank"
-          rel="noreferrer">
+          rel="noreferrer"
+          data-i18n="cta.install">
           Baby Sitter 설치하러 가기
         </a>
-        <a class="btn btn-secondary" href="#setup">준비물 다시 보기</a>
+        <a class="btn btn-secondary" href="#setup" data-i18n="cta.viewSetup">준비물 다시 보기</a>
       </div>
-      <div class="footer-note">
+      <div class="footer-note" data-i18n="cta.footer">
         같은 Wi-Fi 안에서만 원격으로 연결되도록 구성되어 있어 집 안에서 안심하고 사용하기 좋아요.
       </div>
     </section>
   </main>
+  <script>
+    (() => {
+      const userLanguage = (
+        (navigator.languages && navigator.languages[0]) ||
+        navigator.language ||
+        "en"
+      ).toLowerCase();
+      const isKorean = userLanguage.startsWith("ko");
+
+      document.documentElement.lang = isKorean ? "ko" : "en";
+      if (isKorean) return;
+
+      const english = {
+        "meta.title": "Baby Sitter | A calmer night for your baby",
+        "meta.description":
+          "A Baby Sitter homepage that helps you watch over your baby's room with an unused Android phone and soothe wake-ups with a lullaby recorded in mom and dad's voices.",
+        "brand.subtitle": "For better sleep for baby and parents",
+        "nav.story": "About",
+        "nav.setup": "Setup",
+        "nav.howToUse": "How to Use",
+        "hero.eyebrow": "A gentle helper for your baby's sleep",
+        "hero.title": "When your baby sleeps,<br>let your heart rest a little too.",
+        "hero.lead":
+          "Baby Sitter watches over your baby's room. It notices tossing, turning, and early fussing, then plays a familiar lullaby recorded in mom and dad's voices to help your baby drift back to sleep.",
+        "hero.chipsLabel": "Highlights",
+        "hero.chip1": "Catch small fussing before it turns into loud crying",
+        "hero.chip2": "Check in remotely on the same Wi-Fi only",
+        "hero.chip3": "Save moments you do not want to miss as Memory",
+        "hero.install": "Get it on Google Play",
+        "hero.viewGuide": "See how it works first",
+        "hero.footnote":
+          "Keep the nursery quiet while you check in comfortably from another room.",
+        "visual.title": "Not with a stranger's sound, but with a familiar voice.",
+        "visual.body":
+          "Instead of making the room noisier when your baby starts to wake, the app focuses on gently soothing them back with a familiar lullaby.",
+        "visual.note1Title": "Watch sound and movement together",
+        "visual.note1Body":
+          "You can respond before a little stir grows into something bigger.",
+        "visual.note2Title": "Save the moments you want to keep",
+        "visual.note2Body":
+          "It keeps the 5 minutes around the moment so cute memories do not slip away.",
+        "story.kicker": "App Story",
+        "story.title": "Better sleep for your baby, more peace for you, and a way to keep those moments",
+        "story.body":
+          "When that important moment comes, it plays a lullaby to help your baby settle back down.",
+        "story.feature1Title": "A gentle nudge back to sleep",
+        "story.feature1Body":
+          "When your baby starts to wake, the app can automatically play a lullaby. It feels like calming them before light fussing turns into full crying.",
+        "story.feature1Point1":
+          "It watches sound and movement together so small changes are easier to catch.",
+        "story.feature1Point2":
+          "A lullaby in mom and dad's voices feels more familiar and comforting.",
+        "story.feature2Title": "Quietly keep an eye on your baby from another room",
+        "story.feature2Body":
+          "You can check on your sleeping baby without opening the nursery door. There is no need to worry that a small interruption will wake them again.",
+        "story.feature2Point1":
+          "Remote access is available only on the same Wi-Fi.",
+        "story.feature2Point2":
+          "It is designed so only your family can check in, which makes it feel safer to use.",
+        "story.feature3Title": "Save cute moments and clues about wake-ups",
+        "story.feature3Body":
+          "Moments you want to remember feel too precious to let pass. Baby Sitter helps you keep scenes you may want to revisit later.",
+        "story.feature3Point1":
+          "Press the record button and it saves the 5 minutes before and after that moment.",
+        "story.feature3Point2":
+          "If your baby wakes up, it automatically keeps the video from 3 minutes before waking until they fall asleep again.",
+        "setup.kicker": "Easy Setup",
+        "setup.title": "Getting started is simpler than you think.",
+        "setup.body":
+          "You do not need to buy another device. One unused Android phone at home is enough to start.",
+        "setup.quote":
+          "Most homes already have an unused Android phone lying around, right?<br><strong>Just grab a simple $1 phone stand from a dollar store and you are done.</strong>",
+        "setup.tip":
+          "Place the phone where it can see the crib well, and keep the parent's phone or tablet on the same Wi-Fi so remote viewing is ready right away.",
+        "setup.cardTitle": "This is really enough",
+        "setup.item1": "1 unused Android phone for the baby's room",
+        "setup.item2": "1 simple phone stand",
+        "setup.item3": "Home Wi-Fi",
+        "setup.item4": "1 phone or tablet for the parent to check remotely",
+        "setup.cardBody":
+          "One of the best things about this app is that you can start with things you already have at home instead of setting up complicated equipment.",
+        "howto.kicker": "How To Use",
+        "howto.title": "When you first open it, just follow the tutorial.",
+        "howto.body":
+          "The app already has a tutorial built in, so getting started is easy. Follow the steps below and the first setup finishes quickly.",
+        "howto.tip":
+          "Before you begin, record a lullaby in the Home screen with mom or dad's voice so the app can soothe your baby more naturally when they wake.",
+        "howto.step1Label": "Settings + Sound & Motion",
+        "howto.step1Title": "Turn on Sound and Motion in Settings",
+        "howto.step1Body":
+          "In Settings, turn on Sound and Motion and allow the permissions the app asks for. Once this is done, it can notice signs that your baby is waking more naturally.",
+        "howto.step2Label": "Remote",
+        "howto.step2Title": "Check in remotely on the same Wi-Fi",
+        "howto.step2Body":
+          "Use the QR code to open the remote control and camera sharing page on another device connected to the same Wi-Fi.",
+        "memory.kicker": "Memory",
+        "memory.title": "The recording features are easy to use too.",
+        "memory.body":
+          "It is designed not only for live viewing, but also for saving moments you want to revisit and helping you look back on why your baby woke up.",
+        "memory.card1Title": "Save 5 minutes around the moment with one tap",
+        "memory.card1Body":
+          "When you press the record button, it does not save only that instant. It keeps the flow before and after it too, so the memory feels more natural.",
+        "memory.card2Title": "Automatic clips that help you guess what caused the wake-up",
+        "memory.card2Body":
+          "If your baby wakes in the middle of sleep, the app records from 3 minutes before waking until they fall asleep again. Watching it later can help you guess what happened.",
+        "memory.card3Title": "Download the moments you want to keep",
+        "memory.card3Body":
+          "Especially cute expressions and precious scenes can be downloaded separately. Some nights feel too lovely to just let pass.",
+        "cta.kicker": "Install Now",
+        "cta.title": "Try it tonight.",
+        "cta.body":
+          "One unused Android phone and a small stand can be enough to make the nursery quieter and your night feel a little lighter.",
+        "cta.install": "Install Baby Sitter",
+        "cta.viewSetup": "See the setup again",
+        "cta.footer":
+          "Because remote access works only on the same Wi-Fi, it fits naturally for safe use inside your home."
+      };
+
+      const titleElement = document.getElementById("page-title");
+      if (titleElement) titleElement.textContent = english["meta.title"];
+
+      const descriptionElement = document.getElementById("page-description");
+      if (descriptionElement) {
+        descriptionElement.setAttribute("content", english["meta.description"]);
+      }
+
+      document.querySelectorAll("[data-i18n]").forEach((element) => {
+        const key = element.getAttribute("data-i18n");
+        const value = english[key];
+        if (typeof value === "string") {
+          element.textContent = value;
+        }
+      });
+
+      document.querySelectorAll("[data-i18n-html]").forEach((element) => {
+        const key = element.getAttribute("data-i18n-html");
+        const value = english[key];
+        if (typeof value === "string") {
+          element.innerHTML = value;
+        }
+      });
+
+      document.querySelectorAll("[data-i18n-aria-label]").forEach((element) => {
+        const key = element.getAttribute("data-i18n-aria-label");
+        const value = english[key];
+        if (typeof value === "string") {
+          element.setAttribute("aria-label", value);
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
