@@ -7,6 +7,8 @@ cd "$ROOT_DIR"
 BUILD_FILE="app/build.gradle.kts"
 OUTPUT_DIR="app/build/outputs/bundle/release"
 METADATA_FILE="$OUTPUT_DIR/release-info.txt"
+RELEASE_NOTES_FILE="$OUTPUT_DIR/release-notes.txt"
+PLAY_RELEASE_NOTES_DIR="$OUTPUT_DIR/play-release-notes"
 RELEASE_TAG_PREFIX="${RELEASE_TAG_PREFIX:-release-}"
 RELEASE_COMMIT_PREFIX="${RELEASE_COMMIT_PREFIX:-릴리즈 }"
 
@@ -185,6 +187,8 @@ release_notes_base_version=$release_notes_base_version
 release_notes_base_source=$release_notes_base_source
 release_notes_end=$notes_head_commit
 release_notes_range=${release_notes_base_ref}..${notes_head_commit}
+release_notes_file=$RELEASE_NOTES_FILE
+play_release_notes_dir=$PLAY_RELEASE_NOTES_DIR
 bundle_file=$bundle_file
 EOF
 

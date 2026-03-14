@@ -1,4 +1,4 @@
 interface:
   display_name: "베이비시터 릴리즈"
-  short_description: "버전 갱신, bundleRelease, 릴리즈 노트 작성 절차"
-  default_prompt: "$baby-sitter-release 를 사용해 이 저장소의 안드로이드 릴리즈를 준비하고 버전 갱신, bundleRelease, 릴리즈 노트를 진행해줘."
+  short_description: "버전 갱신, bundleRelease, Play 업로드, 릴리즈 노트 절차"
+  default_prompt: "$baby-sitter-release 를 사용해 이 저장소의 안드로이드 릴리즈를 준비하고 버전 갱신, bundleRelease, 한영 릴리즈 노트 작성, Google Play 업로드까지 진행해줘."

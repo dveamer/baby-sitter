@@ -1,5 +1,6 @@
 plugins {
     id("com.android.application")
+    id("com.github.triplet.play")
     id("org.jetbrains.kotlin.android")
 }
 
