@@ -11,6 +11,7 @@ import com.dveamer.babysitter.settings.SettingsController
 import com.dveamer.babysitter.settings.SettingsPatch
 import com.dveamer.babysitter.settings.SettingsRepository
 import com.dveamer.babysitter.settings.SettingsState
+import com.dveamer.babysitter.settings.ThemeMode
 import com.dveamer.babysitter.settings.UpdateSource
 import com.dveamer.babysitter.sleep.MemoryBuildCoordinator
 import com.dveamer.babysitter.sleep.SleepRuntimeStatusStore
@@ -324,7 +325,8 @@ class LocalSettingsHttpServer(
                 cameraMonitoringEnabled = json.optBooleanOrNull("cameraMonitoringEnabled"),
                 motionSensitivity = json.optEnumOrNull("motionSensitivity", MotionSensitivity::valueOf),
                 movementThresholdSec = json.optIntOrNull("movementThresholdSec"),
-                soothingMusicEnabled = json.optBooleanOrNull("soothingMusicEnabled")
+                soothingMusicEnabled = json.optBooleanOrNull("soothingMusicEnabled"),
+                themeMode = json.optEnumOrNull("themeMode", ThemeMode::valueOf)
             )
             settingsController.update(patch, UpdateSource.REMOTE)
         }.getOrElse { e ->
@@ -515,6 +517,7 @@ class LocalSettingsHttpServer(
             .put("motionSensitivity", state.motionSensitivity.name)
             .put("soothingMusicEnabled", state.soothingMusicEnabled)
             .put("musicPlaylistCount", state.musicPlaylist.size)
+            .put("themeMode", state.themeMode.name)
             .put("monitoringActive", runtime.monitoringActive)
             .put("lullabyActive", runtime.lullabyActive)
             .put("memoryBuildInProgress", memoryBuildInProgress)

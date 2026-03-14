@@ -8,6 +8,7 @@ import com.dveamer.babysitter.settings.SettingsPatch
 import com.dveamer.babysitter.settings.SettingsRepository
 import com.dveamer.babysitter.settings.SettingsState
 import com.dveamer.babysitter.settings.SoundSensitivity
+import com.dveamer.babysitter.settings.ThemeMode
 import com.dveamer.babysitter.settings.UpdateSource
 import com.dveamer.babysitter.tutorial.TutorialRepository
 import com.dveamer.babysitter.tutorial.TutorialState
@@ -70,6 +71,9 @@ class SettingsViewModel(
 
     fun setSoothingIot(enabled: Boolean) =
         update(SettingsPatch(soothingIotEnabled = enabled))
+
+    fun setThemeMode(mode: ThemeMode) =
+        update(SettingsPatch(themeMode = mode))
 
     fun addMusicTrack(uri: String) {
         val cleaned = uri.trim()

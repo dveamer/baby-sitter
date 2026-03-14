@@ -1,6 +1,7 @@
 package com.dveamer.babysitter
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Color as AndroidColor
@@ -63,6 +64,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.dveamer.babysitter.billing.MemoryDownloadPurchaseUiState
 import com.dveamer.babysitter.settings.MotionSensitivity
 import com.dveamer.babysitter.settings.SoundSensitivity
+import com.dveamer.babysitter.settings.ThemeMode
 import com.dveamer.babysitter.sleep.SleepRuntimeStatusStore
 import com.dveamer.babysitter.tutorial.TutorialPlanner
 import com.dveamer.babysitter.tutorial.useBrightTutorialTheme
@@ -136,14 +138,17 @@ class MainActivity : ComponentActivity() {
             val qrVisible by showQrDialog
             val qrUrl by qrCodeUrl
             val tutorialState by vm.tutorialState.collectAsStateWithLifecycle()
-            val colorScheme = if (tutorialState.useBrightTutorialTheme()) {
-                TutorialLightColorScheme
-            } else {
-                DarkColorScheme
+            val state by vm.settingsState.collectAsStateWithLifecycle()
+            val colorScheme = when {
+                state.themeMode == ThemeMode.LIGHT && tutorialState.useBrightTutorialTheme() -> {
+                    TutorialLightColorScheme
+                }
+
+                state.themeMode == ThemeMode.LIGHT -> LightColorScheme
+                else -> DarkColorScheme
             }
 
             MaterialTheme(colorScheme = colorScheme) {
-                val state by vm.settingsState.collectAsStateWithLifecycle()
                 val runtimeStatus by SleepRuntimeStatusStore.state.collectAsStateWithLifecycle()
                 val purchaseState by appContainer.memoryDownloadPurchaseManager.uiState
                     .collectAsStateWithLifecycle()
@@ -365,6 +370,10 @@ class MainActivity : ComponentActivity() {
                                     onMusicToggle = vm::setSoothingMusic,
                                     onShowQrCode = ::showQrCodePopup,
                                     onOpenRecordings = { navigateTo(Screen.RECORDINGS) },
+                                    selectedThemeMode = state.themeMode,
+                                    onThemeModeChange = vm::setThemeMode,
+                                    onOpenHomepage = { openExternalUrl(HOMEPAGE_URL) },
+                                    onOpenDeveloperPage = { openExternalUrl(DEVELOPER_PAGE_URL) },
                                     onPurchaseMemoryDownloadPass = { productId ->
                                         appContainer.memoryDownloadPurchaseManager.launchPurchase(
                                             activity = this@MainActivity,
@@ -614,6 +623,14 @@ class MainActivity : ComponentActivity() {
         showQrDialog.value = true
     }
 
+    private fun openExternalUrl(url: String) {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url)).apply {
+            addCategory(Intent.CATEGORY_BROWSABLE)
+        }
+        runCatching { startActivity(intent) }
+            .onFailure { t -> Log.w(TAG, "failed to open url=$url", t) }
+    }
+
     private fun resolvePrivateIpv4Address(): String? {
         return runCatching {
             val interfaces = NetworkInterface.getNetworkInterfaces() ?: return@runCatching null
@@ -654,23 +671,56 @@ class MainActivity : ComponentActivity() {
         private const val RECORDINGS_DIR = "soothing-recordings"
         private const val TUTORIAL_STEP_DELAY_MS = 3_000L
         private const val TUTORIAL_FINAL_DELAY_MS = 10_000L
+        private const val HOMEPAGE_URL = "http://babysitter.dveaemer.com"
+        private const val DEVELOPER_PAGE_URL =
+            "https://play.google.com/store/apps/developer?id=dveamer"
         private val RECORDING_FILE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
     }
 
 }
 
 private val DarkColorScheme = darkColorScheme(
-    background = Color(0xFF121212),
-    surface = Color(0xFF121212),
-    onBackground = Color(0xFFF5F5F5),
-    onSurface = Color(0xFFF5F5F5)
+    primary = Color(0xFFF0A9C2),
+    onPrimary = Color(0xFF462131),
+    primaryContainer = Color(0xFF5B3144),
+    onPrimaryContainer = Color(0xFFFFDCE8),
+    secondary = Color(0xFFF3C48F),
+    onSecondary = Color(0xFF4B3114),
+    secondaryContainer = Color(0xFF62431F),
+    onSecondaryContainer = Color(0xFFFFE7CA),
+    tertiary = Color(0xFF9FD8D2),
+    onTertiary = Color(0xFF173B39),
+    tertiaryContainer = Color(0xFF234D4A),
+    onTertiaryContainer = Color(0xFFD3F4EF),
+    background = Color(0xFF18121C),
+    surface = Color(0xFF211823),
+    surfaceVariant = Color(0xFF3A2B38),
+    onBackground = Color(0xFFF8EDF2),
+    onSurface = Color(0xFFF8EDF2),
+    onSurfaceVariant = Color(0xFFE5C9D6),
+    outline = Color(0xFF90707E)
 )
 
 private val LightColorScheme = lightColorScheme(
-    background = Color(0xFFFFFFFF),
-    surface = Color(0xFFFFFFFF),
-    onBackground = Color(0xFF111111),
-    onSurface = Color(0xFF111111)
+    primary = Color(0xFFE89AAF),
+    onPrimary = Color(0xFF4A2430),
+    primaryContainer = Color(0xFFFFDCE5),
+    onPrimaryContainer = Color(0xFF5C3540),
+    secondary = Color(0xFFF4C98A),
+    onSecondary = Color(0xFF4C3312),
+    secondaryContainer = Color(0xFFFFE7C6),
+    onSecondaryContainer = Color(0xFF64461E),
+    tertiary = Color(0xFF9FD8CB),
+    onTertiary = Color(0xFF183B33),
+    tertiaryContainer = Color(0xFFD8F2EB),
+    onTertiaryContainer = Color(0xFF2B5248),
+    background = Color(0xFFFFF6F8),
+    surface = Color(0xFFFFFBFC),
+    surfaceVariant = Color(0xFFFBE8EE),
+    onBackground = Color(0xFF3B2A2F),
+    onSurface = Color(0xFF3B2A2F),
+    onSurfaceVariant = Color(0xFF6E5660),
+    outline = Color(0xFFD5B1BD)
 )
 
 private val TutorialLightColorScheme = lightColorScheme(
@@ -699,6 +749,10 @@ private fun SettingsScreen(
     onMusicToggle: (Boolean) -> Unit,
     onShowQrCode: () -> Unit,
     onOpenRecordings: () -> Unit,
+    selectedThemeMode: ThemeMode,
+    onThemeModeChange: (ThemeMode) -> Unit,
+    onOpenHomepage: () -> Unit,
+    onOpenDeveloperPage: () -> Unit,
     onPurchaseMemoryDownloadPass: (String) -> Unit,
     soundRowModifier: Modifier = Modifier,
     motionRowModifier: Modifier = Modifier,
@@ -773,6 +827,68 @@ private fun SettingsScreen(
             )
         }
 
+        Text(
+            "App",
+            style = MaterialTheme.typography.headlineSmall,
+            modifier = Modifier.padding(top = 8.dp)
+        )
+        Text("Theme")
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            ThemeModeButton(
+                label = "White Mode",
+                selected = selectedThemeMode == ThemeMode.LIGHT,
+                onClick = { onThemeModeChange(ThemeMode.LIGHT) },
+                modifier = Modifier.weight(1f)
+            )
+            ThemeModeButton(
+                label = "Dark Mode",
+                selected = selectedThemeMode == ThemeMode.DARK,
+                onClick = { onThemeModeChange(ThemeMode.DARK) },
+                modifier = Modifier.weight(1f)
+            )
+        }
+        Button(
+            onClick = onOpenHomepage,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text("Homepage")
+        }
+        Button(
+            onClick = onOpenDeveloperPage,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text("More Apps")
+        }
+    }
+}
+
+@Composable
+private fun ThemeModeButton(
+    label: String,
+    selected: Boolean,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Button(
+        onClick = onClick,
+        modifier = modifier,
+        colors = ButtonDefaults.buttonColors(
+            containerColor = if (selected) {
+                MaterialTheme.colorScheme.primary
+            } else {
+                MaterialTheme.colorScheme.primaryContainer
+            },
+            contentColor = if (selected) {
+                MaterialTheme.colorScheme.onPrimary
+            } else {
+                MaterialTheme.colorScheme.onPrimaryContainer
+            }
+        )
+    ) {
+        Text(label)
     }
 }
 
@@ -1137,8 +1253,16 @@ private fun MotionSensitivitySelector(
                 onClick = { onSelect(value) },
                 modifier = Modifier.weight(1f),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = if (selectedPreset == value) Color(0xFF4A148C) else MaterialTheme.colorScheme.primary,
-                    contentColor = Color.White
+                    containerColor = if (selectedPreset == value) {
+                        MaterialTheme.colorScheme.secondary
+                    } else {
+                        MaterialTheme.colorScheme.primaryContainer
+                    },
+                    contentColor = if (selectedPreset == value) {
+                        MaterialTheme.colorScheme.onSecondary
+                    } else {
+                        MaterialTheme.colorScheme.onPrimaryContainer
+                    }
                 )
             ) {
                 Text(label)
@@ -1178,8 +1302,16 @@ private fun SoundSensitivitySelector(
                 onClick = { onSelect(value) },
                 modifier = Modifier.weight(1f),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = if (selectedPreset == value) Color(0xFF4A148C) else MaterialTheme.colorScheme.primary,
-                    contentColor = Color.White
+                    containerColor = if (selectedPreset == value) {
+                        MaterialTheme.colorScheme.secondary
+                    } else {
+                        MaterialTheme.colorScheme.primaryContainer
+                    },
+                    contentColor = if (selectedPreset == value) {
+                        MaterialTheme.colorScheme.onSecondary
+                    } else {
+                        MaterialTheme.colorScheme.onPrimaryContainer
+                    }
                 )
             ) {
                 Text(label)

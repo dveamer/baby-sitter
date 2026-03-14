@@ -15,6 +15,7 @@ data class SettingsState(
     val wakeAlertEnabled: Boolean = true,
     val wakeAlertThresholdMin: Int = 3,
     val musicPlaylist: List<String> = emptyList(),
+    val themeMode: ThemeMode = ThemeMode.LIGHT,
     val telegramBotToken: String = "",
     val telegramChatId: String = "",
     val iotEndpoint: String = "",
@@ -38,6 +39,7 @@ data class SettingsPatch(
     val wakeAlertEnabled: Boolean? = null,
     val wakeAlertThresholdMin: Int? = null,
     val musicPlaylist: List<String>? = null,
+    val themeMode: ThemeMode? = null,
     val telegramBotToken: String? = null,
     val telegramChatId: String? = null,
     val iotEndpoint: String? = null
@@ -59,6 +61,11 @@ enum class SoundSensitivity {
     LOW,
     MEDIUM,
     HIGH
+}
+
+enum class ThemeMode {
+    LIGHT,
+    DARK
 }
 
 data class SettingsUpdate(

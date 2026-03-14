@@ -102,6 +102,7 @@ class DataStoreSettingsRepository(
             wakeAlertEnabled = p.wakeAlertEnabled ?: wakeAlertEnabled,
             wakeAlertThresholdMin = p.wakeAlertThresholdMin ?: wakeAlertThresholdMin,
             musicPlaylist = p.musicPlaylist ?: musicPlaylist,
+            themeMode = p.themeMode ?: themeMode,
             telegramBotToken = p.telegramBotToken ?: telegramBotToken,
             telegramChatId = p.telegramChatId ?: telegramChatId,
             iotEndpoint = p.iotEndpoint ?: iotEndpoint
@@ -148,6 +149,9 @@ class DataStoreSettingsRepository(
             musicPlaylist = (this[Keys.MUSIC_PLAYLIST] ?: "")
                 .split(PLAYLIST_DELIMITER)
                 .filter { it.isNotBlank() },
+            themeMode = this[Keys.THEME_MODE]
+                ?.let { runCatching { ThemeMode.valueOf(it) }.getOrNull() }
+                ?: ThemeMode.LIGHT,
             telegramBotToken = this[Keys.TELEGRAM_BOT_TOKEN] ?: "",
             telegramChatId = this[Keys.TELEGRAM_CHAT_ID] ?: "",
             iotEndpoint = this[Keys.IOT_ENDPOINT] ?: "",
@@ -201,6 +205,7 @@ class DataStoreSettingsRepository(
         this[Keys.WAKE_ALERT_ENABLED] = state.wakeAlertEnabled
         this[Keys.WAKE_ALERT_THRESHOLD_MIN] = state.wakeAlertThresholdMin
         this[Keys.MUSIC_PLAYLIST] = state.musicPlaylist.joinToString(PLAYLIST_DELIMITER)
+        this[Keys.THEME_MODE] = state.themeMode.name
         this[Keys.TELEGRAM_BOT_TOKEN] = state.telegramBotToken
         this[Keys.TELEGRAM_CHAT_ID] = state.telegramChatId
         this[Keys.IOT_ENDPOINT] = state.iotEndpoint
@@ -224,6 +229,7 @@ class DataStoreSettingsRepository(
         val WAKE_ALERT_ENABLED = booleanPreferencesKey("wake_alert_enabled")
         val WAKE_ALERT_THRESHOLD_MIN = intPreferencesKey("wake_alert_threshold_min")
         val MUSIC_PLAYLIST = stringPreferencesKey("music_playlist")
+        val THEME_MODE = stringPreferencesKey("theme_mode")
         val TELEGRAM_BOT_TOKEN = stringPreferencesKey("telegram_bot_token")
         val TELEGRAM_CHAT_ID = stringPreferencesKey("telegram_chat_id")
         val IOT_ENDPOINT = stringPreferencesKey("iot_endpoint")
