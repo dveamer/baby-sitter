@@ -23,7 +23,7 @@
     <string name="tutorial_sound_motion_title">Turn on Sound and Motion</string>
     <string name="tutorial_sound_motion_body">Please enable Sound and Motion. Give the app the highest permissions you can so it can keep watching over your baby through the whole night, even when the phone screen is off.</string>
     <string name="tutorial_remote_title">Now try Remote control</string>
-    <string name="tutorial_remote_body">Try the remote control feature. On another device connected to the same Wi-Fi, open the address from the QR Code in a browser to control the app remotely. If you also turn on Camera, you can see your baby remotely too.</string>
+    <string name="tutorial_remote_body">On another device using the same Wi-Fi, open the QR Code address to use remote control and camera sharing.</string>
     <string name="tutorial_button_ok">Got it</string>
     <string name="tutorial_celebration_title">All set.</string>
     <string name="tutorial_celebration_body">You have completed all tutorials. We hope the app helps your baby sleep well. To avoid disturbing your baby\'s sleep, we will switch the screen back to a darker look.</string>

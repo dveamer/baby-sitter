@@ -19,7 +19,7 @@
     <string name="tutorial_sound_motion_title">Sound와 Motion을 켜주세요</string>
     <string name="tutorial_sound_motion_body">Sound, Motion을 실행시켜주세요. 폰이 꺼지더라도 밤새도록 우리 아기를 돌볼 수 있도록 최대한 높은 권한을 주세요.</string>
     <string name="tutorial_remote_title">원격조절도 바로 써보세요</string>
-    <string name="tutorial_remote_body">원격조절 기능을 사용해보세요. 같은 Wi-Fi에 접속된 기기로 QR Code가 제공하는 주소에 브라우저로 접속하시면 원격 제어가 가능합니다. 카메라 기능도 켜주시면 원격으로 아기 모습을 볼 수도 있어요.</string>
+    <string name="tutorial_remote_body">같은 Wi-Fi를 사용하는 다른 기기에서 QR Code 주소를 열면 원격 제어 / 카메라 공유가 가능합니다.</string>
     <string name="tutorial_button_ok">좋아요</string>
     <string name="tutorial_celebration_title">튜토리얼 완료</string>
     <string name="tutorial_celebration_body">모든 튜토리얼을 완료하셨습니다~! 아기의 수면에 도움이 되길 바랍니다! 아기의 수면에 방해가 되지 않도록 앱 화면은 어둡게 변경하겠습니다.</string>
