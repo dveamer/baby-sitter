@@ -99,6 +99,9 @@ class DataStoreSettingsRepository(
             cameraMonitoringEnabled = p.cameraMonitoringEnabled ?: cameraMonitoringEnabled,
             soothingMusicEnabled = p.soothingMusicEnabled ?: soothingMusicEnabled,
             soothingIotEnabled = p.soothingIotEnabled ?: soothingIotEnabled,
+            awakeTriggerDelaySec = normalizeAwakeTriggerDelaySec(
+                p.awakeTriggerDelaySec ?: awakeTriggerDelaySec
+            ),
             wakeAlertEnabled = p.wakeAlertEnabled ?: wakeAlertEnabled,
             wakeAlertThresholdMin = p.wakeAlertThresholdMin ?: wakeAlertThresholdMin,
             musicPlaylist = p.musicPlaylist ?: musicPlaylist,
@@ -144,6 +147,9 @@ class DataStoreSettingsRepository(
             cameraMonitoringEnabled = this[Keys.CAMERA_MONITORING_ENABLED] ?: false,
             soothingMusicEnabled = this[Keys.SOOTHING_MUSIC_ENABLED] ?: true,
             soothingIotEnabled = this[Keys.SOOTHING_IOT_ENABLED] ?: false,
+            awakeTriggerDelaySec = normalizeAwakeTriggerDelaySec(
+                this[Keys.AWAKE_TRIGGER_DELAY_SEC]
+            ),
             wakeAlertEnabled = this[Keys.WAKE_ALERT_ENABLED] ?: true,
             wakeAlertThresholdMin = this[Keys.WAKE_ALERT_THRESHOLD_MIN] ?: 3,
             musicPlaylist = (this[Keys.MUSIC_PLAYLIST] ?: "")
@@ -190,6 +196,17 @@ class DataStoreSettingsRepository(
         return normalized.coerceIn(10, 1_000)
     }
 
+    private fun normalizeAwakeTriggerDelaySec(delay: Int?): Int {
+        val clamped = (delay ?: DEFAULT_AWAKE_TRIGGER_DELAY_SEC)
+            .coerceIn(MIN_AWAKE_TRIGGER_DELAY_SEC, MAX_AWAKE_TRIGGER_DELAY_SEC)
+        val normalizedStep = ((clamped - MIN_AWAKE_TRIGGER_DELAY_SEC) + (AWAKE_TRIGGER_DELAY_STEP_SEC / 2)) /
+            AWAKE_TRIGGER_DELAY_STEP_SEC
+        return (
+            MIN_AWAKE_TRIGGER_DELAY_SEC +
+                normalizedStep * AWAKE_TRIGGER_DELAY_STEP_SEC
+            ).coerceIn(MIN_AWAKE_TRIGGER_DELAY_SEC, MAX_AWAKE_TRIGGER_DELAY_SEC)
+    }
+
     private fun MutablePreferences.fromSettingsState(state: SettingsState) {
         this[Keys.SLEEP_ENABLED] = state.sleepEnabled
         this[Keys.WEB_SERVICE_ENABLED] = state.webServiceEnabled
@@ -202,6 +219,7 @@ class DataStoreSettingsRepository(
         this[Keys.CAMERA_MONITORING_ENABLED] = state.cameraMonitoringEnabled
         this[Keys.SOOTHING_MUSIC_ENABLED] = state.soothingMusicEnabled
         this[Keys.SOOTHING_IOT_ENABLED] = state.soothingIotEnabled
+        this[Keys.AWAKE_TRIGGER_DELAY_SEC] = state.awakeTriggerDelaySec
         this[Keys.WAKE_ALERT_ENABLED] = state.wakeAlertEnabled
         this[Keys.WAKE_ALERT_THRESHOLD_MIN] = state.wakeAlertThresholdMin
         this[Keys.MUSIC_PLAYLIST] = state.musicPlaylist.joinToString(PLAYLIST_DELIMITER)
@@ -226,6 +244,7 @@ class DataStoreSettingsRepository(
         val CAMERA_MONITORING_ENABLED = booleanPreferencesKey("camera_monitoring_enabled")
         val SOOTHING_MUSIC_ENABLED = booleanPreferencesKey("soothing_music_enabled")
         val SOOTHING_IOT_ENABLED = booleanPreferencesKey("soothing_iot_enabled")
+        val AWAKE_TRIGGER_DELAY_SEC = intPreferencesKey("awake_trigger_delay_sec")
         val WAKE_ALERT_ENABLED = booleanPreferencesKey("wake_alert_enabled")
         val WAKE_ALERT_THRESHOLD_MIN = intPreferencesKey("wake_alert_threshold_min")
         val MUSIC_PLAYLIST = stringPreferencesKey("music_playlist")

@@ -6,10 +6,34 @@ enum class MicrophoneMusicAction {
 }
 
 class MicrophoneMusicController {
+    private var activeSinceMs: Long? = null
     private var lastActive = false
+    private var startedInCurrentActivePeriod = false
 
-    fun onSignal(active: Boolean): MicrophoneMusicAction {
-        val action = if (active && !lastActive) {
+    fun onSignal(
+        active: Boolean,
+        nowMs: Long,
+        requiredActiveDurationMs: Long
+    ): MicrophoneMusicAction {
+        if (!active) {
+            lastActive = false
+            activeSinceMs = null
+            startedInCurrentActivePeriod = false
+            return MicrophoneMusicAction.NONE
+        }
+
+        if (!lastActive) {
+            activeSinceMs = nowMs
+            startedInCurrentActivePeriod = false
+        }
+        lastActive = true
+
+        val since = activeSinceMs ?: nowMs.also { activeSinceMs = it }
+        val action = if (
+            !startedInCurrentActivePeriod &&
+            nowMs - since >= requiredActiveDurationMs
+        ) {
+            startedInCurrentActivePeriod = true
             MicrophoneMusicAction.START
         } else {
             MicrophoneMusicAction.NONE
@@ -19,6 +43,8 @@ class MicrophoneMusicController {
     }
 
     fun reset() {
+        activeSinceMs = null
         lastActive = false
+        startedInCurrentActivePeriod = false
     }
 }

@@ -348,6 +348,7 @@ class LocalSettingsHttpServer(
                 motionSensitivity = json.optEnumOrNull("motionSensitivity", MotionSensitivity::valueOf),
                 movementThresholdSec = json.optIntOrNull("movementThresholdSec"),
                 soothingMusicEnabled = json.optBooleanOrNull("soothingMusicEnabled"),
+                awakeTriggerDelaySec = json.optIntOrNull("awakeTriggerDelaySec"),
                 themeMode = json.optEnumOrNull("themeMode", ThemeMode::valueOf)
             )
             settingsController.update(patch, UpdateSource.REMOTE)
@@ -561,6 +562,7 @@ class LocalSettingsHttpServer(
             .put("cameraMonitoringEnabled", state.cameraMonitoringEnabled)
             .put("motionSensitivity", state.motionSensitivity.name)
             .put("soothingMusicEnabled", state.soothingMusicEnabled)
+            .put("awakeTriggerDelaySec", state.awakeTriggerDelaySec)
             .put("musicPlaylistCount", state.musicPlaylist.size)
             .put("themeMode", state.themeMode.name)
             .put("monitoringActive", runtime.monitoringActive)

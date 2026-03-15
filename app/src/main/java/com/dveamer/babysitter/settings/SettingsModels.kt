@@ -1,5 +1,10 @@
 package com.dveamer.babysitter.settings
 
+const val MIN_AWAKE_TRIGGER_DELAY_SEC = 20
+const val MAX_AWAKE_TRIGGER_DELAY_SEC = 30 * 60
+const val AWAKE_TRIGGER_DELAY_STEP_SEC = 20
+const val DEFAULT_AWAKE_TRIGGER_DELAY_SEC = 20
+
 data class SettingsState(
     val sleepEnabled: Boolean = false,
     val webServiceEnabled: Boolean = false,
@@ -12,6 +17,7 @@ data class SettingsState(
     val cameraMonitoringEnabled: Boolean = false,
     val soothingMusicEnabled: Boolean = true,
     val soothingIotEnabled: Boolean = false,
+    val awakeTriggerDelaySec: Int = DEFAULT_AWAKE_TRIGGER_DELAY_SEC,
     val wakeAlertEnabled: Boolean = true,
     val wakeAlertThresholdMin: Int = 3,
     val musicPlaylist: List<String> = emptyList(),
@@ -36,6 +42,7 @@ data class SettingsPatch(
     val cameraMonitoringEnabled: Boolean? = null,
     val soothingMusicEnabled: Boolean? = null,
     val soothingIotEnabled: Boolean? = null,
+    val awakeTriggerDelaySec: Int? = null,
     val wakeAlertEnabled: Boolean? = null,
     val wakeAlertThresholdMin: Int? = null,
     val musicPlaylist: List<String>? = null,

@@ -70,6 +70,44 @@ class ContinuousAwakeDetectorTest {
     }
 
     @Test
+    fun `설정된 40초 연속 active가 완성되면 awake true`() {
+        val detector = ContinuousAwakeDetector {
+            SettingsState(awakeTriggerDelaySec = 40)
+        }
+        val monitorId = "mic-1"
+        val base = 1_000L
+
+        repeat(40) { idx ->
+            val ts = base + idx * 1_000L
+            val state = detector.onSignal(
+                signal = MonitorSignal(
+                    monitorId = monitorId,
+                    kind = MonitorKind.MICROPHONE,
+                    active = true,
+                    timestampMs = ts
+                ),
+                nowMs = ts
+            )
+            assertFalse(state.isAwake)
+        }
+
+        val triggerTs = base + 40 * 1_000L
+        val state = detector.onSignal(
+            signal = MonitorSignal(
+                monitorId = monitorId,
+                kind = MonitorKind.MICROPHONE,
+                active = true,
+                timestampMs = triggerTs
+            ),
+            nowMs = triggerTs
+        )
+
+        assertTrue(state.isAwake)
+        assertEquals(base, state.awakeSinceMs)
+        assertEquals(monitorId, state.reason)
+    }
+
+    @Test
     fun `active 신호가 3초 이상 끊기면 awake 연속성이 초기화된다`() {
         val detector = ContinuousAwakeDetector { SettingsState() }
         val monitorId = "mic-1"

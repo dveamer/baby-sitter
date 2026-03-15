@@ -62,6 +62,9 @@ import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.dveamer.babysitter.billing.MemoryDownloadPurchaseUiState
+import com.dveamer.babysitter.settings.AWAKE_TRIGGER_DELAY_STEP_SEC
+import com.dveamer.babysitter.settings.MAX_AWAKE_TRIGGER_DELAY_SEC
+import com.dveamer.babysitter.settings.MIN_AWAKE_TRIGGER_DELAY_SEC
 import com.dveamer.babysitter.settings.MotionSensitivity
 import com.dveamer.babysitter.settings.SoundSensitivity
 import com.dveamer.babysitter.settings.ThemeMode
@@ -83,6 +86,7 @@ import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
+import kotlin.math.roundToInt
 import java.util.Collections
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -379,6 +383,7 @@ class MainActivity : ComponentActivity() {
                                         vm.setMovementThresholdSec(preset)
                                     },
                                     onMotionThresholdChange = vm::setMovementThresholdSec,
+                                    onAwakeTriggerDelayChange = vm::setAwakeTriggerDelaySec,
                                     onMusicToggle = vm::setSoothingMusic,
                                     onShowQrCode = ::showQrCodePopup,
                                     onOpenRecordings = { navigateTo(Screen.RECORDINGS) },
@@ -758,6 +763,7 @@ private fun SettingsScreen(
     onCameraToggle: (Boolean) -> Unit,
     onMotionSensitivityChange: (MotionSensitivity) -> Unit,
     onMotionThresholdChange: (Int) -> Unit,
+    onAwakeTriggerDelayChange: (Int) -> Unit,
     onMusicToggle: (Boolean) -> Unit,
     onShowQrCode: () -> Unit,
     onOpenRecordings: () -> Unit,
@@ -800,6 +806,10 @@ private fun SettingsScreen(
             "Take Action",
             style = MaterialTheme.typography.headlineSmall,
             modifier = Modifier.padding(top = 8.dp)
+        )
+        AwakeTriggerDelaySelector(
+            thresholdValue = state.awakeTriggerDelaySec,
+            onThresholdValueChange = onAwakeTriggerDelayChange
         )
         SwitchRow("Play Lullaby", state.soothingMusicEnabled, onMusicToggle)
 
@@ -1282,9 +1292,41 @@ private fun MotionSensitivitySelector(
         }
     }
     Slider(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 8.dp),
         value = thresholdValue.toFloat().coerceIn(5f, 100f),
         onValueChange = { onThresholdValueChange(it.toInt().coerceIn(5, 100)) },
         valueRange = 5f..100f
+    )
+}
+
+@Composable
+private fun AwakeTriggerDelaySelector(
+    thresholdValue: Int,
+    onThresholdValueChange: (Int) -> Unit
+) {
+    Text("After (${thresholdValue} sec)")
+    Slider(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 8.dp),
+        value = thresholdValue.toFloat().coerceIn(
+            MIN_AWAKE_TRIGGER_DELAY_SEC.toFloat(),
+            MAX_AWAKE_TRIGGER_DELAY_SEC.toFloat()
+        ),
+        onValueChange = {
+            val snapped = (
+                (it / AWAKE_TRIGGER_DELAY_STEP_SEC.toFloat()).roundToInt() *
+                    AWAKE_TRIGGER_DELAY_STEP_SEC
+                ).coerceIn(
+                    MIN_AWAKE_TRIGGER_DELAY_SEC,
+                    MAX_AWAKE_TRIGGER_DELAY_SEC
+                )
+            onThresholdValueChange(snapped)
+        },
+        valueRange = MIN_AWAKE_TRIGGER_DELAY_SEC.toFloat()..MAX_AWAKE_TRIGGER_DELAY_SEC.toFloat(),
+        steps = ((MAX_AWAKE_TRIGGER_DELAY_SEC - MIN_AWAKE_TRIGGER_DELAY_SEC) / AWAKE_TRIGGER_DELAY_STEP_SEC) - 1
     )
 }
 
@@ -1331,6 +1373,9 @@ private fun SoundSensitivitySelector(
         }
     }
     Slider(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 8.dp),
         value = thresholdValue.toFloat().coerceIn(10f, 1000f),
         onValueChange = { onThresholdValueChange(it.toInt().coerceIn(10, 1_000)) },
         valueRange = 10f..1000f

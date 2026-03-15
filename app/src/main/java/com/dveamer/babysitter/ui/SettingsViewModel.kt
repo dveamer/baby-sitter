@@ -72,6 +72,9 @@ class SettingsViewModel(
     fun setSoothingIot(enabled: Boolean) =
         update(SettingsPatch(soothingIotEnabled = enabled))
 
+    fun setAwakeTriggerDelaySec(sec: Int) =
+        update(SettingsPatch(awakeTriggerDelaySec = sec))
+
     fun setThemeMode(mode: ThemeMode) =
         update(SettingsPatch(themeMode = mode))
 

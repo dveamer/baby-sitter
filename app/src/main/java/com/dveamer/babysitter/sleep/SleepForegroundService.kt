@@ -252,7 +252,15 @@ class SleepForegroundService : Service() {
 
                 if (signal.kind == MonitorKind.MICROPHONE && musicSoothingListener != null) {
                     val directMusicActive = signal.active && !shouldSuppressMic
-                    when (microphoneMusicController.onSignal(directMusicActive)) {
+                    val awakeTriggerDelayMs =
+                        container.settingsRepository.state.value.awakeTriggerDelaySec * 1_000L
+                    when (
+                        microphoneMusicController.onSignal(
+                            active = directMusicActive,
+                            nowMs = now,
+                            requiredActiveDurationMs = awakeTriggerDelayMs
+                        )
+                    ) {
                         MicrophoneMusicAction.START -> {
                             Log.d(TAG, "microphone music start signal=${signal.monitorId}")
                             wakeMemoryManager.onAwakeSignal(now)
@@ -309,7 +317,11 @@ class SleepForegroundService : Service() {
                         }
                         lastSoothedAwakeSinceMs = awake.awakeSinceMs
                     }
-                    if (musicSoothingListener != null && !lullabyActive) {
+                    if (
+                        musicSoothingListener != null &&
+                        !lullabyActive &&
+                        musicPlaybackOwner != MusicPlaybackOwner.MICROPHONE_DIRECT
+                    ) {
                         val result = musicSoothingListener.soothe(sootheRequest)
                         if (result == SootheResult.STARTED) {
                             musicPlaybackOwner = MusicPlaybackOwner.AWAKE

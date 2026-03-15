@@ -459,6 +459,13 @@
     </section>
 
     <section class="panel">
+      <h2 id="awakeTriggerDelayTitle" class="title">Take Action After</h2>
+      <div class="sensitivity-title"><span id="awakeTriggerDelayValue">20</span><span id="awakeTriggerDelayUnit"> sec</span></div>
+      <input id="awakeTriggerDelaySlider" class="sensitivity-slider" type="range" min="20" max="1800" step="20">
+      <div id="awakeTriggerDelayHint" class="sensitivity-hint"></div>
+    </section>
+
+    <section class="panel">
       <h2 class="title">Lullaby Volume</h2>
       <div class="sensitivity-title"><span id="lullabyVolumeValue">0</span>%</div>
       <input id="lullabyVolumeSlider" class="sensitivity-slider" type="range" min="0" max="100" step="1">
@@ -499,6 +506,11 @@
     const motionThresholdValueEl = document.getElementById("motionThresholdValue");
     const motionPresetButtonsEl = document.getElementById("motionPresetButtons");
     const motionThresholdSlider = document.getElementById("motionThresholdSlider");
+    const awakeTriggerDelayTitleEl = document.getElementById("awakeTriggerDelayTitle");
+    const awakeTriggerDelayValueEl = document.getElementById("awakeTriggerDelayValue");
+    const awakeTriggerDelayUnitEl = document.getElementById("awakeTriggerDelayUnit");
+    const awakeTriggerDelaySlider = document.getElementById("awakeTriggerDelaySlider");
+    const awakeTriggerDelayHintEl = document.getElementById("awakeTriggerDelayHint");
     const lullabyVolumeValueEl = document.getElementById("lullabyVolumeValue");
     const lullabyVolumeSlider = document.getElementById("lullabyVolumeSlider");
     const lullabyVolumeHintEl = document.getElementById("lullabyVolumeHint");
@@ -532,6 +544,7 @@
     let motionSensitivity = "MEDIUM";
     let cryThresholdSec = 500;
     let movementThresholdSec = 20;
+    let awakeTriggerDelaySec = 20;
     let cameraConnectTimeoutId = null;
     let cameraAttemptToken = 0;
     let cameraStreaming = false;
@@ -549,8 +562,16 @@
     const SLEEP_STATUS_POLL_INTERVAL_MS = 10000;
     const SOUND_PRESET_VALUES = { HIGH: 250, MEDIUM: 500, LOW: 750 };
     const MOTION_PRESET_VALUES = { HIGH: 14, MEDIUM: 20, LOW: 28 };
+    const MIN_AWAKE_TRIGGER_DELAY_SEC = 20;
+    const MAX_AWAKE_TRIGGER_DELAY_SEC = 1800;
+    const AWAKE_TRIGGER_DELAY_STEP_SEC = 20;
     const isKoreanUser = (navigator.language || "").toLowerCase().startsWith("ko");
     const memoryTitleText = isKoreanUser ? "Memory (3일 보관)" : "Memory (3-day retention)";
+    const awakeTriggerDelayTitleText = isKoreanUser ? "대응 시작 시간" : "Take Action After";
+    const awakeTriggerDelayUnitText = isKoreanUser ? "초" : " sec";
+    const awakeTriggerDelayHintText = isKoreanUser
+      ? "Sound 또는 Motion이 계속 감지된 뒤 Baby Sitter가 대응을 시작하는 시간을 설정합니다."
+      : "Set how long Sound or Motion must stay active before Baby Sitter takes action.";
     const cameraConnectionFailedMessage = isKoreanUser
       ? "연결에 실패했습니다. Baby Sitter 앱이 더 강한 안드로이드 카메라 권한을 필요로 합니다."
       : "Connection failed. The Baby Sitter app requires stronger Android camera permissions.";
@@ -611,6 +632,15 @@
       : "Benefit ends";
 
     memoryTitleEl.textContent = memoryTitleText;
+    awakeTriggerDelayTitleEl.textContent = awakeTriggerDelayTitleText;
+    awakeTriggerDelayUnitEl.textContent = awakeTriggerDelayUnitText;
+
+    function normalizeAwakeTriggerDelay(value) {
+      const numeric = Number(value);
+      if (!Number.isFinite(numeric)) return 20;
+      const clamped = Math.min(MAX_AWAKE_TRIGGER_DELAY_SEC, Math.max(MIN_AWAKE_TRIGGER_DELAY_SEC, numeric));
+      return Math.round(clamped / AWAKE_TRIGGER_DELAY_STEP_SEC) * AWAKE_TRIGGER_DELAY_STEP_SEC;
+    }
 
     function showError(message) {
       successEl.style.display = "none";
@@ -674,6 +704,12 @@
       motionThresholdValueEl.textContent = String(movementThresholdSec);
       motionThresholdSlider.value = String(movementThresholdSec);
       markSelectedPreset(motionPresetButtonsEl, selectedMotionPreset(movementThresholdSec));
+    }
+
+    function renderAwakeTriggerDelayControls() {
+      awakeTriggerDelayValueEl.textContent = String(awakeTriggerDelaySec);
+      awakeTriggerDelaySlider.value = String(awakeTriggerDelaySec);
+      awakeTriggerDelayHintEl.textContent = awakeTriggerDelayHintText;
     }
 
     function applyLullabyVolumeSnapshot(volume) {
@@ -1132,6 +1168,7 @@
         motionMonitoringEnabled = !!settings.cameraMonitoringEnabled;
         motionSensitivity = settings.motionSensitivity || "MEDIUM";
         movementThresholdSec = Number(settings.movementThresholdSec ?? 20);
+        awakeTriggerDelaySec = normalizeAwakeTriggerDelay(settings.awakeTriggerDelaySec ?? 20);
         soothingMusicEnabled = !!settings.soothingMusicEnabled;
         musicPlaylistCount = Number(settings.musicPlaylistCount ?? 0);
         monitoringActive = !!settings.monitoringActive;
@@ -1151,6 +1188,7 @@
         }
 
         renderSensitivityControls();
+        renderAwakeTriggerDelayControls();
         updateSensitivityVisibility();
         renderSleepStatus();
         renderLullabyVolumeControls();
@@ -1236,6 +1274,13 @@
       if (!motionMonitoringEnabled) return;
       await updateSettingsPatch({ movementThresholdSec });
     });
+    awakeTriggerDelaySlider.addEventListener("input", () => {
+      awakeTriggerDelaySec = normalizeAwakeTriggerDelay(awakeTriggerDelaySlider.value);
+      renderAwakeTriggerDelayControls();
+    });
+    awakeTriggerDelaySlider.addEventListener("change", async () => {
+      await updateSettingsPatch({ awakeTriggerDelaySec });
+    });
     lullabyVolumeSlider.addEventListener("input", () => {
       lullabyVolumePercent = Number(lullabyVolumeSlider.value);
       renderLullabyVolumeControls();
@@ -1255,6 +1300,7 @@
     });
 
     renderCameraMemoryControls();
+    renderAwakeTriggerDelayControls();
     renderLullabyVolumeControls();
     renderMemoryDownloadStatus();
     loadSettings();
