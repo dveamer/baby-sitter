@@ -8,6 +8,17 @@
     id="page-description"
     name="description"
     content="남는 안드로이드폰 하나로 아기 방을 지켜보고, 깼을 때는 부모 목소리 자장가로 다시 토닥여주는 Baby Sitter 앱 소개 페이지입니다.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Baby Sitter">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:title" content="Baby Sitter">
+  <meta
+    property="og:description"
+    content="A Baby Sitter homepage that soothes your baby back to sleep with a lullaby recorded in a parent's voice when they wake up.">
+  <meta property="og:url" content="https://babysitter.dveaemer.com/index.html">
+  <meta property="og:image" content="https://babysitter.dveaemer.com/assets/app-icon.webp">
+  <meta property="og:image:alt" content="Baby Sitter app icon">
   <style>
     :root {
       --bg: #fff7f5;
@@ -330,6 +341,26 @@
       color: var(--muted);
       font-size: 14px;
       line-height: 1.6;
+    }
+
+    .hero-hashtags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .hashtag {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid rgba(161, 102, 122, 0.12);
+      color: var(--primary-deep);
+      font-size: 13px;
+      font-weight: 700;
+      box-shadow: 0 8px 18px rgba(164, 97, 125, 0.08);
     }
 
     .hero-visual {
@@ -840,6 +871,11 @@
         <p class="hero-footnote" data-i18n="hero.footnote">
           아기 방은 조용하게 두고, 부모는 다른 방에서 편하게 확인할 수 있게 만들었어요.
         </p>
+        <div class="hero-hashtags" aria-label="해시태그">
+          <span class="hashtag">#육아</span>
+          <span class="hashtag">#육아꿀템</span>
+          <span class="hashtag">#분리수면</span>
+        </div>
       </div>
 
       <div class="hero-visual" aria-hidden="true">
