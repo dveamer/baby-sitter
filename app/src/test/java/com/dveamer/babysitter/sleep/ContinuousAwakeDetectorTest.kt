@@ -5,7 +5,6 @@ import com.dveamer.babysitter.monitor.MonitorSignal
 import com.dveamer.babysitter.settings.SettingsState
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
-import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -13,141 +12,89 @@ import org.junit.Test
 class ContinuousAwakeDetectorTest {
 
     @Test
-    fun `20초 연속 active 전에는 awake 아님`() {
+    fun `20초 누적 창이 모이기 전에는 awake 아님`() {
         val detector = ContinuousAwakeDetector { SettingsState() }
         val monitorId = "mic-1"
-        val base = 1_000L
 
-        repeat(20) { idx ->
-            val ts = base + idx * 1_000L
+        listOf(1_000L, 6_000L, 11_000L).forEach { ts ->
             val state = detector.onSignal(
-                signal = MonitorSignal(
-                    monitorId = monitorId,
-                    kind = MonitorKind.MICROPHONE,
-                    active = true,
-                    timestampMs = ts
-                ),
+                signal = activeSignal(monitorId, ts),
                 nowMs = ts
             )
             assertFalse(state.isAwake)
         }
+
+        val boundaryState = detector.onSignal(
+            signal = inactiveSignal(monitorId, 15_000L),
+            nowMs = 15_000L
+        )
+
+        assertFalse(boundaryState.isAwake)
     }
 
     @Test
-    fun `20초 연속 active가 완성되면 awake true`() {
+    fun `4개 5초 창에 active가 있으면 awake true`() {
         val detector = ContinuousAwakeDetector { SettingsState() }
         val monitorId = "mic-1"
-        val base = 1_000L
 
-        repeat(20) { idx ->
-            val ts = base + idx * 1_000L
+        listOf(1_000L, 6_000L, 11_000L, 16_000L).forEach { ts ->
             detector.onSignal(
-                signal = MonitorSignal(
-                    monitorId = monitorId,
-                    kind = MonitorKind.MICROPHONE,
-                    active = true,
-                    timestampMs = ts
-                ),
+                signal = activeSignal(monitorId, ts),
                 nowMs = ts
             )
         }
 
-        val triggerTs = base + 20 * 1_000L
         val state = detector.onSignal(
-            signal = MonitorSignal(
-                monitorId = monitorId,
-                kind = MonitorKind.MICROPHONE,
-                active = true,
-                timestampMs = triggerTs
-            ),
-            nowMs = triggerTs
+            signal = inactiveSignal(monitorId, 20_000L),
+            nowMs = 20_000L
         )
 
         assertTrue(state.isAwake)
-        assertNotNull(state.awakeSinceMs)
-        assertEquals(base, state.awakeSinceMs)
+        assertEquals(0L, state.awakeSinceMs)
         assertEquals(monitorId, state.reason)
     }
 
     @Test
-    fun `설정된 40초 연속 active가 완성되면 awake true`() {
+    fun `설정된 40초는 8개 창 누적 후 awake true`() {
         val detector = ContinuousAwakeDetector {
             SettingsState(awakeTriggerDelaySec = 40)
         }
         val monitorId = "mic-1"
-        val base = 1_000L
 
-        repeat(40) { idx ->
-            val ts = base + idx * 1_000L
-            val state = detector.onSignal(
-                signal = MonitorSignal(
-                    monitorId = monitorId,
-                    kind = MonitorKind.MICROPHONE,
-                    active = true,
-                    timestampMs = ts
-                ),
+        listOf(1_000L, 6_000L, 11_000L, 16_000L, 21_000L, 26_000L, 31_000L, 36_000L).forEach { ts ->
+            detector.onSignal(
+                signal = activeSignal(monitorId, ts),
                 nowMs = ts
             )
-            assertFalse(state.isAwake)
         }
 
-        val triggerTs = base + 40 * 1_000L
         val state = detector.onSignal(
-            signal = MonitorSignal(
-                monitorId = monitorId,
-                kind = MonitorKind.MICROPHONE,
-                active = true,
-                timestampMs = triggerTs
-            ),
-            nowMs = triggerTs
+            signal = inactiveSignal(monitorId, 40_000L),
+            nowMs = 40_000L
         )
 
         assertTrue(state.isAwake)
-        assertEquals(base, state.awakeSinceMs)
+        assertEquals(0L, state.awakeSinceMs)
         assertEquals(monitorId, state.reason)
     }
 
     @Test
-    fun `active 신호가 3초 이상 끊기면 awake 연속성이 초기화된다`() {
+    fun `중간 5초 창에 active가 없으면 누적이 초기화된다`() {
         val detector = ContinuousAwakeDetector { SettingsState() }
         val monitorId = "mic-1"
-        val base = 1_000L
 
-        repeat(10) { idx ->
-            val ts = base + idx * 1_000L
-            detector.onSignal(
-                signal = MonitorSignal(
-                    monitorId = monitorId,
-                    kind = MonitorKind.MICROPHONE,
-                    active = true,
-                    timestampMs = ts
-                ),
-                nowMs = ts
-            )
-        }
+        detector.onSignal(signal = activeSignal(monitorId, 1_000L), nowMs = 1_000L)
+        detector.onSignal(signal = activeSignal(monitorId, 6_000L), nowMs = 6_000L)
+        detector.onSignal(signal = inactiveSignal(monitorId, 15_000L), nowMs = 15_000L)
+        detector.onSignal(signal = activeSignal(monitorId, 16_000L), nowMs = 16_000L)
+        detector.onSignal(signal = activeSignal(monitorId, 21_000L), nowMs = 21_000L)
 
-        val inactiveTs = base + 13_000L
-        detector.onSignal(
-            signal = MonitorSignal(
-                monitorId = monitorId,
-                kind = MonitorKind.MICROPHONE,
-                active = false,
-                timestampMs = inactiveTs
-            ),
-            nowMs = inactiveTs
+        val state = detector.onSignal(
+            signal = inactiveSignal(monitorId, 25_000L),
+            nowMs = 25_000L
         )
 
-        assertNull(activeSince(detector)[monitorId])
-        val resumed = detector.onSignal(
-            signal = MonitorSignal(
-                monitorId = monitorId,
-                kind = MonitorKind.MICROPHONE,
-                active = true,
-                timestampMs = inactiveTs + 1_000L
-            ),
-            nowMs = inactiveTs + 1_000L
-        )
-        assertFalse(resumed.isAwake)
+        assertFalse(state.isAwake)
     }
 
     @Test
@@ -157,12 +104,7 @@ class ContinuousAwakeDetectorTest {
         val base = 1_000L
 
         detector.onSignal(
-            signal = MonitorSignal(
-                monitorId = monitorId,
-                kind = MonitorKind.MICROPHONE,
-                active = true,
-                timestampMs = base
-            ),
+            signal = activeSignal(monitorId, base),
             nowMs = base
         )
 
@@ -175,7 +117,26 @@ class ContinuousAwakeDetectorTest {
             ),
             nowMs = base + (10 * 60 * 1_000L)
         )
+
         assertNull(activeSince(detector)[monitorId])
+    }
+
+    private fun activeSignal(monitorId: String, timestampMs: Long): MonitorSignal {
+        return MonitorSignal(
+            monitorId = monitorId,
+            kind = MonitorKind.MICROPHONE,
+            active = true,
+            timestampMs = timestampMs
+        )
+    }
+
+    private fun inactiveSignal(monitorId: String, timestampMs: Long): MonitorSignal {
+        return MonitorSignal(
+            monitorId = monitorId,
+            kind = MonitorKind.MICROPHONE,
+            active = false,
+            timestampMs = timestampMs
+        )
     }
 
     @Suppress("UNCHECKED_CAST")

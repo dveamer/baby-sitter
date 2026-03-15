@@ -2,10 +2,10 @@ package com.dveamer.babysitter.sleep
 
 import com.dveamer.babysitter.monitor.MonitorKind
 import com.dveamer.babysitter.monitor.MonitorSignal
-import com.dveamer.babysitter.settings.AWAKE_TRIGGER_DELAY_STEP_SEC
 import com.dveamer.babysitter.settings.MAX_AWAKE_TRIGGER_DELAY_SEC
 import com.dveamer.babysitter.settings.MIN_AWAKE_TRIGGER_DELAY_SEC
 import com.dveamer.babysitter.settings.SettingsState
+import kotlin.math.max
 
 interface AwakeDetector {
     fun onSignal(signal: MonitorSignal, nowMs: Long = System.currentTimeMillis()): AwakeState
@@ -22,30 +22,34 @@ class ContinuousAwakeDetector(
 ) : AwakeDetector {
 
     companion object {
-        private const val INACTIVE_RESET_MS = 3_000L
+        private const val SIGNAL_WINDOW_MS = 5_000L
         private const val ACTIVE_SINCE_TTL_MS = 10 * 60 * 1_000L
     }
 
     private val activeSince = mutableMapOf<String, Long>()
     private val kindById = mutableMapOf<String, MonitorKind>()
     private val lastActiveTrueAt = mutableMapOf<String, Long>()
+    private val currentWindowStartMs = mutableMapOf<String, Long>()
+    private val activeSeenInWindow = mutableMapOf<String, Boolean>()
+    private val consecutiveActiveWindows = mutableMapOf<String, Int>()
+    private val consecutiveSince = mutableMapOf<String, Long>()
 
     override fun onSignal(signal: MonitorSignal, nowMs: Long): AwakeState {
         kindById[signal.monitorId] = signal.kind
 
+        ensureWindowInitialized(signal.monitorId, signal.timestampMs)
+        advanceWindows(signal.monitorId, signal.timestampMs)
+
         if (signal.active) {
             activeSince.putIfAbsent(signal.monitorId, signal.timestampMs)
             lastActiveTrueAt[signal.monitorId] = signal.timestampMs
-        } else {
-            val lastTrueAt = lastActiveTrueAt[signal.monitorId]
-            if (lastTrueAt != null && signal.timestampMs - lastTrueAt >= INACTIVE_RESET_MS) {
-                activeSince.remove(signal.monitorId)
-                lastActiveTrueAt.remove(signal.monitorId)
-            }
+            activeSeenInWindow[signal.monitorId] = true
         }
 
-        val allMonitorIds = kindById.keys.toSet()
+        val allMonitorIds = (kindById.keys + currentWindowStartMs.keys).toSet()
         allMonitorIds.forEach { id ->
+            ensureWindowInitialized(id, nowMs)
+            advanceWindows(id, nowMs)
             val lastTrueAt = lastActiveTrueAt[id]
             if (lastTrueAt != null && nowMs - lastTrueAt >= ACTIVE_SINCE_TTL_MS) {
                 activeSince.remove(id)
@@ -56,18 +60,14 @@ class ContinuousAwakeDetector(
         val requiredActiveDurationMs = settingsProvider()
             .awakeTriggerDelaySec
             .coerceIn(MIN_AWAKE_TRIGGER_DELAY_SEC, MAX_AWAKE_TRIGGER_DELAY_SEC)
-            .let { normalized ->
-                val stepIndex = ((normalized - MIN_AWAKE_TRIGGER_DELAY_SEC) + (AWAKE_TRIGGER_DELAY_STEP_SEC / 2)) /
-                    AWAKE_TRIGGER_DELAY_STEP_SEC
-                MIN_AWAKE_TRIGGER_DELAY_SEC + stepIndex * AWAKE_TRIGGER_DELAY_STEP_SEC
-            } * 1_000L
-        val triggered = allMonitorIds.mapNotNull { id ->
-            val since = activeSince[id] ?: return@mapNotNull null
-            val lastTrueAt = lastActiveTrueAt[id] ?: return@mapNotNull null
-            val gapMs = nowMs - lastTrueAt
-            val activeDurationMs = nowMs - since
-            if (gapMs <= INACTIVE_RESET_MS && activeDurationMs >= requiredActiveDurationMs) {
-                id to since
+            .toLong() * 1_000L
+        val requiredConsecutiveWindows = max(
+            1,
+            ((requiredActiveDurationMs + SIGNAL_WINDOW_MS - 1) / SIGNAL_WINDOW_MS).toInt()
+        )
+        val triggered = consecutiveActiveWindows.mapNotNull { (id, count) ->
+            if (count >= requiredConsecutiveWindows) {
+                id to (consecutiveSince[id] ?: nowMs)
             } else {
                 null
             }
@@ -79,5 +79,37 @@ class ContinuousAwakeDetector(
         val awakeSinceMs = triggered.minOf { it.second }
         val reason = triggered.joinToString(",") { it.first }
         return AwakeState(isAwake = true, awakeSinceMs = awakeSinceMs, reason = reason)
+    }
+
+    private fun ensureWindowInitialized(monitorId: String, timestampMs: Long) {
+        if (currentWindowStartMs.containsKey(monitorId)) return
+        currentWindowStartMs[monitorId] = alignToWindowStart(timestampMs)
+        activeSeenInWindow[monitorId] = false
+        consecutiveActiveWindows.putIfAbsent(monitorId, 0)
+    }
+
+    private fun advanceWindows(monitorId: String, timestampMs: Long) {
+        var startMs = currentWindowStartMs[monitorId] ?: return
+        while (timestampMs >= startMs + SIGNAL_WINDOW_MS) {
+            val activeSeen = activeSeenInWindow[monitorId] == true
+            if (activeSeen) {
+                val previous = consecutiveActiveWindows[monitorId] ?: 0
+                if (previous == 0) {
+                    consecutiveSince[monitorId] = startMs
+                }
+                consecutiveActiveWindows[monitorId] = previous + 1
+            } else {
+                consecutiveActiveWindows[monitorId] = 0
+                consecutiveSince.remove(monitorId)
+            }
+
+            startMs += SIGNAL_WINDOW_MS
+            currentWindowStartMs[monitorId] = startMs
+            activeSeenInWindow[monitorId] = false
+        }
+    }
+
+    private fun alignToWindowStart(timestampMs: Long): Long {
+        return timestampMs - (timestampMs % SIGNAL_WINDOW_MS)
     }
 }
