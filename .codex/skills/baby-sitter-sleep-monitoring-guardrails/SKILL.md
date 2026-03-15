@@ -13,13 +13,15 @@ description: 이 저장소에서 `sleep`, `sound`, `motion`, `sooth`, 자장가 
 - `motion`, `webservice camera`, `memory(camera)`는 `collect` 산출물을 재사용하기.
 - 수동 `memory(camera)` 저장도 닫힌 `collect` 파일만으로 만들기. 아직 닫히지 않은 현재/미래 분 파일을 직접 포함하지 않기.
 - `sound`와 `motion` 중 한쪽을 수정해도 다른 쪽의 감지, awake 판정, `sooth`, 자장가 흐름이 유지되는지 확인하기.
+- `AwakeDetector`는 엄격한 무중단 active 시간이 아니라 `5초 창` 누적 방식으로 awake를 판정한다는 전제를 유지하기. `awakeTriggerDelaySec`은 필요한 연속 창 수를 정하는 값으로 해석한다. 예: `20초 -> 4개 창`, `40초 -> 8개 창`.
+- 자장가 시작은 `AwakeDetector` 결과를 통해서만 이뤄지게 유지하기. 마이크 전용 direct soothe 우회 경로를 다시 추가하지 않기.
 - 자장가 소리가 다시 마이크에 잡혀 `sooth -> 재생 -> 재감지 -> 재sooth` 루프가 생기지 않게 하기.
 
 ## 먼저 볼 파일
 
 - `app/src/main/java/com/dveamer/babysitter/sleep/SleepForegroundService.kt`를 먼저 읽기. 모니터 병합, 마이크 억제, `sooth`, 자장가 정지, memory 트리거가 모두 여기서 연결된다.
+- `app/src/main/java/com/dveamer/babysitter/sleep/AwakeDetector.kt`를 읽기. 현재 awake 판정은 `5초 창` 누적 기반이며 `awakeTriggerDelaySec`에 따라 필요한 연속 창 수가 계산된다.
 - `app/src/main/java/com/dveamer/babysitter/collect/CollectRecorderCoordinator.kt`를 읽기. 카메라와 오디오 collect 입력 활성 조건의 기준점이다.
-- `app/src/main/java/com/dveamer/babysitter/sleep/MicrophoneMusicController.kt`를 읽기. 같은 active 구간에서 자장가 시작이 반복되지 않아야 한다.
 - `app/src/main/java/com/dveamer/babysitter/sleep/WakeMemoryManager.kt`를 읽기. 자장가가 켜져 있으면 sleep stable 타이머가 초기화된다.
 - `app/src/main/java/com/dveamer/babysitter/collect/CollectClosedFileBus.kt`와 `app/src/main/java/com/dveamer/babysitter/sleep/MemoryAssembler.kt`를 읽기. memory 생성 범위가 닫힌 collect 파일 기준인지 확인한다.
 - 수동 memory 저장이나 web camera UI를 건드리면 `app/src/main/java/com/dveamer/babysitter/sleep/MemoryBuildCoordinator.kt`와 `app/src/main/java/com/dveamer/babysitter/web/LocalSettingsHttpServer.kt`, `app/src/main/assets/index.html`도 같이 읽기.
@@ -37,6 +39,9 @@ description: 이 저장소에서 `sleep`, `sound`, `motion`, `sooth`, 자장가 
 
 - `sound`만 수정했더라도 `motion` 경로의 awake 판정과 후속 `sooth` 흐름이 유지되는지 확인하기.
 - `motion`만 수정했더라도 `sound` 경로의 마이크 억제와 자장가 시작 조건이 유지되는지 확인하기.
+- `awakeTriggerDelaySec`을 바꿀 때는 `N초 연속 active`로 해석하지 말고 `5초 창 누적` 기준에서 필요한 연속 창 수가 의도대로 바뀌는지 확인하기.
+- 중간에 `active`가 없는 `5초 창`이 끼면 누적이 초기화되는지 확인하기.
+- 마이크 신호만으로 자장가가 직접 시작되지 않고, `AwakeDetector`를 거친 awake 결과에서만 시작되는지 확인하기.
 - 자장가 재생 중에는 마이크 신호가 직접 재트리거를 만들지 않는지 확인하기.
 - 자장가 종료 직후에도 재감지 방어 시간이 필요한지 확인하기.
 - 외부 소리 없이 자장가만으로 반복 재생 루프가 생기지 않는지 확인하기.
@@ -47,7 +52,7 @@ description: 이 저장소에서 `sleep`, `sound`, `motion`, `sooth`, 자장가 
 
 ## 같이 볼 테스트
 
-- `app/src/test/java/com/dveamer/babysitter/sleep/MicrophoneMusicControllerTest.kt`로 자장가 시작 중복 방지 조건을 확인하기.
+- `app/src/test/java/com/dveamer/babysitter/sleep/ContinuousAwakeDetectorTest.kt`로 `5초 창` 누적 기준, 누적 초기화, `awakeTriggerDelaySec`별 필요한 창 수를 확인하기.
 - `app/src/test/java/com/dveamer/babysitter/sleep/PlaybackInactivityControllerTest.kt`로 자장가 정지 grace 동작을 확인하기.
 - `app/src/test/java/com/dveamer/babysitter/sleep/WakeMemoryManagerTest.kt`로 lullaby active 시 memory 타이머 초기화를 확인하기.
 - `app/src/test/java/com/dveamer/babysitter/collect/CollectClosedFileBusTest.kt`로 collect 종료 파일 기준 동작을 확인하기.

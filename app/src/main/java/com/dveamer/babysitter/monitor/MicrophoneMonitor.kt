@@ -95,7 +95,11 @@ class MicrophoneMonitor(
 
     private fun updateNoiseFloor(previous: Double, amplitude: Double): Double {
         if (previous <= 0.0) return amplitude
-        val alpha = if (amplitude <= previous * 1.2) 0.25 else 0.04
+        val alpha = when {
+            amplitude <= previous -> NOISE_FALL_ALPHA
+            amplitude <= previous * MODEST_RISE_MULTIPLIER -> NOISE_MODEST_RISE_ALPHA
+            else -> NOISE_SPIKE_RISE_ALPHA
+        }
         return (previous * (1.0 - alpha)) + (amplitude * alpha)
     }
 
@@ -109,5 +113,9 @@ class MicrophoneMonitor(
         const val NOISE_MULTIPLIER = 2.0
         const val NOISE_OFFSET = 140.0
         const val LOG_EVERY_N_POLLS = 1
+        const val MODEST_RISE_MULTIPLIER = 1.2
+        const val NOISE_FALL_ALPHA = 0.25
+        const val NOISE_MODEST_RISE_ALPHA = 0.08
+        const val NOISE_SPIKE_RISE_ALPHA = 0.01
     }
 }
