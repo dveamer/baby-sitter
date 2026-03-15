@@ -26,6 +26,6 @@
     <string name="tutorial_remote_body">On another device using the same Wi-Fi, open the QR Code address to use remote control and camera sharing.</string>
     <string name="tutorial_button_ok">Got it</string>
     <string name="tutorial_celebration_title">All set.</string>
-    <string name="tutorial_celebration_body">You have completed all tutorials. We hope the app helps your baby sleep well. To avoid disturbing your baby\'s sleep, we will switch the screen back to a darker look.</string>
+    <string name="tutorial_celebration_body">You have completed all tutorials. Now press the Sleep On button on the remote screen to start monitoring. We hope the app helps your baby sleep well. To avoid disturbing your baby\'s sleep, we will switch the screen back to a darker look.</string>
     <string name="tutorial_celebration_button">Finish</string>
 </resources>
