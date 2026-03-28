@@ -28,8 +28,8 @@ android {
         applicationId = "com.dveamer.babysitter"
         minSdk = 26
         targetSdk = 35
-        versionCode = 2026031502
-        versionName = "2026031502"
+        versionCode = 2026032800
+        versionName = "2026032800"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
