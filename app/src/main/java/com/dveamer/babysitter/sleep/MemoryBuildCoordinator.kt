@@ -42,7 +42,7 @@ class MemoryBuildCoordinator(
 
     suspend fun buildWakeMemory(trigger: WakeMemoryTrigger): CoordinatedMemoryBuildResult {
         val rangeStartMs = trigger.awakeStartedAt - WakeMemoryManager.PRE_ROLL_MS
-        val requestedRangeEndMs = trigger.sleepStableEndedAt
+        val requestedRangeEndMs = trigger.requestedRangeEndMs
         waitUntilBuildable(
             rangeStartMs = rangeStartMs,
             requestedRangeEndMs = requestedRangeEndMs,
@@ -184,11 +184,15 @@ class MemoryBuildCoordinator(
         }
     }
 
+    fun latestClosedVideoEndMs(nowMs: Long = clock()): Long? {
+        return resolveLatestClosedVideoEndMs(nowMs)
+    }
+
     private fun resolveEffectiveRangeEndMs(
         requestedRangeEndMs: Long,
         requireRequestedEnd: Boolean
     ): Long? {
-        val latestClosedEndMs = resolveLatestClosedVideoEndMs() ?: return null
+        val latestClosedEndMs = latestClosedVideoEndMs() ?: return null
         return if (requireRequestedEnd) {
             requestedRangeEndMs.takeIf { latestClosedEndMs >= it }
         } else {

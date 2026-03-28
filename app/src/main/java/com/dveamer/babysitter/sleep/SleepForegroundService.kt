@@ -30,6 +30,7 @@ import com.dveamer.babysitter.soothing.SequentialSoothingCoordinator
 import com.dveamer.babysitter.soothing.SootheRequest
 import com.dveamer.babysitter.soothing.SootheResult
 import com.dveamer.babysitter.soothing.SoothingListener
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -37,7 +38,9 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.merge
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -59,6 +62,8 @@ class SleepForegroundService : Service() {
     private val startStopLock = Mutex()
 
     private var monitoringJob: Job? = null
+    private var wakeMemoryBuildJob: Job? = null
+    private var wakeMemoryFollowUpJob: Job? = null
     private var wakeLock: PowerManager.WakeLock? = null
     private var wakeMemoryManager: WakeMemoryManager = WakeMemoryManager()
     private var collectCameraSource: CollectCameraSource? = null
@@ -118,12 +123,10 @@ class SleepForegroundService : Service() {
 
     private suspend fun restartMonitoring() {
         startStopLock.withLock {
-            stopMonitoring()
-            SleepRuntimeStatusStore.reset()
-            wakeMemoryManager = WakeMemoryManager()
-            CollectClosedFileBus.clear()
-
             val current = container.settingsRepository.state.value
+            transitionOutOfMonitoring(
+                clearSessionOnSuccessfulFlush = !current.sleepEnabled
+            )
             container.collectRecorderCoordinator.start()
             container.collectRecorderCoordinator.updateInputs(
                 cameraMonitoringEnabled = current.cameraMonitoringEnabled,
@@ -139,6 +142,7 @@ class SleepForegroundService : Service() {
                 releaseWakeLock()
             }
             maintenanceScheduler.start(serviceScope)
+            startWakeMemoryFollowUpLoop()
             monitoringJob = serviceScope.launch {
                 runEngine()
             }
@@ -147,24 +151,93 @@ class SleepForegroundService : Service() {
 
     private suspend fun stopMonitoringAndService() {
         startStopLock.withLock {
-            stopMonitoring()
+            transitionOutOfMonitoring(clearSessionOnSuccessfulFlush = true)
             stopForeground(STOP_FOREGROUND_REMOVE)
             stopSelf()
         }
     }
 
     private fun stopMonitoring() {
+        stopMonitoringCore()
+        resetMonitoringState()
+    }
+
+    private suspend fun transitionOutOfMonitoring(
+        clearSessionOnSuccessfulFlush: Boolean
+    ) {
+        stopMonitoringCore()
+        awaitWakeMemoryBuildCompletion()
+        flushPendingWakeMemoryBuild(clearSessionOnSuccessfulFlush)
+        resetMonitoringState()
+    }
+
+    private fun stopMonitoringCore() {
         monitoringJob?.cancel()
         monitoringJob = null
+        wakeMemoryFollowUpJob?.cancel()
+        wakeMemoryFollowUpJob = null
         maintenanceScheduler.stop()
         container.collectRecorderCoordinator.stop()
         collectCameraSource?.stop()
         collectAudioSource?.stop()
         collectCameraSource = null
         collectAudioSource = null
+        releaseWakeLock()
+    }
+
+    private fun resetMonitoringState() {
         CollectClosedFileBus.clear()
         SleepRuntimeStatusStore.reset()
-        releaseWakeLock()
+    }
+
+    private suspend fun awaitWakeMemoryBuildCompletion() {
+        wakeMemoryBuildJob?.let { buildJob ->
+            if (buildJob.isActive) {
+                runCatching { buildJob.join() }
+                    .onFailure { Log.w(TAG, "waiting for wake memory build failed", it) }
+            }
+        }
+        wakeMemoryBuildJob = null
+    }
+
+    private suspend fun flushPendingWakeMemoryBuild(
+        clearSessionOnSuccessfulFlush: Boolean
+    ) {
+        val latestClosedVideoEndMs = container.memoryBuildCoordinator.latestClosedVideoEndMs()
+        val trigger = wakeMemoryManager.onForceBuildCheck(
+            latestClosedVideoEndMs = latestClosedVideoEndMs,
+            nowMs = System.currentTimeMillis()
+        ) ?: return
+
+        Log.i(
+            TAG,
+            "wake memory flush trigger awakeStartedAt=${trigger.awakeStartedAt} requestedRangeEndMs=${trigger.requestedRangeEndMs}"
+        )
+        runMemoryBuild(
+            trigger = trigger,
+            reason = "transition_flush",
+            clearSessionOnSuccessfulBuild = clearSessionOnSuccessfulFlush
+        )
+    }
+
+    private fun startWakeMemoryFollowUpLoop() {
+        wakeMemoryFollowUpJob?.cancel()
+        wakeMemoryFollowUpJob = serviceScope.launch(fileWorkerDispatcher) {
+            while (isActive) {
+                delay(WakeMemoryManager.PERIODIC_BUILD_INTERVAL_MS)
+                val latestClosedVideoEndMs = container.memoryBuildCoordinator.latestClosedVideoEndMs()
+                val trigger = wakeMemoryManager.onPeriodicCheck(
+                    latestClosedVideoEndMs = latestClosedVideoEndMs,
+                    nowMs = System.currentTimeMillis()
+                ) ?: continue
+
+                Log.i(
+                    TAG,
+                    "wake memory periodic trigger awakeStartedAt=${trigger.awakeStartedAt} requestedRangeEndMs=${trigger.requestedRangeEndMs}"
+                )
+                launchMemoryBuild(trigger = trigger, reason = "periodic_follow_up")
+            }
+        }
     }
 
     private suspend fun runEngine() {
@@ -310,9 +383,9 @@ class SleepForegroundService : Service() {
                     if (trigger != null) {
                         Log.i(
                             TAG,
-                            "wake memory trigger awakeStartedAt=${trigger.awakeStartedAt} sleepStableEndedAt=${trigger.sleepStableEndedAt}"
+                            "wake memory trigger awakeStartedAt=${trigger.awakeStartedAt} requestedRangeEndMs=${trigger.requestedRangeEndMs}"
                         )
-                        launchMemoryBuild(trigger)
+                        launchMemoryBuild(trigger, reason = "sleep_stable")
                     }
                 }
             }
@@ -354,25 +427,59 @@ class SleepForegroundService : Service() {
         }
     }
 
-    private fun launchMemoryBuild(trigger: WakeMemoryTrigger) {
-        serviceScope.launch(fileWorkerDispatcher) {
-            val result = container.memoryBuildCoordinator.buildWakeMemory(trigger)
-
-            result.outputFile?.let {
-                Log.i(
-                    TAG,
-                    "memory generated file=${it.name} videos=${result.usedVideoFiles} audios=${result.usedAudioFiles}"
-                )
-            }
-            if (result.outputFile == null) {
-                Log.w(
-                    TAG,
-                    "memory build produced no file: reason=${result.skippedReason} videos=${result.usedVideoFiles} audios=${result.usedAudioFiles} start=${result.rangeStartMs} end=${result.effectiveRangeEndMs ?: result.requestedRangeEndMs}"
-                )
-            }
-
-            wakeMemoryManager.markMemoryBuildFinished()
+    private fun launchMemoryBuild(
+        trigger: WakeMemoryTrigger,
+        reason: String,
+        clearSessionOnSuccessfulBuild: Boolean = false
+    ) {
+        wakeMemoryBuildJob = serviceScope.launch(fileWorkerDispatcher) {
+            runMemoryBuild(
+                trigger = trigger,
+                reason = reason,
+                clearSessionOnSuccessfulBuild = clearSessionOnSuccessfulBuild
+            )
         }
+    }
+
+    private suspend fun runMemoryBuild(
+        trigger: WakeMemoryTrigger,
+        reason: String,
+        clearSessionOnSuccessfulBuild: Boolean = false
+    ) {
+        val result = runCatching {
+            container.memoryBuildCoordinator.buildWakeMemory(trigger)
+        }.getOrElse { throwable ->
+            if (throwable is CancellationException) {
+                throw throwable
+            }
+            Log.w(TAG, "memory build crashed reason=$reason", throwable)
+            CoordinatedMemoryBuildResult(
+                outputFile = null,
+                usedVideoFiles = 0,
+                usedAudioFiles = 0,
+                skippedReason = MemoryBuildCoordinator.SKIP_BUILD_FAILED,
+                rangeStartMs = trigger.awakeStartedAt - WakeMemoryManager.PRE_ROLL_MS,
+                requestedRangeEndMs = trigger.requestedRangeEndMs
+            )
+        }
+
+        result.outputFile?.let {
+            Log.i(
+                TAG,
+                "memory generated reason=$reason file=${it.name} videos=${result.usedVideoFiles} audios=${result.usedAudioFiles}"
+            )
+        }
+        if (result.outputFile == null) {
+            Log.w(
+                TAG,
+                "memory build produced no file: reason=$reason skip=${result.skippedReason} videos=${result.usedVideoFiles} audios=${result.usedAudioFiles} start=${result.rangeStartMs} end=${result.effectiveRangeEndMs ?: result.requestedRangeEndMs}"
+            )
+        }
+
+        wakeMemoryManager.markMemoryBuildFinished(
+            result = result,
+            clearSessionOnSuccessfulBuild = clearSessionOnSuccessfulBuild
+        )
     }
 
     private fun acquireWakeLock() {

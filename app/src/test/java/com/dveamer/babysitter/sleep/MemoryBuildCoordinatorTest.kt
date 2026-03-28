@@ -93,7 +93,7 @@ class MemoryBuildCoordinatorTest {
 
         val trigger = WakeMemoryTrigger(
             awakeStartedAt = 30 * 60_000L,
-            sleepStableEndedAt = (35 * 60_000L) + 10_000L
+            requestedRangeEndMs = (35 * 60_000L) + 10_000L
         )
         val latestClosedStartMs = 34 * 60_000L
         CollectClosedFileBus.publish(
@@ -124,5 +124,34 @@ class MemoryBuildCoordinatorTest {
         assertEquals(latestClosedStartMs + 59_999L, builtRequest?.rangeEndMs)
         assertEquals(latestClosedStartMs + 59_999L, result.effectiveRangeEndMs)
         assertNull(result.skippedReason)
+    }
+
+    @Test
+    fun `latestClosedVideoEndMs는 catalog fallback도 사용한다`() {
+        CollectClosedFileBus.clear()
+        val latestClosedStartMs = 40 * 60_000L
+        val coordinator = MemoryBuildCoordinator(
+            buildMemory = {
+                MemoryBuildResult(
+                    outputFile = File("/tmp/unused.mp4"),
+                    usedVideoFiles = 0,
+                    usedAudioFiles = 0
+                )
+            },
+            listCollectVideos = {
+                listOf(
+                    com.dveamer.babysitter.collect.TimedFile(
+                        startMs = latestClosedStartMs,
+                        file = File.createTempFile("collect-$latestClosedStartMs", ".mp4").apply {
+                            writeBytes(ByteArray(2048))
+                            deleteOnExit()
+                        }
+                    )
+                )
+            },
+            clock = { latestClosedStartMs + 2 * 60_000L }
+        )
+
+        assertEquals(latestClosedStartMs + 59_999L, coordinator.latestClosedVideoEndMs())
     }
 }
