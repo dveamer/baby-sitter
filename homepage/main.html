@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title id="page-title">Baby Sitter | 잠든 밤을 조금 더 편안하게</title>
+  <title id="page-title">Baby Sitter | 문을 자주 열지 않아도 안심되는 밤</title>
   <meta
     id="page-description"
     name="description"
-    content="남는 안드로이드폰 하나로 아기 방을 지켜보고, 깼을 때는 부모 목소리 자장가로 다시 토닥여주는 Baby Sitter 앱 소개 페이지입니다.">
+    content="남는 안드로이드폰 하나로 아기 방을 조용히 지켜보고, 깰 듯한 순간에는 부모 목소리 자장가로 다시 잠드는 흐름을 돕는 Baby Sitter 앱 소개 페이지입니다.">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Baby Sitter">
   <meta property="og:locale" content="ko_KR">
@@ -15,34 +15,32 @@
   <meta property="og:title" content="Baby Sitter">
   <meta
     property="og:description"
-    content="A Baby Sitter homepage that soothes your baby back to sleep with a lullaby recorded in a parent's voice when they wake up.">
+    content="A Baby Sitter homepage that quietly watches over your baby's room and helps soothe wake-ups with a lullaby recorded in a parent's voice.">
   <meta property="og:url" content="https://babysitter.dveaemer.com/index.html">
   <meta property="og:image" content="https://babysitter.dveaemer.com/assets/app-icon.webp">
   <meta property="og:image:alt" content="Baby Sitter app icon">
   <style>
     :root {
-      --bg: #fff7f5;
-      --bg-soft: #fff3f6;
-      --surface: rgba(255, 252, 251, 0.82);
-      --surface-strong: #fffdfb;
-      --surface-pink: #ffe8ef;
-      --surface-apricot: #fff0d8;
-      --surface-mint: #e6f6f0;
-      --text: #38262b;
-      --muted: #6f5962;
-      --line: rgba(161, 102, 122, 0.18);
-      --primary: #e790aa;
-      --primary-deep: #b45873;
-      --secondary: #efc68b;
-      --secondary-deep: #946633;
-      --mint: #9dd8ca;
-      --mint-deep: #2f6158;
-      --shadow: 0 24px 60px rgba(164, 97, 125, 0.14);
-      --shadow-soft: 0 14px 30px rgba(164, 97, 125, 0.10);
-      --radius-xl: 32px;
-      --radius-lg: 24px;
+      --bg: #f3ede5;
+      --bg-deep: #e8ddd0;
+      --surface: rgba(255, 250, 244, 0.72);
+      --surface-strong: #fffaf4;
+      --night: #141c2d;
+      --night-soft: #24324c;
+      --ink: #1d2431;
+      --muted: #5c6473;
+      --line: rgba(29, 36, 49, 0.12);
+      --line-strong: rgba(29, 36, 49, 0.2);
+      --paper: #f8f3eb;
+      --paper-muted: rgba(248, 243, 235, 0.76);
+      --accent: #f4b17b;
+      --accent-deep: #d88249;
+      --accent-soft: rgba(244, 177, 123, 0.16);
+      --shadow: 0 30px 80px rgba(18, 26, 40, 0.14);
+      --radius-xl: 40px;
+      --radius-lg: 28px;
       --radius-md: 18px;
-      --max-width: 1120px;
+      --max-width: 1180px;
       --heading-font: "MaruBuri", "Iowan Old Style", "Noto Serif KR", serif;
       --body-font: "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
     }
@@ -58,16 +56,42 @@
     body {
       margin: 0;
       font-family: var(--body-font);
-      color: var(--text);
+      color: var(--ink);
       word-break: keep-all;
       line-break: strict;
       background:
-        radial-gradient(circle at top left, rgba(239, 198, 139, 0.28), transparent 28%),
-        radial-gradient(circle at 88% 10%, rgba(157, 216, 202, 0.20), transparent 20%),
-        radial-gradient(circle at 50% 100%, rgba(231, 144, 170, 0.12), transparent 32%),
-        linear-gradient(180deg, var(--bg) 0%, var(--bg-soft) 100%);
+        radial-gradient(circle at top left, rgba(244, 177, 123, 0.16), transparent 26%),
+        radial-gradient(circle at 92% 16%, rgba(255, 255, 255, 0.42), transparent 16%),
+        linear-gradient(180deg, var(--bg) 0%, var(--bg-deep) 100%);
       min-height: 100vh;
       overflow-x: hidden;
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      z-index: 0;
+      pointer-events: none;
+      border-radius: 999px;
+      filter: blur(22px);
+      opacity: 0.55;
+    }
+
+    body::before {
+      width: 280px;
+      height: 280px;
+      top: 32%;
+      left: -140px;
+      background: rgba(244, 177, 123, 0.24);
+    }
+
+    body::after {
+      width: 320px;
+      height: 320px;
+      right: -180px;
+      bottom: 8%;
+      background: rgba(255, 255, 255, 0.32);
     }
 
     h1,
@@ -81,153 +105,181 @@
       overflow-wrap: break-word;
     }
 
-    body::before,
-    body::after {
-      content: "";
-      position: fixed;
-      border-radius: 999px;
-      z-index: 0;
-      pointer-events: none;
-      filter: blur(20px);
-      opacity: 0.7;
-    }
-
-    body::before {
-      width: 260px;
-      height: 260px;
-      top: 90px;
-      left: -120px;
-      background: rgba(231, 144, 170, 0.18);
-    }
-
-    body::after {
-      width: 320px;
-      height: 320px;
-      right: -160px;
-      bottom: 120px;
-      background: rgba(157, 216, 202, 0.16);
-    }
-
     a {
       color: inherit;
       text-decoration: none;
     }
 
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
     main {
       position: relative;
       z-index: 1;
-      width: min(var(--max-width), calc(100% - 32px));
+    }
+
+    .hero-stage,
+    .section {
+      scroll-margin-top: 24px;
+    }
+
+    .hero-stage {
+      position: relative;
+      min-height: 100svh;
+      overflow: hidden;
+      color: var(--paper);
+      background:
+        radial-gradient(circle at 16% 18%, rgba(244, 177, 123, 0.16), transparent 18%),
+        radial-gradient(circle at 84% 14%, rgba(255, 255, 255, 0.08), transparent 14%),
+        radial-gradient(circle at 78% 46%, rgba(71, 97, 145, 0.28), transparent 28%),
+        linear-gradient(180deg, #1b2640 0%, #121927 55%, #0f1521 100%);
+    }
+
+    .hero-stage::before,
+    .hero-stage::after {
+      content: "";
+      position: absolute;
+      inset: auto;
+      border-radius: 999px;
+      pointer-events: none;
+    }
+
+    .hero-stage::before {
+      width: 640px;
+      height: 640px;
+      top: -180px;
+      right: -160px;
+      background: radial-gradient(circle, rgba(244, 177, 123, 0.16) 0%, transparent 62%);
+      filter: blur(14px);
+    }
+
+    .hero-stage::after {
+      width: 460px;
+      height: 460px;
+      bottom: -220px;
+      left: -120px;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, transparent 66%);
+    }
+
+    .hero-inner,
+    .section-inner {
+      width: min(var(--max-width), calc(100% - 48px));
       margin: 0 auto;
-      padding: 28px 0 80px;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      min-height: 100svh;
+      padding: 24px 0 56px;
+      display: flex;
+      flex-direction: column;
     }
 
     .topbar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 16px;
-      margin-bottom: 28px;
-      animation: rise-in 0.7s ease both;
+      gap: 24px;
+      margin-bottom: clamp(28px, 6vh, 80px);
+      animation: fade-up 0.8s ease both;
     }
 
     .brand {
       display: inline-flex;
       align-items: center;
-      gap: 12px;
-      padding: 10px 16px;
-      border: 1px solid var(--line);
+      gap: 14px;
+      padding: 10px 16px 10px 12px;
       border-radius: 999px;
-      background: rgba(255, 255, 255, 0.66);
-      box-shadow: var(--shadow-soft);
-      backdrop-filter: blur(16px);
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(14px);
     }
 
     .brand-mark {
-      width: 60px;
-      height: 60px;
-      display: grid;
-      place-items: center;
+      width: 52px;
+      height: 52px;
+      border-radius: 18px;
       overflow: hidden;
-    }
-
-    .brand-mark img {
-      width: 100%;
-      height: 100%;
-      display: block;
-      object-fit: contain;
+      flex: 0 0 auto;
+      background: rgba(255, 255, 255, 0.08);
     }
 
     .brand-text strong {
       display: block;
       font-size: 15px;
-      letter-spacing: 0.01em;
+      letter-spacing: 0.02em;
     }
 
     .brand-text span {
       display: block;
+      margin-top: 2px;
       font-size: 12px;
-      color: var(--muted);
+      color: rgba(248, 243, 235, 0.7);
     }
 
     .top-links {
       display: flex;
       flex-wrap: wrap;
-      justify-content: flex-end;
-      gap: 10px;
+      gap: 20px;
+      align-items: center;
     }
 
     .top-links a {
-      padding: 10px 14px;
-      border-radius: 999px;
-      color: var(--muted);
-      background: rgba(255, 255, 255, 0.62);
-      border: 1px solid rgba(161, 102, 122, 0.12);
-      transition: transform 0.2s ease, background 0.2s ease;
+      position: relative;
+      padding-bottom: 4px;
+      font-size: 14px;
+      color: rgba(248, 243, 235, 0.76);
+      transition: color 0.2s ease;
+    }
+
+    .top-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 1px;
+      background: currentColor;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.24s ease;
     }
 
     .top-links a:hover,
     .top-links a:focus-visible {
-      transform: translateY(-1px);
-      background: rgba(255, 255, 255, 0.9);
+      color: #fff8f0;
       outline: none;
     }
 
-    .hero {
-      display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
-      gap: 24px;
-      align-items: stretch;
-      margin-bottom: 26px;
-    }
-
-    .hero-copy,
-    .hero-visual,
-    .section-card,
-    .cta-panel {
-      border: 1px solid var(--line);
-      background: var(--surface);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(18px);
+    .top-links a:hover::after,
+    .top-links a:focus-visible::after {
+      transform: scaleX(1);
     }
 
     .hero-copy {
-      padding: 34px;
-      border-radius: var(--radius-xl);
-      animation: rise-in 0.8s ease both;
+      max-width: 590px;
+      margin-top: auto;
+      padding-bottom: 24px;
+      animation: fade-up 0.9s ease both;
     }
 
     .eyebrow {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      padding: 8px 12px;
+      gap: 10px;
+      padding: 8px 14px;
       border-radius: 999px;
-      background: rgba(255, 232, 239, 0.95);
-      color: var(--primary-deep);
-      font-size: 13px;
+      background: rgba(244, 177, 123, 0.14);
+      border: 1px solid rgba(244, 177, 123, 0.18);
+      color: #ffd9bb;
+      font-size: 12px;
       font-weight: 700;
-      letter-spacing: 0.02em;
-      margin-bottom: 18px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 22px;
     }
 
     .eyebrow::before {
@@ -236,46 +288,38 @@
       height: 8px;
       border-radius: 999px;
       background: currentColor;
-      box-shadow: 0 0 0 6px rgba(228, 138, 164, 0.16);
+      box-shadow: 0 0 0 6px rgba(244, 177, 123, 0.14);
     }
 
     h1,
     h2,
     h3 {
-      font-family: var(--heading-font);
-      letter-spacing: -0.02em;
       margin: 0;
+      font-family: var(--heading-font);
+      letter-spacing: -0.03em;
     }
 
     h1 {
-      font-size: clamp(2.6rem, 5vw, 4.7rem);
-      line-height: 0.98;
-      margin-bottom: 20px;
+      font-size: clamp(3rem, 7vw, 5.8rem);
+      line-height: 0.94;
+      color: #fff8f0;
+      margin-bottom: 22px;
+    }
+
+    .hero-brandline {
+      margin: 0 0 14px;
+      font-family: var(--heading-font);
+      font-size: clamp(1.2rem, 2vw, 1.8rem);
+      letter-spacing: 0.08em;
+      color: rgba(248, 243, 235, 0.84);
     }
 
     .hero-lead {
+      margin: 0 0 28px;
+      max-width: 44ch;
       font-size: 1.08rem;
-      line-height: 1.72;
-      color: var(--muted);
-      margin: 0 0 24px;
-      max-width: 42ch;
-    }
-
-    .hero-chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 26px;
-    }
-
-    .chip {
-      padding: 10px 14px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.9);
-      border: 1px solid rgba(161, 102, 122, 0.10);
-      color: var(--text);
-      font-size: 14px;
-      box-shadow: 0 8px 18px rgba(164, 97, 125, 0.08);
+      line-height: 1.86;
+      color: var(--paper-muted);
     }
 
     .cta-row {
@@ -283,38 +327,30 @@
       flex-wrap: wrap;
       gap: 12px;
       align-items: center;
-      margin-bottom: 18px;
     }
 
     .btn {
+      position: relative;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-height: 52px;
+      min-height: 54px;
       padding: 0 22px;
       border-radius: 999px;
       font-weight: 800;
-      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+      overflow: hidden;
+      isolation: isolate;
     }
 
-    .btn-with-icon {
-      gap: 10px;
-    }
-
-    .btn-icon {
-      width: 60px;
-      height: 60px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      flex: 0 0 auto;
-    }
-
-    .btn-icon img {
-      width: 100%;
-      height: 100%;
-      display: block;
-      object-fit: contain;
+    .btn::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, transparent 28%, rgba(255, 255, 255, 0.34) 50%, transparent 72%);
+      transform: translateX(-140%);
+      transition: transform 0.45s ease;
+      z-index: -1;
     }
 
     .btn:hover,
@@ -323,417 +359,374 @@
       outline: none;
     }
 
+    .btn:hover::after,
+    .btn:focus-visible::after {
+      transform: translateX(140%);
+    }
+
     .btn-primary {
-      color: #fff8fb;
-      background: linear-gradient(135deg, #de7896 0%, #e9a2b6 100%);
-      box-shadow: 0 16px 28px rgba(180, 88, 115, 0.28);
+      color: #1b2332;
+      background: linear-gradient(135deg, #ffd2a9 0%, #f4b17b 100%);
+      box-shadow: 0 18px 34px rgba(244, 177, 123, 0.24);
     }
 
     .btn-secondary {
-      color: var(--text);
-      background: rgba(255, 255, 255, 0.9);
-      border: 1px solid rgba(161, 102, 122, 0.12);
-      box-shadow: 0 12px 22px rgba(164, 97, 125, 0.08);
+      color: #fff8f0;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.14);
     }
 
     .hero-footnote {
-      margin: 0;
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.6;
-    }
-
-    .hero-hashtags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 18px;
-    }
-
-    .hashtag {
-      display: inline-flex;
-      align-items: center;
-      padding: 8px 12px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.72);
-      border: 1px solid rgba(161, 102, 122, 0.12);
-      color: var(--primary-deep);
-      font-size: 13px;
-      font-weight: 700;
-      box-shadow: 0 8px 18px rgba(164, 97, 125, 0.08);
-    }
-
-    .hero-visual {
-      position: relative;
-      overflow: hidden;
-      border-radius: 36px;
-      padding: 24px;
-      min-height: 100%;
-      animation: rise-in 0.9s ease both;
-    }
-
-    .hero-visual::before {
-      content: "";
-      position: absolute;
-      inset: auto -40px -60px auto;
-      width: 220px;
-      height: 220px;
-      border-radius: 999px;
-      background: rgba(157, 216, 202, 0.30);
-      filter: blur(10px);
-    }
-
-    .dream-window {
-      position: relative;
-      min-height: 100%;
-      border-radius: 28px;
-      padding: 28px;
-      background:
-        radial-gradient(circle at top, rgba(255, 251, 246, 0.85), transparent 48%),
-        linear-gradient(180deg, #fff6f5 0%, #fff0ef 100%);
-      overflow: hidden;
-    }
-
-    .dream-window::before {
-      content: "";
-      position: absolute;
-      top: 34px;
-      right: 44px;
-      width: 74px;
-      height: 74px;
-      border-radius: 999px;
-      background: linear-gradient(135deg, #fff9e5 0%, #f2d4a4 100%);
-      box-shadow: inset -12px -4px 0 rgba(255, 255, 255, 0.65);
-      animation: float 4.6s ease-in-out infinite;
-    }
-
-    .dream-window::after {
-      content: "";
-      position: absolute;
-      inset: auto auto 34px 26px;
-      width: 180px;
-      height: 130px;
-      border-radius: 90px 90px 24px 24px;
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(255, 232, 239, 0.72));
-      border: 1px solid rgba(161, 102, 122, 0.10);
-    }
-
-    .visual-copy {
-      position: relative;
-      z-index: 1;
-      max-width: 280px;
-      margin-top: 12px;
-    }
-
-    .visual-copy strong {
-      display: block;
-      font-size: 1.2rem;
-      margin-bottom: 10px;
-    }
-
-    .visual-copy p {
-      margin: 0;
-      color: var(--muted);
+      margin: 18px 0 0;
+      max-width: 46ch;
+      color: rgba(248, 243, 235, 0.68);
       line-height: 1.7;
-      font-size: 0.98rem;
+      font-size: 14px;
     }
 
-    .floating-note {
-      position: absolute;
-      z-index: 2;
-      padding: 14px 16px;
-      border-radius: 18px;
-      border: 1px solid rgba(161, 102, 122, 0.12);
-      background: rgba(255, 255, 255, 0.88);
-      box-shadow: var(--shadow-soft);
-      max-width: 220px;
-      animation: float 5.4s ease-in-out infinite;
+    .hero-proof {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      max-width: 760px;
+      margin-top: 32px;
     }
 
-    .floating-note strong {
-      display: block;
-      margin-bottom: 6px;
-      font-size: 0.95rem;
-    }
-
-    .floating-note span {
-      display: block;
-      color: var(--muted);
-      font-size: 0.88rem;
-      line-height: 1.5;
-    }
-
-    .note-top {
-      top: 140px;
-      right: 22px;
-    }
-
-    .note-bottom {
-      right: 34px;
-      bottom: 26px;
-      animation-delay: 0.9s;
+    .proof-item {
+      padding-top: 16px;
+      border-top: 1px solid rgba(255, 255, 255, 0.14);
+      color: rgba(248, 243, 235, 0.92);
+      line-height: 1.65;
+      font-size: 15px;
     }
 
     .section {
-      margin-top: 22px;
+      position: relative;
+      padding: 96px 0;
     }
 
-    .section-card {
-      border-radius: var(--radius-xl);
-      padding: 30px;
-      animation: rise-in 0.7s ease both;
+    .section-light {
+      background: transparent;
     }
 
-    .section-header {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: flex-end;
-      gap: 16px;
-      margin-bottom: 24px;
+    .section-cream {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0));
+    }
+
+    .section-dark {
+      background: linear-gradient(180deg, #171f30 0%, #111826 100%);
+      color: var(--paper);
+    }
+
+    .section-heading {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(280px, 420px);
+      gap: 32px;
+      align-items: end;
+      margin-bottom: 48px;
     }
 
     .section-kicker {
       display: inline-block;
-      margin-bottom: 10px;
-      color: var(--primary-deep);
-      font-size: 13px;
-      font-weight: 800;
-      letter-spacing: 0.08em;
+      margin-bottom: 16px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
+      color: var(--accent-deep);
+    }
+
+    .section-dark .section-kicker {
+      color: var(--accent);
     }
 
     h2 {
-      font-size: clamp(1.9rem, 3.2vw, 3rem);
-      line-height: 1.08;
-      margin-bottom: 10px;
+      font-size: clamp(2.2rem, 4vw, 3.8rem);
+      line-height: 1.04;
     }
 
-    .section-header p,
-    .section-copy {
+    .section-heading p,
+    .section-intro {
       margin: 0;
+      max-width: 42ch;
       color: var(--muted);
-      line-height: 1.72;
-      max-width: 54ch;
+      line-height: 1.82;
+      font-size: 1rem;
     }
 
-    .feature-grid,
-    .memory-grid,
-    .setup-grid,
-    .timeline {
+    .section-dark .section-heading p,
+    .section-dark .section-intro {
+      color: var(--paper-muted);
+    }
+
+    .story-grid {
       display: grid;
-      gap: 16px;
-    }
-
-    .feature-grid {
       grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 32px;
     }
 
-    .feature-card,
-    .memory-card,
-    .setup-card,
-    .step-card {
-      padding: 22px;
-      border-radius: var(--radius-lg);
-      background: rgba(255, 255, 255, 0.72);
-      border: 1px solid rgba(161, 102, 122, 0.12);
-      box-shadow: var(--shadow-soft);
+    .story-item,
+    .step-row {
+      transition: transform 0.24s ease, border-color 0.24s ease;
     }
 
-    .feature-icon,
-    .memory-icon,
-    .setup-icon,
-    .step-no {
-      width: 52px;
-      height: 52px;
-      display: grid;
-      place-items: center;
-      border-radius: 16px;
-      font-weight: 900;
-      font-size: 1.2rem;
-      margin-bottom: 16px;
+    .story-item {
+      padding-top: 24px;
+      border-top: 1px solid var(--line-strong);
+      animation: fade-up 0.8s ease both;
     }
 
-    .feature-card:nth-child(1) .feature-icon,
-    .step-card:nth-child(1) .step-no {
-      background: var(--surface-pink);
-      color: var(--primary-deep);
+    .story-item:nth-child(2) {
+      animation-delay: 0.08s;
     }
 
-    .feature-card:nth-child(2) .feature-icon,
-    .setup-card:nth-child(2) .setup-icon,
-    .step-card:nth-child(2) .step-no {
-      background: var(--surface-mint);
-      color: var(--mint-deep);
+    .story-item:nth-child(3) {
+      animation-delay: 0.16s;
     }
 
-    .feature-card:nth-child(3) .feature-icon,
-    .setup-card:nth-child(1) .setup-icon,
-    .memory-card .memory-icon {
-      background: var(--surface-apricot);
-      color: var(--secondary-deep);
+    .story-item:hover,
+    .story-item:focus-within,
+    .step-row:hover,
+    .step-row:focus-within {
+      transform: translateY(-2px);
+    }
+
+    .story-no {
+      display: block;
+      margin-bottom: 18px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.22em;
+      color: var(--accent-deep);
     }
 
     h3 {
-      font-size: 1.35rem;
-      margin-bottom: 10px;
+      font-size: 1.42rem;
+      line-height: 1.36;
+      margin-bottom: 12px;
     }
 
-    .feature-card p,
-    .memory-card p,
-    .setup-card p,
-    .step-card p {
+    .story-item p,
+    .story-item li,
+    .step-row p {
       margin: 0;
       color: var(--muted);
-      line-height: 1.68;
+      line-height: 1.78;
     }
 
-    .feature-card ul,
-    .setup-card ul {
-      margin: 14px 0 0;
+    .section-dark .step-row p {
+      color: var(--paper-muted);
+    }
+
+    .story-item ul {
+      list-style: none;
+      padding: 0;
+      margin: 18px 0 0;
+      display: grid;
+      gap: 10px;
+    }
+
+    .story-item li,
+    .equipment-list li {
+      position: relative;
       padding-left: 18px;
-      color: var(--text);
-      line-height: 1.72;
     }
 
-    .feature-card li + li,
-    .setup-card li + li {
-      margin-top: 6px;
-    }
-
-    .setup-grid {
-      grid-template-columns: 1.1fr 0.9fr;
-      align-items: stretch;
-    }
-
-    .setup-card {
-      height: 100%;
-    }
-
-    .quote-box {
-      position: relative;
-      padding: 28px;
-      border-radius: 28px;
-      background:
-        linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(255, 240, 216, 0.92));
-      border: 1px solid rgba(161, 102, 122, 0.12);
-      box-shadow: var(--shadow-soft);
-      overflow: hidden;
-    }
-
-    .quote-box::before {
-      content: "“";
+    .story-item li::before,
+    .equipment-list li::before {
+      content: "";
       position: absolute;
-      top: -10px;
-      left: 14px;
+      left: 0;
+      top: 0.82em;
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--accent);
+      transform: translateY(-50%);
+    }
+
+    .detail-layout,
+    .workflow-layout {
+      display: grid;
+      gap: 56px;
+      align-items: start;
+    }
+
+    .detail-layout {
+      grid-template-columns: minmax(0, 1.05fr) minmax(300px, 0.95fr);
+    }
+
+    .workflow-layout {
+      grid-template-columns: minmax(240px, 0.72fr) minmax(0, 1.28fr);
+    }
+
+    .setup-quote {
+      margin: 34px 0 18px;
+      max-width: 17ch;
       font-family: var(--heading-font);
-      font-size: 5rem;
-      color: rgba(180, 88, 115, 0.14);
-      line-height: 1;
+      font-size: clamp(1.5rem, 2.7vw, 2.35rem);
+      line-height: 1.58;
+      color: var(--ink);
     }
 
-    .quote-box p {
-      position: relative;
-      margin: 0;
-      font-size: clamp(1.2rem, 2vw, 1.6rem);
-      line-height: 1.7;
-      color: var(--text);
-    }
-
-    .quote-box strong {
-      color: var(--primary-deep);
+    .setup-quote strong {
+      color: var(--accent-deep);
     }
 
     .setup-tip {
-      margin-top: 18px;
-      padding: 16px 18px;
-      border-radius: 18px;
-      background: rgba(255, 255, 255, 0.76);
+      margin: 0;
+      max-width: 42ch;
       color: var(--muted);
-      line-height: 1.66;
-      border: 1px solid rgba(161, 102, 122, 0.10);
+      line-height: 1.8;
+    }
+
+    .detail-rail,
+    .workflow-note {
+      position: sticky;
+      top: 28px;
+    }
+
+    .rail-header {
+      padding-top: 8px;
+      padding-bottom: 22px;
+      border-top: 1px solid var(--line-strong);
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 8px;
+    }
+
+    .rail-label {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent-deep);
+    }
+
+    .rail-header p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.74;
+    }
+
+    .equipment-list,
+    .timeline {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+    }
+
+    .equipment-list li {
+      padding: 18px 0 18px 18px;
+      border-bottom: 1px solid var(--line);
+      font-size: 1.02rem;
+      line-height: 1.65;
+    }
+
+    .workflow-note {
+      margin: 0;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255, 255, 255, 0.16);
+      max-width: 34ch;
+      color: var(--paper-muted);
+      line-height: 1.84;
     }
 
     .timeline {
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 12px;
     }
 
-    .step-card {
-      position: relative;
-      overflow: hidden;
+    .step-row {
+      display: grid;
+      grid-template-columns: 72px 1fr;
+      gap: 20px;
+      padding: 24px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.18);
     }
 
     .step-no {
-      width: auto;
-      min-width: 52px;
-      padding: 0 12px;
+      display: grid;
+      place-items: center;
+      width: 64px;
+      height: 64px;
+      border-radius: 999px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
     }
 
-    .step-card::after {
-      content: "";
-      position: absolute;
-      top: 26px;
-      right: -30px;
-      width: 60px;
-      height: 2px;
-      background: linear-gradient(90deg, rgba(161, 102, 122, 0.24), transparent);
-    }
-
-    .step-card:last-child::after {
-      display: none;
+    .step-no {
+      color: var(--accent);
+      background: rgba(244, 177, 123, 0.12);
+      border: 1px solid rgba(244, 177, 123, 0.28);
     }
 
     .step-label {
       display: inline-block;
-      margin-bottom: 12px;
-      color: var(--muted);
+      margin-bottom: 10px;
       font-size: 12px;
       font-weight: 800;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
+      color: rgba(248, 243, 235, 0.58);
     }
 
-    .step-card h3 {
-      font-size: 1.18rem;
-      margin-bottom: 10px;
+    .section-dark h3 {
+      color: #fff8f0;
     }
 
-    .memory-grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+    .cta-stage {
+      padding-top: 36px;
+      padding-bottom: 96px;
     }
 
-    .memory-card strong {
-      display: block;
-      font-size: 1rem;
-      margin-bottom: 10px;
-    }
-
-    .cta-panel {
-      margin-top: 22px;
-      border-radius: 34px;
-      padding: 34px;
+    .cta-inner {
       text-align: center;
-      animation: rise-in 0.8s ease both;
+      padding-top: 34px;
+      border-top: 1px solid var(--line-strong);
     }
 
-    .cta-panel h2 {
-      margin-bottom: 14px;
+    .cta-inner h2 {
+      max-width: 12ch;
+      margin: 0 auto 16px;
     }
 
-    .cta-panel p {
-      margin: 0 auto 24px;
-      max-width: 44ch;
+    .cta-inner p {
+      margin: 0 auto 28px;
+      max-width: 38ch;
       color: var(--muted);
-      line-height: 1.72;
+      line-height: 1.82;
+    }
+
+    .cta-centered {
+      justify-content: center;
+    }
+
+    .cta-stage .btn-secondary {
+      color: var(--ink);
+      background: rgba(255, 255, 255, 0.74);
+      border-color: rgba(29, 36, 49, 0.12);
+      box-shadow: 0 16px 28px rgba(18, 26, 40, 0.08);
     }
 
     .footer-note {
-      margin-top: 16px;
-      font-size: 13px;
+      max-width: 60ch;
+      margin: 18px auto 0;
       color: var(--muted);
+      font-size: 0.94rem;
+      line-height: 1.78;
     }
 
-    @keyframes rise-in {
+    .btn:focus-visible,
+    .brand:focus-visible,
+    .top-links a:focus-visible {
+      outline: 2px solid rgba(244, 177, 123, 0.7);
+      outline-offset: 3px;
+    }
+
+    @keyframes fade-up {
       from {
         opacity: 0;
         transform: translateY(18px);
@@ -744,58 +737,70 @@
       }
     }
 
-    @keyframes float {
-      0%, 100% {
-        transform: translateY(0);
-      }
-      50% {
-        transform: translateY(-8px);
-      }
-    }
-
     @media (max-width: 980px) {
-      .hero,
-      .setup-grid,
-      .feature-grid,
-      .memory-grid,
-      .timeline {
+      .hero-inner,
+      .section-inner {
+        width: min(var(--max-width), calc(100% - 32px));
+      }
+
+      .section-heading,
+      .story-grid,
+      .detail-layout,
+      .workflow-layout {
         grid-template-columns: 1fr;
       }
 
-      .hero-visual {
-        min-height: 460px;
+      .hero-stage,
+      .hero-inner {
+        min-height: auto;
       }
 
-      .step-card::after {
-        display: none;
+      .hero-copy {
+        padding-bottom: 0;
+      }
+
+      .hero-proof {
+        grid-template-columns: 1fr;
+        max-width: 100%;
+      }
+
+      .detail-rail,
+      .workflow-note {
+        position: static;
       }
     }
 
     @media (max-width: 720px) {
-      main {
-        width: min(var(--max-width), calc(100% - 20px));
+      .hero-inner,
+      .section-inner {
+        width: calc(100% - 24px);
+      }
+
+      .hero-inner {
         padding-top: 18px;
+        padding-bottom: 40px;
+      }
+
+      .section {
+        padding: 72px 0;
       }
 
       .topbar {
         align-items: flex-start;
         flex-direction: column;
+        gap: 18px;
       }
 
       .top-links {
-        justify-content: flex-start;
-      }
-
-      .hero-copy,
-      .hero-visual,
-      .section-card,
-      .cta-panel {
-        padding: 22px;
-        border-radius: 24px;
+        gap: 16px;
       }
 
       h1 {
-        font-size: clamp(2.3rem, 11vw, 3.2rem);
+        font-size: clamp(2.6rem, 13vw, 4.2rem);
+      }
+
+      h2 {
+        font-size: clamp(2rem, 9vw, 3rem);
       }
 
       .cta-row {
@@ -807,298 +812,239 @@
         width: 100%;
       }
 
-      .note-top {
-        top: 164px;
-        right: 16px;
+      .step-row {
+        grid-template-columns: 56px 1fr;
+        gap: 16px;
       }
 
-      .note-bottom {
-        left: 16px;
-        right: auto;
-        bottom: 20px;
+      .step-no {
+        width: 52px;
+        height: 52px;
       }
 
-      .dream-window {
-        min-height: 420px;
+      .cta-stage {
+        padding-bottom: 72px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
       }
     }
   </style>
 </head>
 <body>
   <main>
-    <div class="topbar">
-      <div class="brand" aria-label="Baby Sitter">
-        <div class="brand-mark" aria-hidden="true">
-          <img src="./assets/app-icon.webp" alt="">
-        </div>
-        <div class="brand-text">
-          <strong>Baby Sitter</strong>
-          <span data-i18n="brand.subtitle">아기와 부모의 숙면을 위하여</span>
-        </div>
-      </div>
-      <div class="top-links">
-        <a href="#story" data-i18n="nav.story">앱 소개</a>
-        <a href="#setup" data-i18n="nav.setup">준비물</a>
-        <a href="#how-to-use" data-i18n="nav.howToUse">사용법</a>
-      </div>
-    </div>
+    <section class="hero-stage" id="install">
+      <div class="hero-inner">
+        <header class="topbar">
+          <a class="brand" href="#install" aria-label="Baby Sitter">
+            <div class="brand-mark" aria-hidden="true">
+              <img src="./assets/app-icon.webp" alt="" width="52" height="52">
+            </div>
+            <div class="brand-text">
+              <strong>Baby Sitter</strong>
+              <span data-i18n="brand.subtitle">아기와 부모의 숙면을 위하여</span>
+            </div>
+          </a>
+          <nav class="top-links" aria-label="섹션 이동" data-i18n-aria-label="nav.label">
+            <a href="#story" data-i18n="nav.story">앱 소개</a>
+            <a href="#setup" data-i18n="nav.setup">준비물</a>
+            <a href="#how-to-use" data-i18n="nav.howToUse">사용법</a>
+          </nav>
+        </header>
 
-    <section class="hero" id="install">
-      <div class="hero-copy">
-        <div class="eyebrow" data-i18n="hero.eyebrow">아기 수면을 위한 다정한 보조자</div>
-        <h1 data-i18n-html="hero.title">아기가 잠든 밤, 부모 마음도 조금 편해지도록</h1>
-        <p class="hero-lead" data-i18n="hero.lead">
-          Baby Sitter는 아기 방을 지켜보는 앱이에요.
-          뒤척임이나 작은 잠 투정을 먼저 알아채고, 녹음된 친숙한 엄마 아빠 목소리 자장가로
-          다시 잠들 수 있게 도와줘요.
-        </p>
-        <div class="hero-chips" aria-label="핵심 기능" data-i18n-aria-label="hero.chipsLabel">
-          <span class="chip" data-i18n="hero.chip1">작은 잠 투정을 큰 울음 전에 잡아줘요</span>
-          <span class="chip" data-i18n="hero.chip2">같은 Wi-Fi 안에서만 원격으로 확인해요</span>
-          <span class="chip" data-i18n="hero.chip3">놓치기 아쉬운 순간은 Memory로 남겨요</span>
+        <div class="hero-copy">
+          <div class="eyebrow" data-i18n="hero.eyebrow">아기가 한번 덜 깰 수 있도록</div>
+          <p class="hero-brandline" data-i18n="hero.brandLine">Baby Sitter</p>
+          <h1 data-i18n-html="hero.title">뒤척이는 아기에게 <br>엄마 아빠 목소리를 들려줘요</h1>
+          <p class="hero-lead" data-i18n="hero.lead">
+            Baby Sitter 앱이 아기의 소리와 움직임을 살피고 깰 듯한 순간을 먼저 알아차려요.
+            엄마, 아빠 목소리 자장가로 토닥여주고 다시 잠들도록 도와줘요.
+          </p>
+          <div class="cta-row">
+            <a
+              class="btn btn-primary"
+              href="https://play.google.com/store/apps/details?id=com.dveamer.babysitter"
+              target="_blank"
+              rel="noreferrer"
+              data-i18n="hero.install">
+              Baby Sitter 설치하러 가기
+            </a>
+            <a class="btn btn-secondary" href="#how-to-use" data-i18n="hero.viewGuide">먼저 사용법 보기</a>
+          </div>
+          <p class="hero-footnote" data-i18n="hero.footnote">
+            아기를 깨우지 않고 아기의 자는 모습을 관찰할 수 있고 저장할 수 있어요.
+          </p>
+          <div class="hero-proof" aria-label="핵심 약속" data-i18n-aria-label="hero.chipsLabel">
+            <div class="proof-item" data-i18n="hero.chip1">깰듯하면 자장가를 들려줘요</div>
+            <div class="proof-item" data-i18n="hero.chip2">자는 모습을 지켜볼 수 있어요.</div>
+            <div class="proof-item" data-i18n="hero.chip3">깬 이유를 확인해 볼 수 있어요</div>
+          </div>
         </div>
-        <div class="cta-row">
+      </div>
+    </section>
+
+    <section class="section section-light" id="story">
+      <div class="section-inner">
+        <div class="section-heading">
+          <div>
+            <span class="section-kicker" data-i18n="story.kicker">왜 편할까요</span>
+            <h2 data-i18n-html="story.title">아기는 잘자고 <br>부모 몸과 마음이 조금 더 편할 수 있도록.</h2>
+          </div>
+          <p data-i18n="story.body">
+            아기가 칭얼 댈 때, 문을 열어볼지 조금더 기다릴지 망설이지 않으셔도 됩니다.
+          </p>
+        </div>
+
+        <div class="story-grid">
+          <article class="story-item">
+            <span class="story-no">01</span>
+            <h3 data-i18n="story.feature1Title">깰 듯 말 듯한 순간에 먼저 반응해요</h3>
+            <p data-i18n="story.feature1Body">
+              작은 뒤척임이 커지기 전에 아기가 다시 잠들 수 있도록 토닥여줘요.
+            </p>
+            <ul>
+              <li data-i18n="story.feature1Point1">소리와 움직임을 함께 살펴요.</li>
+              <li data-i18n="story.feature1Point2">엄마, 아빠 목소리 같은 익숙한 소리로 아기를 토닥여줘요.</li>
+            </ul>
+          </article>
+
+          <article class="story-item">
+            <span class="story-no">02</span>
+            <h3 data-i18n="story.feature2Title">다른 방에서 맘 편히 확인하세요</h3>
+            <p data-i18n="story.feature2Body">
+              아기 방 문을 자주 열지 않고도 상태를 볼 수 있어, 다시 깨울까 조심스러운 밤에 특히 편해요.
+            </p>
+            <ul>
+              <li data-i18n="story.feature2Point1">원격 연결은 같은 Wi-Fi 안에서만 동작하도록 구성되어 있어요.</li>
+              <li data-i18n="story.feature2Point2">가족 끼리만 마음 편히 볼 수 있어요.</li>
+            </ul>
+          </article>
+
+          <article class="story-item">
+            <span class="story-no">03</span>
+            <h3 data-i18n="story.feature3Title">수면 방해 원인을 파악 가능해요</h3>
+            <p data-i18n="story.feature3Body">
+              아기의 귀여운 모습을 실시간으로 보는데서 끝나지 않고, 수면 방해 원인을 파악할 수 있어요
+            </p>
+            <ul>
+              <li data-i18n="story.feature3Point1">귀여운 장면을 목격하셨다면 저장하세요. 앞뒤 5분 영상 저장해드려요.</li>
+              <li data-i18n="story.feature3Point2">아기가 깨면 꺠기 3분 전부터 영상 기록해드려요</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-cream" id="setup">
+      <div class="section-inner detail-layout">
+        <div class="detail-copy">
+          <span class="section-kicker" data-i18n="setup.kicker">준비물</span>
+          <h2 data-i18n="setup.title">새 기기를 사지 않아도, 오늘 밤 바로 시작할 수 있어요.</h2>
+          <p class="section-intro" data-i18n="setup.body">
+            집에 쉬고 있는 안드로이드폰과 작은 거치대면 충분해요.
+          </p>
+          <p class="setup-quote" data-i18n-html="setup.quote">
+            집에 쉬고 있는 안드로이드폰을 아기 침대가 보이는 자리에 세워두세요.<br>
+            <strong>비싼 장비보다, 이미 집에 있는 것을 다시 쓰는 방식입니다.</strong>
+          </p>
+          <p class="setup-tip" data-i18n="setup.tip">
+            부모 폰만 같은 Wi-Fi에 연결하면, 아기를 깨우지 않고 관찰할 수 있어요. 침대에 습도, 온도기 거치해두면 더 좋습니다.
+          </p>
+        </div>
+
+        <aside class="detail-rail" aria-label="준비물 목록">
+          <div class="rail-header">
+            <span class="rail-label" data-i18n="setup.cardTitle">이렇게만 준비하세요</span>
+            <p data-i18n="setup.cardBody">
+              아래 준비물을 챙겨주세요. 앱에서 튜토리얼을 제공해서 아주 쉽게 시작 가능해요.
+            </p>
+          </div>
+          <ul class="equipment-list">
+            <li data-i18n="setup.item1">아기 방에 둘 안드로이드폰 (Baby Sitter 앱 설치)</li>
+            <li data-i18n="setup.item2">간단한 휴대폰 거치대 1개</li>
+            <li data-i18n="setup.item3">집 안 Wi-Fi</li>
+            <li data-i18n="setup.item4">원격으로 볼 폰</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section section-dark" id="how-to-use">
+      <div class="section-inner">
+        <div class="section-heading">
+          <div>
+            <span class="section-kicker" data-i18n="howto.kicker">사용 흐름</span>
+            <h2 data-i18n="howto.title">튜토리얼을 따라 한번만 설정해주세요</h2>
+          </div>
+          <p data-i18n="howto.body">
+            튜토리얼 순서대로 필요한 감지 기능과 원격 기능을 켜고, 자장가 준비해주시면 됩니다.
+          </p>
+        </div>
+
+        <div class="workflow-layout">
+          <p class="workflow-note" data-i18n="howto.tip">
+            부모 목소리 자장가를 녹음해두면, 아기가 깼을 때 익숙한 소리를 듣고 더 쉽게 잠들거예요.
+          </p>
+
+          <div class="timeline">
+            <article class="step-row">
+              <div class="step-no">01</div>
+              <div>
+                <span class="step-label" data-i18n="howto.step1Label">감지 기능 켜기</span>
+                <h3 data-i18n="howto.step1Title">Settings에서 Sound와 Motion 감지 기능을 켜요</h3>
+                <p data-i18n="howto.step1Body">
+                  권한을 허용하고 민감도를 맞추면, 아기가 깨기 전의 작은 신호를 더 자연스럽게 알아챌 수 있어요.
+                </p>
+              </div>
+            </article>
+
+            <article class="step-row">
+              <div class="step-no">02</div>
+              <div>
+                <span class="step-label" data-i18n="howto.step2Label">원격 연결</span>
+                <h3 data-i18n="howto.step2Title">QR코드를 이용해서 다른 기기의 브라우저에서 쉽게 연결하세요</h3>
+                <p data-i18n="howto.step2Body">
+                  한번 연결해두면 필요할 때마다 브라우저를 열어서 방 문을 열지 않고 아기를 관찰할 수 있어요.
+                </p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section cta-stage">
+      <div class="section-inner cta-inner">
+        <span class="section-kicker" data-i18n="cta.kicker">오늘 밤 시작하기</span>
+        <h2 data-i18n="cta.title">아기 방은 더 조용하게, 부모 마음은 조금 더 가볍게.</h2>
+        <p data-i18n-html="cta.body">
+          안드로이드폰 하나와 작은 거치대 하나면 충분해요. <br>오늘부터 우리 아기 꿀 잠 잘 수있도록 해주세요.
+        </p>
+        <div class="cta-row cta-centered">
           <a
             class="btn btn-primary"
             href="https://play.google.com/store/apps/details?id=com.dveamer.babysitter"
             target="_blank"
             rel="noreferrer"
-            data-i18n="hero.install">
-            Google Play에서 설치하기
+            data-i18n="cta.install">
+            Baby Sitter 설치하러 가기
           </a>
-          <a class="btn btn-secondary" href="#how-to-use" data-i18n="hero.viewGuide">먼저 사용법 보기</a>
+          <a class="btn btn-secondary" href="#setup" data-i18n="cta.viewSetup">준비물 다시 보기</a>
         </div>
-        <p class="hero-footnote" data-i18n="hero.footnote">
-          아기 방은 조용하게 두고, 부모는 다른 방에서 편하게 확인할 수 있게 만들었어요.
-        </p>
-        <div class="hero-hashtags" aria-label="해시태그">
-          <span class="hashtag">#육아</span>
-          <span class="hashtag">#육아꿀템</span>
-          <span class="hashtag">#분리수면</span>
+        <div class="footer-note" data-i18n="cta.footer">
+          같은 Wi-Fi 안에서만 원격 연결되며, 어떤 데이터도 수집하지 않습니다.
+          구독구매 처리 외에는 인터넷 접근 없어서 마음 편히 사용할 수 있어요.
         </div>
-      </div>
-
-      <div class="hero-visual" aria-hidden="true">
-        <div class="dream-window">
-          <div class="visual-copy">
-            <strong data-i18n="visual.title">낯선 소리 말고, 익숙한 목소리로.</strong>
-            <p data-i18n="visual.body">
-              아기가 깨려는 순간,
-              엄마, 아빠가 항상 옆에 있고 나를 돌봐준다는 느낌을 전해줄 거예요.
-            </p>
-          </div>
-          <div class="floating-note note-top">
-            <strong data-i18n="visual.note1Title">소리와 움직임을 같이 살펴봐요</strong>
-            <span data-i18n="visual.note1Body">작은 뒤척임이 커지기 전에 먼저 반응할 수 있어요.</span>
-          </div>
-          <div class="floating-note note-bottom">
-            <strong data-i18n="visual.note2Title">엄마, 아빠의 목소리가 담긴 자장가를 들려줘요</strong>
-            <span data-i18n="visual.note2Body">자장가에 담긴 아기를 사랑하는 마음이 그대로 전달될 거예요.</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="story">
-      <div class="section-card">
-        <div class="section-header">
-          <div>
-            <span class="section-kicker" data-i18n="story.kicker">앱 소개</span>
-            <h2 data-i18n="story.title">아기의 숙면, 부모의 평온 그리고 그 순간들의 기록</h2>
-          </div>
-          <p data-i18n="story.body">
-            아기가 다시 잠들 수 있는 중요한 그 순간 자장가를 들려줄거예요.
-          </p>
-        </div>
-
-        <div class="feature-grid">
-          <article class="feature-card">
-            <div class="feature-icon">1</div>
-            <h3 data-i18n="story.feature1Title">다시 잠들 수 있게 살짝 도와줘요</h3>
-            <p data-i18n="story.feature1Body">
-              아기가 깨기 시작하면 자동으로 자장가를 틀어줘요.
-              작은 잠 투정이 큰 울음으로 커지기 전에 먼저 토닥여주는 느낌이에요.
-            </p>
-            <ul>
-              <li data-i18n="story.feature1Point1">소리와 움직임을 함께 살펴서 잠깐의 변화를 놓치지 않아요.</li>
-              <li data-i18n="story.feature1Point2">엄마, 아빠 목소리가 담긴 자장가라서 더 익숙하고 편안해요.</li>
-            </ul>
-          </article>
-
-          <article class="feature-card">
-            <div class="feature-icon">2</div>
-            <h3 data-i18n="story.feature2Title">다른 방에서도 조용히 지켜볼 수 있어요</h3>
-            <p data-i18n="story.feature2Body">
-              아기 방 문을 열지 않고도 자는 모습을 볼 수 있어요.
-              괜히 문 열어보다가 다시 깨울까봐 걱정할 필요 없어요.
-            </p>
-            <ul>
-              <li data-i18n="story.feature2Point1">같은 Wi-Fi 안에서만 접속할 수 있게 되어 있어요.</li>
-              <li data-i18n="story.feature2Point2">영상은 우리 가족만 볼 수 있어서 안심할 수 있어요.</li>
-            </ul>
-          </article>
-
-          <article class="feature-card">
-            <div class="feature-icon">3</div>
-            <h3 data-i18n="story.feature3Title">귀여운 순간도, 깬 이유도 남겨줘요</h3>
-            <p data-i18n="story.feature3Body">
-              보고 싶었던 순간은 그냥 지나가 버리기 아쉽잖아요.
-              Baby Sitter는 나중에 다시 보고 싶은 장면도 챙겨둘 수 있어요.
-            </p>
-            <ul>
-              <li data-i18n="story.feature3Point1">촬영 버튼을 누르면 그 순간 전후 5분이 함께 저장돼요.</li>
-              <li data-i18n="story.feature3Point2">아기가 깨면 깨기 전 3분부터 다시 잠들 때까지 자동으로 남겨줘요.</li>
-            </ul>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="setup">
-      <div class="section-card">
-        <div class="section-header">
-          <div>
-            <span class="section-kicker" data-i18n="setup.kicker">준비물</span>
-            <h2 data-i18n="setup.title">준비는 생각보다 훨씬 간단해요.</h2>
-          </div>
-          <p data-i18n="setup.body">
-            새로운 기기를 또 사지 않아도 돼요.
-            집에 있는 안 쓰는 안드로이드폰 하나면 시작할 수 있어요.
-          </p>
-        </div>
-
-        <div class="setup-grid">
-          <div class="quote-box">
-            <p data-i18n-html="setup.quote">
-              집에 사용하지 않는 안드로이드폰 하나씩 갖고 있잖아요?<br>
-              <strong>다이소에서 1000원짜리 핸드폰 거치대 하나만 구해오면 끝!</strong>
-            </p>
-            <div class="setup-tip" data-i18n="setup.tip">
-              아기 침대가 잘 보이는 자리에 폰을 세워두고,
-              부모가 쓰는 다른 폰이나 태블릿은 같은 Wi-Fi에 연결해두면 바로 원격 확인까지 이어져요.
-            </div>
-          </div>
-
-          <div class="setup-card">
-            <div class="setup-icon">+</div>
-            <h3 data-i18n="setup.cardTitle">이 정도면 충분해요</h3>
-            <ul>
-              <li data-i18n="setup.item1">아기 방에 둘 안 쓰는 안드로이드폰 1대</li>
-              <li data-i18n="setup.item2">간단한 휴대폰 거치대 1개</li>
-              <li data-i18n="setup.item3">집 안 Wi-Fi</li>
-              <li data-i18n="setup.item4">원격으로 볼 부모 폰이나 태블릿 1대</li>
-            </ul>
-            <p style="margin-top: 14px;" data-i18n="setup.cardBody">
-              복잡한 장비보다, 이미 집에 있는 걸로 시작할 수 있다는 게 이 앱의 가장 큰 장점이에요.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="how-to-use">
-      <div class="section-card">
-        <div class="section-header">
-          <div>
-            <span class="section-kicker" data-i18n="howto.kicker">사용법</span>
-            <h2 data-i18n="howto.title">처음 켜면, 튜토리얼 따라 이렇게만 해보세요.</h2>
-          </div>
-          <p data-i18n="howto.body">
-            앱 안에 이미 튜토리얼이 준비되어 있어서 어렵지 않아요.
-            아래 순서대로 따라가면 첫 세팅이 금방 끝나요.
-          </p>
-        </div>
-
-        <p class="section-copy" style="margin-bottom: 18px;" data-i18n="howto.tip">
-          부모 목소리 자장가를 먼저 녹음해두면,
-          아기가 깼을 때 더 자연스럽게 바로 달래줄 수 있어요.
-        </p>
-
-        <div class="timeline">
-          <article class="step-card">
-            <span class="step-label" data-i18n="howto.step1Label">설정 + 소리/움직임</span>
-            <h3 data-i18n="howto.step1Title">Settings에서 Sound와 Motion을 켜요</h3>
-            <p data-i18n="howto.step1Body">
-              Settings에서 Sound와 Motion을 켜고 필요한 권한도 허용해주세요.
-              이 단계가 끝나면 아기가 깨는 신호를 더 자연스럽게 알아챌 수 있어요.
-            </p>
-          </article>
-
-          <article class="step-card">
-            <span class="step-label" data-i18n="howto.step2Label">원격 확인</span>
-            <h3 data-i18n="howto.step2Title">같은 Wi-Fi에서 원격으로 봐요</h3>
-            <p data-i18n="howto.step2Body">
-              QR 코드를 이용해서 같은 Wi-Fi의 다른 기기에서 원격 제어와 카메라 공유를 써볼 수 있어요.
-            </p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="section-card">
-        <div class="section-header">
-          <div>
-            <span class="section-kicker" data-i18n="memory.kicker">기록하기</span>
-            <h2 data-i18n="memory.title">기록 기능도 어렵지 않게 써보세요.</h2>
-          </div>
-          <p data-i18n="memory.body">
-            단순히 보는 데서 끝나지 않고, 다시 보고 싶은 순간을 남기거나 왜 깼는지 되짚어보는 데도 도움이 되도록 구성했어요.
-          </p>
-        </div>
-
-        <div class="memory-grid">
-          <article class="memory-card">
-            <div class="memory-icon">A</div>
-            <strong data-i18n="memory.card1Title">버튼 한 번으로 전후 5분 저장</strong>
-            <p data-i18n="memory.card1Body">
-              촬영 버튼을 누르면 그 순간만 뚝 끊어 저장하는 게 아니라,
-              바로 앞뒤 흐름까지 함께 담아줘서 더 자연스럽게 남아요.
-            </p>
-          </article>
-
-          <article class="memory-card">
-            <div class="memory-icon">B</div>
-            <strong data-i18n="memory.card2Title">깬 원인을 추측할 수 있게 자동 기록</strong>
-            <p data-i18n="memory.card2Body">
-              아기가 자다가 깨면 깨기 전 3분부터 다시 잠들 때까지 기록해줘요.
-              나중에 영상을 보면 왜 깼는지 감을 잡는 데 도움이 돼요.
-            </p>
-          </article>
-
-          <article class="memory-card">
-            <div class="memory-icon">C</div>
-            <strong data-i18n="memory.card3Title">간직하고 싶은 장면은 다운로드</strong>
-            <p data-i18n="memory.card3Body">
-              유난히 귀엽던 표정이나 소중한 순간은 따로 내려받아 둘 수 있어요.
-              그냥 흘려보내기 아쉬운 밤이 꽤 많더라고요.
-            </p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="cta-panel">
-      <span class="section-kicker" data-i18n="cta.kicker">지금 설치하기</span>
-      <h2 data-i18n="cta.title">오늘 밤부터 한 번 써보세요.</h2>
-      <p data-i18n="cta.body">
-        안 쓰는 안드로이드폰 하나, 작은 거치대 하나.
-        그 정도 준비만으로도 아기 방은 더 조용하게, 부모 마음은 조금 더 가볍게 만들 수 있어요.
-      </p>
-      <div class="cta-row" style="justify-content: center; margin-bottom: 0;">
-        <a
-          class="btn btn-primary"
-          href="https://play.google.com/store/apps/details?id=com.dveamer.babysitter"
-          target="_blank"
-          rel="noreferrer"
-          data-i18n="cta.install">
-          Baby Sitter 설치하러 가기
-        </a>
-        <a class="btn btn-secondary" href="#setup" data-i18n="cta.viewSetup">준비물 다시 보기</a>
-      </div>
-      <div class="footer-note" data-i18n="cta.footer">
-        같은 Wi-Fi 안에서만 원격으로 연결되도록 구성되어 있어 집 안에서 안심하고 사용하기 좋아요.
-        그 어떤 데이터도 수집하지 않으며 구독 관련 처리 외에는 인터넷 접근을 하지 않아요.
       </div>
     </section>
   </main>
@@ -1115,109 +1061,89 @@
       if (isKorean) return;
 
       const english = {
-        "meta.title": "Baby Sitter | A calmer night for your baby",
+        "meta.title": "Baby Sitter | A calmer night without opening the door",
         "meta.description":
-          "A Baby Sitter homepage that helps you watch over your baby's room with an unused Android phone and soothe wake-ups with a lullaby recorded in mom and dad's voices.",
+          "A Baby Sitter homepage that quietly watches over your baby's room with an unused Android phone and helps soothe wake-ups with a lullaby recorded in a parent's voice.",
         "brand.subtitle": "For better sleep for baby and parents",
+        "nav.label": "Navigate sections",
         "nav.story": "About",
         "nav.setup": "Setup",
         "nav.howToUse": "How to Use",
-        "hero.eyebrow": "A gentle helper for your baby's sleep",
-        "hero.title": "When your baby sleeps,<br>let your heart rest a little too.",
+        "hero.eyebrow": "So your baby can wake one less time",
+        "hero.brandLine": "Baby Sitter",
+        "hero.title": "For a stirring baby,<br>play mom and dad's voices.",
         "hero.lead":
-          "Baby Sitter watches over your baby's room. It notices tossing, turning, and early fussing, then plays a familiar lullaby recorded in mom and dad's voices to help your baby drift back to sleep.",
-        "hero.chipsLabel": "Highlights",
-        "hero.chip1": "Catch small fussing before it turns into loud crying",
-        "hero.chip2": "Check in remotely on the same Wi-Fi only",
-        "hero.chip3": "Save moments you do not want to miss as Memory",
-        "hero.install": "Get it on Google Play",
+          "Baby Sitter watches your baby's sounds and movements and notices the signs of waking early. It soothes them with a lullaby in mom and dad's voices and helps them fall asleep again.",
+        "hero.install": "Install Baby Sitter",
         "hero.viewGuide": "See how it works first",
         "hero.footnote":
-          "Keep the nursery quiet while you check in comfortably from another room.",
-        "visual.title": "Not with a stranger's sound, but with a familiar voice.",
-        "visual.body":
-          "When your baby starts to wake, it helps them feel that mom or dad is always nearby and looking after them.",
-        "visual.note1Title": "Watch sound and movement together",
-        "visual.note1Body":
-          "You can respond before a little stir grows into something bigger.",
-        "visual.note2Title": "Play a lullaby with mom or dad's voice",
-        "visual.note2Body":
-          "The love carried in that lullaby can reach your baby just as it is.",
-        "story.kicker": "App Story",
-        "story.title": "Better sleep for your baby, more peace for you, and a way to keep those moments",
+          "You can watch your sleeping baby and save those moments without waking them.",
+        "hero.chipsLabel": "Core promises",
+        "hero.chip1": "Play a lullaby when waking seems near",
+        "hero.chip2": "You can keep watch while your baby sleeps.",
+        "hero.chip3": "You can check what may have caused the wake-up.",
+        "story.kicker": "Why it feels calmer",
+        "story.title": "Help your baby sleep well,<br>and give parents a little more ease in body and mind.",
         "story.body":
-          "When that important moment comes, it plays a lullaby to help your baby settle back down.",
-        "story.feature1Title": "A gentle nudge back to sleep",
+          "When your baby starts fussing, you do not have to hesitate between opening the door and waiting a little longer.",
+        "story.feature1Title": "Respond early when they seem almost awake",
         "story.feature1Body":
-          "When your baby starts to wake, the app can automatically play a lullaby. It feels like calming them before light fussing turns into full crying.",
+          "Before small restlessness grows, it gently helps your baby fall back asleep.",
         "story.feature1Point1":
-          "It watches sound and movement together so small changes are easier to catch.",
+          "It watches sound and movement together.",
         "story.feature1Point2":
-          "A lullaby in mom and dad's voices feels more familiar and comforting.",
-        "story.feature2Title": "Quietly keep an eye on your baby from another room",
+          "It soothes your baby with a familiar sound, like mom and dad's voices.",
+        "story.feature2Title": "Check in comfortably from another room",
         "story.feature2Body":
-          "You can check on your sleeping baby without opening the nursery door. There is no need to worry that a small interruption will wake them again.",
+          "You can look in without opening the nursery door again and again, which helps on nights when even a small interruption feels risky.",
         "story.feature2Point1":
-          "Remote access is available only on the same Wi-Fi.",
+          "Remote access is designed to work only on the same Wi-Fi.",
         "story.feature2Point2":
-          "Only your family can watch the video, so it feels safe to use.",
-        "story.feature3Title": "Save cute moments and clues about wake-ups",
+          "Only your family can watch it, so it feels easy and comfortable to use.",
+        "story.feature3Title": "Understand what may be disturbing sleep",
         "story.feature3Body":
-          "Moments you want to remember feel too precious to let pass. Baby Sitter helps you keep scenes you may want to revisit later.",
+          "It goes beyond live viewing so you can enjoy sweet moments and understand what may have disturbed your baby's sleep.",
         "story.feature3Point1":
-          "Press the record button and it saves the 5 minutes before and after that moment.",
+          "If you catch a lovely moment, save it. We keep the 5 minutes before and after on video.",
         "story.feature3Point2":
-          "If your baby wakes up, it automatically keeps the video from 3 minutes before waking until they fall asleep again.",
-        "setup.kicker": "Easy Setup",
-        "setup.title": "Getting started is simpler than you think.",
+          "If your baby wakes, it records video starting 3 minutes before the wake-up.",
+        "setup.kicker": "What you need",
+        "setup.title": "You can start tonight without buying new gear.",
         "setup.body":
-          "You do not need to buy another device. One unused Android phone at home is enough to start.",
+          "An unused Android phone at home and a small stand are enough.",
         "setup.quote":
-          "Most homes already have an unused Android phone lying around, right?<br><strong>Just grab a simple $1 phone stand from a dollar store and you are done.</strong>",
+          "Place an unused Android phone where it can see the crib well.<br><strong>Instead of buying expensive gear, you start by reusing what is already at home.</strong>",
         "setup.tip":
-          "Place the phone where it can see the crib well, and keep the parent's phone or tablet on the same Wi-Fi so remote viewing is ready right away.",
-        "setup.cardTitle": "This is really enough",
-        "setup.item1": "1 unused Android phone for the baby's room",
+          "If only the parent's phone is connected to the same Wi-Fi, you can watch without waking your baby. It is even better if you also place a humidity and temperature monitor near the crib.",
+        "setup.cardTitle": "Just prepare these",
+        "setup.cardBody":
+          "Prepare the items below. The app includes a tutorial, so it is very easy to get started.",
+        "setup.item1": "An Android phone for the baby's room (with Baby Sitter installed)",
         "setup.item2": "1 simple phone stand",
         "setup.item3": "Home Wi-Fi",
-        "setup.item4": "1 phone or tablet for the parent to check remotely",
-        "setup.cardBody":
-          "One of the best things about this app is that you can start with things you already have at home instead of setting up complicated equipment.",
-        "howto.kicker": "How To Use",
-        "howto.title": "When you first open it, just follow the tutorial.",
+        "setup.item4": "A phone for remote viewing",
+        "howto.kicker": "Night routine",
+        "howto.title": "Please follow the tutorial and set it up once.",
         "howto.body":
-          "The app already has a tutorial built in, so getting started is easy. Follow the steps below and the first setup finishes quickly.",
+          "Just follow the tutorial, turn on the needed sensing and remote features, and prepare the lullaby.",
         "howto.tip":
-          "If you record a lullaby in a parent's voice first, you can soothe your baby more naturally right away when they wake.",
-        "howto.step1Label": "Settings + Sound & Motion",
-        "howto.step1Title": "Turn on Sound and Motion in Settings",
+          "If you record a lullaby in a parent's voice, your baby can hear a familiar sound and fall asleep more easily when they wake up.",
+        "howto.step1Label": "Turn on sensing features",
+        "howto.step1Title": "Turn on Sound and Motion sensing in Settings",
         "howto.step1Body":
-          "In Settings, turn on Sound and Motion and allow the permissions the app asks for. Once this is done, it can notice signs that your baby is waking more naturally.",
-        "howto.step2Label": "Remote",
-        "howto.step2Title": "Check in remotely on the same Wi-Fi",
+          "Allow the permissions and tune the sensitivity so the app can notice small signs before your baby fully wakes up.",
+        "howto.step2Label": "Connect remotely",
+        "howto.step2Title": "Use the QR code to connect easily from another device's browser",
         "howto.step2Body":
-          "Use the QR code to open the remote control and camera sharing page on another device connected to the same Wi-Fi.",
-        "memory.kicker": "Memory",
-        "memory.title": "The recording features are easy to use too.",
-        "memory.body":
-          "It is designed not only for live viewing, but also for saving moments you want to revisit and helping you look back on why your baby woke up.",
-        "memory.card1Title": "Save 5 minutes around the moment with one tap",
-        "memory.card1Body":
-          "When you press the record button, it does not save only that instant. It keeps the flow before and after it too, so the memory feels more natural.",
-        "memory.card2Title": "Automatic clips that help you guess what caused the wake-up",
-        "memory.card2Body":
-          "If your baby wakes in the middle of sleep, the app records from 3 minutes before waking until they fall asleep again. Watching it later can help you guess what happened.",
-        "memory.card3Title": "Download the moments you want to keep",
-        "memory.card3Body":
-          "Especially cute expressions and precious scenes can be downloaded separately. Some nights feel too lovely to just let pass.",
-        "cta.kicker": "Install Now",
-        "cta.title": "Try it tonight.",
+          "Once it is connected, you can open the browser whenever you need and watch your baby without opening the door.",
+        "cta.kicker": "Start tonight",
+        "cta.title": "A quieter nursery, and a slightly lighter heart for you.",
         "cta.body":
-          "One unused Android phone and a small stand can be enough to make the nursery quieter and your night feel a little lighter.",
+          "One Android phone and one small stand are enough. <br>Help your baby sleep sweetly starting today.",
         "cta.install": "Install Baby Sitter",
         "cta.viewSetup": "See the setup again",
         "cta.footer":
-          "Remote access works only on the same Wi-Fi, so it is well suited for safe use at home. It does not collect any data, and aside from subscription-related processing, it does not access the internet."
+          "Remote access works only on the same Wi-Fi and the app does not collect any data. Aside from subscription purchases, it does not access the internet, so you can use it with peace of mind."
       };
 
       const titleElement = document.getElementById("page-title");
