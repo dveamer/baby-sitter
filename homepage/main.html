@@ -859,6 +859,8 @@
               href="https://play.google.com/store/apps/details?id=com.dveamer.babysitter"
               target="_blank"
               rel="noreferrer"
+              data-gtag-install-button="1"
+              data-gtag-install-location="hero"
               data-i18n="hero.install">
               Baby Sitter 설치하러 가기
             </a>
@@ -1014,6 +1016,8 @@
             href="https://play.google.com/store/apps/details?id=com.dveamer.babysitter"
             target="_blank"
             rel="noreferrer"
+            data-gtag-install-button="2"
+            data-gtag-install-location="cta"
             data-i18n="cta.install">
             Baby Sitter 설치하러 가기
           </a>
@@ -1159,6 +1163,19 @@
         if (typeof value === "string") {
           element.setAttribute("aria-label", value);
         }
+      });
+
+      document.querySelectorAll("[data-gtag-install-button]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const buttonNumber = button.getAttribute("data-gtag-install-button");
+          const buttonLocation = button.getAttribute("data-gtag-install-location");
+
+          gtag("event", `install_cta_click_${buttonNumber}`, {
+            button_number: buttonNumber,
+            button_location: buttonLocation,
+            link_url: button.href
+          });
+        });
       });
     })();
   </script>
