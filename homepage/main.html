@@ -260,6 +260,54 @@
       transform: scaleX(1);
     }
 
+    .topbar-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 14px 18px;
+    }
+
+    .language-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px;
+      border-radius: 999px;
+      background: rgba(255, 248, 246, 0.74);
+      border: 1px solid rgba(191, 143, 151, 0.16);
+      box-shadow: 0 12px 24px rgba(180, 128, 138, 0.08);
+      backdrop-filter: blur(14px);
+    }
+
+    .language-toggle button {
+      appearance: none;
+      border: 0;
+      background: transparent;
+      border-radius: 999px;
+      min-width: 50px;
+      padding: 9px 14px;
+      font: inherit;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      color: var(--paper-muted);
+      cursor: pointer;
+      transition: transform 0.22s ease, background-color 0.22s ease, box-shadow 0.22s ease, color 0.22s ease;
+    }
+
+    .language-toggle button:hover,
+    .language-toggle button:focus-visible {
+      color: var(--accent-deep);
+      outline: none;
+    }
+
+    .language-toggle button.is-active {
+      color: #fffdfa;
+      background: linear-gradient(135deg, #ce869a 0%, #e0a8b7 100%);
+      box-shadow: 0 10px 18px rgba(173, 106, 126, 0.22);
+    }
+
     .hero-copy {
       max-width: 590px;
       margin-top: auto;
@@ -321,6 +369,21 @@
       font-size: 1.08rem;
       line-height: 1.86;
       color: var(--muted);
+    }
+
+    .hero-showcase {
+      margin: 0 0 32px;
+      border-radius: 28px;
+      overflow: hidden;
+      border: 1px solid rgba(191, 143, 151, 0.18);
+      background: rgba(255, 248, 246, 0.82);
+      box-shadow: 0 28px 60px rgba(133, 93, 96, 0.14);
+    }
+
+    .hero-showcase img {
+      display: block;
+      width: 100%;
+      height: auto;
     }
 
     .cta-row {
@@ -709,7 +772,8 @@
 
     .btn:focus-visible,
     .brand:focus-visible,
-    .top-links a:focus-visible {
+    .top-links a:focus-visible,
+    .language-toggle button:focus-visible {
       outline: 2px solid rgba(213, 146, 165, 0.74);
       outline-offset: 3px;
     }
@@ -774,8 +838,18 @@
         gap: 18px;
       }
 
+      .topbar-actions {
+        width: 100%;
+        justify-content: flex-start;
+        gap: 14px;
+      }
+
       .top-links {
         gap: 16px;
+      }
+
+      .language-toggle {
+        align-self: flex-start;
       }
 
       h1 {
@@ -838,11 +912,22 @@
               <span data-i18n="brand.subtitle">아기와 부모의 숙면을 위하여</span>
             </div>
           </a>
-          <nav class="top-links" aria-label="섹션 이동" data-i18n-aria-label="nav.label">
-            <a href="#story" data-i18n="nav.story">앱 소개</a>
-            <a href="#setup" data-i18n="nav.setup">준비물</a>
-            <a href="#how-to-use" data-i18n="nav.howToUse">사용법</a>
-          </nav>
+          <div class="topbar-actions">
+            <nav class="top-links" aria-label="섹션 이동" data-i18n-aria-label="nav.label">
+              <a href="#story" data-i18n="nav.story">앱 소개</a>
+              <a href="#setup" data-i18n="nav.setup">준비물</a>
+              <a href="#how-to-use" data-i18n="nav.howToUse">사용법</a>
+            </nav>
+            <div
+              class="language-toggle"
+              role="group"
+              aria-label="언어 선택"
+              data-language-toggle-label-ko="언어 선택"
+              data-language-toggle-label-en="Select language">
+              <button type="button" class="is-active" data-language-option="ko" aria-pressed="true">KO</button>
+              <button type="button" data-language-option="en" aria-pressed="false">EN</button>
+            </div>
+          </div>
         </header>
 
         <div class="hero-copy">
@@ -853,6 +938,19 @@
             Baby Sitter 앱이 아기의 소리와 움직임을 살피고 깰 듯한 순간을 먼저 알아차려요.
             엄마, 아빠 목소리 자장가로 토닥여주고 다시 잠들도록 도와줘요.
           </p>
+          <figure class="hero-showcase">
+            <img
+              id="hero-language-image"
+              src="./assets/homepage-img-1-ko.webpy"
+              alt="Baby Sitter 앱이 아기의 소리와 움직임을 살피고 부모 목소리 자장가로 다시 잠들도록 돕는 화면"
+              width="1536"
+              height="1024"
+              data-image-src-ko="./assets/homepage-img-1-ko.webpy"
+              data-image-src-en="./assets/homepage-img-1-en.webpy"
+              data-image-alt-ko="Baby Sitter 앱이 아기의 소리와 움직임을 살피고 부모 목소리 자장가로 다시 잠들도록 돕는 화면"
+              data-image-alt-en="Baby Sitter monitoring a baby and helping them fall back asleep with a lullaby in the parents' voices"
+              decoding="async">
+          </figure>
           <div class="cta-row">
             <a
               class="btn btn-primary"
@@ -1041,17 +1139,46 @@
   </script>
   <script>
     (() => {
-      const userLanguage = (
+      const languageStorageKey = "baby-sitter-homepage-language";
+      const browserLanguage = (
         (navigator.languages && navigator.languages[0]) ||
         navigator.language ||
         "en"
       ).toLowerCase();
-      const isKorean = userLanguage.startsWith("ko");
+      const defaultLanguage = browserLanguage.startsWith("ko") ? "ko" : "en";
+      const heroLanguageImage = document.getElementById("hero-language-image");
+      const titleElement = document.getElementById("page-title");
+      const descriptionElement = document.getElementById("page-description");
+      const languageToggle = document.querySelector(".language-toggle");
+      const languageButtons = document.querySelectorAll("[data-language-option]");
 
-      document.documentElement.lang = isKorean ? "ko" : "en";
-      if (isKorean) return;
+      const captureTranslations = () => {
+        const translations = {
+          "meta.title": titleElement ? titleElement.textContent : "",
+          "meta.description": descriptionElement ? descriptionElement.getAttribute("content") : ""
+        };
 
+        document.querySelectorAll("[data-i18n]").forEach((element) => {
+          const key = element.getAttribute("data-i18n");
+          translations[key] = element.textContent.trim();
+        });
+
+        document.querySelectorAll("[data-i18n-html]").forEach((element) => {
+          const key = element.getAttribute("data-i18n-html");
+          translations[key] = element.innerHTML.trim();
+        });
+
+        document.querySelectorAll("[data-i18n-aria-label]").forEach((element) => {
+          const key = element.getAttribute("data-i18n-aria-label");
+          translations[key] = element.getAttribute("aria-label");
+        });
+
+        return translations;
+      };
+
+      const korean = captureTranslations();
       const english = {
+        ...korean,
         "meta.title": "Baby Sitter | A calmer night without opening the door",
         "meta.description":
           "A Baby Sitter homepage that quietly watches over your baby's room with an unused Android phone and helps soothe wake-ups with a lullaby recorded in a parent's voice.",
@@ -1079,7 +1206,7 @@
         "story.feature1Point1":
           "It watches sound and movement together.",
         "story.feature1Point2":
-          "It soothes your baby with a familiar sound, like mom and dad's voices.",
+          "It soothes them with a familiar sound, like mom and dad's voices.",
         "story.feature2Title": "Check in comfortably from another room",
         "story.feature2Body":
           "You can look in without opening the nursery door again and again, which helps on nights when even a small interruption feels risky.",
@@ -1133,37 +1260,102 @@
           "Remote access works only on the same Wi-Fi and the app does not collect any data. Aside from subscription purchases, it does not access the internet, so you can use it with peace of mind."
       };
 
-      const titleElement = document.getElementById("page-title");
-      if (titleElement) titleElement.textContent = english["meta.title"];
+      const translationsByLanguage = { ko: korean, en: english };
 
-      const descriptionElement = document.getElementById("page-description");
-      if (descriptionElement) {
-        descriptionElement.setAttribute("content", english["meta.description"]);
-      }
-
-      document.querySelectorAll("[data-i18n]").forEach((element) => {
-        const key = element.getAttribute("data-i18n");
-        const value = english[key];
-        if (typeof value === "string") {
-          element.textContent = value;
+      const getStoredLanguage = () => {
+        try {
+          const storedLanguage = window.localStorage.getItem(languageStorageKey);
+          return storedLanguage === "ko" || storedLanguage === "en" ? storedLanguage : null;
+        } catch {
+          return null;
         }
+      };
+
+      const storeLanguage = (language) => {
+        try {
+          window.localStorage.setItem(languageStorageKey, language);
+        } catch {
+          return;
+        }
+      };
+
+      const updateHeroLanguageImage = (language) => {
+        if (!heroLanguageImage) return;
+
+        heroLanguageImage.src = language === "ko"
+          ? heroLanguageImage.dataset.imageSrcKo
+          : heroLanguageImage.dataset.imageSrcEn;
+        heroLanguageImage.alt = language === "ko"
+          ? heroLanguageImage.dataset.imageAltKo
+          : heroLanguageImage.dataset.imageAltEn;
+      };
+
+      const updateLanguageToggle = (language) => {
+        if (languageToggle) {
+          languageToggle.setAttribute(
+            "aria-label",
+            language === "ko"
+              ? languageToggle.dataset.languageToggleLabelKo
+              : languageToggle.dataset.languageToggleLabelEn
+          );
+        }
+
+        languageButtons.forEach((button) => {
+          const isActive = button.dataset.languageOption === language;
+          button.classList.toggle("is-active", isActive);
+          button.setAttribute("aria-pressed", isActive ? "true" : "false");
+        });
+      };
+
+      const applyLanguage = (language) => {
+        const translations = translationsByLanguage[language] || translationsByLanguage.ko;
+
+        if (titleElement) titleElement.textContent = translations["meta.title"];
+
+        if (descriptionElement) {
+          descriptionElement.setAttribute("content", translations["meta.description"]);
+        }
+
+        document.querySelectorAll("[data-i18n]").forEach((element) => {
+          const key = element.getAttribute("data-i18n");
+          const value = translations[key];
+          if (typeof value === "string") {
+            element.textContent = value;
+          }
+        });
+
+        document.querySelectorAll("[data-i18n-html]").forEach((element) => {
+          const key = element.getAttribute("data-i18n-html");
+          const value = translations[key];
+          if (typeof value === "string") {
+            element.innerHTML = value;
+          }
+        });
+
+        document.querySelectorAll("[data-i18n-aria-label]").forEach((element) => {
+          const key = element.getAttribute("data-i18n-aria-label");
+          const value = translations[key];
+          if (typeof value === "string") {
+            element.setAttribute("aria-label", value);
+          }
+        });
+
+        document.documentElement.lang = language;
+        updateHeroLanguageImage(language);
+        updateLanguageToggle(language);
+      };
+
+      languageButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const nextLanguage = button.dataset.languageOption;
+          if (nextLanguage !== "ko" && nextLanguage !== "en") return;
+
+          applyLanguage(nextLanguage);
+          storeLanguage(nextLanguage);
+        });
       });
 
-      document.querySelectorAll("[data-i18n-html]").forEach((element) => {
-        const key = element.getAttribute("data-i18n-html");
-        const value = english[key];
-        if (typeof value === "string") {
-          element.innerHTML = value;
-        }
-      });
-
-      document.querySelectorAll("[data-i18n-aria-label]").forEach((element) => {
-        const key = element.getAttribute("data-i18n-aria-label");
-        const value = english[key];
-        if (typeof value === "string") {
-          element.setAttribute("aria-label", value);
-        }
-      });
+      applyLanguage(getStoredLanguage() || defaultLanguage);
 
       document.querySelectorAll("[data-gtag-install-button]").forEach((button) => {
         button.addEventListener("click", () => {
