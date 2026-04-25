@@ -3,6 +3,7 @@ package com.dveamer.babysitter.monitor
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
@@ -30,6 +31,17 @@ class MicrophoneMonitorTest {
         assertEquals(850.0, updated, 0.001)
     }
 
+    @Test
+    fun `상태 전이는 주기와 관계없이 debug log 대상이다`() {
+        assertTrue(shouldLogLevel(pollCount = 2, activeChanged = true))
+    }
+
+    @Test
+    fun `상태 전이가 없으면 summary 주기에서만 debug log를 남긴다`() {
+        assertTrue(shouldLogLevel(pollCount = 30, activeChanged = false))
+        assertFalse(shouldLogLevel(pollCount = 29, activeChanged = false))
+    }
+
     private fun updateNoiseFloor(previous: Double, amplitude: Double): Double {
         val monitor = MicrophoneMonitor(scope = CoroutineScope(SupervisorJob()))
         val method = MicrophoneMonitor::class.java.getDeclaredMethod(
@@ -39,5 +51,16 @@ class MicrophoneMonitorTest {
         )
         method.isAccessible = true
         return method.invoke(monitor, previous, amplitude) as Double
+    }
+
+    private fun shouldLogLevel(pollCount: Long, activeChanged: Boolean): Boolean {
+        val monitor = MicrophoneMonitor(scope = CoroutineScope(SupervisorJob()))
+        val method = MicrophoneMonitor::class.java.getDeclaredMethod(
+            "shouldLogLevel",
+            Long::class.javaPrimitiveType,
+            Boolean::class.javaPrimitiveType
+        )
+        method.isAccessible = true
+        return method.invoke(monitor, pollCount, activeChanged) as Boolean
     }
 }

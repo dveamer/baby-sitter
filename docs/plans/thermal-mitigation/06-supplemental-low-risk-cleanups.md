@@ -1,5 +1,11 @@
 # Plan 06: Supplemental Low-Risk Cleanups
 
+## 2026-04-26 반영 메모
+
+- `MicrophoneMonitor`의 debug log는 매 poll마다 남기지 않고, active 상태 전이 또는 `30초` summary 시점에만 남기도록 줄였다.
+- `CollectAudioSource`의 amplitude 게시 주기는 `250ms -> 500ms`로 완화했다.
+- amplitude 게시 주기와 `MicrophoneMonitor` stale timeout은 `CollectAudioConfig`로 묶어 정합성을 유지한다.
+
 ## 목표
 
 주요 구조 변경과 별개로, 장시간 백그라운드 서비스에서 불필요한 주기 작업과 로그를 줄여 작은 발열 개선을 노린다.

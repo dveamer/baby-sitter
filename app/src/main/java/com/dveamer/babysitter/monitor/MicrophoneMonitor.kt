@@ -1,6 +1,7 @@
 package com.dveamer.babysitter.monitor
 
 import com.dveamer.babysitter.collect.CollectAudioBus
+import com.dveamer.babysitter.collect.CollectAudioConfig
 import android.util.Log
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -61,14 +62,16 @@ class MicrophoneMonitor(
                     }
                 }
 
+                val previousActive = currentActive
                 currentActive = when {
                     currentActive && inactiveStreak >= INACTIVE_HOLD_POLLS -> false
                     !currentActive && activeStreak >= ACTIVE_HOLD_POLLS -> true
                     else -> currentActive
                 }
+                val activeChanged = previousActive != currentActive
 
                 pollCount += 1
-                if (pollCount % LOG_EVERY_N_POLLS == 0L) {
+                if (shouldLogLevel(pollCount = pollCount, activeChanged = activeChanged)) {
                     Log.d(
                         TAG,
                         "mic level amplitude=${amplitude.toInt()} noiseFloor=${noiseFloor.toInt()} threshold=${dynamicThreshold.toInt()} rawActive=$rawActive active=$currentActive fresh=$fresh streakA=$activeStreak streakI=$inactiveStreak"
@@ -103,16 +106,20 @@ class MicrophoneMonitor(
         return (previous * (1.0 - alpha)) + (amplitude * alpha)
     }
 
+    private fun shouldLogLevel(pollCount: Long, activeChanged: Boolean): Boolean {
+        return activeChanged || pollCount % LOG_EVERY_N_POLLS == 0L
+    }
+
     private companion object {
         const val TAG = "MicrophoneMonitor"
         const val AMPLITUDE_THRESHOLD_DEFAULT = 900.0
         const val POLL_INTERVAL_MS = 1_000L
-        const val STALE_TIMEOUT_MS = 2_000L
+        const val STALE_TIMEOUT_MS = CollectAudioConfig.AMPLITUDE_STALE_TIMEOUT_MS
         const val ACTIVE_HOLD_POLLS = 2
         const val INACTIVE_HOLD_POLLS = 3
         const val NOISE_MULTIPLIER = 2.0
         const val NOISE_OFFSET = 140.0
-        const val LOG_EVERY_N_POLLS = 1
+        const val LOG_EVERY_N_POLLS = 30
         const val MODEST_RISE_MULTIPLIER = 1.2
         const val NOISE_FALL_ALPHA = 0.25
         const val NOISE_MODEST_RISE_ALPHA = 0.08

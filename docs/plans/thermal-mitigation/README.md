@@ -30,7 +30,7 @@
 - `03-audio-cost-reduction.md`: 직접 영향 있음. `07`로 `sleepEnabled=false` 경로의 오디오 collect는 이미 꺼졌으므로, 이제 이 문서는 주로 `sleepEnabled=true` 감시 중 남는 오디오 encode/amplitude 비용을 다룬다.
 - `04-last-resort-video-quality-tuning.md`: 직접 영향 있음. `02`, `07` 이후에도 발열이 충분히 남는 경우, 그다음 큰 후보는 주로 `sleep on` 또는 active preview subscriber 상태의 recorder 비용일 가능성이 더 높다.
 - `05-periodic-pause-resume-risk-assessment.md`: 직접 영향 없음. pre-roll과 closed collect file 전제는 그대로다.
-- `06-supplemental-low-risk-cleanups.md`: 직접 영향 있음. 카메라 hot path 정리는 `01`, idle preview 제거는 `02`, `sleep off` input gating은 `07`에서 처리되었으므로, 남은 범위는 주로 `sleep on` 중 오디오/로그/주기 작업 정리다.
+- `06-supplemental-low-risk-cleanups.md`: 완료. `MicrophoneMonitor`는 active 상태 전이 또는 `30초` summary 시점에만 debug log를 남기고, `CollectAudioSource` amplitude 게시 주기는 `500ms`로 낮춰 남는 오디오/로그 주기 비용을 줄였다. stale timeout도 같은 설정 축으로 묶어 monitor 정합성을 유지한다.
 - `07-sleep-off-input-gating.md`: 완료. `sleep off + viewer 없음`에서는 카메라/마이크 collect가 열리지 않게 되었고, preview subscriber 전이에 따라 collect input만 즉시 재평가된다. manual memory availability도 서버 authoritative 상태와 닫힌 collect 파일 기준으로 더 보수적으로 맞춰졌다.
 
 ## 문서 목록

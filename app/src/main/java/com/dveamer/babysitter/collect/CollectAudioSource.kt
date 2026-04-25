@@ -43,7 +43,7 @@ class CollectAudioSource(
                                 capturedAtMs = System.currentTimeMillis()
                             )
                         )
-                        delay(250L)
+                        delay(CollectAudioConfig.AMPLITUDE_PUBLISH_INTERVAL_MS)
                     }
                 }
             }
@@ -88,8 +88,8 @@ class CollectAudioSource(
             next.setAudioSource(MediaRecorder.AudioSource.MIC)
             next.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
             next.setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
-            next.setAudioEncodingBitRate(96_000)
-            next.setAudioSamplingRate(16_000)
+            next.setAudioEncodingBitRate(CollectAudioConfig.ENCODING_BIT_RATE)
+            next.setAudioSamplingRate(CollectAudioConfig.SAMPLING_RATE)
             next.setOutputFile(file.absolutePath)
             next.prepare()
             next.start()
