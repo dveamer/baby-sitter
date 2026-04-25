@@ -37,8 +37,8 @@ class CollectCameraSource(
     context: Context,
     private val paths: CollectStoragePaths,
     private val scope: CoroutineScope,
-    private val motionAnalysisEnabled: Boolean,
-    private val webPreviewAllowed: Boolean,
+    motionAnalysisEnabled: Boolean,
+    webPreviewAllowed: Boolean,
     private val isPreviewDemandActive: () -> Boolean
 ) {
     private val appContext = context.applicationContext
@@ -59,6 +59,12 @@ class CollectCameraSource(
 
     @Volatile
     private var stopping = false
+
+    @Volatile
+    private var motionAnalysisEnabled: Boolean = motionAnalysisEnabled
+
+    @Volatile
+    private var webPreviewAllowed: Boolean = webPreviewAllowed
 
     fun start() {
         synchronized(lock) {
@@ -86,6 +92,14 @@ class CollectCameraSource(
                 }
             }
         }
+    }
+
+    fun updateCapturePolicy(
+        motionAnalysisEnabled: Boolean,
+        webPreviewAllowed: Boolean
+    ) {
+        this.motionAnalysisEnabled = motionAnalysisEnabled
+        this.webPreviewAllowed = webPreviewAllowed
     }
 
     fun stop() {

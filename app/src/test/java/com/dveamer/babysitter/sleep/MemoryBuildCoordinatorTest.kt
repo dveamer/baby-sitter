@@ -6,7 +6,9 @@ import com.dveamer.babysitter.collect.CollectFileType
 import java.io.File
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class MemoryBuildCoordinatorTest {
@@ -153,5 +155,54 @@ class MemoryBuildCoordinatorTest {
         )
 
         assertEquals(latestClosedStartMs + 59_999L, coordinator.latestClosedVideoEndMs())
+    }
+
+    @Test
+    fun `manual camera memory is unavailable without recent closed video`() {
+        CollectClosedFileBus.clear()
+
+        val requestedAtMs = 15 * 60_000L
+        val coordinator = MemoryBuildCoordinator(
+            buildMemory = {
+                MemoryBuildResult(
+                    outputFile = File("/tmp/unused.mp4"),
+                    usedVideoFiles = 0,
+                    usedAudioFiles = 0
+                )
+            },
+            listCollectVideos = { emptyList() },
+            clock = { requestedAtMs }
+        )
+
+        assertFalse(coordinator.isManualCameraMemoryAvailable())
+    }
+
+    @Test
+    fun `manual camera memory is available when closed video reaches preroll window`() {
+        CollectClosedFileBus.clear()
+
+        val requestedAtMs = 25 * 60_000L
+        val latestClosedStartMs = 24 * 60_000L
+        CollectClosedFileBus.publish(
+            CollectClosedFileMeta(
+                type = CollectFileType.VIDEO,
+                file = File("/tmp/collect_$latestClosedStartMs.mp4"),
+                startMs = latestClosedStartMs,
+                closedAtMs = latestClosedStartMs + 60_000L
+            )
+        )
+        val coordinator = MemoryBuildCoordinator(
+            buildMemory = {
+                MemoryBuildResult(
+                    outputFile = File("/tmp/unused.mp4"),
+                    usedVideoFiles = 0,
+                    usedAudioFiles = 0
+                )
+            },
+            listCollectVideos = { emptyList() },
+            clock = { requestedAtMs }
+        )
+
+        assertTrue(coordinator.isManualCameraMemoryAvailable())
     }
 }

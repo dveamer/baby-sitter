@@ -36,8 +36,12 @@ class MemoryBuildCoordinator(
 
     fun isManualRequestInProgress(): Boolean = manualRequestInProgress.get()
 
-    fun isManualCameraMemoryAvailable(): Boolean {
-        return !buildInProgress.get() && !manualRequestInProgress.get()
+    fun isManualCameraMemoryAvailable(requestedAtMs: Long = clock()): Boolean {
+        if (buildInProgress.get() || manualRequestInProgress.get()) {
+            return false
+        }
+        val latestClosedVideoEndMs = resolveLatestClosedVideoEndMs(requestedAtMs) ?: return false
+        return latestClosedVideoEndMs >= requestedAtMs - MANUAL_PRE_ROLL_MS
     }
 
     suspend fun buildWakeMemory(trigger: WakeMemoryTrigger): CoordinatedMemoryBuildResult {

@@ -4,6 +4,12 @@
 
 아기 깨움 감지에 필요한 오디오 정보는 유지하면서, 마이크 녹음과 amplitude 샘플링 비용을 낮춘다.
 
+## 02, 07 반영 후 상태
+
+- `02-on-demand-web-preview.md` 반영으로 idle web preview 비용은 이미 빠졌다.
+- `07-sleep-off-input-gating.md` 반영으로 `sleepEnabled=false` 경로의 오디오 collect는 이미 꺼진다.
+- 따라서 이 문서는 `sleep off` 게이팅을 다시 다루지 않고, 주로 `sleepEnabled=true` 감시 중 남는 오디오 encode/amplitude 비용에 집중한다.
+
 ## 현재 관찰
 
 - `CollectAudioSource`는 AAC `96kbps / 16kHz`로 저장한다.
@@ -23,6 +29,7 @@
 - 오디오 수집 주체는 계속 `collect`로 유지한다.
 - 깨움 감지 로직은 `CollectAudioBus` latest snapshot을 계속 사용한다.
 - `memory`용 오디오를 완전히 제거하지 않고 비용을 완화하는 수준만 다룬다.
+- `sleepEnabled=false`일 때 오디오 collect를 끄는 정책 자체는 `07-sleep-off-input-gating.md` 범위로 유지한다.
 
 ## 작업 단계
 
@@ -46,7 +53,7 @@
 ## 설계 판단 포인트
 
 - amplitude 계산은 이미 `MediaRecorder.maxAmplitude` 기반이므로 인코딩 bitrate 변경 영향이 제한적일 수 있다.
-- `02-on-demand-web-preview.md` 반영 이후에는 idle web preview 비용이 빠졌으므로, 상대적으로 오디오 주기 최적화와 로그 최적화의 우선순위가 올라갈 수 있다.
+- `02-on-demand-web-preview.md`, `07-sleep-off-input-gating.md` 반영 이후에는 idle web preview 비용과 `sleep off` 오디오 collect 비용이 빠졌으므로, 상대적으로 `sleep on` 중 오디오 주기 최적화와 로그 최적화의 우선순위가 올라갈 수 있다.
 - 소리 감지 민감도 저하는 motion 경로와 함께 awake 판정에 영향을 줄 수 있다.
 
 ## 검증 계획
@@ -64,6 +71,6 @@
 
 ## 완료 조건
 
-- 마이크 경로의 백그라운드 비용이 줄어든다.
+- `sleepEnabled=true` 감시 중 마이크 경로의 백그라운드 비용이 줄어든다.
 - 깨움 감지와 lullaby 억제 흐름에 회귀가 없다.
 - `memory` 오디오가 여전히 사용자 제공 용도로 허용 가능한 수준이다.

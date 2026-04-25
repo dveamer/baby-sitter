@@ -15,6 +15,7 @@ import com.dveamer.babysitter.BabySitterApplication
 import com.dveamer.babysitter.MainActivity
 import com.dveamer.babysitter.R
 import com.dveamer.babysitter.alert.AwakeAlertController
+import com.dveamer.babysitter.collect.CollectInputPolicy
 import com.dveamer.babysitter.collect.CollectAudioSource
 import com.dveamer.babysitter.collect.CollectCameraSource
 import com.dveamer.babysitter.collect.CollectClosedFileBus
@@ -97,7 +98,22 @@ class SleepForegroundService : Service() {
                 }
             }
 
-            ACTION_START, ACTION_REFRESH, null -> {
+            ACTION_REFRESH -> {
+                val started = runCatching {
+                    startForeground(NOTIFICATION_ID, buildNotification())
+                }.onFailure { e ->
+                    Log.w(TAG, "failed to enter foreground mode", e)
+                }.isSuccess
+                if (!started) {
+                    stopSelfResult(startId)
+                    return START_NOT_STICKY
+                }
+                serviceScope.launch {
+                    refreshCollectInputs()
+                }
+            }
+
+            ACTION_START, null -> {
                 val started = runCatching {
                     startForeground(NOTIFICATION_ID, buildNotification())
                 }.onFailure { e ->
@@ -128,12 +144,15 @@ class SleepForegroundService : Service() {
                 clearSessionOnSuccessfulFlush = !current.sleepEnabled
             )
             container.collectRecorderCoordinator.start()
-            container.collectRecorderCoordinator.updateInputs(
+            val collectInputPolicy = container.collectRecorderCoordinator.updateInputs(
+                sleepEnabled = current.sleepEnabled,
                 cameraMonitoringEnabled = current.cameraMonitoringEnabled,
                 webCameraEnabled = current.webCameraEnabled,
                 soundMonitoringEnabled = current.soundMonitoringEnabled
             )
-            ensureCollectSourcesRunning()
+            ensureCollectSourcesRunning(
+                collectInputPolicy = collectInputPolicy
+            )
 
             val shouldHoldWakeLock = current.sleepEnabled
             if (shouldHoldWakeLock) {
@@ -146,6 +165,22 @@ class SleepForegroundService : Service() {
             monitoringJob = serviceScope.launch {
                 runEngine()
             }
+        }
+    }
+
+    private suspend fun refreshCollectInputs() {
+        startStopLock.withLock {
+            val current = container.settingsRepository.state.value
+            container.collectRecorderCoordinator.start()
+            val collectInputPolicy = container.collectRecorderCoordinator.updateInputs(
+                sleepEnabled = current.sleepEnabled,
+                cameraMonitoringEnabled = current.cameraMonitoringEnabled,
+                webCameraEnabled = current.webCameraEnabled,
+                soundMonitoringEnabled = current.soundMonitoringEnabled
+            )
+            ensureCollectSourcesRunning(
+                collectInputPolicy = collectInputPolicy
+            )
         }
     }
 
@@ -398,26 +433,29 @@ class SleepForegroundService : Service() {
         }
     }
 
-    private fun ensureCollectSourcesRunning() {
-        val settings = container.settingsRepository.state.value
-        if (container.collectRecorderCoordinator.isCameraInputEnabled()) {
-            if (collectCameraSource == null) {
-                collectCameraSource = CollectCameraSource(
+    private fun ensureCollectSourcesRunning(collectInputPolicy: CollectInputPolicy) {
+        if (collectInputPolicy.cameraInputEnabled) {
+            val cameraSource = collectCameraSource ?: CollectCameraSource(
                     context = this,
                     paths = container.collectStoragePaths,
                     scope = serviceScope,
-                    motionAnalysisEnabled = settings.cameraMonitoringEnabled,
-                    webPreviewAllowed = settings.webCameraEnabled,
+                    motionAnalysisEnabled = collectInputPolicy.motionAnalysisEnabled,
+                    webPreviewAllowed = collectInputPolicy.webPreviewAllowed,
                     isPreviewDemandActive = container.collectRecorderCoordinator::isWebPreviewDemandActive
-                )
-            }
-            collectCameraSource?.start()
+                ).also {
+                    collectCameraSource = it
+                }
+            cameraSource.updateCapturePolicy(
+                motionAnalysisEnabled = collectInputPolicy.motionAnalysisEnabled,
+                webPreviewAllowed = collectInputPolicy.webPreviewAllowed
+            )
+            cameraSource.start()
         } else {
             collectCameraSource?.stop()
             collectCameraSource = null
         }
 
-        if (container.collectRecorderCoordinator.isAudioInputEnabled()) {
+        if (collectInputPolicy.audioInputEnabled) {
             if (collectAudioSource == null) {
                 collectAudioSource = CollectAudioSource(
                     paths = container.collectStoragePaths,

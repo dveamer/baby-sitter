@@ -52,7 +52,16 @@ class AppContainer(context: Context) {
 
     val collectStoragePaths = CollectStoragePaths(appContext)
     val collectCatalog = CollectCatalog(collectStoragePaths)
-    val collectRecorderCoordinator = CollectRecorderCoordinator(collectStoragePaths::ensureDirectories)
+    private val sleepRuntime = ForegroundServiceSleepRuntime(appContext)
+    val collectRecorderCoordinator = CollectRecorderCoordinator(
+        ensureDirectories = collectStoragePaths::ensureDirectories,
+        onWebPreviewDemandChanged = {
+            val state = settingsRepository.state.value
+            if (state.sleepEnabled || state.webServiceEnabled) {
+                sleepRuntime.refresh()
+            }
+        }
+    )
     val memoryAssembler = MemoryAssembler(collectStoragePaths, collectCatalog)
     val memoryBuildCoordinator = MemoryBuildCoordinator(memoryAssembler, collectCatalog)
     val memoryRepository = MemoryRepository(collectCatalog)
@@ -70,9 +79,9 @@ class AppContainer(context: Context) {
         limitProvider = memoryDownloadLimitProvider
     )
 
-    private val sleepRuntime: SleepRuntime = ForegroundServiceSleepRuntime(appContext)
+    private val sleepRuntimeInterface: SleepRuntime = sleepRuntime
 
-    val sleepRuntimeOrchestrator = SleepRuntimeOrchestrator(settingsRepository, sleepRuntime)
+    val sleepRuntimeOrchestrator = SleepRuntimeOrchestrator(settingsRepository, sleepRuntimeInterface)
     private val localSettingsHttpServer =
         LocalSettingsHttpServer(
             context = appContext,

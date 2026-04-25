@@ -1,8 +1,6 @@
 package com.dveamer.babysitter.collect
 
 import android.util.Log
-import java.util.concurrent.atomic.AtomicInteger
-import java.util.concurrent.atomic.AtomicLong
 
 data class WebPreviewDemandSnapshot(
     val subscriberCount: Int,
@@ -12,84 +10,180 @@ data class WebPreviewDemandSnapshot(
         get() = subscriberCount > 0
 }
 
+data class CollectInputPolicy(
+    val cameraInputEnabled: Boolean = false,
+    val audioInputEnabled: Boolean = false,
+    val motionAnalysisEnabled: Boolean = false,
+    val webPreviewAllowed: Boolean = false
+)
+
+private data class CollectInputSettings(
+    val sleepEnabled: Boolean = false,
+    val cameraMonitoringEnabled: Boolean = false,
+    val webCameraEnabled: Boolean = false,
+    val soundMonitoringEnabled: Boolean = false
+)
+
 /**
  * Collect 입력 소스의 활성 상태를 단일 지점에서 관리하는 코디네이터.
  * 현재 버전은 경로 준비와 활성 조건 정합성 유지에 집중한다.
  */
 class CollectRecorderCoordinator(
-    private val ensureDirectories: () -> Unit
+    private val ensureDirectories: () -> Unit,
+    private val onWebPreviewDemandChanged: (() -> Unit)? = null
 ) {
-    @Volatile
-    private var cameraInputEnabled: Boolean = false
+    private val lock = Any()
 
     @Volatile
-    private var audioInputEnabled: Boolean = false
+    private var inputPolicy: CollectInputPolicy = CollectInputPolicy()
 
-    private val webPreviewSubscriberCount = AtomicInteger(0)
-    private val lastWebPreviewDisconnectedAtMs = AtomicLong(0L)
+    private var inputSettings: CollectInputSettings = CollectInputSettings()
+
+    private var webPreviewSubscriberCount: Int = 0
+    private var lastWebPreviewDisconnectedAtMs: Long? = null
 
     fun start() {
         ensureDirectories()
     }
 
     fun stop() {
-        cameraInputEnabled = false
-        audioInputEnabled = false
+        synchronized(lock) {
+            inputPolicy = CollectInputPolicy()
+        }
     }
 
     fun updateInputs(
+        sleepEnabled: Boolean,
         cameraMonitoringEnabled: Boolean,
         webCameraEnabled: Boolean,
         soundMonitoringEnabled: Boolean
-    ) {
-        val nextCameraEnabled = cameraMonitoringEnabled || webCameraEnabled
-        val nextAudioEnabled = soundMonitoringEnabled
-
-        if (nextCameraEnabled != cameraInputEnabled || nextAudioEnabled != audioInputEnabled) {
-            logDebug("collect inputs updated camera=$nextCameraEnabled audio=$nextAudioEnabled")
+    ): CollectInputPolicy {
+        synchronized(lock) {
+            inputSettings = CollectInputSettings(
+                sleepEnabled = sleepEnabled,
+                cameraMonitoringEnabled = cameraMonitoringEnabled,
+                webCameraEnabled = webCameraEnabled,
+                soundMonitoringEnabled = soundMonitoringEnabled
+            )
+            applyInputPolicyLocked(
+                resolveInputPolicyLocked(
+                    settings = inputSettings,
+                    previewDemandActive = webPreviewSubscriberCount > 0
+                )
+            )
+            return inputPolicy
         }
-
-        cameraInputEnabled = nextCameraEnabled
-        audioInputEnabled = nextAudioEnabled
     }
 
-    fun isCameraInputEnabled(): Boolean = cameraInputEnabled
+    fun resolveInputPolicy(
+        sleepEnabled: Boolean,
+        cameraMonitoringEnabled: Boolean,
+        webCameraEnabled: Boolean,
+        soundMonitoringEnabled: Boolean
+    ): CollectInputPolicy {
+        synchronized(lock) {
+            return resolveInputPolicyLocked(
+                settings = CollectInputSettings(
+                    sleepEnabled = sleepEnabled,
+                    cameraMonitoringEnabled = cameraMonitoringEnabled,
+                    webCameraEnabled = webCameraEnabled,
+                    soundMonitoringEnabled = soundMonitoringEnabled
+                ),
+                previewDemandActive = webPreviewSubscriberCount > 0
+            )
+        }
+    }
 
-    fun isAudioInputEnabled(): Boolean = audioInputEnabled
+    fun currentPolicy(): CollectInputPolicy = inputPolicy
 
     fun onWebPreviewSubscriberConnected(): WebPreviewDemandSnapshot {
-        val next = webPreviewSubscriberCount.incrementAndGet()
-        logDebug("web preview subscriber connected count=$next")
+        val shouldNotify = synchronized(lock) {
+            webPreviewSubscriberCount += 1
+            val next = webPreviewSubscriberCount
+            logDebug("web preview subscriber connected count=$next")
+            val becameActive = next == 1
+            if (becameActive) {
+                applyInputPolicyLocked(
+                    resolveInputPolicyLocked(
+                        settings = inputSettings,
+                        previewDemandActive = true
+                    )
+                )
+            }
+            becameActive
+        }
+        if (shouldNotify) {
+            onWebPreviewDemandChanged?.invoke()
+        }
         return webPreviewDemandSnapshot()
     }
 
     fun onWebPreviewSubscriberDisconnected(
         disconnectedAtMs: Long = System.currentTimeMillis()
     ): WebPreviewDemandSnapshot {
-        while (true) {
-            val current = webPreviewSubscriberCount.get()
+        val shouldNotify = synchronized(lock) {
+            val current = webPreviewSubscriberCount
             if (current <= 0) {
                 logWarn("web preview subscriber disconnect underflow")
-                return webPreviewDemandSnapshot()
+                return@synchronized false
             }
             val next = current - 1
-            if (webPreviewSubscriberCount.compareAndSet(current, next)) {
-                if (next == 0) {
-                    lastWebPreviewDisconnectedAtMs.set(disconnectedAtMs)
-                }
-                logDebug("web preview subscriber disconnected count=$next")
-                return webPreviewDemandSnapshot()
+            webPreviewSubscriberCount = next
+            if (next == 0) {
+                lastWebPreviewDisconnectedAtMs = disconnectedAtMs
+                applyInputPolicyLocked(
+                    resolveInputPolicyLocked(
+                        settings = inputSettings,
+                        previewDemandActive = false
+                    )
+                )
             }
+            logDebug("web preview subscriber disconnected count=$next")
+            next == 0
+        }
+        if (shouldNotify) {
+            onWebPreviewDemandChanged?.invoke()
+        }
+        return webPreviewDemandSnapshot()
+    }
+
+    fun isWebPreviewDemandActive(): Boolean = synchronized(lock) {
+        webPreviewSubscriberCount > 0
+    }
+
+    fun webPreviewDemandSnapshot(): WebPreviewDemandSnapshot {
+        synchronized(lock) {
+            return WebPreviewDemandSnapshot(
+                subscriberCount = webPreviewSubscriberCount,
+                lastSubscriberDisconnectedAtMs = lastWebPreviewDisconnectedAtMs
+            )
         }
     }
 
-    fun isWebPreviewDemandActive(): Boolean = webPreviewSubscriberCount.get() > 0
+    private fun applyInputPolicyLocked(nextPolicy: CollectInputPolicy) {
+        if (nextPolicy != inputPolicy) {
+            logDebug(
+                "collect inputs updated " +
+                    "camera=${nextPolicy.cameraInputEnabled} " +
+                    "audio=${nextPolicy.audioInputEnabled} " +
+                    "motion=${nextPolicy.motionAnalysisEnabled} " +
+                    "preview=${nextPolicy.webPreviewAllowed}"
+            )
+        }
+        inputPolicy = nextPolicy
+    }
 
-    fun webPreviewDemandSnapshot(): WebPreviewDemandSnapshot {
-        val lastDisconnectedAtMs = lastWebPreviewDisconnectedAtMs.get()
-        return WebPreviewDemandSnapshot(
-            subscriberCount = webPreviewSubscriberCount.get(),
-            lastSubscriberDisconnectedAtMs = lastDisconnectedAtMs.takeIf { it > 0L }
+    private fun resolveInputPolicyLocked(
+        settings: CollectInputSettings,
+        previewDemandActive: Boolean
+    ): CollectInputPolicy {
+        val motionAnalysisEnabled = settings.sleepEnabled && settings.cameraMonitoringEnabled
+        val webPreviewAllowed = settings.webCameraEnabled && previewDemandActive
+        return CollectInputPolicy(
+            cameraInputEnabled = motionAnalysisEnabled || webPreviewAllowed,
+            audioInputEnabled = settings.sleepEnabled && settings.soundMonitoringEnabled,
+            motionAnalysisEnabled = motionAnalysisEnabled,
+            webPreviewAllowed = webPreviewAllowed
         )
     }
 

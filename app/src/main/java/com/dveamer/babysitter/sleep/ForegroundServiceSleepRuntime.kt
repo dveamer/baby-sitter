@@ -10,13 +10,7 @@ class ForegroundServiceSleepRuntime(
 ) : SleepRuntime {
 
     override suspend fun start() {
-        val intent = Intent(context, SleepForegroundService::class.java)
-            .setAction(SleepForegroundService.ACTION_START)
-        runCatching {
-            ContextCompat.startForegroundService(context, intent)
-        }.onFailure {
-            Log.w(TAG, "failed to start sleep foreground service", it)
-        }
+        startForegroundService(SleepForegroundService.ACTION_START, "start")
     }
 
     override suspend fun stop() {
@@ -26,6 +20,20 @@ class ForegroundServiceSleepRuntime(
             context.startService(intent)
         }.onFailure {
             Log.w(TAG, "failed to stop sleep foreground service", it)
+        }
+    }
+
+    fun refresh() {
+        startForegroundService(SleepForegroundService.ACTION_REFRESH, "refresh")
+    }
+
+    private fun startForegroundService(action: String, reason: String) {
+        val intent = Intent(context, SleepForegroundService::class.java)
+            .setAction(action)
+        runCatching {
+            ContextCompat.startForegroundService(context, intent)
+        }.onFailure {
+            Log.w(TAG, "failed to $reason sleep foreground service", it)
         }
     }
 

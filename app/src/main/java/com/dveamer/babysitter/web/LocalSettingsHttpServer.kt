@@ -555,6 +555,12 @@ class LocalSettingsHttpServer(
         val runtime = SleepRuntimeStatusStore.state.value
         val memoryBuildInProgress = runtime.memoryBuildInProgress || memoryBuildCoordinator.isBuildInProgress()
         val manualMemoryRequestInProgress = memoryBuildCoordinator.isManualRequestInProgress()
+        val collectInputPolicy = collectRecorderCoordinator.resolveInputPolicy(
+            sleepEnabled = state.sleepEnabled,
+            cameraMonitoringEnabled = state.cameraMonitoringEnabled,
+            webCameraEnabled = state.webCameraEnabled,
+            soundMonitoringEnabled = state.soundMonitoringEnabled
+        )
         val deviceVolume = deviceVolumeController.currentSnapshot()
         return JSONObject()
             .put("sleepEnabled", state.sleepEnabled)
@@ -574,7 +580,11 @@ class LocalSettingsHttpServer(
             .put("lullabyActive", runtime.lullabyActive)
             .put("memoryBuildInProgress", memoryBuildInProgress)
             .put("manualMemoryRequestInProgress", manualMemoryRequestInProgress)
-            .put("cameraMemoryAvailable", state.webCameraEnabled && memoryBuildCoordinator.isManualCameraMemoryAvailable())
+            .put(
+                "cameraMemoryAvailable",
+                collectInputPolicy.cameraInputEnabled &&
+                    memoryBuildCoordinator.isManualCameraMemoryAvailable()
+            )
             .put("lastMemoryBuiltAtMs", runtime.lastMemoryBuiltAtMs)
             .put("lullabyVolume", deviceVolumeToJson(deviceVolume))
             .toString()

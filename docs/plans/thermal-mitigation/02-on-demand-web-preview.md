@@ -5,6 +5,7 @@
 - 완료: 2026-04-26
 - 반영 상태: working tree
 - 설계 선택: preview demand는 active subscriber 수 기준으로 즉시 on/off 하고, 마지막 disconnect 시각만 기록한다. 별도 grace delay는 이번 범위에 넣지 않았다.
+- 후속 연계: `sleep off` 상태의 camera input gating은 `07-sleep-off-input-gating.md`에서 추가로 완료되었다.
 
 ## 구현 결과
 
@@ -13,6 +14,12 @@
 - `CollectCameraSource`는 `webCameraEnabled`가 켜져 있어도 active subscriber가 있을 때만 preview JPEG를 인코딩한다.
 - motion gray frame 경로, `collect`의 카메라 소유권, 닫힌 collect 파일 기반 `memory` 경로는 그대로 유지했다.
 - preview subscriber underflow를 막는 단위 테스트 `CollectRecorderCoordinatorTest`를 추가했다.
+
+## 07 반영 후 영향
+
+- 이 문서가 직접 해결한 것은 preview JPEG 생성 수요 제어다.
+- 후속 `07-sleep-off-input-gating.md`가 반영되면서, `sleepEnabled=false`이고 active subscriber가 없을 때는 preview JPEG뿐 아니라 camera collect input 자체도 열리지 않게 되었다.
+- 따라서 아래 `구현 전 관찰`은 `02` 착수 당시의 배경 설명으로 읽는 편이 맞다.
 
 ## 검증 결과
 
@@ -28,7 +35,7 @@
 - 현재 남은 낭비는 "감지와 preview가 한 버스에 묶여 있다"가 아니라, `webCameraEnabled`만 켜져 있어도 실제 시청자 없이 preview JPEG 인코딩이 계속 돌 수 있다는 점이다.
 - 따라서 이 문서의 범위는 frame bus 재설계가 아니라, preview JPEG 생성 시점을 실제 subscriber demand에 맞춰 동적으로 끄고 켜는 쪽으로 좁혀진다.
 
-## 현재 관찰
+## 구현 전 관찰
 
 - `CollectRecorderCoordinator`는 `cameraMonitoringEnabled || webCameraEnabled`일 때 카메라 입력을 켠다.
 - `LocalSettingsHttpServer`의 `/camera/stream`은 `CameraFrameBus`에서 프레임을 꺼내 MJPEG로 전송한다.

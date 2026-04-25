@@ -4,18 +4,19 @@
 
 주요 구조 변경과 별개로, 장시간 백그라운드 서비스에서 불필요한 주기 작업과 로그를 줄여 작은 발열 개선을 노린다.
 
-## 01, 02 반영 후 상태
+## 01, 02, 07 반영 후 상태
 
 - `01-split-recording-and-detection-pipeline.md`에서 카메라 쪽의 큰 구조 변경과 JPEG decode 제거가 이미 처리되었다.
 - `02-on-demand-web-preview.md`에서 idle web preview JPEG 생성도 이미 subscriber demand 기준으로 정리되었다.
+- `07-sleep-off-input-gating.md`에서 `sleepEnabled=false`일 때의 camera/audio collect input gating도 이미 정리되었다.
 - 따라서 이 문서는 camera frame bus 재설계나 preview 경로 분리를 다시 다루지 않고, 남은 저위험 운영 비용 정리에 집중한다.
-- preview subscriber demand 최적화는 `02-on-demand-web-preview.md`, recorder 품질 조정은 `04-last-resort-video-quality-tuning.md`로 분리해 유지한다.
+- preview subscriber demand 최적화는 `02-on-demand-web-preview.md`, `sleep off` input gating은 `07-sleep-off-input-gating.md`, recorder 품질 조정은 `04-last-resort-video-quality-tuning.md`로 분리해 유지한다.
 
 ## 현재 관찰
 
 - `MicrophoneMonitor`는 1초마다 debug log를 남긴다.
 - 오디오 amplitude는 monitor 소비 주기보다 빠르게 게시된다.
-- 카메라 쪽의 큰 비용은 이미 `01`, `02`에서 한 차례 정리되었으므로, 남은 low-risk cleanup의 중심은 오디오/로그/주기 작업 쪽이다.
+- 카메라 쪽의 큰 비용과 `sleep off` input gating은 이미 `01`, `02`, `07`에서 한 차례 정리되었으므로, 남은 low-risk cleanup의 중심은 주로 `sleep on` 또는 active preview 중 오디오/로그/주기 작업 쪽이다.
 
 ## 관련 파일
 
@@ -27,7 +28,7 @@
 
 - 기능 동작을 바꾸지 않는 작은 최적화만 다룬다.
 - 감지 판단 로직 자체를 바꾸기보다 운영 비용을 줄이는 방향으로 제한한다.
-- `collect` 카메라 세션 구조, motion frame 파이프라인, preview demand 제어는 이 문서 범위에서 제외한다.
+- `collect` 카메라 세션 구조, motion frame 파이프라인, preview demand 제어, `sleep off` input gating은 이 문서 범위에서 제외한다.
 
 ## 작업 단계
 

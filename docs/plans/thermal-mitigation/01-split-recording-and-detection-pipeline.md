@@ -5,6 +5,7 @@
 - 완료: 2026-04-26
 - 반영 커밋: `57c2755` (`Split collect recording and motion analysis paths`)
 - 후속 연계: preview subscriber demand 기반 최적화는 `02-on-demand-web-preview.md`에서 완료되었다.
+- 후속 연계: `sleep off` input gating은 `07-sleep-off-input-gating.md`에서 완료되었다.
 
 ## 구현 결과
 
@@ -58,7 +59,7 @@
 - 기대 효과는 `연속 녹화 비용 제거`가 아니라 `추가 JPEG 생성, 복사, 디코드, 웹 미리보기용 변환 비용 제거 또는 축소`다.
 - 따라서 발열 개선은 현실적으로 의미가 있을 수 있지만, 카메라 센서와 H.264 연속 녹화가 남아 있으므로 상한이 분명하다.
 - 큰 폭의 개선을 기대하기보다, 현재 구조에서 낭비되는 부가 파이프라인을 줄이는 최적화로 보는 편이 맞다.
-- `02-on-demand-web-preview.md`가 반영되면서 idle web preview JPEG 생성 비용은 추가로 줄었고, 남은 발열 해석은 recorder와 오디오 경로 중심으로 보는 편이 맞다.
+- `02-on-demand-web-preview.md`가 반영되면서 idle web preview JPEG 생성 비용은 추가로 줄었고, `07-sleep-off-input-gating.md`까지 반영된 뒤에는 남은 발열 해석을 주로 `sleep on` 또는 active preview subscriber 상태의 recorder와 오디오 경로 중심으로 보는 편이 맞다.
 
 ## 작업 단계
 
