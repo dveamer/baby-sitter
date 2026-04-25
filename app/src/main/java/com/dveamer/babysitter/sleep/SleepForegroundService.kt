@@ -399,12 +399,15 @@ class SleepForegroundService : Service() {
     }
 
     private fun ensureCollectSourcesRunning() {
+        val settings = container.settingsRepository.state.value
         if (container.collectRecorderCoordinator.isCameraInputEnabled()) {
             if (collectCameraSource == null) {
                 collectCameraSource = CollectCameraSource(
                     context = this,
                     paths = container.collectStoragePaths,
-                    scope = serviceScope
+                    scope = serviceScope,
+                    motionAnalysisEnabled = settings.cameraMonitoringEnabled,
+                    webPreviewEnabled = settings.webCameraEnabled
                 )
             }
             collectCameraSource?.start()

@@ -139,7 +139,7 @@ class LocalSettingsHttpServer(
                             )
                             return@runCatching
                         }
-                        streamFromMotionCamera(socket)
+                        streamFromCollectCameraPreview(socket)
                     }
 
                     method == "GET" && path == "/memory" -> {
@@ -483,12 +483,12 @@ class LocalSettingsHttpServer(
         }
     }
 
-    private fun streamFromMotionCamera(socket: Socket) {
+    private fun streamFromCollectCameraPreview(socket: Socket) {
         try {
             val output = socket.getOutputStream()
             val headers = buildString {
                 append("HTTP/1.1 200 OK\r\n")
-                append("Content-Type: multipart/x-mixed-replace; boundary=$MOTION_BOUNDARY\r\n")
+                append("Content-Type: multipart/x-mixed-replace; boundary=$CAMERA_STREAM_BOUNDARY\r\n")
                 append("Cache-Control: no-cache\r\n")
                 append("Connection: close\r\n")
                 append("\r\n")
@@ -500,11 +500,11 @@ class LocalSettingsHttpServer(
                 if (!state.webCameraEnabled) break
                 val frame = CameraFrameBus.latest()
                 if (frame == null || isStale(frame)) {
-                    Thread.sleep(MOTION_STREAM_WAIT_MS)
+                    Thread.sleep(CAMERA_STREAM_WAIT_MS)
                     continue
                 }
                 val partHeader = buildString {
-                    append("--$MOTION_BOUNDARY\r\n")
+                    append("--$CAMERA_STREAM_BOUNDARY\r\n")
                     append("Content-Type: image/jpeg\r\n")
                     append("Content-Length: ${frame.jpeg.size}\r\n")
                     append("\r\n")
@@ -513,11 +513,11 @@ class LocalSettingsHttpServer(
                 output.write(frame.jpeg)
                 output.write("\r\n".toByteArray(Charsets.UTF_8))
                 output.flush()
-                Thread.sleep(MOTION_STREAM_INTERVAL_MS)
+                Thread.sleep(CAMERA_STREAM_INTERVAL_MS)
             }
         } catch (e: Throwable) {
             if (isClientDisconnect(e)) {
-                Log.d(TAG, "motion camera stream client disconnected")
+                Log.d(TAG, "camera preview stream client disconnected")
             } else {
                 throw e
             }
@@ -525,7 +525,7 @@ class LocalSettingsHttpServer(
     }
 
     private fun isStale(frame: CameraFrameSnapshot): Boolean {
-        return System.currentTimeMillis() - frame.capturedAtMs > MOTION_STREAM_STALE_MS
+        return System.currentTimeMillis() - frame.capturedAtMs > CAMERA_STREAM_STALE_MS
     }
 
     private fun memoryDownloadSnapshotToJson(snapshot: MemoryDownloadQuotaSnapshot): JSONObject {
@@ -579,10 +579,10 @@ class LocalSettingsHttpServer(
         private const val TAG = "LocalSettingsHttpServer"
         private const val ERROR_MEMORY_DOWNLOAD_DAILY_LIMIT_EXCEEDED = "memory_download_daily_limit_exceeded"
         const val PORT = 8901
-        private const val MOTION_BOUNDARY = "motion-frame"
-        private const val MOTION_STREAM_INTERVAL_MS = 120L
-        private const val MOTION_STREAM_WAIT_MS = 100L
-        private const val MOTION_STREAM_STALE_MS = 2_000L
+        private const val CAMERA_STREAM_BOUNDARY = "camera-frame"
+        private const val CAMERA_STREAM_INTERVAL_MS = 120L
+        private const val CAMERA_STREAM_WAIT_MS = 100L
+        private const val CAMERA_STREAM_STALE_MS = 2_000L
     }
 
     private fun isClientDisconnect(t: Throwable): Boolean {

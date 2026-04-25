@@ -1,6 +1,7 @@
 package com.dveamer.babysitter.monitor
 
-import android.graphics.BitmapFactory
+import com.dveamer.babysitter.collect.CollectFrameBus
+import com.dveamer.babysitter.collect.CollectFrameSnapshot
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -28,15 +29,14 @@ class CameraMonitor(
         if (job != null) return
 
         job = scope.launch(Dispatchers.Default) {
-            var previous: FrameData? = null
+            var previous: CollectFrameSnapshot? = null
             while (isActive) {
-                val snapshot = CameraFrameBus.latest()
-                val current = snapshot?.takeIf { !isStale(it) }?.let { decodeFrame(it.jpeg, it.capturedAtMs) }
+                val current = CollectFrameBus.latest()?.takeIf { !isStale(it) }
 
                 val active = when {
                     current == null -> false
                     previous == null -> false
-                    current.timestampMs == previous.timestampMs -> false
+                    current.capturedAtMs == previous.capturedAtMs -> false
                     else -> detectMovement(previous, current)
                 }
 
@@ -61,35 +61,10 @@ class CameraMonitor(
         job = null
     }
 
-    private fun decodeFrame(jpeg: ByteArray, capturedAtMs: Long): FrameData? {
-        val options = BitmapFactory.Options().apply {
-            inPreferredConfig = android.graphics.Bitmap.Config.ARGB_8888
-            inSampleSize = 8
-        }
-        val bmp = runCatching { BitmapFactory.decodeByteArray(jpeg, 0, jpeg.size, options) }.getOrNull()
-            ?: return null
-        val width = bmp.width
-        val height = bmp.height
-        if (width <= 0 || height <= 0) {
-            bmp.recycle()
-            return null
-        }
-        val pixels = IntArray(width * height)
-        bmp.getPixels(pixels, 0, width, 0, 0, width, height)
-        bmp.recycle()
-
-        val gray = IntArray(pixels.size)
-        for (i in pixels.indices) {
-            val c = pixels[i]
-            val r = (c shr 16) and 0xFF
-            val g = (c shr 8) and 0xFF
-            val b = c and 0xFF
-            gray[i] = (r * 30 + g * 59 + b * 11) / 100
-        }
-        return FrameData(gray, width, height, capturedAtMs)
-    }
-
-    private fun detectMovement(prev: FrameData, current: FrameData): Boolean {
+    internal fun detectMovement(
+        prev: CollectFrameSnapshot,
+        current: CollectFrameSnapshot
+    ): Boolean {
         if (prev.width != current.width || prev.height != current.height) return false
         val size = current.gray.size
         if (size == 0) return false
@@ -161,16 +136,9 @@ class CameraMonitor(
         return out
     }
 
-    private fun isStale(snapshot: CameraFrameSnapshot): Boolean {
+    internal fun isStale(snapshot: CollectFrameSnapshot): Boolean {
         return System.currentTimeMillis() - snapshot.capturedAtMs > STALE_TIMEOUT_MS
     }
-
-    private data class FrameData(
-        val gray: IntArray,
-        val width: Int,
-        val height: Int,
-        val timestampMs: Long
-    )
 
     private companion object {
         const val DEFAULT_DIFF_THRESHOLD = 20

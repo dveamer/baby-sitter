@@ -4,6 +4,8 @@ import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.ImageFormat
+import android.graphics.Rect
+import android.graphics.YuvImage
 import android.hardware.camera2.CameraCaptureSession
 import android.hardware.camera2.CameraCharacteristics
 import android.hardware.camera2.CameraDevice
@@ -20,6 +22,7 @@ import android.view.Surface
 import androidx.core.content.ContextCompat
 import com.dveamer.babysitter.monitor.CameraFrameBus
 import com.dveamer.babysitter.monitor.CameraFrameSnapshot
+import java.io.ByteArrayOutputStream
 import java.io.File
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
@@ -33,14 +36,16 @@ import kotlinx.coroutines.launch
 class CollectCameraSource(
     context: Context,
     private val paths: CollectStoragePaths,
-    private val scope: CoroutineScope
+    private val scope: CoroutineScope,
+    private val motionAnalysisEnabled: Boolean,
+    private val webPreviewEnabled: Boolean
 ) {
     private val appContext = context.applicationContext
     private val lock = Any()
 
     private var handlerThread: HandlerThread? = null
     private var callbackHandler: Handler? = null
-    private var jpegImageReader: ImageReader? = null
+    private var analysisImageReader: ImageReader? = null
     private var cameraDevice: CameraDevice? = null
     private var captureSession: CameraCaptureSession? = null
     private var mediaRecorder: MediaRecorder? = null
@@ -48,6 +53,8 @@ class CollectCameraSource(
     private var currentOutputFile: File? = null
     private var currentOutputStartMs: Long? = null
     private var rotateJob: Job? = null
+    private var lastAnalysisPublishedAtMs: Long = 0L
+    private var lastPreviewPublishedAtMs: Long = 0L
 
     @Volatile
     private var stopping = false
@@ -99,13 +106,18 @@ class CollectCameraSource(
         this.callbackHandler = callbackHandler
         stopping = false
 
-        val jpegReader = ImageReader.newInstance(CAPTURE_WIDTH, CAPTURE_HEIGHT, ImageFormat.JPEG, 2).apply {
+        val analysisReader = ImageReader.newInstance(
+            ANALYSIS_SOURCE_WIDTH,
+            ANALYSIS_SOURCE_HEIGHT,
+            ImageFormat.YUV_420_888,
+            2
+        ).apply {
             setOnImageAvailableListener({ ir ->
                 val image = ir.acquireLatestImage() ?: return@setOnImageAvailableListener
-                onJpegImageAvailable(image)
+                onAnalysisImageAvailable(image)
             }, callbackHandler)
         }
-        jpegImageReader = jpegReader
+        analysisImageReader = analysisReader
 
         val recorder = createRecorderForCurrentMinute()
         mediaRecorder = recorder
@@ -120,8 +132,8 @@ class CollectCameraSource(
                 cameraDevice = camera
                 val requestBuilder = runCatching {
                     camera.createCaptureRequest(CameraDevice.TEMPLATE_RECORD).apply {
-                        addTarget(jpegReader.surface)
                         addTarget(recordSurface)
+                        addTarget(analysisReader.surface)
                         set(CaptureRequest.CONTROL_AF_MODE, CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE)
                     }
                 }.getOrElse { e ->
@@ -131,7 +143,7 @@ class CollectCameraSource(
                 }
 
                 camera.createCaptureSession(
-                    listOf(jpegReader.surface, recordSurface),
+                    listOf(recordSurface, analysisReader.surface),
                     object : CameraCaptureSession.StateCallback() {
                         override fun onConfigured(session: CameraCaptureSession) {
                             captureSession = session
@@ -181,7 +193,7 @@ class CollectCameraSource(
 
         val localSession = captureSession
         val localCamera = cameraDevice
-        val localReader = jpegImageReader
+        val localReader = analysisImageReader
         val localHandler = callbackHandler
         val localThread = handlerThread
         val localMediaRecorder = mediaRecorder
@@ -225,28 +237,152 @@ class CollectCameraSource(
         captureSession = null
         cameraDevice = null
         callbackHandler = null
-        jpegImageReader = null
+        analysisImageReader = null
         recorderSurface = null
         mediaRecorder = null
         currentOutputFile = null
         currentOutputStartMs = null
         handlerThread = null
         stopping = false
+        lastAnalysisPublishedAtMs = 0L
+        lastPreviewPublishedAtMs = 0L
+        CollectFrameBus.clear()
         CameraFrameBus.clear()
     }
 
-    private fun onJpegImageAvailable(image: Image) {
+    private fun onAnalysisImageAvailable(image: Image) {
         try {
             if (stopping) return
-            val buffer = image.planes.firstOrNull()?.buffer?.duplicate() ?: return
-            if (!buffer.hasRemaining()) return
-            val bytes = ByteArray(buffer.remaining())
-            buffer.get(bytes)
-            CameraFrameBus.publish(CameraFrameSnapshot(jpeg = bytes, capturedAtMs = System.currentTimeMillis()))
+            val capturedAtMs = System.currentTimeMillis()
+            val publishMotionFrame = motionAnalysisEnabled &&
+                capturedAtMs - lastAnalysisPublishedAtMs >= ANALYSIS_FRAME_MIN_INTERVAL_MS
+            val publishPreviewFrame = webPreviewEnabled &&
+                capturedAtMs - lastPreviewPublishedAtMs >= WEB_PREVIEW_FRAME_MIN_INTERVAL_MS
+
+            if (!publishMotionFrame && !publishPreviewFrame) return
+
+            if (publishMotionFrame) {
+                buildMotionSnapshot(image, capturedAtMs)?.let { snapshot ->
+                    CollectFrameBus.publish(snapshot)
+                    lastAnalysisPublishedAtMs = capturedAtMs
+                }
+            }
+
+            if (publishPreviewFrame) {
+                encodePreviewJpeg(image)?.let { jpeg ->
+                    CameraFrameBus.publish(
+                        CameraFrameSnapshot(
+                            jpeg = jpeg,
+                            capturedAtMs = capturedAtMs
+                        )
+                    )
+                    lastPreviewPublishedAtMs = capturedAtMs
+                }
+            }
         } catch (t: Throwable) {
-            Log.w(TAG, "jpeg frame read failed", t)
+            Log.w(TAG, "analysis frame read failed", t)
         } finally {
             image.close()
+        }
+    }
+
+    private fun buildMotionSnapshot(
+        image: Image,
+        capturedAtMs: Long
+    ): CollectFrameSnapshot? {
+        val yPlane = image.planes.firstOrNull() ?: return null
+        val buffer = yPlane.buffer.duplicate()
+        val rowStride = yPlane.rowStride
+        val pixelStride = yPlane.pixelStride
+        if (rowStride <= 0 || pixelStride <= 0) return null
+
+        val gray = IntArray(MOTION_FRAME_WIDTH * MOTION_FRAME_HEIGHT)
+        val xScale = image.width.toDouble() / MOTION_FRAME_WIDTH.toDouble()
+        val yScale = image.height.toDouble() / MOTION_FRAME_HEIGHT.toDouble()
+
+        for (targetY in 0 until MOTION_FRAME_HEIGHT) {
+            val sourceY = ((targetY + 0.5) * yScale).toInt().coerceIn(0, image.height - 1)
+            for (targetX in 0 until MOTION_FRAME_WIDTH) {
+                val sourceX = ((targetX + 0.5) * xScale).toInt().coerceIn(0, image.width - 1)
+                val index = sourceY * rowStride + sourceX * pixelStride
+                gray[targetY * MOTION_FRAME_WIDTH + targetX] = buffer.get(index).toInt() and 0xFF
+            }
+        }
+
+        return CollectFrameSnapshot(
+            gray = gray,
+            width = MOTION_FRAME_WIDTH,
+            height = MOTION_FRAME_HEIGHT,
+            capturedAtMs = capturedAtMs
+        )
+    }
+
+    private fun encodePreviewJpeg(image: Image): ByteArray? {
+        val nv21 = yuv420888ToNv21(image)
+        val yuvImage = YuvImage(nv21, ImageFormat.NV21, image.width, image.height, null)
+        val output = ByteArrayOutputStream()
+        val encoded = yuvImage.compressToJpeg(
+            Rect(0, 0, image.width, image.height),
+            WEB_PREVIEW_JPEG_QUALITY,
+            output
+        )
+        if (!encoded) return null
+        return output.toByteArray()
+    }
+
+    private fun yuv420888ToNv21(image: Image): ByteArray {
+        val width = image.width
+        val height = image.height
+        val ySize = width * height
+        val nv21 = ByteArray(ySize + (width * height / 2))
+
+        copyPlane(
+            plane = image.planes[0],
+            width = width,
+            height = height,
+            output = nv21,
+            offset = 0,
+            outputStride = 1
+        )
+        copyPlane(
+            plane = image.planes[2],
+            width = width / 2,
+            height = height / 2,
+            output = nv21,
+            offset = ySize,
+            outputStride = 2
+        )
+        copyPlane(
+            plane = image.planes[1],
+            width = width / 2,
+            height = height / 2,
+            output = nv21,
+            offset = ySize + 1,
+            outputStride = 2
+        )
+
+        return nv21
+    }
+
+    private fun copyPlane(
+        plane: Image.Plane,
+        width: Int,
+        height: Int,
+        output: ByteArray,
+        offset: Int,
+        outputStride: Int
+    ) {
+        val buffer = plane.buffer.duplicate()
+        val rowStride = plane.rowStride
+        val pixelStride = plane.pixelStride
+        var outputIndex = offset
+
+        for (row in 0 until height) {
+            val rowOffset = row * rowStride
+            for (col in 0 until width) {
+                output[outputIndex] = buffer.get(rowOffset + col * pixelStride)
+                outputIndex += outputStride
+            }
         }
     }
 
@@ -306,6 +442,13 @@ class CollectCameraSource(
         const val TAG = "CollectCameraSource"
         const val CAPTURE_WIDTH = 640
         const val CAPTURE_HEIGHT = 480
+        const val ANALYSIS_SOURCE_WIDTH = 320
+        const val ANALYSIS_SOURCE_HEIGHT = 240
+        const val MOTION_FRAME_WIDTH = 80
+        const val MOTION_FRAME_HEIGHT = 60
+        const val ANALYSIS_FRAME_MIN_INTERVAL_MS = 250L
+        const val WEB_PREVIEW_FRAME_MIN_INTERVAL_MS = 200L
+        const val WEB_PREVIEW_JPEG_QUALITY = 75
         const val CALLBACK_DRAIN_TIMEOUT_MS = 1_000L
     }
 }

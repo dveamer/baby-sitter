@@ -7,6 +7,10 @@ data class CameraFrameSnapshot(
     val capturedAtMs: Long
 )
 
+/**
+ * Web preview JPEG frames derived inside collect.
+ * Motion detection uses CollectFrameBus instead of this preview bus.
+ */
 object CameraFrameBus {
     private val latest = AtomicReference<CameraFrameSnapshot?>(null)
 
