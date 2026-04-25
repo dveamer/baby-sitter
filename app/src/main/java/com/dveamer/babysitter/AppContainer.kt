@@ -52,7 +52,7 @@ class AppContainer(context: Context) {
 
     val collectStoragePaths = CollectStoragePaths(appContext)
     val collectCatalog = CollectCatalog(collectStoragePaths)
-    val collectRecorderCoordinator = CollectRecorderCoordinator(collectStoragePaths)
+    val collectRecorderCoordinator = CollectRecorderCoordinator(collectStoragePaths::ensureDirectories)
     val memoryAssembler = MemoryAssembler(collectStoragePaths, collectCatalog)
     val memoryBuildCoordinator = MemoryBuildCoordinator(memoryAssembler, collectCatalog)
     val memoryRepository = MemoryRepository(collectCatalog)
@@ -79,6 +79,7 @@ class AppContainer(context: Context) {
             settingsRepository = settingsRepository,
             settingsController = settingsController,
             deviceVolumeController = deviceVolumeController,
+            collectRecorderCoordinator = collectRecorderCoordinator,
             memoryRepository = memoryRepository,
             memoryBuildCoordinator = memoryBuildCoordinator,
             memoryDownloadLimiter = memoryDownloadLimiter

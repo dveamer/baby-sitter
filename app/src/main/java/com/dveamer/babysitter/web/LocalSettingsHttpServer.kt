@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.Log
 import com.dveamer.babysitter.audio.DeviceVolumeController
 import com.dveamer.babysitter.audio.DeviceVolumeSnapshot
+import com.dveamer.babysitter.collect.CollectRecorderCoordinator
 import com.dveamer.babysitter.collect.MemoryRepository
 import com.dveamer.babysitter.monitor.CameraFrameBus
 import com.dveamer.babysitter.monitor.CameraFrameSnapshot
@@ -40,6 +41,7 @@ class LocalSettingsHttpServer(
     private val settingsRepository: SettingsRepository,
     private val settingsController: SettingsController,
     private val deviceVolumeController: DeviceVolumeController,
+    private val collectRecorderCoordinator: CollectRecorderCoordinator,
     private val memoryRepository: MemoryRepository,
     private val memoryBuildCoordinator: MemoryBuildCoordinator,
     private val memoryDownloadLimiter: MemoryDownloadLimiter
@@ -484,6 +486,7 @@ class LocalSettingsHttpServer(
     }
 
     private fun streamFromCollectCameraPreview(socket: Socket) {
+        collectRecorderCoordinator.onWebPreviewSubscriberConnected()
         try {
             val output = socket.getOutputStream()
             val headers = buildString {
@@ -521,6 +524,8 @@ class LocalSettingsHttpServer(
             } else {
                 throw e
             }
+        } finally {
+            collectRecorderCoordinator.onWebPreviewSubscriberDisconnected()
         }
     }
 

@@ -4,9 +4,10 @@
 
 주요 구조 변경과 별개로, 장시간 백그라운드 서비스에서 불필요한 주기 작업과 로그를 줄여 작은 발열 개선을 노린다.
 
-## 01 반영 후 상태
+## 01, 02 반영 후 상태
 
 - `01-split-recording-and-detection-pipeline.md`에서 카메라 쪽의 큰 구조 변경과 JPEG decode 제거가 이미 처리되었다.
+- `02-on-demand-web-preview.md`에서 idle web preview JPEG 생성도 이미 subscriber demand 기준으로 정리되었다.
 - 따라서 이 문서는 camera frame bus 재설계나 preview 경로 분리를 다시 다루지 않고, 남은 저위험 운영 비용 정리에 집중한다.
 - preview subscriber demand 최적화는 `02-on-demand-web-preview.md`, recorder 품질 조정은 `04-last-resort-video-quality-tuning.md`로 분리해 유지한다.
 
@@ -14,7 +15,7 @@
 
 - `MicrophoneMonitor`는 1초마다 debug log를 남긴다.
 - 오디오 amplitude는 monitor 소비 주기보다 빠르게 게시된다.
-- 카메라 쪽의 큰 비용은 이미 `01`에서 한 차례 정리되었으므로, 남은 low-risk cleanup의 중심은 오디오/로그/주기 작업 쪽이다.
+- 카메라 쪽의 큰 비용은 이미 `01`, `02`에서 한 차례 정리되었으므로, 남은 low-risk cleanup의 중심은 오디오/로그/주기 작업 쪽이다.
 
 ## 관련 파일
 

@@ -1,5 +1,23 @@
 # Plan 02: On-Demand Web Preview
 
+## 상태
+
+- 완료: 2026-04-26
+- 반영 상태: working tree
+- 설계 선택: preview demand는 active subscriber 수 기준으로 즉시 on/off 하고, 마지막 disconnect 시각만 기록한다. 별도 grace delay는 이번 범위에 넣지 않았다.
+
+## 구현 결과
+
+- `CollectRecorderCoordinator`가 web preview subscriber 수와 마지막 disconnect 시각을 관리한다.
+- `LocalSettingsHttpServer`의 `/camera/stream` 연결 lifecycle이 subscriber 증감 처리를 맡는다.
+- `CollectCameraSource`는 `webCameraEnabled`가 켜져 있어도 active subscriber가 있을 때만 preview JPEG를 인코딩한다.
+- motion gray frame 경로, `collect`의 카메라 소유권, 닫힌 collect 파일 기반 `memory` 경로는 그대로 유지했다.
+- preview subscriber underflow를 막는 단위 테스트 `CollectRecorderCoordinatorTest`를 추가했다.
+
+## 검증 결과
+
+- `./gradlew :app:compileDebugKotlin :app:testDebugUnitTest`
+
 ## 목표
 
 웹 카메라를 실제로 보고 있는 클라이언트가 없을 때는 미리보기 비용을 최소화한다.

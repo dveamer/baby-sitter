@@ -46,7 +46,7 @@
 ## 설계 판단 포인트
 
 - amplitude 계산은 이미 `MediaRecorder.maxAmplitude` 기반이므로 인코딩 bitrate 변경 영향이 제한적일 수 있다.
-- 실제 발열 개선 폭이 크지 않을 수 있으므로, 주기 최적화와 로그 최적화를 함께 보는 편이 낫다.
+- `02-on-demand-web-preview.md` 반영 이후에는 idle web preview 비용이 빠졌으므로, 상대적으로 오디오 주기 최적화와 로그 최적화의 우선순위가 올라갈 수 있다.
 - 소리 감지 민감도 저하는 motion 경로와 함께 awake 판정에 영향을 줄 수 있다.
 
 ## 검증 계획

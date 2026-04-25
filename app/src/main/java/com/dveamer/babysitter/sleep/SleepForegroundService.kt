@@ -407,7 +407,8 @@ class SleepForegroundService : Service() {
                     paths = container.collectStoragePaths,
                     scope = serviceScope,
                     motionAnalysisEnabled = settings.cameraMonitoringEnabled,
-                    webPreviewEnabled = settings.webCameraEnabled
+                    webPreviewAllowed = settings.webCameraEnabled,
+                    isPreviewDemandActive = container.collectRecorderCoordinator::isWebPreviewDemandActive
                 )
             }
             collectCameraSource?.start()

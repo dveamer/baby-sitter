@@ -38,7 +38,8 @@ class CollectCameraSource(
     private val paths: CollectStoragePaths,
     private val scope: CoroutineScope,
     private val motionAnalysisEnabled: Boolean,
-    private val webPreviewEnabled: Boolean
+    private val webPreviewAllowed: Boolean,
+    private val isPreviewDemandActive: () -> Boolean
 ) {
     private val appContext = context.applicationContext
     private val lock = Any()
@@ -256,7 +257,8 @@ class CollectCameraSource(
             val capturedAtMs = System.currentTimeMillis()
             val publishMotionFrame = motionAnalysisEnabled &&
                 capturedAtMs - lastAnalysisPublishedAtMs >= ANALYSIS_FRAME_MIN_INTERVAL_MS
-            val publishPreviewFrame = webPreviewEnabled &&
+            val publishPreviewFrame = webPreviewAllowed &&
+                isPreviewDemandActive() &&
                 capturedAtMs - lastPreviewPublishedAtMs >= WEB_PREVIEW_FRAME_MIN_INTERVAL_MS
 
             if (!publishMotionFrame && !publishPreviewFrame) return
