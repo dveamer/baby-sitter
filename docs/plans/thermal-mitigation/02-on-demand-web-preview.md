@@ -4,11 +4,17 @@
 
 웹 카메라를 실제로 보고 있는 클라이언트가 없을 때는 미리보기 비용을 최소화한다.
 
+## 01 반영 후 상태
+
+- `01-split-recording-and-detection-pipeline.md`가 먼저 반영되어, 모션 감지와 웹 미리보기는 이미 서로 다른 파생 경로를 사용한다.
+- 현재 남은 낭비는 "감지와 preview가 한 버스에 묶여 있다"가 아니라, `webCameraEnabled`만 켜져 있어도 실제 시청자 없이 preview JPEG 인코딩이 계속 돌 수 있다는 점이다.
+- 따라서 이 문서의 범위는 frame bus 재설계가 아니라, preview JPEG 생성 시점을 실제 subscriber demand에 맞춰 동적으로 끄고 켜는 쪽으로 좁혀진다.
+
 ## 현재 관찰
 
 - `CollectRecorderCoordinator`는 `cameraMonitoringEnabled || webCameraEnabled`일 때 카메라 입력을 켠다.
 - `LocalSettingsHttpServer`의 `/camera/stream`은 `CameraFrameBus`에서 프레임을 꺼내 MJPEG로 전송한다.
-- 현재 구조에서는 `webCameraEnabled`가 켜져 있으면 실제 시청 여부와 무관하게 카메라/프레임 경로가 계속 활성 상태가 될 수 있다.
+- 현재 구조에서는 `webCameraEnabled`가 켜져 있으면 실제 시청 여부와 무관하게 preview JPEG 생성 경로가 계속 활성 상태가 될 수 있다.
 
 ## 관련 파일
 
@@ -21,6 +27,7 @@
 
 - 카메라 소유권 이동 없이, `collect` 내부에서 preview 필요 여부를 관리한다.
 - `webCameraEnabled`는 기능 허용 플래그로 두고, 실제 프레임 생성은 active subscriber 기준으로 제어한다.
+- `01`에서 분리한 motion gray frame 경로는 유지하고, 이 문서에서 다시 합치거나 재설계하지 않는다.
 - `memory` 조립 경로는 건드리지 않는다.
 
 ## 작업 단계
@@ -33,11 +40,12 @@
    - 연결 성공 시 증가
    - 정상 종료, 예외 종료, client disconnect 시 감소
 3. `CollectCameraSource` 또는 coordinator에 preview demand 상태를 전달한다.
-   - demand가 없으면 preview frame 생성 중단
-   - demand가 생기면 preview frame 생성 재개
+   - 현재의 정적 `webPreviewEnabled` 대신 동적 `previewDemandActive` 또는 동등한 상태를 전달한다.
+   - demand가 없으면 preview JPEG 인코딩만 중단한다.
+   - demand가 생기면 같은 collect 세션 안에서 preview JPEG 인코딩을 재개한다.
 4. sleep monitoring만 켜져 있고 웹 시청자가 없는 경우를 최적화한다.
-   - motion 감지용 경로만 유지
-   - 웹 미리보기용 JPEG 생성은 중단
+   - motion 감지용 gray frame 경로만 유지한다.
+   - 웹 미리보기용 JPEG 생성만 중단한다.
 5. 다중 클라이언트 연결 동작을 정리한다.
    - 첫 번째 연결만 preview 활성화
    - 마지막 연결 해제 시 preview 비활성화
@@ -46,7 +54,7 @@
 ## 설계 판단 포인트
 
 - `webCameraEnabled`를 "스트리밍 허용"으로 볼지 "카메라 상시 활성화"로 볼지 명확히 정해야 한다.
-- 시청자가 붙을 때 카메라 전체를 재구성할지, preview output만 동적으로 붙일지 결정해야 한다.
+- `01`이 이미 analysis reader를 유지하는 구조를 만들었으므로, 가능하면 카메라 세션 전체 재구성보다 preview 인코딩 분기만 동적으로 토글하는 쪽이 안전하다.
 - 첫 프레임 지연이 너무 커지면 사용자 경험이 나빠질 수 있으므로 warm-up 전략이 필요한지 검토한다.
 
 ## 검증 계획
@@ -61,7 +69,7 @@
 
 - 연결 수 관리가 틀리면 preview가 영구적으로 켜지거나 안 켜질 수 있다.
 - client disconnect 예외 처리 누락 시 subscriber leak가 생길 수 있다.
-- 카메라 세션 재구성이 잦으면 오히려 안정성이 떨어질 수 있다.
+- 불필요하게 카메라 세션 재구성을 선택하면 오히려 `01`에서 줄인 안정성 리스크를 다시 키울 수 있다.
 
 ## 완료 조건
 

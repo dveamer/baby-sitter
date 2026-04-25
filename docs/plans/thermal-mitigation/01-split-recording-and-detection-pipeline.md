@@ -1,5 +1,23 @@
 # Plan 01: Record Path And Detection Path Split
 
+## 상태
+
+- 완료: 2026-04-26
+- 반영 커밋: `57c2755` (`Split collect recording and motion analysis paths`)
+- 후속 연계: preview subscriber demand 기반 최적화는 `02-on-demand-web-preview.md`에서 이어서 진행한다.
+
+## 구현 결과
+
+- `CollectCameraSource`는 녹화용 `MediaRecorder` surface와 별도 `YUV_420_888` analysis reader를 함께 사용하도록 바뀌었다.
+- 모션 감지 프레임은 `CollectFrameBus`의 저해상도 grayscale snapshot으로 분리되었고, `CameraMonitor`의 JPEG decode 경로는 제거되었다.
+- 웹 미리보기는 모션 감지와 분리된 preview JPEG 버스를 사용하게 바뀌었다.
+- `CollectClosedFileBus`, `MemoryBuildCoordinator`, `MemoryAssembler` 경로는 그대로 유지되어 닫힌 collect 파일 기반 `memory` 전제는 바뀌지 않았다.
+
+## 검증 결과
+
+- `./gradlew :app:compileDebugKotlin`
+- `./gradlew :app:testDebugUnitTest`
+
 ## 목표
 
 `memory`용 원본 녹화 품질은 유지하면서, 모션 감지와 웹 미리보기 때문에 발생하는 추가 카메라 부하를 줄인다.
@@ -11,7 +29,7 @@
 - 따라서 이 계획에서 분리 대상은 `녹화 자체`가 아니라 `녹화 위에 추가로 얹힌 감지/미리보기 비용`이다.
 - `memory(camera)`는 닫힌 collect 파일만 사용하므로, 중간에 실제 녹화 gap이 생기면 바로 pre-roll 보장과 충돌한다.
 
-## 현재 관찰
+## 구현 전 관찰
 
 - `CollectCameraSource`는 한 카메라 세션에서 MP4 녹화와 JPEG 프레임 추출을 동시에 수행한다.
 - `CameraMonitor`는 최신 프레임만 1초 간격으로 읽어 모션을 판정한다.
