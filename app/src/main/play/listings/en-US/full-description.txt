@@ -1,0 +1,29 @@
+Baby Sitter helps you turn an old Android phone into a baby monitor for home Wi-Fi nights.
+
+Set one Android phone in the nursery, then watch from another room without opening the door again and again. Baby Sitter listens for sound, watches for motion, and helps you notice the small signs that your baby may be close to waking.
+
+What parents use it for:
+- Watching the nursery from another room on the same Wi-Fi
+- Noticing sound and motion before a full wake-up
+- Playing a lullaby recorded in mom or dad's voice
+- Saving the moments around a wake-up to review later
+
+Why it feels different:
+- Works with an unused Android phone you already have at home
+- Remote viewing is designed for the same Wi-Fi only
+- Nursery video is not sent to the cloud
+- The app does not collect personal data
+
+What you need:
+- One Android phone for the baby's room
+- A simple phone stand
+- Home Wi-Fi
+- Another phone for viewing
+
+Important safety notes:
+- Keep the phone, stand, and charging cable outside the crib and out of reach
+- Do not place the device inside the crib or on its edge
+- Baby Sitter is not a medical device
+- Baby Sitter does not replace caregiver supervision
+
+If you already have an old Android phone at home, you can start tonight without buying a new baby camera.

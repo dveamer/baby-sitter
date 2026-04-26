@@ -271,6 +271,7 @@
     .language-toggle {
       display: inline-flex;
       align-items: center;
+      flex-wrap: wrap;
       gap: 4px;
       padding: 4px;
       border-radius: 999px;
@@ -285,8 +286,8 @@
       border: 0;
       background: transparent;
       border-radius: 999px;
-      min-width: 50px;
-      padding: 9px 14px;
+      min-width: 46px;
+      padding: 9px 12px;
       font: inherit;
       font-size: 12px;
       font-weight: 800;
@@ -598,7 +599,8 @@
     }
 
     .detail-layout,
-    .workflow-layout {
+    .workflow-layout,
+    .safety-grid {
       display: grid;
       gap: 56px;
       align-items: start;
@@ -610,6 +612,93 @@
 
     .workflow-layout {
       grid-template-columns: minmax(240px, 0.72fr) minmax(0, 1.28fr);
+    }
+
+    .safety-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 28px;
+    }
+
+    .safety-item {
+      padding-top: 24px;
+      border-top: 1px solid var(--line-strong);
+      animation: fade-up 0.8s ease both;
+    }
+
+    .safety-item:nth-child(2) {
+      animation-delay: 0.08s;
+    }
+
+    .safety-item:nth-child(3) {
+      animation-delay: 0.16s;
+    }
+
+    .safety-label {
+      display: inline-block;
+      margin-bottom: 16px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent-deep);
+    }
+
+    .safety-item p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.78;
+    }
+
+    .faq-list {
+      display: grid;
+      gap: 14px;
+    }
+
+    .faq-item {
+      border: 1px solid rgba(191, 143, 151, 0.14);
+      border-radius: 26px;
+      background: rgba(255, 252, 249, 0.72);
+      box-shadow: 0 18px 34px rgba(183, 131, 141, 0.08);
+      overflow: hidden;
+    }
+
+    .faq-item summary {
+      position: relative;
+      list-style: none;
+      cursor: pointer;
+      padding: 24px 72px 24px 24px;
+      font-family: var(--heading-font);
+      font-size: 1.36rem;
+      line-height: 1.42;
+      color: var(--ink);
+    }
+
+    .faq-item summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-item summary::after {
+      content: "+";
+      position: absolute;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: var(--body-font);
+      font-size: 1.7rem;
+      font-weight: 300;
+      color: var(--accent-deep);
+    }
+
+    .faq-item[open] summary::after {
+      content: "−";
+    }
+
+    .faq-item p {
+      margin: 0;
+      padding: 0 24px 24px;
+      max-width: 58ch;
+      color: var(--muted);
+      line-height: 1.82;
     }
 
     .setup-quote {
@@ -798,7 +887,8 @@
       .section-heading,
       .story-grid,
       .detail-layout,
-      .workflow-layout {
+      .workflow-layout,
+      .safety-grid {
         grid-template-columns: 1fr;
       }
 
@@ -916,16 +1006,24 @@
             <nav class="top-links" aria-label="섹션 이동" data-i18n-aria-label="nav.label">
               <a href="#story" data-i18n="nav.story">앱 소개</a>
               <a href="#setup" data-i18n="nav.setup">준비물</a>
+              <a href="#safety" data-i18n="nav.safety">안전 안내</a>
               <a href="#how-to-use" data-i18n="nav.howToUse">사용법</a>
+              <a href="#faq" data-i18n="nav.faq">FAQ</a>
             </nav>
             <div
               class="language-toggle"
               role="group"
               aria-label="언어 선택"
               data-language-toggle-label-ko="언어 선택"
-              data-language-toggle-label-en="Select language">
+              data-language-toggle-label-en="Select language"
+              data-language-toggle-label-id="Pilih bahasa"
+              data-language-toggle-label-pt="Selecionar idioma"
+              data-language-toggle-label-es="Seleccionar idioma">
               <button type="button" class="is-active" data-language-option="ko" aria-pressed="true">KO</button>
               <button type="button" data-language-option="en" aria-pressed="false">EN</button>
+              <button type="button" data-language-option="id" aria-pressed="false">ID</button>
+              <button type="button" data-language-option="pt" aria-pressed="false">PT</button>
+              <button type="button" data-language-option="es" aria-pressed="false">ES</button>
             </div>
           </div>
         </header>
@@ -935,7 +1033,7 @@
           <p class="hero-brandline" data-i18n="hero.brandLine">Baby Sitter</p>
           <h1 data-i18n-html="hero.title">아기가 뒤척이면 <br>엄마 아빠 목소리를 들려주세요</h1>
           <p class="hero-lead" data-i18n="hero.lead">
-            Baby Sitter 앱이 아기의 소리와 움직임을 살피고 깰 듯한 순간을 먼저 알아차려요.
+            남는 안드로이드폰 하나만 아기 방에 두면, Baby Sitter 앱이 아기의 소리와 움직임을 살피고 깰 듯한 순간을 먼저 알아차려요.
             엄마, 아빠 목소리 자장가로 토닥여주고 다시 잠들도록 도와줘요.
           </p>
           <figure class="hero-showcase">
@@ -947,8 +1045,6 @@
               height="1024"
               data-image-src-ko="./assets/homepage-img-1-ko.webp"
               data-image-src-en="./assets/homepage-img-1-en.webp"
-              data-image-alt-ko="Baby Sitter 앱이 아기의 소리와 움직임을 살피고 부모 목소리 자장가로 다시 잠들도록 돕는 화면"
-              data-image-alt-en="Baby Sitter monitoring a baby and helping them fall back asleep with a lullaby in the parents' voices"
               decoding="async">
           </figure>
           <div class="cta-row">
@@ -965,7 +1061,7 @@
             <a class="btn btn-secondary" href="#how-to-use" data-i18n="hero.viewGuide">먼저 사용법 보기</a>
           </div>
           <p class="hero-footnote" data-i18n="hero.footnote">
-            아기를 깨우지 않고 아기의 자는 모습을 관찰할 수 있고 저장할 수 있어요.
+            같은 Wi-Fi 안에서만 원격으로 보고, 영상을 클라우드에 올리지 않도록 설계되어 있어요.
           </p>
         </div>
       </div>
@@ -976,10 +1072,10 @@
         <div class="section-heading">
           <div>
             <span class="section-kicker" data-i18n="story.kicker">왜 편할까요</span>
-            <h2 data-i18n-html="story.title">아기는 잘자고 <br>부모 몸과 마음이 조금 더 편할 수 있도록.</h2>
+            <h2 data-i18n-html="story.title">아기는 잘 자고 <br>부모 몸과 마음이 조금 더 편할 수 있도록.</h2>
           </div>
           <p data-i18n="story.body">
-            아기가 칭얼 댈 때, 문을 열어볼지 조금더 기다릴지 망설이지 않으셔도 됩니다.
+            아기가 칭얼 댈 때, 문을 열어볼지 조금 더 기다릴지 망설이지 않으셔도 됩니다.
           </p>
         </div>
 
@@ -1016,7 +1112,7 @@
             </p>
             <ul>
               <li data-i18n="story.feature3Point1">귀여운 장면을 목격하셨다면 저장하세요. 앞뒤 5분 영상 저장해드려요.</li>
-              <li data-i18n="story.feature3Point2">아기가 깨면 꺠기 3분 전부터 영상 기록해드려요</li>
+              <li data-i18n="story.feature3Point2">아기가 깨면 깨기 3분 전부터 영상 기록해드려요</li>
             </ul>
           </article>
         </div>
@@ -1029,11 +1125,11 @@
           <span class="section-kicker" data-i18n="setup.kicker">준비물</span>
           <h2 data-i18n="setup.title">새 기기를 사지 않아도, 오늘 밤 바로 시작할 수 있어요.</h2>
           <p class="section-intro" data-i18n="setup.body">
-            집에 쉬고 있는 안드로이드폰과 작은 거치대면 충분해요.
+            집에 쉬고 있는 안드로이드폰, 작은 거치대, 집 안 Wi-Fi면 충분해요.
           </p>
           <p class="setup-quote" data-i18n-html="setup.quote">
             집에 쉬고 있는 안드로이드폰을 아기 침대가 보이는 자리에 세워두세요.<br>
-            <strong>비싼 장비보다, 이미 집에 있는 것을 다시 사용하시면되요.</strong>
+            <strong>비싼 장비보다, 이미 집에 있는 것을 다시 사용하시면 돼요.</strong>
           </p>
           <p class="setup-tip" data-i18n="setup.tip">
             부모 폰만 같은 Wi-Fi에 연결하면, 아기를 깨우지 않고 관찰할 수 있어요. 침대에 습도, 온도기 거치해두면 더 좋습니다.
@@ -1049,11 +1145,51 @@
           </div>
           <ul class="equipment-list">
             <li data-i18n="setup.item1">아기 방에 둘 안드로이드폰 (Baby Sitter 앱 설치)</li>
-            <li data-i18n="setup.item2">간단한 휴대폰 거치대 (다이소 1000원)</li>
+            <li data-i18n="setup.item2">간단한 휴대폰 거치대</li>
             <li data-i18n="setup.item3">집 안 Wi-Fi</li>
             <li data-i18n="setup.item4">원격으로 볼 폰</li>
           </ul>
         </aside>
+      </div>
+    </section>
+
+    <section class="section section-light" id="safety">
+      <div class="section-inner">
+        <div class="section-heading">
+          <div>
+            <span class="section-kicker" data-i18n="safety.kicker">안전 안내</span>
+            <h2 data-i18n-html="safety.title">아기 침대 바깥에서,<br>보호자 판단을 돕는 용도로 사용해주세요.</h2>
+          </div>
+          <p data-i18n="safety.body">
+            Baby Sitter는 집 안에서 아기 상태를 살피는 보조 도구입니다. 의료기기가 아니며, 보호자 감독을 대신하지 않습니다.
+          </p>
+        </div>
+
+        <div class="safety-grid">
+          <article class="safety-item">
+            <span class="safety-label" data-i18n="safety.card1Label">Placement</span>
+            <h3 data-i18n="safety.card1Title">휴대폰과 거치대는 침대 바깥, 손이 닿지 않는 곳에 두세요</h3>
+            <p data-i18n="safety.card1Body">
+              휴대폰, 충전선, 거치대는 아기 침대 안이나 가장자리에 두지 말고, 최소 1m 정도 떨어진 안정적인 위치에 두는 편이 좋습니다.
+            </p>
+          </article>
+
+          <article class="safety-item">
+            <span class="safety-label" data-i18n="safety.card2Label">Setup</span>
+            <h3 data-i18n="safety.card2Title">화면이 잘 보이면서도 흔들리지 않는 각도로 고정하세요</h3>
+            <p data-i18n="safety.card2Body">
+              아기 얼굴과 침대 주변이 보이도록 두되, 넘어지기 쉬운 위치나 느슨한 충전 케이블은 피하는 편이 좋습니다.
+            </p>
+          </article>
+
+          <article class="safety-item">
+            <span class="safety-label" data-i18n="safety.card3Label">Limits</span>
+            <h3 data-i18n="safety.card3Title">의료기기나 보호자 감독 대체 도구처럼 소개하지 마세요</h3>
+            <p data-i18n="safety.card3Body">
+              이 앱은 아기가 깰 듯한 순간을 더 빨리 알아차리도록 돕는 용도이며, 응급상황 감지나 의료 판단을 보장하지 않습니다.
+            </p>
+          </article>
+        </div>
       </div>
     </section>
 
@@ -1071,7 +1207,7 @@
 
         <div class="workflow-layout">
           <p class="workflow-note" data-i18n="howto.tip">
-            부모 목소리 자장가를 녹음해두면, 아기가 깼을 때 익숙한 소리를 듣고 더 쉽게 잠들거예요.
+            부모 목소리 자장가를 녹음해두면, 아기가 깼을 때 익숙한 소리를 듣고 더 쉽게 잠들 거예요.
           </p>
 
           <div class="timeline">
@@ -1101,12 +1237,49 @@
       </div>
     </section>
 
+    <section class="section section-light" id="faq">
+      <div class="section-inner">
+        <div class="section-heading">
+          <div>
+            <span class="section-kicker" data-i18n="faq.kicker">자주 묻는 질문</span>
+            <h2 data-i18n-html="faq.title">해외 부모가<br>가장 먼저 묻는 것들.</h2>
+          </div>
+          <p data-i18n="faq.body">
+            설치 전에 가장 많이 헷갈리는 부분을 먼저 정리해두었어요.
+          </p>
+        </div>
+
+        <div class="faq-list">
+          <details class="faq-item" open>
+            <summary data-i18n="faq.q1">오늘 밤 시작하려면 무엇이 필요한가요?</summary>
+            <p data-i18n="faq.a1">
+              아기 방에 둘 안드로이드폰, 간단한 거치대, 집 안 Wi-Fi, 그리고 부모가 볼 기기 하나면 됩니다. 새 홈캠 없이도 시작할 수 있도록 설계했어요.
+            </p>
+          </details>
+
+          <details class="faq-item">
+            <summary data-i18n="faq.q2">집 밖에서도 볼 수 있나요?</summary>
+            <p data-i18n="faq.a2">
+              현재 랜딩에서 강조하는 기본 흐름은 같은 Wi-Fi 안에서 보는 방식입니다. 핵심 메시지는 집 안 프라이버시와 간단한 설정에 맞춰져 있어요.
+            </p>
+          </details>
+
+          <details class="faq-item">
+            <summary data-i18n="faq.q3">아기 영상을 클라우드에 올리나요?</summary>
+            <p data-i18n="faq.a3">
+              홈페이지와 홍보 문구에서는 아기 방 영상이 클라우드로 전송되지 않는 점을 핵심 신뢰 요소로 안내하고 있어요. 또한 Baby Sitter는 의료기기가 아니며 보호자 감독을 대신하지 않습니다.
+            </p>
+          </details>
+        </div>
+      </div>
+    </section>
+
     <section class="section cta-stage">
       <div class="section-inner cta-inner">
         <span class="section-kicker" data-i18n="cta.kicker">오늘 밤 시작하기</span>
         <h2 data-i18n="cta.title">아기 방은 더 조용하게, 부모 마음은 조금 더 가볍게.</h2>
         <p data-i18n-html="cta.body">
-          안드로이드폰 하나와 작은 거치대 하나면 충분해요. <br>오늘부터 우리 아기 꿀 잠 잘 수있도록 해주세요.
+          안드로이드폰 하나와 작은 거치대 하나면 충분해요. <br>오늘부터 우리 아기가 조금 더 편하게 잘 수 있도록 도와주세요.
         </p>
         <div class="cta-row cta-centered">
           <a
@@ -1122,8 +1295,8 @@
           <a class="btn btn-secondary" href="#setup" data-i18n="cta.viewSetup">준비물 다시 보기</a>
         </div>
         <div class="footer-note" data-i18n="cta.footer">
-          같은 Wi-Fi 안에서만 원격 연결되며, 어떤 데이터도 수집하지 않습니다.
-          구독구매 처리 외에는 인터넷 접근 없어서 마음 편히 사용할 수 있어요.
+          같은 Wi-Fi 안에서만 원격 연결되며, 영상을 클라우드에 올리지 않고 개인정보도 수집하지 않습니다.
+          Baby Sitter는 의료기기가 아니며, 보호자 감독을 대신하지 않습니다.
         </div>
       </div>
     </section>
@@ -1140,22 +1313,57 @@
   <script>
     (() => {
       const languageStorageKey = "baby-sitter-homepage-language";
+      const supportedLanguages = ["ko", "en", "id", "pt", "es"];
+      const htmlLanguageByLanguage = {
+        ko: "ko",
+        en: "en",
+        id: "id",
+        pt: "pt-BR",
+        es: "es-419"
+      };
+
+      const normalizeLanguage = (value) => {
+        if (typeof value !== "string") return null;
+
+        const normalized = value.toLowerCase().trim();
+        if (!normalized) return null;
+        if (normalized.startsWith("ko")) return "ko";
+        if (normalized.startsWith("en")) return "en";
+        if (normalized.startsWith("id")) return "id";
+        if (normalized.startsWith("pt")) return "pt";
+        if (normalized.startsWith("es")) return "es";
+        return null;
+      };
+
       const browserLanguage = (
         (navigator.languages && navigator.languages[0]) ||
         navigator.language ||
         "en"
       ).toLowerCase();
-      const defaultLanguage = browserLanguage.startsWith("ko") ? "ko" : "en";
+      const defaultLanguage = normalizeLanguage(browserLanguage) || "en";
       const heroLanguageImage = document.getElementById("hero-language-image");
       const titleElement = document.getElementById("page-title");
       const descriptionElement = document.getElementById("page-description");
       const languageToggle = document.querySelector(".language-toggle");
       const languageButtons = document.querySelectorAll("[data-language-option]");
+      const pageSearchParams = (() => {
+        try {
+          return new URLSearchParams(window.location.search);
+        } catch {
+          return new URLSearchParams();
+        }
+      })();
+      const playButtons = document.querySelectorAll("[data-gtag-install-button]");
+      const playStoreBaseUrl = playButtons[0]
+        ? new URL(playButtons[0].href).toString()
+        : "https://play.google.com/store/apps/details?id=com.dveamer.babysitter";
+      let currentLanguage = defaultLanguage;
 
       const captureTranslations = () => {
         const translations = {
           "meta.title": titleElement ? titleElement.textContent : "",
-          "meta.description": descriptionElement ? descriptionElement.getAttribute("content") : ""
+          "meta.description": descriptionElement ? descriptionElement.getAttribute("content") : "",
+          "hero.imageAlt": heroLanguageImage ? heroLanguageImage.getAttribute("alt") : ""
         };
 
         document.querySelectorAll("[data-i18n]").forEach((element) => {
@@ -1186,16 +1394,20 @@
         "nav.label": "Navigate sections",
         "nav.story": "About",
         "nav.setup": "Setup",
+        "nav.safety": "Safety",
         "nav.howToUse": "How to Use",
+        "nav.faq": "FAQ",
         "hero.eyebrow": "So your baby can wake one less time",
         "hero.brandLine": "Baby Sitter",
         "hero.title": "If your baby stirs,<br>play mom and dad's voices.",
         "hero.lead":
-          "Baby Sitter watches your baby's sounds and movements and notices the signs of waking early. It soothes them with a lullaby in mom and dad's voices and helps them fall asleep again.",
+          "Place an unused Android phone in the nursery, and Baby Sitter watches sound and movement before your baby fully wakes. It soothes them with a lullaby in mom and dad's voices and helps them fall asleep again.",
         "hero.install": "Install Baby Sitter",
         "hero.viewGuide": "See how it works first",
         "hero.footnote":
-          "You can watch your sleeping baby and save those moments without waking them.",
+          "Remote viewing is designed for the same Wi-Fi only, and nursery video is not sent to the cloud.",
+        "hero.imageAlt":
+          "Baby Sitter monitoring a baby and helping them fall back asleep with a lullaby in the parents' voices",
         "story.kicker": "Why it feels calmer",
         "story.title": "Help your baby sleep well,<br>and give parents a little more ease in body and mind.",
         "story.body":
@@ -1224,7 +1436,7 @@
         "setup.kicker": "What you need",
         "setup.title": "You can start tonight without buying new gear.",
         "setup.body":
-          "An unused Android phone at home and a small stand are enough.",
+          "An unused Android phone, a small stand, and home Wi-Fi are enough.",
         "setup.quote":
           "Place an unused Android phone where it can see the crib well.<br><strong>Instead of buying expensive gear, you can reuse what is already at home.</strong>",
         "setup.tip":
@@ -1233,9 +1445,25 @@
         "setup.cardBody":
           "Prepare the items below. The app includes a tutorial, so it is very easy to get started.",
         "setup.item1": "An Android phone for the baby's room (with Baby Sitter installed)",
-        "setup.item2": "A simple phone stand (from Dollar Tree)",
+        "setup.item2": "A simple phone stand",
         "setup.item3": "Home Wi-Fi",
         "setup.item4": "A phone for remote viewing",
+        "safety.kicker": "Safety notes",
+        "safety.title": "Keep the phone outside the crib,<br>and use this as a support tool for caregiver judgment.",
+        "safety.body":
+          "Baby Sitter is a home monitoring aid. It is not a medical device and it does not replace caregiver supervision.",
+        "safety.card1Label": "Placement",
+        "safety.card1Title": "Keep the phone and stand outside the crib and out of reach",
+        "safety.card1Body":
+          "Do not place the phone, charging cable, or stand inside the crib or on its edge. A stable spot about one meter away is safer.",
+        "safety.card2Label": "Setup",
+        "safety.card2Title": "Angle it clearly, but avoid loose cables or shaky surfaces",
+        "safety.card2Body":
+          "Make sure the crib and your baby are visible, but avoid unstable furniture, dangling cords, or anything that can fall into the sleep area.",
+        "safety.card3Label": "Limits",
+        "safety.card3Title": "Do not present it as a medical device or a replacement for supervision",
+        "safety.card3Body":
+          "The app is meant to help you notice likely wake-ups earlier. It does not guarantee emergency detection or medical judgment.",
         "howto.kicker": "Night routine",
         "howto.title": "Please follow the tutorial and set it up once.",
         "howto.body":
@@ -1250,28 +1478,381 @@
         "howto.step2Title": "Use the QR code to connect easily from another device's browser",
         "howto.step2Body":
           "Once it is connected, you can open the browser whenever you need and watch your baby without opening the door.",
+        "faq.kicker": "Frequently asked",
+        "faq.title": "What parents abroad<br>ask first.",
+        "faq.body":
+          "These are the questions most likely to block an install before the first night.",
+        "faq.q1": "What do I need to start tonight?",
+        "faq.a1":
+          "One Android phone for the nursery, a simple stand, home Wi-Fi, and another device for viewing are enough. The product is positioned so parents can start without buying a new baby camera.",
+        "faq.q2": "Does it work outside the home?",
+        "faq.a2":
+          "The landing page currently centers the same-Wi-Fi experience. The clearest promise for early overseas testing is privacy at home and a simpler setup, not remote viewing from everywhere.",
+        "faq.q3": "Does nursery video go to the cloud?",
+        "faq.a3":
+          "The homepage and campaign copy present no cloud nursery video as a core trust message. Baby Sitter is also not a medical device and does not replace caregiver supervision.",
         "cta.kicker": "Start tonight",
         "cta.title": "A quieter nursery, and a slightly lighter heart for you.",
         "cta.body":
-          "One Android phone and one small stand are enough. <br>Help your baby sleep sweetly starting today.",
+          "One Android phone and one small stand are enough. <br>Help your baby sleep a little more peacefully starting today.",
         "cta.install": "Install Baby Sitter",
         "cta.viewSetup": "See the setup again",
         "cta.footer":
-          "Remote access works only on the same Wi-Fi and the app does not collect any data. Aside from subscription purchases, it does not access the internet, so you can use it with peace of mind."
+          "Remote access works only on the same Wi-Fi, nursery video is not sent to the cloud, and the app does not collect personal data. Baby Sitter is not a medical device and does not replace caregiver supervision."
       };
 
-      const translationsByLanguage = { ko: korean, en: english };
+      const indonesian = {
+        ...english,
+        "meta.title": "Baby Sitter | Malam lebih tenang tanpa sering membuka pintu",
+        "meta.description":
+          "Halaman Baby Sitter untuk memantau kamar bayi dengan HP Android lama, mendeteksi suara dan gerakan, lalu menenangkan bayi dengan lagu nina bobo suara orang tua.",
+        "brand.subtitle": "Untuk tidur yang lebih nyenyak bagi bayi dan orang tua",
+        "nav.label": "Navigasi bagian",
+        "nav.story": "Tentang",
+        "nav.setup": "Persiapan",
+        "nav.safety": "Keamanan",
+        "nav.howToUse": "Cara pakai",
+        "nav.faq": "FAQ",
+        "hero.eyebrow": "Agar bayi bisa terbangun satu kali lebih sedikit",
+        "hero.title": "Saat bayi mulai bergerak,<br>putar suara ibu dan ayah.",
+        "hero.lead":
+          "Letakkan HP Android lama di kamar bayi, lalu Baby Sitter memantau suara dan gerakan sebelum bayi benar-benar bangun. Aplikasi ini menenangkan bayi dengan lagu nina bobo dalam suara ibu dan ayah agar lebih mudah tidur lagi.",
+        "hero.install": "Pasang Baby Sitter",
+        "hero.viewGuide": "Lihat cara kerjanya dulu",
+        "hero.footnote":
+          "Pemantauan jarak jauh dirancang hanya untuk Wi-Fi yang sama, dan video kamar bayi tidak dikirim ke cloud.",
+        "hero.imageAlt":
+          "Baby Sitter memantau bayi dan membantu bayi tidur lagi dengan lagu nina bobo suara orang tua",
+        "story.kicker": "Kenapa terasa lebih tenang",
+        "story.title": "Bantu bayi tidur lebih nyenyak,<br>dan beri sedikit ruang bernapas untuk orang tua.",
+        "story.body":
+          "Saat bayi mulai rewel, Anda tidak perlu terus ragu antara membuka pintu kamar atau menunggu sebentar lagi.",
+        "story.feature1Title": "Bereaksi lebih awal saat bayi hampir bangun",
+        "story.feature1Body":
+          "Sebelum gerakan kecil membesar, aplikasi ini membantu bayi kembali tidur dengan lebih lembut.",
+        "story.feature1Point1": "Memantau suara dan gerakan bersama.",
+        "story.feature1Point2": "Menenangkan bayi dengan suara yang akrab, seperti suara ibu dan ayah.",
+        "story.feature2Title": "Lihat dari ruangan lain dengan lebih nyaman",
+        "story.feature2Body":
+          "Anda bisa memeriksa tanpa sering membuka pintu kamar bayi, terutama pada malam ketika gangguan kecil pun terasa berisiko.",
+        "story.feature2Point1": "Akses jarak jauh dirancang hanya untuk Wi-Fi yang sama.",
+        "story.feature2Point2": "Hanya keluarga Anda yang melihatnya, jadi terasa lebih aman dan nyaman.",
+        "story.feature3Title": "Pahami apa yang mungkin mengganggu tidur bayi",
+        "story.feature3Body":
+          "Bukan hanya menonton langsung, tetapi juga membantu Anda menangkap momen manis dan memahami pola gangguan tidurnya.",
+        "story.feature3Point1":
+          "Jika ada momen manis, simpan saja. Kami menyimpan video 5 menit sebelum dan sesudahnya.",
+        "story.feature3Point2":
+          "Jika bayi bangun, video direkam mulai 3 menit sebelum bangun.",
+        "setup.kicker": "Yang dibutuhkan",
+        "setup.title": "Anda bisa mulai malam ini tanpa membeli perangkat baru.",
+        "setup.body":
+          "HP Android lama, dudukan kecil, dan Wi-Fi rumah sudah cukup.",
+        "setup.quote":
+          "Letakkan HP Android lama di posisi yang bisa melihat tempat tidur bayi dengan jelas.<br><strong>Daripada membeli perangkat mahal, lebih baik pakai yang sudah ada di rumah.</strong>",
+        "setup.tip":
+          "Jika ponsel orang tua terhubung ke Wi-Fi yang sama, Anda bisa memantau tanpa membangunkan bayi. Akan lebih baik jika ada alat suhu dan kelembapan di dekat tempat tidur.",
+        "setup.cardTitle": "Siapkan ini saja",
+        "setup.cardBody":
+          "Siapkan barang-barang berikut. Aplikasi ini punya tutorial sehingga mulai memakainya tetap mudah.",
+        "setup.item1": "HP Android untuk kamar bayi (dengan Baby Sitter terpasang)",
+        "setup.item2": "Dudukan ponsel sederhana",
+        "setup.item3": "Wi-Fi rumah",
+        "setup.item4": "Ponsel untuk melihat dari jarak jauh",
+        "safety.kicker": "Catatan keamanan",
+        "safety.title": "Jauhkan ponsel dari tempat tidur bayi,<br>dan gunakan sebagai alat bantu bagi pengasuh.",
+        "safety.body":
+          "Baby Sitter adalah alat bantu pemantauan di rumah. Ini bukan alat medis dan tidak menggantikan pengawasan orang tua atau pengasuh.",
+        "safety.card1Label": "Posisi",
+        "safety.card1Title": "Letakkan ponsel dan dudukan di luar tempat tidur bayi dan jauh dari jangkauan",
+        "safety.card1Body":
+          "Jangan menaruh ponsel, kabel pengisian, atau dudukan di dalam tempat tidur bayi atau di tepinya. Posisi yang stabil dengan jarak sekitar satu meter lebih aman.",
+        "safety.card2Label": "Penataan",
+        "safety.card2Title": "Atur sudut pandang dengan jelas, tapi hindari kabel longgar dan permukaan yang goyah",
+        "safety.card2Body":
+          "Pastikan tempat tidur dan bayi terlihat jelas, tetapi hindari furnitur yang tidak stabil, kabel menjuntai, atau benda yang bisa jatuh ke area tidur.",
+        "safety.card3Label": "Batasan",
+        "safety.card3Title": "Jangan menjelaskannya sebagai alat medis atau pengganti pengawasan",
+        "safety.card3Body":
+          "Aplikasi ini membantu Anda lebih cepat menyadari tanda bayi akan bangun. Aplikasi ini tidak menjamin deteksi darurat atau penilaian medis.",
+        "howto.kicker": "Rutinitas malam",
+        "howto.title": "Ikuti tutorialnya dan atur sekali saja.",
+        "howto.body":
+          "Ikuti tutorial, aktifkan fitur deteksi dan akses jarak jauh yang diperlukan, lalu siapkan lagu nina bobo.",
+        "howto.tip":
+          "Jika Anda merekam lagu nina bobo dengan suara orang tua, bayi bisa mendengar suara yang akrab dan lebih mudah tidur lagi saat terbangun.",
+        "howto.step1Label": "Aktifkan deteksi",
+        "howto.step1Title": "Nyalakan deteksi Sound dan Motion di Settings",
+        "howto.step1Body":
+          "Izinkan perizinan yang diperlukan dan sesuaikan sensitivitas agar aplikasi dapat mengenali tanda-tanda kecil sebelum bayi benar-benar bangun.",
+        "howto.step2Label": "Hubungkan jarak jauh",
+        "howto.step2Title": "Gunakan kode QR agar mudah tersambung dari browser perangkat lain",
+        "howto.step2Body":
+          "Setelah terhubung sekali, Anda bisa membuka browser kapan pun diperlukan dan memantau bayi tanpa membuka pintu kamar.",
+        "faq.kicker": "Pertanyaan umum",
+        "faq.title": "Hal pertama yang<br>sering ditanyakan orang tua.",
+        "faq.body":
+          "Bagian ini merangkum pertanyaan yang paling sering membuat orang ragu sebelum malam pertama.",
+        "faq.q1": "Apa saja yang dibutuhkan untuk mulai malam ini?",
+        "faq.a1":
+          "Cukup satu ponsel Android untuk kamar bayi, dudukan sederhana, Wi-Fi rumah, dan satu perangkat lagi untuk melihat. Produk ini diposisikan agar orang tua bisa mulai tanpa membeli kamera bayi baru.",
+        "faq.q2": "Apakah aplikasi ini bekerja di luar rumah?",
+        "faq.a2":
+          "Landing page saat ini menekankan pengalaman di Wi-Fi yang sama. Untuk uji coba awal luar negeri, pesan yang paling kuat adalah privasi di rumah dan setup yang lebih sederhana, bukan pemantauan dari mana saja.",
+        "faq.q3": "Apakah video kamar bayi dikirim ke cloud?",
+        "faq.a3":
+          "Homepage dan materi kampanye menempatkan tanpa video cloud sebagai pesan kepercayaan utama. Baby Sitter juga bukan alat medis dan tidak menggantikan pengawasan orang tua atau pengasuh.",
+        "cta.kicker": "Mulai malam ini",
+        "cta.title": "Kamar bayi lebih tenang, hati orang tua sedikit lebih ringan.",
+        "cta.body":
+          "Satu ponsel Android dan satu dudukan kecil sudah cukup. <br>Bantu bayi tidur lebih tenang mulai hari ini.",
+        "cta.install": "Pasang Baby Sitter",
+        "cta.viewSetup": "Lihat persiapannya lagi",
+        "cta.footer":
+          "Akses jarak jauh hanya bekerja di Wi-Fi yang sama, video kamar bayi tidak dikirim ke cloud, dan aplikasi ini tidak mengumpulkan data pribadi. Baby Sitter bukan alat medis dan tidak menggantikan pengawasan pengasuh."
+      };
+
+      const portuguese = {
+        ...english,
+        "meta.title": "Baby Sitter | Uma noite mais calma sem abrir a porta toda hora",
+        "meta.description":
+          "Página do Baby Sitter para acompanhar o quarto do bebê com um Android antigo, perceber som e movimento e acalmar com uma canção de ninar na voz dos pais.",
+        "brand.subtitle": "Para um sono melhor para o bebê e para os pais",
+        "nav.label": "Navegar pelas seções",
+        "nav.story": "Sobre",
+        "nav.setup": "Preparação",
+        "nav.safety": "Segurança",
+        "nav.howToUse": "Como usar",
+        "nav.faq": "FAQ",
+        "hero.eyebrow": "Para o bebê acordar uma vez menos",
+        "hero.title": "Se o bebê se mexer,<br>coloque a voz da mãe e do pai.",
+        "hero.lead":
+          "Deixe um Android antigo no quarto do bebê, e o Baby Sitter acompanha sons e movimentos antes que ele acorde de vez. Depois, ajuda a acalmar com uma canção de ninar gravada na voz da mãe e do pai.",
+        "hero.install": "Instalar Baby Sitter",
+        "hero.viewGuide": "Ver como funciona primeiro",
+        "hero.footnote":
+          "A visualização remota foi pensada apenas para o mesmo Wi‑Fi, e o vídeo do quarto do bebê não vai para a nuvem.",
+        "hero.imageAlt":
+          "Baby Sitter acompanhando o bebê e ajudando-o a dormir de novo com uma canção de ninar na voz dos pais",
+        "story.kicker": "Por que traz mais calma",
+        "story.title": "Ajude o bebê a dormir melhor,<br>e dê um pouco mais de leveza ao corpo e ao coração dos pais.",
+        "story.body":
+          "Quando o bebê começa a reclamar, você não precisa ficar em dúvida entre abrir a porta ou esperar mais um pouco.",
+        "story.feature1Title": "Reaja cedo quando ele parecer quase acordando",
+        "story.feature1Body":
+          "Antes que a inquietação pequena cresça, o app ajuda o bebê a voltar a dormir com mais suavidade.",
+        "story.feature1Point1": "Observa som e movimento ao mesmo tempo.",
+        "story.feature1Point2": "Acalma com um som familiar, como a voz da mãe e do pai.",
+        "story.feature2Title": "Veja de outro cômodo com mais tranquilidade",
+        "story.feature2Body":
+          "Você pode acompanhar sem abrir a porta do quarto repetidas vezes, especialmente nas noites em que qualquer interrupção parece arriscada.",
+        "story.feature2Point1": "O acesso remoto foi pensado para funcionar apenas no mesmo Wi‑Fi.",
+        "story.feature2Point2": "Só a sua família vê, então o uso fica mais confortável e privado.",
+        "story.feature3Title": "Entenda o que pode estar atrapalhando o sono",
+        "story.feature3Body":
+          "Vai além da visualização ao vivo para guardar momentos queridos e entender melhor o que pode ter interrompido o sono do bebê.",
+        "story.feature3Point1":
+          "Se você encontrar um momento fofo, salve. Guardamos os 5 minutos antes e depois em vídeo.",
+        "story.feature3Point2":
+          "Se o bebê acordar, o vídeo começa a ser registrado 3 minutos antes.",
+        "setup.kicker": "O que você precisa",
+        "setup.title": "Você pode começar hoje à noite sem comprar equipamento novo.",
+        "setup.body":
+          "Um Android antigo, um suporte pequeno e o Wi‑Fi de casa já bastam.",
+        "setup.quote":
+          "Deixe um Android antigo em um ponto com boa visão do berço.<br><strong>Em vez de comprar um equipamento caro, reaproveite o que já existe em casa.</strong>",
+        "setup.tip":
+          "Se o celular dos pais estiver no mesmo Wi‑Fi, dá para acompanhar sem acordar o bebê. Também ajuda ter um medidor de umidade e temperatura por perto.",
+        "setup.cardTitle": "Prepare só isso",
+        "setup.cardBody":
+          "Separe os itens abaixo. O app inclui um tutorial, então começar continua simples.",
+        "setup.item1": "Um celular Android para o quarto do bebê (com Baby Sitter instalado)",
+        "setup.item2": "Um suporte simples para celular",
+        "setup.item3": "Wi‑Fi de casa",
+        "setup.item4": "Um celular para visualizar remotamente",
+        "safety.kicker": "Notas de segurança",
+        "safety.title": "Mantenha o telefone fora do berço,<br>e use o app como apoio para a decisão do cuidador.",
+        "safety.body":
+          "Baby Sitter é um apoio de monitoramento doméstico. Não é um dispositivo médico e não substitui a supervisão de um adulto.",
+        "safety.card1Label": "Posicionamento",
+        "safety.card1Title": "Deixe o telefone e o suporte fora do berço e longe do alcance do bebê",
+        "safety.card1Body":
+          "Não coloque o telefone, o cabo de carregamento ou o suporte dentro do berço nem na sua borda. Um ponto estável a cerca de um metro de distância é mais seguro.",
+        "safety.card2Label": "Montagem",
+        "safety.card2Title": "Ajuste um ângulo claro, mas evite cabos soltos e superfícies instáveis",
+        "safety.card2Body":
+          "Garanta que o berço e o bebê apareçam bem, mas evite móveis instáveis, fios pendurados ou qualquer coisa que possa cair na área de sono.",
+        "safety.card3Label": "Limites",
+        "safety.card3Title": "Não apresente o app como dispositivo médico ou substituto da supervisão",
+        "safety.card3Body":
+          "O app serve para ajudar você a notar despertares prováveis mais cedo. Ele não garante detecção de emergência nem julgamento médico.",
+        "howto.kicker": "Rotina da noite",
+        "howto.title": "Siga o tutorial e faça a configuração uma vez.",
+        "howto.body":
+          "Basta seguir o tutorial, ativar os recursos de detecção e acesso remoto necessários e preparar a canção de ninar.",
+        "howto.tip":
+          "Se você gravar uma canção de ninar com a voz dos pais, o bebê pode ouvir um som familiar e voltar a dormir com mais facilidade quando despertar.",
+        "howto.step1Label": "Ative a detecção",
+        "howto.step1Title": "Ative a detecção de Sound e Motion nas configurações",
+        "howto.step1Body":
+          "Conceda as permissões necessárias e ajuste a sensibilidade para que o app perceba sinais pequenos antes de o bebê acordar por completo.",
+        "howto.step2Label": "Conexão remota",
+        "howto.step2Title": "Use o QR code para conectar facilmente pelo navegador de outro aparelho",
+        "howto.step2Body":
+          "Depois da primeira conexão, basta abrir o navegador quando precisar e observar o bebê sem abrir a porta.",
+        "faq.kicker": "Perguntas frequentes",
+        "faq.title": "O que os pais<br>perguntam primeiro.",
+        "faq.body":
+          "Estas são as dúvidas que mais tendem a bloquear a instalação antes da primeira noite.",
+        "faq.q1": "O que eu preciso para começar hoje à noite?",
+        "faq.a1":
+          "Basta um telefone Android para o quarto do bebê, um suporte simples, Wi-Fi de casa e outro aparelho para acompanhar. A proposta é começar sem comprar uma nova câmera para bebê.",
+        "faq.q2": "Funciona fora de casa?",
+        "faq.a2":
+          "A landing page atual enfatiza a experiência no mesmo Wi-Fi. Para o teste internacional inicial, a promessa mais clara é privacidade em casa e configuração mais simples, não monitoramento de qualquer lugar.",
+        "faq.q3": "O vídeo do quarto vai para a nuvem?",
+        "faq.a3":
+          "A homepage e os textos de campanha tratam o não envio do vídeo para a nuvem como uma mensagem central de confiança. Baby Sitter também não é um dispositivo médico e não substitui a supervisão do cuidador.",
+        "cta.kicker": "Comece hoje à noite",
+        "cta.title": "Um quarto mais silencioso e um coração um pouco mais leve para os pais.",
+        "cta.body":
+          "Um telefone Android e um suporte pequeno já bastam. <br>Ajude seu bebê a dormir com mais tranquilidade a partir de hoje.",
+        "cta.install": "Instalar Baby Sitter",
+        "cta.viewSetup": "Ver a preparação novamente",
+        "cta.footer":
+          "O acesso remoto funciona apenas no mesmo Wi‑Fi, o vídeo do quarto não vai para a nuvem e o app não coleta dados pessoais. Baby Sitter não é um dispositivo médico e não substitui a supervisão do cuidador."
+      };
+
+      const spanish = {
+        ...english,
+        "meta.title": "Baby Sitter | Una noche más tranquila sin abrir la puerta a cada rato",
+        "meta.description":
+          "Página de Baby Sitter para vigilar la habitación del bebé con un Android viejo, detectar sonido y movimiento y calmar con una canción de cuna grabada por mamá o papá.",
+        "brand.subtitle": "Para un mejor descanso del bebé y de sus padres",
+        "nav.label": "Navegar secciones",
+        "nav.story": "Acerca de",
+        "nav.setup": "Preparación",
+        "nav.safety": "Seguridad",
+        "nav.howToUse": "Cómo usarlo",
+        "nav.faq": "FAQ",
+        "hero.eyebrow": "Para que tu bebé se despierte una vez menos",
+        "hero.title": "Si tu bebé se mueve,<br>pon la voz de mamá y papá.",
+        "hero.lead":
+          "Deja un Android viejo en la habitación del bebé y Baby Sitter vigilará sonido y movimiento antes de que despierte por completo. Luego ayuda a calmarlo con una canción de cuna grabada con la voz de mamá y papá.",
+        "hero.install": "Instalar Baby Sitter",
+        "hero.viewGuide": "Ver primero cómo funciona",
+        "hero.footnote":
+          "La visualización remota está pensada solo para la misma red Wi‑Fi, y el video de la habitación no se envía a la nube.",
+        "hero.imageAlt":
+          "Baby Sitter vigilando al bebé y ayudándolo a volver a dormir con una canción de cuna en la voz de sus padres",
+        "story.kicker": "Por qué se siente más tranquilo",
+        "story.title": "Ayuda a tu bebé a dormir mejor,<br>y dale un poco más de calma al cuerpo y al corazón de sus padres.",
+        "story.body":
+          "Cuando tu bebé empieza a inquietarse, no tienes que dudar entre abrir la puerta o esperar un poco más.",
+        "story.feature1Title": "Reacciona antes cuando parece que va a despertar",
+        "story.feature1Body":
+          "Antes de que una pequeña inquietud crezca, la app ayuda al bebé a volver a dormir con más suavidad.",
+        "story.feature1Point1": "Observa sonido y movimiento al mismo tiempo.",
+        "story.feature1Point2": "Lo calma con un sonido familiar, como la voz de mamá y papá.",
+        "story.feature2Title": "Mira desde otra habitación con más tranquilidad",
+        "story.feature2Body":
+          "Puedes revisar sin abrir la puerta del cuarto una y otra vez, especialmente en noches en las que incluso una interrupción pequeña se siente riesgosa.",
+        "story.feature2Point1": "El acceso remoto está diseñado para funcionar solo en la misma red Wi‑Fi.",
+        "story.feature2Point2": "Solo tu familia puede verlo, así que se siente más privado y cómodo.",
+        "story.feature3Title": "Entiende qué podría estar interrumpiendo el sueño",
+        "story.feature3Body":
+          "Va más allá de mirar en vivo: también te ayuda a guardar momentos bonitos y entender mejor qué pudo alterar el sueño del bebé.",
+        "story.feature3Point1":
+          "Si ves un momento bonito, guárdalo. Conservamos en video los 5 minutos antes y después.",
+        "story.feature3Point2":
+          "Si el bebé despierta, el video se registra desde 3 minutos antes.",
+        "setup.kicker": "Lo que necesitas",
+        "setup.title": "Puedes empezar esta noche sin comprar equipo nuevo.",
+        "setup.body":
+          "Un Android viejo, un soporte pequeño y el Wi‑Fi de casa son suficientes.",
+        "setup.quote":
+          "Coloca un Android viejo en un lugar desde donde vea bien la cuna.<br><strong>En vez de comprar equipo caro, reutiliza lo que ya tienes en casa.</strong>",
+        "setup.tip":
+          "Si el teléfono de los padres está conectado a la misma red Wi‑Fi, puedes mirar sin despertar al bebé. También ayuda tener cerca un medidor de humedad y temperatura.",
+        "setup.cardTitle": "Prepara solo esto",
+        "setup.cardBody":
+          "Reúne los elementos de abajo. La app incluye un tutorial, así que empezar sigue siendo sencillo.",
+        "setup.item1": "Un teléfono Android para la habitación del bebé (con Baby Sitter instalado)",
+        "setup.item2": "Un soporte sencillo para teléfono",
+        "setup.item3": "Wi‑Fi de casa",
+        "setup.item4": "Un teléfono para mirar de forma remota",
+        "safety.kicker": "Notas de seguridad",
+        "safety.title": "Mantén el teléfono fuera de la cuna,<br>y úsalo como apoyo para el criterio del cuidador.",
+        "safety.body":
+          "Baby Sitter es una ayuda de monitoreo en casa. No es un dispositivo médico y no reemplaza la supervisión de un adulto.",
+        "safety.card1Label": "Ubicación",
+        "safety.card1Title": "Deja el teléfono y el soporte fuera de la cuna y lejos del alcance del bebé",
+        "safety.card1Body":
+          "No coloques el teléfono, el cable de carga ni el soporte dentro de la cuna ni sobre su borde. Un punto estable a alrededor de un metro es más seguro.",
+        "safety.card2Label": "Montaje",
+        "safety.card2Title": "Busca un ángulo claro, pero evita cables sueltos y superficies inestables",
+        "safety.card2Body":
+          "Asegúrate de ver bien la cuna y al bebé, pero evita muebles inestables, cables colgando o cualquier objeto que pueda caer en el área de sueño.",
+        "safety.card3Label": "Límites",
+        "safety.card3Title": "No la presentes como un dispositivo médico ni como sustituto de la supervisión",
+        "safety.card3Body":
+          "La app está pensada para ayudarte a notar despertares probables un poco antes. No garantiza detección de emergencias ni criterio médico.",
+        "howto.kicker": "Rutina nocturna",
+        "howto.title": "Sigue el tutorial y configúralo una sola vez.",
+        "howto.body":
+          "Solo sigue el tutorial, activa las funciones de detección y acceso remoto necesarias y prepara la canción de cuna.",
+        "howto.tip":
+          "Si grabas una canción de cuna con la voz de mamá o papá, el bebé puede oír un sonido familiar y volver a dormir más fácilmente cuando despierte.",
+        "howto.step1Label": "Activa la detección",
+        "howto.step1Title": "Activa la detección de Sound y Motion en Settings",
+        "howto.step1Body":
+          "Concede los permisos necesarios y ajusta la sensibilidad para que la app note señales pequeñas antes de que el bebé despierte por completo.",
+        "howto.step2Label": "Conexión remota",
+        "howto.step2Title": "Usa el código QR para conectarte fácilmente desde el navegador de otro dispositivo",
+        "howto.step2Body":
+          "Una vez conectado, solo abre el navegador cuando lo necesites y observa al bebé sin abrir la puerta del cuarto.",
+        "faq.kicker": "Preguntas frecuentes",
+        "faq.title": "Lo primero que<br>preguntan las familias.",
+        "faq.body":
+          "Estas son las dudas que más suelen frenar la instalación antes de la primera noche.",
+        "faq.q1": "¿Qué necesito para empezar esta noche?",
+        "faq.a1":
+          "Basta un teléfono Android para la habitación del bebé, un soporte sencillo, Wi-Fi de casa y otro dispositivo para mirar. La propuesta es empezar sin comprar una cámara nueva para bebé.",
+        "faq.q2": "¿Funciona fuera de casa?",
+        "faq.a2":
+          "La landing page actual se centra en la experiencia dentro de la misma red Wi-Fi. Para la prueba internacional inicial, la promesa más clara es privacidad en casa y una configuración más simple, no vigilancia desde cualquier lugar.",
+        "faq.q3": "¿El video de la habitación va a la nube?",
+        "faq.a3":
+          "La homepage y los textos de campaña presentan el no enviar el video a la nube como un mensaje central de confianza. Baby Sitter tampoco es un dispositivo médico ni reemplaza la supervisión del cuidador.",
+        "cta.kicker": "Empieza esta noche",
+        "cta.title": "Una habitación más silenciosa y un corazón un poco más ligero para sus padres.",
+        "cta.body":
+          "Un teléfono Android y un soporte pequeño son suficientes. <br>Ayuda a tu bebé a dormir con más calma desde hoy.",
+        "cta.install": "Instalar Baby Sitter",
+        "cta.viewSetup": "Ver la preparación otra vez",
+        "cta.footer":
+          "El acceso remoto funciona solo en la misma red Wi‑Fi, el video de la habitación no se envía a la nube y la app no recopila datos personales. Baby Sitter no es un dispositivo médico y no reemplaza la supervisión del cuidador."
+      };
+
+      const translationsByLanguage = {
+        ko: korean,
+        en: english,
+        id: indonesian,
+        pt: portuguese,
+        es: spanish
+      };
 
       const getStoredLanguage = () => {
         try {
-          const storedLanguage = window.localStorage.getItem(languageStorageKey);
-          return storedLanguage === "ko" || storedLanguage === "en" ? storedLanguage : null;
+          return normalizeLanguage(window.localStorage.getItem(languageStorageKey));
         } catch {
           return null;
         }
       };
 
       const storeLanguage = (language) => {
+        if (!supportedLanguages.includes(language)) return;
+
         try {
           window.localStorage.setItem(languageStorageKey, language);
         } catch {
@@ -1285,25 +1866,67 @@
         heroLanguageImage.src = language === "ko"
           ? heroLanguageImage.dataset.imageSrcKo
           : heroLanguageImage.dataset.imageSrcEn;
-        heroLanguageImage.alt = language === "ko"
-          ? heroLanguageImage.dataset.imageAltKo
-          : heroLanguageImage.dataset.imageAltEn;
+
+        const translations = translationsByLanguage[language] || translationsByLanguage.en;
+        heroLanguageImage.alt = translations["hero.imageAlt"] || translationsByLanguage.en["hero.imageAlt"];
+      };
+
+      const getLanguageToggleLabel = (language) => {
+        if (!languageToggle) return "";
+
+        const labels = {
+          ko: languageToggle.dataset.languageToggleLabelKo,
+          en: languageToggle.dataset.languageToggleLabelEn,
+          id: languageToggle.dataset.languageToggleLabelId,
+          pt: languageToggle.dataset.languageToggleLabelPt,
+          es: languageToggle.dataset.languageToggleLabelEs
+        };
+
+        return labels[language] || labels.en || "";
       };
 
       const updateLanguageToggle = (language) => {
         if (languageToggle) {
-          languageToggle.setAttribute(
-            "aria-label",
-            language === "ko"
-              ? languageToggle.dataset.languageToggleLabelKo
-              : languageToggle.dataset.languageToggleLabelEn
-          );
+          languageToggle.setAttribute("aria-label", getLanguageToggleLabel(language));
         }
 
         languageButtons.forEach((button) => {
           const isActive = button.dataset.languageOption === language;
           button.classList.toggle("is-active", isActive);
           button.setAttribute("aria-pressed", isActive ? "true" : "false");
+        });
+      };
+
+      const collectCampaignParams = () => {
+        const preserved = new URLSearchParams();
+        const passthroughKeys = new Set(["gclid", "fbclid", "ttclid"]);
+
+        pageSearchParams.forEach((value, key) => {
+          if (key.startsWith("utm_") || passthroughKeys.has(key)) {
+            preserved.set(key, value);
+          }
+        });
+
+        return preserved;
+      };
+
+      const campaignParams = collectCampaignParams();
+
+      const updatePlayStoreLinks = (language) => {
+        playButtons.forEach((button) => {
+          const target = new URL(playStoreBaseUrl);
+          const referrerParams = new URLSearchParams(campaignParams.toString());
+
+          referrerParams.set("landing_source", "homepage");
+          referrerParams.set("landing_path", "index.html");
+          referrerParams.set("landing_lang", language);
+          referrerParams.set(
+            "landing_cta",
+            button.getAttribute("data-gtag-install-location") || "unknown"
+          );
+
+          target.searchParams.set("referrer", referrerParams.toString());
+          button.href = target.toString();
         });
       };
 
@@ -1340,24 +1963,36 @@
           }
         });
 
-        document.documentElement.lang = language;
+        currentLanguage = language;
+        document.documentElement.lang = htmlLanguageByLanguage[language] || language;
         updateHeroLanguageImage(language);
         updateLanguageToggle(language);
+        updatePlayStoreLinks(language);
+      };
+
+      const getQueryLanguage = () => {
+        try {
+          return normalizeLanguage(pageSearchParams.get("lang"));
+        } catch {
+          return null;
+        }
       };
 
       languageButtons.forEach((button) => {
         button.addEventListener("click", () => {
           const nextLanguage = button.dataset.languageOption;
-          if (nextLanguage !== "ko" && nextLanguage !== "en") return;
+          if (!supportedLanguages.includes(nextLanguage)) return;
 
           applyLanguage(nextLanguage);
           storeLanguage(nextLanguage);
         });
       });
 
-      applyLanguage(getStoredLanguage() || defaultLanguage);
+      const initialLanguage = getQueryLanguage() || getStoredLanguage() || defaultLanguage;
+      applyLanguage(initialLanguage);
+      storeLanguage(initialLanguage);
 
-      document.querySelectorAll("[data-gtag-install-button]").forEach((button) => {
+      playButtons.forEach((button) => {
         button.addEventListener("click", () => {
           const buttonNumber = button.getAttribute("data-gtag-install-button");
           const buttonLocation = button.getAttribute("data-gtag-install-location");
@@ -1365,6 +2000,10 @@
           gtag("event", `install_cta_click_${buttonNumber}`, {
             button_number: buttonNumber,
             button_location: buttonLocation,
+            page_language: currentLanguage,
+            utm_source: pageSearchParams.get("utm_source") || "",
+            utm_medium: pageSearchParams.get("utm_medium") || "",
+            utm_campaign: pageSearchParams.get("utm_campaign") || "",
             link_url: button.href
           });
         });

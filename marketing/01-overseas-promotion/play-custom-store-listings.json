@@ -1,0 +1,56 @@
+{
+  "package_name": "com.dveamer.babysitter",
+  "listings": [
+    {
+      "listing_id": "id-feedback-test",
+      "display_name": "Indonesia Feedback Test",
+      "default_language": "id",
+      "base_locale": "id",
+      "target_countries": [
+        "ID"
+      ],
+      "url_parameter": "id-feedback-test",
+      "google_ads_ad_group_ids": [],
+      "landing_url": "https://babysitter.dveamer.com/index.html?lang=id&utm_source=google_play_custom_listing&utm_medium=store&utm_campaign=id_feedback_test_w1&utm_content=id-feedback-test",
+      "short_description": "HP Android lama bisa jadi monitor bayi Wi-Fi rumah malam ini.",
+      "notes": [
+        "Lead with old Android phone reuse and same-home-Wi-Fi privacy.",
+        "Use Indonesian screenshots before making the listing live."
+      ]
+    },
+    {
+      "listing_id": "ph-feedback-test",
+      "display_name": "Philippines Feedback Test",
+      "default_language": "en-US",
+      "base_locale": "en-US",
+      "target_countries": [
+        "PH"
+      ],
+      "url_parameter": "ph-feedback-test",
+      "google_ads_ad_group_ids": [],
+      "landing_url": "https://babysitter.dveamer.com/index.html?lang=en&utm_source=google_play_custom_listing&utm_medium=store&utm_campaign=ph_feedback_test_w1&utm_content=ph-feedback-test",
+      "short_description": "Turn a spare Android phone into a same-Wi-Fi baby monitor tonight.",
+      "notes": [
+        "Use the quickest setup angle for English-speaking urban parents.",
+        "This listing is the best first candidate for Google Ads or creator traffic."
+      ]
+    },
+    {
+      "listing_id": "br-feedback-test",
+      "display_name": "Brazil Feedback Test",
+      "default_language": "pt-BR",
+      "base_locale": "pt-BR",
+      "target_countries": [
+        "BR"
+      ],
+      "url_parameter": "br-feedback-test",
+      "google_ads_ad_group_ids": [],
+      "landing_url": "https://babysitter.dveamer.com/index.html?lang=pt&utm_source=google_play_custom_listing&utm_medium=store&utm_campaign=br_feedback_test_w1&utm_content=br-feedback-test",
+      "short_description": "Babá eletrônica com Android antigo e privacidade no Wi-Fi de casa.",
+      "notes": [
+        "Keep the first screenshot and first line centered on babá eletrônica.",
+        "Privacy matters, but old-phone reuse should stay in the first fold."
+      ]
+    }
+  ]
+}

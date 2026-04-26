@@ -1,0 +1,73 @@
+{
+  "project": {
+    "name": "Baby Sitter",
+    "application_id": "com.dveamer.babysitter",
+    "countries": [
+      "ID",
+      "PH",
+      "BR"
+    ],
+    "languages": [
+      "en-US",
+      "id",
+      "pt-BR",
+      "es-419"
+    ]
+  },
+  "android_signing": {
+    "keystore_path": "credentials/release-keystore.jks",
+    "key_alias": "",
+    "keystore_password": "",
+    "keystore_password_env": "ANDROID_KEYSTORE_PSWD",
+    "key_password": "",
+    "key_password_env": "ANDROID_BABYSITTER_KEY_PSWD"
+  },
+  "google_play_api": {
+    "service_account_json_path": "credentials/google-play-service-account.json",
+    "track": "production"
+  },
+  "browser_accounts": {
+    "google_primary": {
+      "label": "Play Console / Google Ads / Firebase",
+      "login_url": "https://play.google.com/console",
+      "username": "",
+      "password": "",
+      "two_factor_mode": "manual_code",
+      "totp_secret_path": ""
+    },
+    "meta_business": {
+      "label": "Meta Business / Instagram Ads",
+      "login_url": "https://business.facebook.com",
+      "username": "",
+      "password": "",
+      "two_factor_mode": "manual_code",
+      "totp_secret_path": ""
+    },
+    "tiktok_ads": {
+      "label": "TikTok Ads Manager",
+      "login_url": "https://ads.tiktok.com",
+      "username": "",
+      "password": "",
+      "two_factor_mode": "manual_code",
+      "totp_secret_path": ""
+    }
+  },
+  "assets": {
+    "screenshots_dir": "",
+    "videos_dir": "",
+    "presskit_dir": ""
+  },
+  "contact": {
+    "support_email": "",
+    "mailbox": {
+      "smtp_host": "",
+      "smtp_port": 587,
+      "username": "",
+      "password": ""
+    }
+  },
+  "notes": {
+    "native_reviewers": [],
+    "extra_constraints": ""
+  }
+}

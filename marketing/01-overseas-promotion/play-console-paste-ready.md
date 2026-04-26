@@ -1,0 +1,200 @@
+# Play Console Paste-Ready Copy
+
+기준은 Google Play Console 도움말의 현재 스토어 등록 제한을 따랐습니다.
+
+* App name: 30자 이하
+* Short description: 80자 이하
+* Full description: 4000자 이하
+
+출처:
+* [Create and set up your app](https://support.google.com/googleplay/android-developer/answer/9859152?hl=en)
+* [Best practices for your store listing](https://support.google.com/googleplay/android-developer/answer/13393723?hl=en)
+* [Metadata policy overview](https://support.google.com/googleplay/android-developer/answer/9898842?hl=en)
+
+## English
+
+### App name
+
+`Baby Sitter: Baby Monitor`
+
+### Short description
+
+`Turn an old Android phone into a baby monitor for calmer same-Wi-Fi nights.`
+
+### Full description
+
+`Baby Sitter helps you turn an old Android phone into a baby monitor for home Wi-Fi nights.
+
+Set one Android phone in the nursery, then watch from another room without opening the door again and again. Baby Sitter listens for sound, watches for motion, and helps you notice the small signs that your baby may be close to waking.
+
+What parents use it for:
+- Watching the nursery from another room on the same Wi-Fi
+- Noticing sound and motion before a full wake-up
+- Playing a lullaby recorded in mom or dad's voice
+- Saving the moments around a wake-up to review later
+
+Why it feels different:
+- Works with an unused Android phone you already have at home
+- Remote viewing is designed for the same Wi-Fi only
+- Nursery video is not sent to the cloud
+- The app does not collect personal data
+
+What you need:
+- One Android phone for the baby's room
+- A simple phone stand
+- Home Wi-Fi
+- Another phone for viewing
+
+Important safety notes:
+- Keep the phone, stand, and charging cable outside the crib and out of reach
+- Do not place the device inside the crib or on its edge
+- Baby Sitter is not a medical device
+- Baby Sitter does not replace caregiver supervision
+
+If you already have an old Android phone at home, you can start tonight without buying a new baby camera.`
+
+## Indonesia
+
+### App name
+
+`Baby Sitter: Monitor Bayi`
+
+### Short description
+
+`Ubah HP Android lama jadi monitor bayi untuk malam tenang di Wi-Fi rumah.`
+
+### Full description
+
+`Baby Sitter membantu Anda mengubah HP Android lama menjadi monitor bayi untuk malam yang lebih tenang di rumah.
+
+Letakkan satu ponsel Android di kamar bayi, lalu pantau dari ruangan lain tanpa harus sering membuka pintu. Baby Sitter mengenali suara dan gerakan agar Anda bisa menyadari tanda-tanda kecil sebelum bayi benar-benar bangun.
+
+Yang bisa dilakukan orang tua:
+- Memantau kamar bayi dari ruangan lain di Wi-Fi yang sama
+- Mengenali suara dan gerakan sebelum bayi benar-benar bangun
+- Memutar lagu nina bobo yang direkam dengan suara ibu atau ayah
+- Menyimpan momen sebelum dan sesudah bayi terbangun untuk dilihat lagi
+
+Kenapa terasa berbeda:
+- Bekerja dengan HP Android lama yang sudah ada di rumah
+- Tampilan jarak jauh dirancang hanya untuk Wi-Fi yang sama
+- Video kamar bayi tidak dikirim ke cloud
+- Aplikasi ini tidak mengumpulkan data pribadi
+
+Yang dibutuhkan:
+- Satu ponsel Android untuk kamar bayi
+- Dudukan ponsel sederhana
+- Wi-Fi rumah
+- Satu ponsel lagi untuk memantau
+
+Catatan keamanan penting:
+- Jauhkan ponsel, dudukan, dan kabel pengisian dari jangkauan bayi
+- Jangan letakkan perangkat di dalam tempat tidur bayi atau di tepinya
+- Baby Sitter bukan alat medis
+- Baby Sitter tidak menggantikan pengawasan orang tua atau pengasuh
+
+Jika Anda sudah punya HP Android lama di rumah, Anda bisa mulai malam ini tanpa membeli kamera bayi baru.`
+
+## Philippines
+
+### App name
+
+`Baby Sitter: Baby Monitor`
+
+### Short description
+
+`Turn an old Android phone into a baby monitor for calmer same-Wi-Fi nights.`
+
+### Full description
+
+Use the English version above for the Philippines test unless Tagalog localization becomes a priority. The first test assumption here is English-speaking urban parents who already have home Wi-Fi and an old Android phone.
+
+## Brazil
+
+### App name
+
+`Baby Sitter: Babá Wi-Fi`
+
+### Short description
+
+`Transforme seu Android antigo em babá eletrônica no Wi-Fi de casa.`
+
+### Full description
+
+`Baby Sitter ajuda você a transformar um celular Android antigo em uma babá eletrônica para noites mais tranquilas em casa.
+
+Deixe um telefone Android no quarto do bebê e acompanhe de outro cômodo sem abrir a porta toda hora. O Baby Sitter percebe som e movimento para ajudar você a notar sinais pequenos antes que o bebê acorde de vez.
+
+Como os pais usam:
+- Acompanhar o quarto do bebê de outro cômodo no mesmo Wi-Fi
+- Perceber sons e movimentos antes de um despertar completo
+- Tocar uma canção de ninar gravada com a voz da mãe ou do pai
+- Salvar os momentos antes e depois de um despertar para revisar depois
+
+Por que parece diferente:
+- Funciona com um Android antigo que você já tem em casa
+- A visualização remota foi pensada apenas para o mesmo Wi-Fi
+- O vídeo do quarto do bebê não vai para a nuvem
+- O aplicativo não coleta dados pessoais
+
+O que você precisa:
+- Um telefone Android para o quarto do bebê
+- Um suporte simples para celular
+- Wi-Fi de casa
+- Outro telefone para acompanhar
+
+Notas importantes de segurança:
+- Mantenha telefone, suporte e cabo de carregamento fora do alcance do bebê
+- Não coloque o aparelho dentro do berço nem na sua borda
+- Baby Sitter não é um dispositivo médico
+- Baby Sitter não substitui a supervisão do cuidador
+
+Se você já tem um Android antigo em casa, pode começar hoje à noite sem comprar uma câmera nova para bebê.`
+
+## Spanish (LATAM)
+
+### App name
+
+`Baby Sitter: Monitor Bebé`
+
+### Short description
+
+`Convierte tu Android viejo en un monitor para bebé para noches más tranquilas.`
+
+### Full description
+
+`Baby Sitter te ayuda a convertir un teléfono Android viejo en un monitor para bebé para noches más tranquilas en casa.
+
+Deja un teléfono Android en la habitación del bebé y mira desde otra habitación sin abrir la puerta a cada rato. Baby Sitter detecta sonido y movimiento para ayudarte a notar señales pequeñas antes de que el bebé despierte por completo.
+
+Cómo lo usan las familias:
+- Vigilar la habitación del bebé desde otra habitación en la misma red Wi-Fi
+- Detectar sonido y movimiento antes de un despertar completo
+- Reproducir una canción de cuna grabada con la voz de mamá o papá
+- Guardar los momentos antes y después de que el bebé despierte para revisarlos después
+
+Por qué se siente diferente:
+- Funciona con un Android viejo que ya tienes en casa
+- La visualización remota está diseñada solo para la misma red Wi-Fi
+- El video de la habitación no se envía a la nube
+- La app no recopila datos personales
+
+Lo que necesitas:
+- Un teléfono Android para la habitación del bebé
+- Un soporte sencillo para teléfono
+- Wi-Fi de casa
+- Otro teléfono para mirar
+
+Notas importantes de seguridad:
+- Mantén el teléfono, el soporte y el cable de carga fuera del alcance del bebé
+- No coloques el dispositivo dentro de la cuna ni sobre su borde
+- Baby Sitter no es un dispositivo médico
+- Baby Sitter no reemplaza la supervisión del cuidador
+
+Si ya tienes un Android viejo en casa, puedes empezar esta noche sin comprar una cámara nueva para bebé.`
+
+## Notes
+
+* `App name`은 실제 현재 브랜드명과 충돌하지 않는지 Play Console에서 최종 확인이 필요합니다.
+* 비영어권 `full description`은 원어민 검수 전까지 초안으로만 보는 편이 안전합니다.
+* 필리핀은 1차 테스트에서 영어 유지 가정으로 두었습니다.

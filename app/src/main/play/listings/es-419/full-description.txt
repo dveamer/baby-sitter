@@ -1,0 +1,29 @@
+Baby Sitter te ayuda a convertir un teléfono Android viejo en un monitor para bebé para noches más tranquilas en casa.
+
+Deja un teléfono Android en la habitación del bebé y mira desde otra habitación sin abrir la puerta a cada rato. Baby Sitter detecta sonido y movimiento para ayudarte a notar señales pequeñas antes de que el bebé despierte por completo.
+
+Cómo lo usan las familias:
+- Vigilar la habitación del bebé desde otra habitación en la misma red Wi-Fi
+- Detectar sonido y movimiento antes de un despertar completo
+- Reproducir una canción de cuna grabada con la voz de mamá o papá
+- Guardar los momentos antes y después de que el bebé despierte para revisarlos después
+
+Por qué se siente diferente:
+- Funciona con un Android viejo que ya tienes en casa
+- La visualización remota está diseñada solo para la misma red Wi-Fi
+- El video de la habitación no se envía a la nube
+- La app no recopila datos personales
+
+Lo que necesitas:
+- Un teléfono Android para la habitación del bebé
+- Un soporte sencillo para teléfono
+- Wi-Fi de casa
+- Otro teléfono para mirar
+
+Notas importantes de seguridad:
+- Mantén el teléfono, el soporte y el cable de carga fuera del alcance del bebé
+- No coloques el dispositivo dentro de la cuna ni sobre su borde
+- Baby Sitter no es un dispositivo médico
+- Baby Sitter no reemplaza la supervisión del cuidador
+
+Si ya tienes un Android viejo en casa, puedes empezar esta noche sin comprar una cámara nueva para bebé.

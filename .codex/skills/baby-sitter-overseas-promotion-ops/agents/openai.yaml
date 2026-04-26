@@ -1,0 +1,4 @@
+interface:
+  display_name: "해외 홍보 운영"
+  short_description: "계정 입력 후 자동화 가능 범위 점검과 직접 집행"
+  default_prompt: "$baby-sitter-overseas-promotion-ops 를 사용해 해외 홍보 운영 자격 증명 상태를 점검하고, 지금 자동화 가능한 작업은 직접 진행해줘."

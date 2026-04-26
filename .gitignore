@@ -5,3 +5,8 @@ build/
 gradle/
 gradlew
 gradlew.bat
+marketing/01-overseas-promotion/ops/*.local.json
+marketing/01-overseas-promotion/ops/credentials/*
+!marketing/01-overseas-promotion/ops/credentials/.gitkeep
+marketing/01-overseas-promotion/ops/reports/*
+!marketing/01-overseas-promotion/ops/reports/.gitkeep
