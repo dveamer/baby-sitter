@@ -1,0 +1,4 @@
+interface:
+  display_name: "Naver Blog Comment Assist"
+  short_description: "네이버 블로그 공감·댓글·이미지 첨부 실행 도우미"
+  default_prompt: "Use $naver-blog-comment-assist to add a sympathy reaction and a comment with an optional image to a logged-in Naver Blog post."
