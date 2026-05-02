@@ -45,3 +45,18 @@ mcp openchrome 을 이용해서 브라우저로 네이버 로그인을 시도해
 등급이 업그레이드 되었다면 naver-cafe-result.md 파일에 카페 주소를 기록해줘. 
 기록된 카페 주소는 재처리 되지 않도록 naver-cafe-tasks.md 에서 제거해줘. 
 
+# 작업 종료 
+ 
+작업이 모두 완료되었다면 사용했던 chrome-devtools(openchrome) 은 종료시켜줘.
+
+
+## 주의 사항
+
+chrome-devtools(openchrome) 사용에 문제가 있다면 아래 같은 문제 점이 예상돼.
+  1. chrome-devtools(openchrome) 에서 네이버 로그인이 되어있지 않아서 
+  2. 이전에 사용했던 chrome-devtools(openchrome) 리소스가 정리가 되지 않아서 
+  
+1번이 원인일 경우에는 대기해서 내가 로그인해주는 수밖에 없어. 
+2번이 원인일 경우에는 chrome-devtools(openchrome) 리소스를 종료 시키면 다음 스캐쥴에서는 정상적으로 동작할 것으로 예상돼
+
+문제점이 생겼을 때 Playwright 를 사용해서 해결해보려고하지마. 성공하는 것이 기록된 적이 없어.

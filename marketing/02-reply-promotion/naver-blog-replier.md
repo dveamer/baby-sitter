@@ -31,4 +31,16 @@ promotion-tasks.md 파일에 작성되어있는 tasks 들 중 3개를 뽑아서 
 
 작업이 완료된 task 는 promotion-tasks.md 에서 제거해주고 promotion-results.md 에 기록해줘. 
 
-작업이 완료되면 사용했던 open-chrome 은 종료해줘. 
+작업이 완료되면 사용했던 chrome-devtools(openchrome) 은 종료해줘. 
+
+
+## 주의 사항
+
+chrome-devtools(openchrome) 사용에 문제가 있다면 아래 같은 문제 점이 예상돼.
+  1. chrome-devtools(openchrome) 에서 네이버 로그인이 되어있지 않아서 
+  2. 이전에 사용했던 chrome-devtools(openchrome) 리소스가 정리가 되지 않아서 
+  
+1번이 원인일 경우에는 대기해서 내가 로그인해주는 수밖에 없어. 
+2번이 원인일 경우에는 chrome-devtools(openchrome) 리소스를 종료 시키면 다음 스캐쥴에서는 정상적으로 동작할 것으로 예상돼
+
+문제점이 생겼을 때 Playwright 를 사용해서 해결해보려고하지마. 성공하는 것이 기록된 적이 없어.
