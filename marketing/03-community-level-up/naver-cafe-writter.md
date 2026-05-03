@@ -107,6 +107,34 @@ https://babysitter.dveamer.com </br></br>
 - 이미지 업로드 단계에서 `잘못된 접근 방법`이 나오면 텍스트만 등록하지 말고 해당 글은 완료 처리하지 마.
 - API fallback 으로 이미지 업로드를 재시도하지 말고, 다른 UI 기반 업로드 방법을 찾아 적용해줘.
 
+## 네이버 에디터 줄바꿈 저장 주의
+
+네이버 카페 스마트에디터는 화면에 보이는 contenteditable DOM 과 실제 저장되는 문서 모델이 분리되어 있을 수 있어. 수정 화면에서 겉 DOM 에 줄바꿈이 보이도록 바뀌었더라도, 실제 에디터 데이터에 반영하지 않으면 등록 후 저장 데이터에는 줄바꿈이 반영되지 않는다.
+
+- 줄바꿈을 수정하거나 본문을 다시 구성할 때 DOM 만 직접 고친 상태를 완료로 보지 마.
+- 실제 에디터 데이터는 브라우저 콘솔에서 `SE.launcher.getEditor('cafepc001').getDocumentData()` 형태로 확인한다. 에디터 id 가 다르면 `SE.launcher` 안의 editor 목록에서 현재 글쓰기 에디터를 먼저 찾아라.
+- 이미지가 이미 업로드된 상태라면 이미지 컴포넌트는 그대로 보존하고, 텍스트 컴포넌트(`@ctype === 'text'`)의 `value` 만 문단 배열로 교체한다.
+- 변경한 문서 모델은 `SE.launcher.getEditor('cafepc001').setDocumentData(data)` 로 다시 주입한 뒤 `등록`을 눌러 저장한다.
+- 등록 후 글 상세 화면에서 `innerText` 기준으로 문단 줄바꿈이 실제로 남아 있는지, `homepage-img-1-ko.png` 이미지가 그대로 노출되는지 둘 다 확인해야 완료 처리한다.
+
+예시 흐름:
+
+```js
+const editor = SE.launcher.getEditor('cafepc001');
+const data = editor.getDocumentData();
+const textComponent = data.document.components.find(
+  (component) => component['@ctype'] === 'text'
+);
+
+textComponent.value = [
+  { id: String(Date.now()), nodes: [{ id: String(Date.now() + 1), value: '안녕하세요. ...' }] },
+  { id: String(Date.now() + 2), nodes: [{ id: String(Date.now() + 3), value: '' }] },
+  { id: String(Date.now() + 4), nodes: [{ id: String(Date.now() + 5), value: '다음 문단입니다.' }] },
+];
+
+editor.setDocumentData(data);
+```
+
 ## 주의 사항
 
 chrome-devtools(openchrome) 사용에 문제가 있다면 아래 같은 문제 점이 예상돼.
@@ -132,3 +160,4 @@ chrome-devtools(openchrome) 사용에 문제가 있다면 아래 같은 문제 �
 - 2026-05-03T14:43:00+0900: `베베라운지`(`24081850`)의 `육아맘토크` 첫 페이지에서 기존 등록 제목 중복이 없는 것을 확인한 뒤 `홈캠 어떤거 사용하세요?` 글을 이미지와 함께 등록했다. 등록 후 글 상세와 게시판 상단 새 글 반영, 본문 이미지 노출을 확인했다. 게시글 URL: `https://cafe.naver.com/ArticleRead.nhn?menuid=366&boardtype=L&clubid=24081850&articleid=1293466`
 - 2026-05-03T14:45:00+0900: `맘스스토리`(`12876544`)의 `임신출산관련질문` 첫 페이지에서 기존 등록 제목 중복이 없는 것을 확인한 뒤 `홈캠 필요할까요? 아기 몇살까지 사용하세요?` 글을 이미지와 함께 등록했다. 등록 후 글 상세와 게시판 상단 새 글 반영, 본문 이미지 노출을 확인했다. 게시글 URL: `https://cafe.naver.com/ArticleRead.nhn?menuid=142&boardtype=L&clubid=12876544&articleid=600293`
 - 2026-05-03T14:46:17+0900: 현재까지 실제 등록 완료는 2/10곳이다. 남은 8곳은 `naver-cafe-result.md` 완료 카페 중 미작성 대상에서 자유게시판/수다방/질문 게시판을 골라 같은 브라우저 UI 흐름으로 이어서 등록하면 된다.
+- 2026-05-03T23:04:18+0900: 수정 화면의 겉 DOM 줄바꿈만 바꿔서는 등록 후 본문에 반영되지 않는 문제가 확인되어 `네이버 에디터 줄바꿈 저장 주의`를 추가했다. 이후 줄바꿈 수정은 스마트에디터 문서 모델의 텍스트 컴포넌트 `value`를 문단 배열로 바꾸고 `setDocumentData(data)`로 저장한 뒤, 상세 화면에서 줄바꿈과 이미지 노출을 함께 검증해야 한다.
