@@ -9,8 +9,8 @@ const CHROME_PATH = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrom
 const CDP_ENDPOINT = 'http://127.0.0.1:9222';
 const TASKS_PATH = path.join(ROOT, 'promotion-tasks.md');
 const RESULTS_PATH = path.join(ROOT, 'promotion-results.md');
-const TASK_LIMIT = 3;
-const TASK_SCAN_LIMIT = 8;
+const TASK_LIMIT = 5;
+const TASK_SCAN_LIMIT = 20;
 
 function nowKstStamp() {
   return new Intl.DateTimeFormat('ko-KR', {

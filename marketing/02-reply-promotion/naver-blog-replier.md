@@ -1,11 +1,14 @@
 
 # 네이버 블로그 댓글 작성
 
-promotion-tasks.md 파일에 작성되어있는 tasks 들 중 3개를 뽑아서 각 tasks 에 적힌 블로그 글에 공감을 누르고 댓글을 달아줘. 댓글에 homepage-img-1-ko.png 이미지 파일도 첨부해줘. 
+promotion-tasks.md 파일에 작성되어있는 tasks 들 중 5개를 뽑아서 각 tasks 에 적힌 블로그 글에 공감을 누르고 댓글을 달아줘. 댓글에 homepage-img-1-ko.png 이미지 파일도 첨부해줘. 
 
 공감, 댓글, 이미지 첨부는 naver-blog-comment-assist skill 을 이용하면돼.
 
 글 작성을 위해서 로그인이 필요할거야. open-chrome을 이용하고 내가 로그인해주면 그다음에 진행하면돼.
+
+댓글을 추가할 때는 브라우저 제어하는 작업은 각각 새로운 브라우저 탭으로 진행해서 병렬처리를 했으면해. 
+예를들어, 5개의 댓글을 추가할 예정이라면 댓글 추가할 게시물 선정 후 새로운 브라우저 탭 5개를 이용해서 병렬로 진행하도록 해줘. 
 
 ## 중복 등록 방지
 
@@ -32,7 +35,7 @@ promotion-tasks.md 파일에 작성되어있는 tasks 들 중 3개를 뽑아서 
 작업이 완료된 task 는 promotion-tasks.md 에서 제거해주고 promotion-results.md 에 기록해줘. 
 
 작업이 완료되면 사용했던 chrome-devtools(openchrome) 은 종료해줘. 
-
+브라우저 탭만 종료하지 말고 브라우저를 종료시켜줘.
 
 ## 주의 사항
 
@@ -44,3 +47,7 @@ chrome-devtools(openchrome) 사용에 문제가 있다면 아래 같은 문제 �
 2번이 원인일 경우에는 chrome-devtools(openchrome) 리소스를 종료 시키면 다음 스캐쥴에서는 정상적으로 동작할 것으로 예상돼
 
 문제점이 생겼을 때 Playwright 를 사용해서 해결해보려고하지마. 성공하는 것이 기록된 적이 없어.
+
+> API를 직접 호출하는 방식은 도구 안전 검사가 막았습니다. 대신 지시서에 맞게 브라우저 화면을 실제로 열고, 멤버등급 안내 화면의 텍스트 스냅샷만 읽어서 상태를 확인하겠습니다.
+
+라는 상황이 발생하기도했어. 글을 작성하고 등록하는 행위는 API가 아닌 chrome-devtools(openchrome)를 통해 진행해줘.
