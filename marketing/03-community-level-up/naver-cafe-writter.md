@@ -135,6 +135,38 @@ textComponent.value = [
 editor.setDocumentData(data);
 ```
 
+## 네이버 에디터 링크 저장 주의
+
+`https://babysitter.dveamer.com` 는 단순 텍스트가 아니라 네이버 에디터의 링크 기능으로 저장해야 한다. 본문에 URL 문자열만 넣으면 상세 화면에서 클릭 가능한 링크가 되지 않을 수 있으므로 완료 처리하지 마.
+
+- 본문 줄바꿈과 이미지 보존을 `setDocumentData(data)` 로 먼저 반영한 뒤, 에디터 본문에서 `https://babysitter.dveamer.com` 텍스트만 정확히 선택한다.
+- 선택은 본문 contenteditable 영역에서 해야 한다. 필요하면 브라우저 콘솔에서 현재 에디터 iframe/contenteditable 안의 텍스트 노드를 찾아 `Range` 와 `Selection` 으로 URL 문자열 범위만 선택해도 된다. 이 단계는 선택만 하는 것이고, DOM 을 직접 `<a>` 로 바꾸는 방식은 완료로 보지 않는다.
+- URL 텍스트가 선택된 상태에서 네이버 에디터 툴바의 `링크` / `링크 입력 열기` 기능을 누르고, 주소 입력란에 `https://babysitter.dveamer.com` 를 넣은 뒤 `적용` 또는 `확인`으로 링크를 건다.
+- 링크 적용 후 에디터가 링크 미리보기 카드를 생성하면 삭제하지 말고 그대로 둔다. `매터니티스쿨 > 아이재우기 노하우` 수정 완료 글에서는 상세 화면에 URL 링크와 `Baby Sitter ... babysitter.dveamer.com` 링크 미리보기 카드가 함께 보이는 것이 정상 상태로 확인됐다.
+- `등록` 또는 `수정` 저장 후 상세 화면에서 URL이 `StaticText` 가 아니라 `link "https://babysitter.dveamer.com" url="https://babysitter.dveamer.com/"` 형태로 잡히는지 확인해야 한다.
+
+상세 화면 검증 예시:
+
+```js
+const cafeFrame = [...document.querySelectorAll('iframe')].find(
+  (iframe) => iframe.title === '카페 메인'
+);
+const doc = cafeFrame?.contentDocument ?? document;
+const babysitterLinks = [...doc.querySelectorAll('a')]
+  .map((link) => ({
+    text: link.innerText.trim(),
+    href: link.href,
+  }))
+  .filter((link) => (
+    link.text.includes('babysitter.dveamer.com') ||
+    link.href.includes('babysitter.dveamer.com')
+  ));
+
+console.log(babysitterLinks);
+```
+
+`babysitterLinks` 에 `href: "https://babysitter.dveamer.com/"` 가 포함되어야 링크 수정 완료로 본다. 본문에 URL 문자열이 보여도 이 목록이 비어 있으면 단순 텍스트 상태다.
+
 ## 주의 사항
 
 chrome-devtools(openchrome) 사용에 문제가 있다면 아래 같은 문제 점이 예상돼.
@@ -161,3 +193,4 @@ chrome-devtools(openchrome) 사용에 문제가 있다면 아래 같은 문제 �
 - 2026-05-03T14:45:00+0900: `맘스스토리`(`12876544`)의 `임신출산관련질문` 첫 페이지에서 기존 등록 제목 중복이 없는 것을 확인한 뒤 `홈캠 필요할까요? 아기 몇살까지 사용하세요?` 글을 이미지와 함께 등록했다. 등록 후 글 상세와 게시판 상단 새 글 반영, 본문 이미지 노출을 확인했다. 게시글 URL: `https://cafe.naver.com/ArticleRead.nhn?menuid=142&boardtype=L&clubid=12876544&articleid=600293`
 - 2026-05-03T14:46:17+0900: 현재까지 실제 등록 완료는 2/10곳이다. 남은 8곳은 `naver-cafe-result.md` 완료 카페 중 미작성 대상에서 자유게시판/수다방/질문 게시판을 골라 같은 브라우저 UI 흐름으로 이어서 등록하면 된다.
 - 2026-05-03T23:04:18+0900: 수정 화면의 겉 DOM 줄바꿈만 바꿔서는 등록 후 본문에 반영되지 않는 문제가 확인되어 `네이버 에디터 줄바꿈 저장 주의`를 추가했다. 이후 줄바꿈 수정은 스마트에디터 문서 모델의 텍스트 컴포넌트 `value`를 문단 배열로 바꾸고 `setDocumentData(data)`로 저장한 뒤, 상세 화면에서 줄바꿈과 이미지 노출을 함께 검증해야 한다.
+- 2026-05-03T23:32:20+0900: `https://babysitter.dveamer.com` 가 단순 텍스트로 남는 문제가 확인되어 `네이버 에디터 링크 저장 주의`를 추가했다. `매터니티스쿨 > 아이재우기 노하우`는 사용자가 수정한 뒤 상세 화면에서 URL 앵커와 링크 미리보기 카드가 함께 보이는 정상 상태로 확인했다. 다음 링크 수정 작업에서는 URL 텍스트 선택 후 네이버 에디터 툴바의 링크 기능으로 주소를 적용하고, 상세 화면의 `<a href="https://babysitter.dveamer.com/">` 존재 여부까지 검증해야 한다.
