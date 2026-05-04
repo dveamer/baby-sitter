@@ -1,7 +1,7 @@
 
 # 네이버 카페 질문 글 작성
 
-naver-cafe-result.md 에 기록된 카페들 중 랜덤하게 3곳을 방문해서 질문 글을 작성해줘. 
+naver-cafe-result.md 에 기록된 카페들 중 랜덤하게 3곳을 방문해서 질문 글을 작성해줘. 매번 지후맘 카페만 등록되는 경향이 있어. 제대로 된 랜덤 선택하도록 신경써줘.
 사용자들이 어떤 기능을 원하는지 궁금하고 babysitter 앱에 대한 사용자들의 의견을 수렵하기 위함이야. 
 
 `homepage-img-1-ko.png` 파일도 업로드해줘.  
@@ -169,6 +169,8 @@ console.log(babysitterLinks);
 
 ## 주의 사항
 
+### openchrome 브라우저 사용
+
 chrome-devtools(openchrome) 사용에 문제가 있다면 아래 같은 문제 점이 예상돼.
   1. chrome-devtools(openchrome) 에서 네이버 로그인이 되어있지 않아서 
   2. 이전에 사용했던 chrome-devtools(openchrome) 리소스가 정리가 되지 않아서 
@@ -182,6 +184,19 @@ chrome-devtools(openchrome) 사용에 문제가 있다면 아래 같은 문제 �
 
 라는 상황이 발생하기도했어. 글을 작성하고 등록하는 행위는 API가 아닌 chrome-devtools(openchrome)를 통해 진행해줘.
 
+### 권한 없는 게시판 쓰기 실패
+
+> 마지막 글쓰기 화면에서 접근성 스냅샷이 120초 타임아웃됐습니다. 페이지 자체가 죽은 것은 아닌지 DOM 상태를 먼저 확인하고, 스냅샷 대신 이미 알고 있는 선택자/문서 모델로 진행 가능한지 보겠습니다.
+
+위와 같은 메시지가 발생될 때 브라우저에는 권한 부족하다는 토스트 팝업이 띄워져있고 그 이후로 진행이 안되는 경우가 종종 있어. 
+
+> 스마일맘산모교실은 결과 목록에는 완료 등급으로 기록돼 있지만, 해당 자유게시판은 현재 계정 일반멤버로는 읽기/쓰기가 막혀 있습니다. 이 후보는 완료 처리하지 않고 대체 카페를 무작위로 다시 뽑겠습니다.
+
+내가 브라우저에 노출된 권한 부족 토스트 팝업을 종료시키면 그 다음에 위에 같은 답변을 주고 있어. 
+그렇다보니 특정 카페(예: 스마일맘산모교실)은 게시글 등록이 거의 불가능한 상황이야. 
+
+120초 타임 아웃이 발생하면 해당 탭을 종료하고 새로운 탭으로 접속해서 진척 사항을 파악해봐. 만약에 진행이 안되어있다면 같은 카페의 다른 게시판에 글 쓰는 것을 시도해줘. 그리고 등록이 불가능했던 게시판에 대해서는 naver-cafe-result.md 에 기록해줘. 
+
 ## 작업 종료 
 
 작업이 완료되면 사용했던 chrome-devtools(openchrome) 은 종료해줘. 
@@ -194,3 +209,23 @@ chrome-devtools(openchrome) 사용에 문제가 있다면 아래 같은 문제 �
 - 2026-05-03T14:46:17+0900: 현재까지 실제 등록 완료는 2/10곳이다. 남은 8곳은 `naver-cafe-result.md` 완료 카페 중 미작성 대상에서 자유게시판/수다방/질문 게시판을 골라 같은 브라우저 UI 흐름으로 이어서 등록하면 된다.
 - 2026-05-03T23:04:18+0900: 수정 화면의 겉 DOM 줄바꿈만 바꿔서는 등록 후 본문에 반영되지 않는 문제가 확인되어 `네이버 에디터 줄바꿈 저장 주의`를 추가했다. 이후 줄바꿈 수정은 스마트에디터 문서 모델의 텍스트 컴포넌트 `value`를 문단 배열로 바꾸고 `setDocumentData(data)`로 저장한 뒤, 상세 화면에서 줄바꿈과 이미지 노출을 함께 검증해야 한다.
 - 2026-05-03T23:32:20+0900: `https://babysitter.dveamer.com` 가 단순 텍스트로 남는 문제가 확인되어 `네이버 에디터 링크 저장 주의`를 추가했다. `매터니티스쿨 > 아이재우기 노하우`는 사용자가 수정한 뒤 상세 화면에서 URL 앵커와 링크 미리보기 카드가 함께 보이는 정상 상태로 확인했다. 다음 링크 수정 작업에서는 URL 텍스트 선택 후 네이버 에디터 툴바의 링크 기능으로 주소를 적용하고, 상세 화면의 `<a href="https://babysitter.dveamer.com/">` 존재 여부까지 검증해야 한다.
+- 2026-05-04T15:21:00+0900: `엄마는 마법사`(`20981877`)의 `[문제]함께고민방` 첫 페이지에서 같은 제목 중복이 없는 것을 확인한 뒤 `분리수면 6개월부터 시작해도 될까요?` 글을 이미지와 함께 등록했다. 등록 후 글 상세에서 문단 줄바꿈, `homepage-img-1-ko.png` 이미지, `https://babysitter.dveamer.com/` 앵커 링크를 확인했다. 게시글 URL: `https://cafe.naver.com/ArticleRead.nhn?clubid=20981877&articleid=930263&menuid=311&boardtype=L`
+- 2026-05-04T15:26:00+0900: `육아친구인천`(`18177992`)의 `♡육아맘 수다` 첫 페이지에서 같은 제목 중복과 현재 계정 글이 없는 것을 확인한 뒤 `홈캠 필요할까요? 아기 몇살까지 사용하세요?` 글을 이미지와 함께 등록했다. 등록 후 글 상세에서 문단 줄바꿈, `homepage-img-1-ko.png` 이미지, `https://babysitter.dveamer.com/` 앵커 링크를 확인했다. 게시글 URL: `https://cafe.naver.com/ArticleRead.nhn?clubid=18177992&articleid=705400&menuid=284&boardtype=L`
+- 2026-05-04T15:30:00+0900: `스마일맘산모교실`(`29516772`)의 `예비맘&육아맘 자유게시판`은 현재 `일반멤버` 계정으로 `write-error`가 열리고 `매니저 등급이 되시면 읽기가 가능한 게시판입니다` 안내가 표시되어 등록하지 않았다. 해당 제한은 `naver-cafe-result.md`에도 별도 기록했다.
+- 2026-05-04T15:36:00+0900: 대체 후보로 `두드림 산모교실`(`13365688`)의 `친목수다방` 첫 페이지에서 같은 제목 중복과 현재 계정 글이 없는 것을 확인한 뒤 말머리 `[수다]`로 `수면 보조 기능 의견 주세요` 글을 이미지와 함께 등록했다. 등록 후 글 상세에서 문단 줄바꿈, `homepage-img-1-ko.png` 이미지, `https://babysitter.dveamer.com/` 앵커 링크를 확인했다. 게시글 URL: `https://cafe.naver.com/ArticleRead.nhn?clubid=13365688&articleid=879995&menuid=328&boardtype=L`
+- 2026-05-04T16:35:00+0900: `베이비템`(`18851490`)의 `♡임신/이유식/육아♡` 첫 페이지에서 같은 제목 중복과 현재 계정 글이 없는 것을 확인한 뒤 `홈캠 어떤거 사용하세요?` 글을 이미지와 함께 등록했다. 등록 후 글 상세에서 문단 줄바꿈, `homepage-img-1-ko.png` 이미지, `https://babysitter.dveamer.com/` 앵커 링크를 확인했다. 게시글 URL: `https://cafe.naver.com/ArticleRead.nhn?menuid=191&boardtype=L&clubid=18851490&articleid=607567`
+- 2026-05-04T16:38:00+0900: `알잠을 만나면 육아가 쉬워집니다`(`28443114`)의 `자유게시판- 아무이야기` 첫 페이지에서 같은 제목 중복을 확인한 뒤, 이전 작성 게시판과 겹치지 않도록 해당 게시판에 `홈캠 필요할까요? 아기 몇살까지 사용하세요?` 글을 이미지와 함께 등록했다. 등록 후 글 상세에서 문단 줄바꿈, `homepage-img-1-ko.png` 이미지, `https://babysitter.dveamer.com/` 앵커 링크를 확인했다. 게시글 URL: `https://cafe.naver.com/ArticleRead.nhn?menuid=208&boardtype=L&clubid=28443114&articleid=74860`
+- 2026-05-04T16:49:00+0900: `모비맘카페`(`28140611`)의 `자유게시판` 첫 페이지에서 같은 제목 중복과 현재 계정 글이 없는 것을 확인한 뒤 `아기 잘 때 홈캠 쓰시나요?` 글을 이미지와 함께 등록했다. 등록 후 글 상세에서 문단 줄바꿈, `homepage-img-1-ko.png` 이미지, `https://babysitter.dveamer.com/` 앵커 링크를 확인했다. 게시글 URL: `https://cafe.naver.com/ArticleRead.nhn?menuid=1&boardtype=L&clubid=28140611&articleid=173394`
+- 2026-05-04T16:51:00+0900: 작업 후 중복으로 열린 chrome-devtools(openchrome) 탭은 모두 닫고 마지막 탭은 `about:blank`로 돌렸다. 브라우저 프로세스 종료는 `ps` 접근이 샌드박스에서 `operation not permitted`로 막히고 `chrome://quit` 이동도 도구 안전 검사에서 차단되어 수행하지 못했다.
+- 2026-05-04T11:15:00+0900: `아가방앤컴퍼니 공식카페 아가베베`(`20170537`)의 `일상수다방`에서 `분리수면할 때 아기 울면 얼마나 기다려야해요?` 글이 등록되어 있는 것을 확인했다. 등록 후 글 상세에서 문단 줄바꿈, `homepage-img-1-ko.png` 이미지, `https://babysitter.dveamer.com/` 앵커 링크를 확인했다. 게시글 URL: `https://cafe.naver.com/ArticleRead.nhn?clubid=20170537&articleid=604372&menuid=631&boardtype=L`
+- 2026-05-04T17:20:00+0900: `사과나무맘스홀릭`(`21451316`)의 `●자유 수다방`에서 `수면 보조 기능 의견 주세요` 글이 등록되어 있는 것을 확인했다. 등록 후 글 상세에서 문단 줄바꿈, `homepage-img-1-ko.png` 이미지, `https://babysitter.dveamer.com/` 앵커 링크를 확인했다. 게시글 URL: `https://cafe.naver.com/ArticleRead.nhn?clubid=21451316&articleid=803033&menuid=75&boardtype=L`
+- 2026-05-04T20:27:00+0900: `맘스블로그`(`22741115`)의 `결혼/임신/출산/육아`에 있던 `수면 보조 기능 의견 주세요` 글은 이미지와 줄바꿈은 정상이었지만 URL이 단순 텍스트라 완료 처리하지 않았다. 수정 화면에서 스마트에디터 문서 모델의 URL 텍스트 노드에 `urlLink`를 반영해 저장했고, 상세 화면에서 문단 줄바꿈, `homepage-img-1-ko.png` 이미지, `https://babysitter.dveamer.com/` 앵커 링크를 확인했다. 게시글 URL: `https://cafe.naver.com/ArticleRead.nhn?clubid=22741115&articleid=1095025&menuid=38&boardtype=L`
+- 2026-05-04T20:29:00+0900: 작업 후 중복으로 열린 chrome-devtools(openchrome) 탭을 닫고 마지막 탭은 `about:blank`로 돌렸다. 브라우저 프로세스 종료는 `chrome://quit` 이동이 도구 안전 검사에서 차단됐고, `killall`은 `Operation not permitted`로 막혀 수행하지 못했다.
+- 2026-05-04T21:28:00+0900: `육아친구 광주.전남`(`20268063`)의 `이 야 기 방` 첫 페이지에서 같은 제목 중복과 현재 계정 글이 없는 것을 확인한 뒤 `분리수면할 때 아기 울면 얼마나 기다려야해요?` 글을 이미지와 함께 등록했다. 등록 후 글 상세에서 문단 줄바꿈, `homepage-img-1-ko.png` 이미지, `https://babysitter.dveamer.com/` 앵커 링크를 확인했다. 게시글 URL: `https://cafe.naver.com/ArticleRead.nhn?menuid=224&boardtype=L&clubid=20268063&articleid=376699`
+- 2026-05-04T21:38:00+0900: `맘스홀릭`(`15240589`)의 `●자 유 로 운 수다방` 첫 페이지에서 같은 제목 중복과 현재 계정 글이 없는 것을 확인한 뒤 말머리 `[잡담]`으로 `12개월 이전에도 분리 수면 가능한가요?` 글을 이미지와 함께 등록했다. 등록 후 글 상세에서 문단 줄바꿈, `homepage-img-1-ko.png` 이미지, `https://babysitter.dveamer.com/` 앵커 링크를 확인했다. 게시글 URL: `https://cafe.naver.com/ArticleRead.nhn?menuid=2&boardtype=L&clubid=15240589&articleid=1461111`
+- 2026-05-04T21:45:00+0900: `육아친구인천`(`18177992`)의 `육아방법 Q&A` 첫 페이지에서 같은 제목 중복과 현재 계정 글이 없는 것을 확인한 뒤 `분리수면 6개월부터 시작해도 될까요?` 글을 이미지와 함께 등록했다. 등록 후 글 상세에서 문단 줄바꿈, `homepage-img-1-ko.png` 이미지, `https://babysitter.dveamer.com/` 앵커 링크를 확인했다. 게시글 URL: `https://cafe.naver.com/ArticleRead.nhn?menuid=425&boardtype=L&clubid=18177992&articleid=705412`
+- 2026-05-04T21:46:00+0900: 대체 후보 확인 중 `컬러풀 베이비유`와 `지후맘`은 카페 활동정지 안내로 등록하지 않았고, `육아친구 광주.전남 > 육아 궁금증`은 현재 `일반멤버` 계정으로 읽기/쓰기 권한이 없어 제외했다. `매터니티스쿨`, `사과나무맘스홀릭`, `베이비템`은 적합 게시판 첫 페이지에 현재 계정 기존 글이 있어 중복 회피 기준에 따라 건너뛰었다.
+- 2026-05-04T21:47:00+0900: 작업 후 중복으로 열린 chrome-devtools(openchrome) 탭을 닫고 마지막 탭은 `about:blank`로 돌렸다. 브라우저 프로세스 종료는 `chrome://quit` 이동이 도구 안전 검사에서 차단됐고, `ps`와 `killall`은 `Operation not permitted`로 막혀 수행하지 못했다.
+- 2026-05-05T00:17:00+0900: `베이비템`(`18851490`)의 `♡친 목 수 다 방♡` 첫 페이지에서 같은 제목 중복과 현재 계정 글이 없는 것을 확인한 뒤 `홈캠 필요할까요? 아기 몇살까지 사용하세요?` 글을 이미지와 함께 등록했다. 등록 후 글 상세에서 문단 줄바꿈, `homepage-img-1-ko.png` 이미지, `https://babysitter.dveamer.com/` 앵커 링크와 링크 미리보기 카드를 확인했다. 게시글 URL: `https://cafe.naver.com/ArticleRead.nhn?menuid=141&boardtype=L&clubid=18851490&articleid=607608`
+- 2026-05-05T00:24:00+0900: `엄마는 마법사`(`20981877`)의 `[수다]0~4세엄마` 첫 페이지에는 현재 계정의 `홈캠 어떤거 사용하세요?` 글이 있어 건너뛰고, `[워킹맘]수다공간` 첫 페이지에서 같은 제목 중복과 현재 계정 글이 없는 것을 확인한 뒤 `분리수면할 때 아기 울면 얼마나 기다려야해요?` 글을 이미지와 함께 등록했다. 등록 후 글 상세에서 문단 줄바꿈, `homepage-img-1-ko.png` 이미지, `https://babysitter.dveamer.com/` 앵커 링크와 링크 미리보기 카드를 확인했다. 게시글 URL: `https://cafe.naver.com/ArticleRead.nhn?menuid=427&boardtype=L&clubid=20981877&articleid=930292`
+- 2026-05-05T00:31:00+0900: `육아친구인천`(`18177992`)의 `♡자유로운수다` 첫 페이지에서 같은 제목 중복과 현재 계정 글이 없는 것을 확인한 뒤 `12개월 이전에도 분리 수면 가능한가요?` 글을 이미지와 함께 등록했다. 등록 후 글 상세에서 문단 줄바꿈, `homepage-img-1-ko.png` 이미지, `https://babysitter.dveamer.com/` 앵커 링크와 링크 미리보기 카드를 확인했다. 게시글 URL: `https://cafe.naver.com/ArticleRead.nhn?menuid=442&boardtype=L&clubid=18177992&articleid=705417`
