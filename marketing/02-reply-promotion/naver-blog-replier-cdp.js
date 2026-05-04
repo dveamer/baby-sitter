@@ -10,7 +10,7 @@ const CHROME_PATH = path.join(ROOT, '.ms-playwright/chromium-1217/chrome-mac-arm
 const TASKS_PATH = path.join(ROOT, 'promotion-tasks.md');
 const RESULTS_PATH = path.join(ROOT, 'promotion-results.md');
 const CDP_PORT = 9223;
-const TASK_LIMIT = 5;
+const TASK_LIMIT = 3;
 const TASK_SCAN_LIMIT = 20;
 
 function sleep(ms) {
