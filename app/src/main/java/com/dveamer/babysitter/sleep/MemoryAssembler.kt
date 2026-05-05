@@ -11,6 +11,8 @@ import com.dveamer.babysitter.collect.CollectStoragePaths
 import com.dveamer.babysitter.collect.TimedFile
 import java.io.File
 import java.nio.ByteBuffer
+import java.nio.file.Files
+import java.nio.file.StandardCopyOption
 import kotlin.math.max
 
 data class MemoryBuildRequest(
@@ -215,17 +217,15 @@ class MemoryAssembler(
     }
 
     private fun commitTempToFinal(tempFile: File, finalFile: File) {
-        finalFile.parentFile?.mkdirs()
-        if (finalFile.exists() && !finalFile.delete()) {
-            error("failed to replace existing memory file: ${finalFile.absolutePath}")
-        }
-        if (tempFile.renameTo(finalFile)) {
-            return
-        }
-
-        tempFile.copyTo(finalFile, overwrite = true)
-        if (!tempFile.delete()) {
-            Log.w(TAG, "failed to delete temp memory file after copy: ${tempFile.absolutePath}")
+        runCatching {
+            Files.move(
+                tempFile.toPath(),
+                finalFile.toPath(),
+                StandardCopyOption.REPLACE_EXISTING,
+                StandardCopyOption.ATOMIC_MOVE
+            )
+        }.onFailure {
+            Files.move(tempFile.toPath(), finalFile.toPath(), StandardCopyOption.REPLACE_EXISTING)
         }
     }
 

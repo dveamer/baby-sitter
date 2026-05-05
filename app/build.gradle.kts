@@ -26,7 +26,7 @@ android {
 
     defaultConfig {
         applicationId = "com.dveamer.babysitter"
-        minSdk = 22
+        minSdk = 26
         targetSdk = 35
         versionCode = 2026050200
         versionName = "2026050200"
@@ -57,7 +57,6 @@ android {
     }
 
     compileOptions {
-        isCoreLibraryDesugaringEnabled = true
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
@@ -100,8 +99,7 @@ dependencies {
 
     implementation("androidx.datastore:datastore-preferences:1.1.1")
     implementation("com.google.zxing:core:3.5.3")
-    implementation("com.android.billingclient:billing:8.0.0")
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.5")
+    implementation("com.android.billingclient:billing:8.3.0")
 
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
