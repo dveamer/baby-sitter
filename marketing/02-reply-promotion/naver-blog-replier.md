@@ -37,7 +37,21 @@ promotion-tasks.md 파일에 작성되어있는 tasks 들 중 3개를 뽑아서 
 작업이 완료되면 사용했던 chrome-devtools(openchrome) 은 종료해줘. 
 브라우저 탭만 종료하지 말고 브라우저를 종료시켜줘.
 
+
+## 작업 종료 
+ 
+### 리소스 해제
+
+작업이 모두 완료되었다면 사용했던 chrome-devtools(openchrome) 은 종료시켜줘.
+브라우저 탭만 종료하지 말고 브라우저를 종료시켜줘.
+
+### 시간 엄수
+
+25분 이상 작업이 지연되면 안돼. 20분이 지난 시점 부터는 작업 중단하고 그 시점까지 진행사항을 기록하는데 시간을 사용해줘.
+
 ## 주의 사항
+
+### openchrome 브라우저 사용
 
 chrome-devtools(openchrome) 사용에 문제가 있다면 아래 같은 문제 점이 예상돼.
   1. chrome-devtools(openchrome) 에서 네이버 로그인이 되어있지 않아서 

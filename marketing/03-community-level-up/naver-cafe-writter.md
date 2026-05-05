@@ -167,6 +167,17 @@ console.log(babysitterLinks);
 
 `babysitterLinks` 에 `href: "https://babysitter.dveamer.com/"` 가 포함되어야 링크 수정 완료로 본다. 본문에 URL 문자열이 보여도 이 목록이 비어 있으면 단순 텍스트 상태다.
 
+## 작업 종료 
+ 
+### 리소스 해제
+
+작업이 모두 완료되었다면 사용했던 chrome-devtools(openchrome) 은 종료시켜줘.
+브라우저 탭만 종료하지 말고 브라우저를 종료시켜줘.
+
+### 시간 엄수
+
+25분 이상 작업이 지연되면 안돼. 20분이 지난 시점 부터는 작업 중단하고 그 시점까지 진행사항을 기록하는데 시간을 사용해줘.
+
 ## 주의 사항
 
 ### openchrome 브라우저 사용
@@ -197,11 +208,6 @@ chrome-devtools(openchrome) 사용에 문제가 있다면 아래 같은 문제 �
 
 120초 타임 아웃이 발생하면 해당 탭을 종료하고 새로운 탭으로 접속해서 진척 사항을 파악해봐. 만약에 진행이 안되어있다면 같은 카페의 다른 게시판에 글 쓰는 것을 시도해줘. 그리고 등록이 불가능했던 게시판에 대해서는 naver-cafe-result.md 에 기록해줘. 
 
-## 작업 종료 
-
-작업이 완료되면 사용했던 chrome-devtools(openchrome) 은 종료해줘. 
-브라우저 탭만 종료하지 말고 브라우저를 종료시켜줘.
-
 ## 실행 기록
 
 - 2026-05-03T14:43:00+0900: `베베라운지`(`24081850`)의 `육아맘토크` 첫 페이지에서 기존 등록 제목 중복이 없는 것을 확인한 뒤 `홈캠 어떤거 사용하세요?` 글을 이미지와 함께 등록했다. 등록 후 글 상세와 게시판 상단 새 글 반영, 본문 이미지 노출을 확인했다. 게시글 URL: `https://cafe.naver.com/ArticleRead.nhn?menuid=366&boardtype=L&clubid=24081850&articleid=1293466`
@@ -229,3 +235,4 @@ chrome-devtools(openchrome) 사용에 문제가 있다면 아래 같은 문제 �
 - 2026-05-05T00:17:00+0900: `베이비템`(`18851490`)의 `♡친 목 수 다 방♡` 첫 페이지에서 같은 제목 중복과 현재 계정 글이 없는 것을 확인한 뒤 `홈캠 필요할까요? 아기 몇살까지 사용하세요?` 글을 이미지와 함께 등록했다. 등록 후 글 상세에서 문단 줄바꿈, `homepage-img-1-ko.png` 이미지, `https://babysitter.dveamer.com/` 앵커 링크와 링크 미리보기 카드를 확인했다. 게시글 URL: `https://cafe.naver.com/ArticleRead.nhn?menuid=141&boardtype=L&clubid=18851490&articleid=607608`
 - 2026-05-05T00:24:00+0900: `엄마는 마법사`(`20981877`)의 `[수다]0~4세엄마` 첫 페이지에는 현재 계정의 `홈캠 어떤거 사용하세요?` 글이 있어 건너뛰고, `[워킹맘]수다공간` 첫 페이지에서 같은 제목 중복과 현재 계정 글이 없는 것을 확인한 뒤 `분리수면할 때 아기 울면 얼마나 기다려야해요?` 글을 이미지와 함께 등록했다. 등록 후 글 상세에서 문단 줄바꿈, `homepage-img-1-ko.png` 이미지, `https://babysitter.dveamer.com/` 앵커 링크와 링크 미리보기 카드를 확인했다. 게시글 URL: `https://cafe.naver.com/ArticleRead.nhn?menuid=427&boardtype=L&clubid=20981877&articleid=930292`
 - 2026-05-05T00:31:00+0900: `육아친구인천`(`18177992`)의 `♡자유로운수다` 첫 페이지에서 같은 제목 중복과 현재 계정 글이 없는 것을 확인한 뒤 `12개월 이전에도 분리 수면 가능한가요?` 글을 이미지와 함께 등록했다. 등록 후 글 상세에서 문단 줄바꿈, `homepage-img-1-ko.png` 이미지, `https://babysitter.dveamer.com/` 앵커 링크와 링크 미리보기 카드를 확인했다. 게시글 URL: `https://cafe.naver.com/ArticleRead.nhn?menuid=442&boardtype=L&clubid=18177992&articleid=705417`
+- 2026-05-05T07:09:43+0900: 완료 카페 중 무작위 후보 순서로 `엄마는 마법사`, `알잠을 만나면 육아가 쉬워집니다`, `매터니티스쿨`, `맘스스토리`, `육아친구 대구경북` 등을 뽑았다. `엄마는 마법사`(`20981877`)의 `[마법사]수다공간` 첫 페이지에서 지정 제목 중복이 없는 것을 확인하고 글쓰기 진입을 시도했으나, chrome-devtools(openChrome)가 `/Users/dveamer/.cache/chrome-devtools-mcp/chrome-profile` 프로필 락 오류(`The browser is already running ... Use --isolated`) 상태로 전환되어 글쓰기 화면 진입 이후 작업을 진행하지 못했다. `ps`와 `kill`은 sandbox `operation not permitted`로 막혔고, `osascript` 종료 시도도 브라우저를 정리하지 못했다. 이번 실행에서는 실제 등록 완료가 0건이므로 `[마법사]수다공간`은 완료 처리하지 않는다.
