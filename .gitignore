@@ -10,3 +10,4 @@ marketing/01-overseas-promotion/ops/credentials/*
 !marketing/01-overseas-promotion/ops/credentials/.gitkeep
 marketing/01-overseas-promotion/ops/reports/*
 !marketing/01-overseas-promotion/ops/reports/.gitkeep
+.DS_Store

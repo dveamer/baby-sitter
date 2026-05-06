@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const http = require('http');
 const { spawn } = require('child_process');
+const WebSocket = require('ws');
 
 const ROOT = '/Users/dveamer/workspace/baby-sitter/marketing/02-reply-promotion';
 const PROFILE_DIR = path.join(ROOT, '.openchrome/naver-replier');
