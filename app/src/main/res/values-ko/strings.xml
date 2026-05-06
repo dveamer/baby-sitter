@@ -1,4 +1,7 @@
 <resources>
+    <string name="fgs_running_camera_microphone">소리와 움직임 모니터링이 실행 중입니다</string>
+    <string name="fgs_running_camera">움직임 카메라 모니터링이 실행 중입니다</string>
+    <string name="fgs_running_microphone">소리 모니터링이 실행 중입니다</string>
     <string name="home_no_recordings_guide">아이가 깨어났을 때 들려줄 엄마, 아빠 목소리가 담긴 자장가를 녹음해주세요.</string>
     <string name="manage_recordings">Manage Recordings</string>
     <string name="tutorial_badge_welcome">환영</string>
@@ -17,7 +20,7 @@
     <string name="tutorial_settings_body">울음, 움직임 감지 기능을 켜기 위해 Settings로 이동해주세요.</string>
     <string name="tutorial_settings_button">Settings로 이동</string>
     <string name="tutorial_sound_motion_title">Sound와 Motion을 켜주세요</string>
-    <string name="tutorial_sound_motion_body">Sound, Motion을 실행시켜주세요. 폰이 꺼지더라도 밤새도록 우리 아기를 돌볼 수 있도록 최대한 높은 권한을 주세요.</string>
+    <string name="tutorial_sound_motion_body">Sound, Motion을 실행시켜주세요. 마이크와 카메라 권한은 아기 수면 모니터링에만 사용하며, 모니터링 중에는 진행 알림을 계속 표시합니다.</string>
     <string name="tutorial_remote_title">원격조절도 바로 써보세요</string>
     <string name="tutorial_remote_body">같은 Wi-Fi를 사용하는 다른 기기에서 QR Code 주소를 열면 원격 제어 / 카메라 공유가 가능합니다.</string>
     <string name="tutorial_button_ok">좋아요</string>

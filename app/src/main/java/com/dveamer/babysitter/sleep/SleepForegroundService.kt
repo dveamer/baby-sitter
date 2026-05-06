@@ -6,19 +6,21 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.app.Service
 import android.content.Intent
+import android.content.pm.ServiceInfo
 import android.os.Build
 import android.os.IBinder
 import android.os.PowerManager
 import android.util.Log
 import androidx.core.app.NotificationCompat
+import androidx.core.app.ServiceCompat
 import com.dveamer.babysitter.BabySitterApplication
 import com.dveamer.babysitter.MainActivity
 import com.dveamer.babysitter.R
 import com.dveamer.babysitter.alert.AwakeAlertController
-import com.dveamer.babysitter.collect.CollectInputPolicy
 import com.dveamer.babysitter.collect.CollectAudioSource
 import com.dveamer.babysitter.collect.CollectCameraSource
 import com.dveamer.babysitter.collect.CollectClosedFileBus
+import com.dveamer.babysitter.collect.CollectInputPolicy
 import com.dveamer.babysitter.monitor.CameraMonitor
 import com.dveamer.babysitter.monitor.MicrophoneMonitor
 import com.dveamer.babysitter.monitor.Monitor
@@ -99,11 +101,14 @@ class SleepForegroundService : Service() {
             }
 
             ACTION_REFRESH -> {
-                val started = runCatching {
-                    startForeground(NOTIFICATION_ID, buildNotification())
-                }.onFailure { e ->
-                    Log.w(TAG, "failed to enter foreground mode", e)
-                }.isSuccess
+                val foregroundServiceTypes = resolveForegroundServiceTypes()
+                if (foregroundServiceTypes == 0) {
+                    serviceScope.launch {
+                        stopMonitoringAndService()
+                    }
+                    return START_NOT_STICKY
+                }
+                val started = enterForeground(foregroundServiceTypes)
                 if (!started) {
                     stopSelfResult(startId)
                     return START_NOT_STICKY
@@ -114,11 +119,12 @@ class SleepForegroundService : Service() {
             }
 
             ACTION_START, null -> {
-                val started = runCatching {
-                    startForeground(NOTIFICATION_ID, buildNotification())
-                }.onFailure { e ->
-                    Log.w(TAG, "failed to enter foreground mode", e)
-                }.isSuccess
+                val foregroundServiceTypes = resolveForegroundServiceTypes()
+                if (foregroundServiceTypes == 0) {
+                    stopSelfResult(startId)
+                    return START_NOT_STICKY
+                }
+                val started = enterForeground(foregroundServiceTypes)
                 if (!started) {
                     stopSelfResult(startId)
                     return START_NOT_STICKY
@@ -129,6 +135,30 @@ class SleepForegroundService : Service() {
             }
         }
         return START_STICKY
+    }
+
+    private fun enterForeground(foregroundServiceTypes: Int): Boolean {
+        return runCatching {
+            ServiceCompat.startForeground(
+                this,
+                NOTIFICATION_ID,
+                buildNotification(foregroundServiceTypes),
+                foregroundServiceTypes
+            )
+        }.onFailure { e ->
+            Log.w(TAG, "failed to enter foreground mode", e)
+        }.isSuccess
+    }
+
+    private fun resolveForegroundServiceTypes(): Int {
+        val current = container.settingsRepository.state.value
+        val collectInputPolicy = container.collectRecorderCoordinator.resolveInputPolicy(
+            sleepEnabled = current.sleepEnabled,
+            cameraMonitoringEnabled = current.cameraMonitoringEnabled,
+            webCameraEnabled = current.webCameraEnabled,
+            soundMonitoringEnabled = current.soundMonitoringEnabled
+        )
+        return SleepForegroundServiceTypeResolver.resolve(collectInputPolicy)
     }
 
     override fun onDestroy() {
@@ -554,7 +584,7 @@ class SleepForegroundService : Service() {
         nm.createNotificationChannel(channel)
     }
 
-    private fun buildNotification(): Notification {
+    private fun buildNotification(foregroundServiceTypes: Int): Notification {
         val pendingIntent = PendingIntent.getActivity(
             this,
             0,
@@ -565,10 +595,21 @@ class SleepForegroundService : Service() {
         return NotificationCompat.Builder(this, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_notification)
             .setContentTitle(getString(R.string.app_name))
-            .setContentText(getString(R.string.fgs_running))
+            .setContentText(getString(notificationTextRes(foregroundServiceTypes)))
             .setContentIntent(pendingIntent)
             .setOngoing(true)
             .build()
+    }
+
+    private fun notificationTextRes(foregroundServiceTypes: Int): Int {
+        val usesCamera = foregroundServiceTypes and ServiceInfo.FOREGROUND_SERVICE_TYPE_CAMERA != 0
+        val usesMicrophone = foregroundServiceTypes and ServiceInfo.FOREGROUND_SERVICE_TYPE_MICROPHONE != 0
+        return when {
+            usesCamera && usesMicrophone -> R.string.fgs_running_camera_microphone
+            usesCamera -> R.string.fgs_running_camera
+            usesMicrophone -> R.string.fgs_running_microphone
+            else -> R.string.fgs_running
+        }
     }
 
     companion object {
@@ -582,5 +623,18 @@ class SleepForegroundService : Service() {
         private const val MIC_SUPPRESS_AFTER_LULLABY_MS = 20_000L
         private const val MIC_SUPPRESS_AFTER_SOOTHE_MS = 60_000L
         private const val AWAKE_MUSIC_STOP_GRACE_MS = 15_000L
+    }
+}
+
+internal object SleepForegroundServiceTypeResolver {
+    fun resolve(collectInputPolicy: CollectInputPolicy): Int {
+        var types = 0
+        if (collectInputPolicy.cameraInputEnabled) {
+            types = types or ServiceInfo.FOREGROUND_SERVICE_TYPE_CAMERA
+        }
+        if (collectInputPolicy.audioInputEnabled) {
+            types = types or ServiceInfo.FOREGROUND_SERVICE_TYPE_MICROPHONE
+        }
+        return types
     }
 }

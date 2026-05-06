@@ -91,6 +91,18 @@ import java.util.Collections
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+private enum class PendingMonitoringPermissionAction {
+    ENABLE_SLEEP,
+    ENABLE_SOUND_MONITORING,
+    ENABLE_CAMERA_MONITORING
+}
+
+private data class MonitoringPermissionRequest(
+    val audioRequired: Boolean,
+    val cameraRequired: Boolean,
+    val action: PendingMonitoringPermissionAction
+)
+
 class MainActivity : ComponentActivity() {
     private val appContainer: AppContainer
         get() = (application as BabySitterApplication).container
@@ -113,9 +125,29 @@ class MainActivity : ComponentActivity() {
     private var recordingFilePath: String? = null
     private var pendingRecordStart = false
     private var pendingWebCameraEnable = false
+    private var pendingMonitoringPermissionRequest: MonitoringPermissionRequest? = null
 
     private val permissionLauncher =
-        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { }
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
+            val request = pendingMonitoringPermissionRequest ?: return@registerForActivityResult
+            pendingMonitoringPermissionRequest = null
+
+            val audioGranted = !request.audioRequired ||
+                hasPermission(Manifest.permission.RECORD_AUDIO)
+            val cameraGranted = !request.cameraRequired ||
+                hasPermission(Manifest.permission.CAMERA)
+
+            if (!audioGranted || !cameraGranted) {
+                when (request.action) {
+                    PendingMonitoringPermissionAction.ENABLE_SLEEP -> vm.setSleep(false)
+                    PendingMonitoringPermissionAction.ENABLE_SOUND_MONITORING -> vm.setSoundMonitoring(false)
+                    PendingMonitoringPermissionAction.ENABLE_CAMERA_MONITORING -> vm.setCameraMonitoring(false)
+                }
+                return@registerForActivityResult
+            }
+
+            applyMonitoringPermissionAction(request.action)
+        }
 
     private val recordPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
@@ -314,9 +346,14 @@ class MainActivity : ComponentActivity() {
                                             vm.setSleep(false)
                                         } else {
                                             if (enabled) {
-                                                requestMonitoringPermissions(state.cameraMonitoringEnabled)
+                                                requestMonitoringPermissions(
+                                                    audioRequired = state.soundMonitoringEnabled,
+                                                    cameraRequired = state.cameraMonitoringEnabled,
+                                                    action = PendingMonitoringPermissionAction.ENABLE_SLEEP
+                                                )
+                                            } else {
+                                                vm.setSleep(false)
                                             }
-                                            vm.setSleep(enabled)
                                         }
                                     }
                                 )
@@ -351,7 +388,15 @@ class MainActivity : ComponentActivity() {
                                         }
                                     },
                                     onSoundToggle = { enabled ->
-                                        vm.setSoundMonitoring(enabled)
+                                        if (enabled) {
+                                            requestMonitoringPermissions(
+                                                audioRequired = true,
+                                                cameraRequired = false,
+                                                action = PendingMonitoringPermissionAction.ENABLE_SOUND_MONITORING
+                                            )
+                                        } else {
+                                            vm.setSoundMonitoring(false)
+                                        }
                                         if (!enabled && !state.cameraMonitoringEnabled && state.sleepEnabled) {
                                             vm.setSleep(false)
                                         }
@@ -367,8 +412,15 @@ class MainActivity : ComponentActivity() {
                                     },
                                     onSoundThresholdChange = vm::setCryThresholdSec,
                                     onCameraToggle = { enabled ->
-                                        if (enabled) requestMonitoringPermissions(cameraEnabled = true)
-                                        vm.setCameraMonitoring(enabled)
+                                        if (enabled) {
+                                            requestMonitoringPermissions(
+                                                audioRequired = false,
+                                                cameraRequired = true,
+                                                action = PendingMonitoringPermissionAction.ENABLE_CAMERA_MONITORING
+                                            )
+                                        } else {
+                                            vm.setCameraMonitoring(false)
+                                        }
                                         if (!enabled && !state.soundMonitoringEnabled && state.sleepEnabled) {
                                             vm.setSleep(false)
                                         }
@@ -467,13 +519,45 @@ class MainActivity : ComponentActivity() {
         super.onDestroy()
     }
 
-    private fun requestMonitoringPermissions(cameraEnabled: Boolean) {
+    private fun requestMonitoringPermissions(
+        audioRequired: Boolean,
+        cameraRequired: Boolean,
+        action: PendingMonitoringPermissionAction
+    ) {
         val perms = buildList {
-            add(Manifest.permission.RECORD_AUDIO)
-            if (cameraEnabled) add(Manifest.permission.CAMERA)
-            if (Build.VERSION.SDK_INT >= 33) add(Manifest.permission.POST_NOTIFICATIONS)
+            if (audioRequired && !hasPermission(Manifest.permission.RECORD_AUDIO)) {
+                add(Manifest.permission.RECORD_AUDIO)
+            }
+            if (cameraRequired && !hasPermission(Manifest.permission.CAMERA)) {
+                add(Manifest.permission.CAMERA)
+            }
+            if (Build.VERSION.SDK_INT >= 33 && !hasPermission(Manifest.permission.POST_NOTIFICATIONS)) {
+                add(Manifest.permission.POST_NOTIFICATIONS)
+            }
         }
+        if (perms.isEmpty()) {
+            applyMonitoringPermissionAction(action)
+            return
+        }
+
+        pendingMonitoringPermissionRequest = MonitoringPermissionRequest(
+            audioRequired = audioRequired,
+            cameraRequired = cameraRequired,
+            action = action
+        )
         permissionLauncher.launch(perms.toTypedArray())
+    }
+
+    private fun applyMonitoringPermissionAction(action: PendingMonitoringPermissionAction) {
+        when (action) {
+            PendingMonitoringPermissionAction.ENABLE_SLEEP -> vm.setSleep(true)
+            PendingMonitoringPermissionAction.ENABLE_SOUND_MONITORING -> vm.setSoundMonitoring(true)
+            PendingMonitoringPermissionAction.ENABLE_CAMERA_MONITORING -> vm.setCameraMonitoring(true)
+        }
+    }
+
+    private fun hasPermission(permission: String): Boolean {
+        return ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED
     }
 
     private fun startRecording() {

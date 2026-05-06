@@ -57,7 +57,7 @@ class AppContainer(context: Context) {
         ensureDirectories = collectStoragePaths::ensureDirectories,
         onWebPreviewDemandChanged = {
             val state = settingsRepository.state.value
-            if (state.sleepEnabled || state.webServiceEnabled) {
+            if (state.sleepEnabled || (state.webServiceEnabled && state.webCameraEnabled)) {
                 sleepRuntime.refresh()
             }
         }

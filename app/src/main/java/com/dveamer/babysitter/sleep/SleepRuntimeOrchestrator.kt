@@ -16,7 +16,7 @@ class SleepRuntimeOrchestrator(
         if (job != null) return
         job = scope.launch {
             repository.state.collectLatest { state ->
-                val shouldRunForeground = state.sleepEnabled || state.webServiceEnabled
+                val shouldRunForeground = state.sleepEnabled
                 if (shouldRunForeground) {
                     runtime.start()
                 } else {
