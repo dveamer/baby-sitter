@@ -521,44 +521,19 @@ function classifyTaskError(error) {
 }
 
 async function openBrowserContext() {
-  try {
-    const browser = await chromium.connectOverCDP(CDP_ENDPOINT);
-    return {
-      browser,
-      context: browser.contexts()[0],
-      close: async () => {
-        await browser.close();
-      },
-    };
-  } catch {
-    fs.mkdirSync(PROFILE_DIR, { recursive: true });
-    const launchOptions = {
-      headless: false,
-      viewport: { width: 1440, height: 1200 },
-      locale: 'ko-KR',
-    };
-
-    let context;
-    try {
-      context = await chromium.launchPersistentContext(PROFILE_DIR, {
-        ...launchOptions,
-        executablePath: CHROME_PATH,
-      });
-    } catch {
-      try {
-        context = await chromium.launchPersistentContext(PROFILE_DIR, launchOptions);
-      } catch {
-        context = await firefox.launchPersistentContext(PROFILE_DIR, launchOptions);
-      }
-    }
-    return {
-      browser: null,
-      context,
-      close: async () => {
-        await context.close();
-      },
-    };
+  const browser = await chromium.connectOverCDP(CDP_ENDPOINT);
+  const context = browser.contexts()[0];
+  if (!context) {
+    throw new Error('CDP 브라우저 컨텍스트를 찾지 못했습니다.');
   }
+
+  return {
+    browser,
+    context,
+    close: async () => {
+      await browser.close();
+    },
+  };
 }
 
 async function main() {
@@ -572,14 +547,13 @@ async function main() {
   const page = runtime.context.pages()[0] || await runtime.context.newPage();
 
   try {
-    await ensureLoggedIn(page, tasks[0].url);
-
     const completed = [];
     const duplicates = [];
     const skipped = [];
+    const selected = [];
     let scanned = 0;
     for (const task of tasks) {
-      if (completed.length >= TASK_LIMIT) break;
+      if (selected.length >= TASK_LIMIT) break;
       if (scanned >= TASK_SCAN_LIMIT) break;
       scanned += 1;
       const key = parseBlogKey(task.originalUrl);
@@ -594,19 +568,27 @@ async function main() {
         console.log(`DUPLICATE_RESULT ${task.originalUrl}`);
         continue;
       }
+      selected.push(task);
+    }
 
+    if (selected.length) {
+      await ensureLoggedIn(page, selected[0].url);
+    }
+
+    await Promise.all(selected.map(async (task, index) => {
+      const taskPage = index === 0 ? page : await runtime.context.newPage();
       console.log(`START ${task.originalUrl}`);
       try {
-        const result = await runTask(page, task);
+        const result = await runTask(taskPage, task);
         if (result.commentStatus === 'duplicate') {
           duplicates.push(result);
           console.log(`DUPLICATE_LIVE ${task.originalUrl}`);
-          continue;
+          return;
         }
         if (result.commentStatus === 'comments-disabled') {
           skipped.push(result);
           console.log(`SKIP ${task.originalUrl} ${result.skipReason}`);
-          continue;
+          return;
         }
         completed.push(result);
         console.log(`DONE ${task.originalUrl} ${result.likeStatus}`);
@@ -619,8 +601,12 @@ async function main() {
           ...classified,
         });
         console.log(`SKIP ${task.originalUrl} ${classified.skipReason}`);
+      } finally {
+        if (taskPage !== page) {
+          await taskPage.close().catch(() => {});
+        }
       }
-    }
+    }));
 
     if (completed.length || duplicates.length) {
       const processed = completed.concat(duplicates);

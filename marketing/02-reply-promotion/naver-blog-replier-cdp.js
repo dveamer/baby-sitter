@@ -5,14 +5,28 @@ const { spawn } = require('child_process');
 const WebSocket = require('ws');
 
 const ROOT = '/Users/dveamer/workspace/baby-sitter/marketing/02-reply-promotion';
-const PROFILE_DIR = path.join(ROOT, '.openchrome/naver-replier');
+const RUN_ID = new Intl.DateTimeFormat('sv-SE', {
+  timeZone: 'Asia/Seoul',
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
+  hour: '2-digit',
+  minute: '2-digit',
+  second: '2-digit',
+}).format(new Date()).replace(/[^\d]/g, '');
+const PROFILE_DIR = process.env.NAVER_REPLIER_PROFILE_DIR
+  || path.join(ROOT, '.openchrome', `naver-replier-${RUN_ID}`);
 const IMAGE_PATH = path.join(ROOT, 'homepage-img-1-ko.png');
 const CHROME_PATH = process.env.CHROME_PATH || '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
 const TASKS_PATH = path.join(ROOT, 'promotion-tasks.md');
 const RESULTS_PATH = path.join(ROOT, 'promotion-results.md');
 const CDP_PORT = 9223;
-const TASK_LIMIT = 3;
+const TASK_LIMIT = 5;
 const TASK_SCAN_LIMIT = 20;
+const TASK_URLS = (process.env.NAVER_REPLIER_TASK_URLS || '')
+  .split('\n')
+  .map((value) => value.trim())
+  .filter(Boolean);
 
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -96,7 +110,13 @@ function directUrl(taskUrl) {
 
 function resultBlogKeys(markdown) {
   const keys = new Set();
-  for (const match of markdown.matchAll(/https:\/\/blog\.naver\.com\/[^\s`)]+/g)) {
+  const lines = markdown.split('\n');
+  for (const line of lines) {
+    const isCompleted = line.includes('댓글 등록 완료');
+    const isDuplicate = line.includes('이미 등록된 글이라 재등록하지 않음');
+    if (!isCompleted && !isDuplicate) continue;
+    const match = line.match(/https:\/\/blog\.naver\.com\/[^\s`)]+/);
+    if (!match) continue;
     const key = parseBlogParts(match[0]).key;
     if (key) keys.add(key);
   }
@@ -359,8 +379,11 @@ async function main() {
   const tasks = parseTasks(tasksMarkdown);
   const selected = [];
   const duplicates = [];
-  for (const task of tasks.slice(0, TASK_SCAN_LIMIT)) {
-    if (selected.length >= TASK_LIMIT) break;
+  const candidateTasks = TASK_URLS.length
+    ? TASK_URLS.map((url) => tasks.find((task) => task.originalUrl === url)).filter(Boolean)
+    : tasks.slice(0, TASK_SCAN_LIMIT);
+  for (const task of candidateTasks) {
+    if (selected.length >= TASK_LIMIT && !TASK_URLS.length) break;
     const key = parseBlogParts(task.originalUrl).key;
     if (key && existingKeys.has(key)) {
       duplicates.push({ ...task, likeStatus: 'not-retried', commentStatus: 'duplicate', timestamp: nowKstStamp() });
