@@ -213,3 +213,21 @@ if [ "${#failed[@]}" -gt 0 ]; then
 fi
 
 log "All targeted openchrome / Chrome DevTools MCP processes stopped."
+
+for profile in "${PROFILE_DIRS[@]}"; do
+  [ -d "$profile" ] || continue
+
+  stale=0
+  for singleton in SingletonLock SingletonSocket SingletonCookie; do
+    if [ -L "$profile/$singleton" ] || [ -e "$profile/$singleton" ]; then
+      stale=1
+      break
+    fi
+  done
+
+  if [ "$stale" -eq 1 ]; then
+    log "Removing stale Singleton files at $profile"
+    rm -f "$profile/SingletonLock" "$profile/SingletonSocket" "$profile/SingletonCookie" 2>/dev/null \
+      || log "Failed to remove one or more Singleton files at $profile"
+  fi
+done
