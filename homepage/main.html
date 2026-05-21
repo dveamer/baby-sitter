@@ -1135,6 +1135,11 @@
               height="1024"
               data-image-src-ko="./assets/homepage-img-1-ko.webp"
               data-image-src-en="./assets/homepage-img-1-en.webp"
+              data-image-src-id="./assets/homepage-img-1-id.webp"
+              data-image-src-pt="./assets/homepage-img-1-pt.webp"
+              data-image-src-es="./assets/homepage-img-1-es.webp"
+              data-image-src-ar="./assets/homepage-img-1-ar.webp"
+              data-image-src-ru="./assets/homepage-img-1-ru.webp"
               decoding="async">
           </figure>
           <div class="cta-row">
@@ -2180,9 +2185,8 @@
       const updateHeroLanguageImage = (language) => {
         if (!heroLanguageImage) return;
 
-        heroLanguageImage.src = language === "ko"
-          ? heroLanguageImage.dataset.imageSrcKo
-          : heroLanguageImage.dataset.imageSrcEn;
+        const imageSourceKey = `imageSrc${language.charAt(0).toUpperCase()}${language.slice(1)}`;
+        heroLanguageImage.src = heroLanguageImage.dataset[imageSourceKey] || heroLanguageImage.dataset.imageSrcEn;
 
         const translations = translationsByLanguage[language] || translationsByLanguage.en;
         heroLanguageImage.alt = translations["hero.imageAlt"] || translationsByLanguage.en["hero.imageAlt"];
