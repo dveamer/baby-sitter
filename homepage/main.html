@@ -309,6 +309,37 @@
       box-shadow: 0 10px 18px rgba(173, 106, 126, 0.22);
     }
 
+    html[dir="rtl"] body {
+      font-family: "Noto Sans Arabic", "Tahoma", var(--body-font);
+      word-break: normal;
+      line-break: auto;
+    }
+
+    html[dir="rtl"] h1,
+    html[dir="rtl"] h2,
+    html[dir="rtl"] h3,
+    html[dir="rtl"] .hero-brandline,
+    html[dir="rtl"] .setup-quote,
+    html[dir="rtl"] .faq-item summary {
+      font-family: "Noto Naskh Arabic", "Noto Sans Arabic", "Tahoma", serif;
+      letter-spacing: 0;
+    }
+
+    html[dir="rtl"] .eyebrow,
+    html[dir="rtl"] .section-kicker,
+    html[dir="rtl"] .story-no,
+    html[dir="rtl"] .safety-label,
+    html[dir="rtl"] .rail-label,
+    html[dir="rtl"] .step-label,
+    html[dir="rtl"] .language-toggle button {
+      letter-spacing: 0;
+      text-transform: none;
+    }
+
+    html[dir="rtl"] .top-links a::after {
+      transform-origin: right;
+    }
+
     .hero-copy {
       max-width: 590px;
       margin-top: auto;
@@ -628,6 +659,18 @@
       transform: translateY(-50%);
     }
 
+    html[dir="rtl"] .story-item li,
+    html[dir="rtl"] .equipment-list li {
+      padding-right: 18px;
+      padding-left: 0;
+    }
+
+    html[dir="rtl"] .story-item li::before,
+    html[dir="rtl"] .equipment-list li::before {
+      right: 0;
+      left: auto;
+    }
+
     .detail-layout,
     .workflow-layout,
     .safety-grid {
@@ -721,6 +764,15 @@
 
     .faq-item[open] summary::after {
       content: "−";
+    }
+
+    html[dir="rtl"] .faq-item summary {
+      padding: 24px 24px 24px 72px;
+    }
+
+    html[dir="rtl"] .faq-item summary::after {
+      right: auto;
+      left: 24px;
     }
 
     .faq-item p {
@@ -1052,12 +1104,14 @@
               data-language-toggle-label-en="Select language"
               data-language-toggle-label-id="Pilih bahasa"
               data-language-toggle-label-pt="Selecionar idioma"
-              data-language-toggle-label-es="Seleccionar idioma">
+              data-language-toggle-label-es="Seleccionar idioma"
+              data-language-toggle-label-ar="اختيار اللغة">
               <button type="button" class="is-active" data-language-option="ko" aria-pressed="true">KO</button>
               <button type="button" data-language-option="en" aria-pressed="false">EN</button>
               <button type="button" data-language-option="id" aria-pressed="false">ID</button>
               <button type="button" data-language-option="pt" aria-pressed="false">PT</button>
               <button type="button" data-language-option="es" aria-pressed="false">ES</button>
+              <button type="button" data-language-option="ar" aria-pressed="false">AR</button>
             </div>
           </div>
         </header>
@@ -1344,13 +1398,14 @@
   <script>
     (() => {
       const languageStorageKey = "baby-sitter-homepage-language";
-      const supportedLanguages = ["ko", "en", "id", "pt", "es"];
+      const supportedLanguages = ["ko", "en", "id", "pt", "es", "ar"];
       const htmlLanguageByLanguage = {
         ko: "ko",
         en: "en",
         id: "id",
         pt: "pt-BR",
-        es: "es-419"
+        es: "es-419",
+        ar: "ar"
       };
 
       const normalizeLanguage = (value) => {
@@ -1363,6 +1418,7 @@
         if (normalized.startsWith("id")) return "id";
         if (normalized.startsWith("pt")) return "pt";
         if (normalized.startsWith("es")) return "es";
+        if (normalized.startsWith("ar")) return "ar";
         return null;
       };
 
@@ -1865,12 +1921,125 @@
           "El acceso remoto funciona solo en la misma red Wi‑Fi, el video de la habitación no se envía a la nube y la app no recopila datos personales. Baby Sitter no es un dispositivo médico y no reemplaza la supervisión del cuidador."
       };
 
+      const arabic = {
+        ...english,
+        "meta.title": "Baby Sitter | ليلة أهدأ من دون فتح الباب كثيرًا",
+        "meta.description":
+          "صفحة Baby Sitter لمراقبة غرفة الطفل بهاتف Android قديم، وملاحظة الصوت والحركة، وتهدئة الطفل بتهويدة مسجلة بصوت أحد الوالدين.",
+        "brand.subtitle": "لنوم أفضل للطفل والوالدين",
+        "nav.label": "التنقل بين الأقسام",
+        "nav.story": "عن التطبيق",
+        "nav.setup": "التجهيز",
+        "nav.safety": "السلامة",
+        "nav.howToUse": "طريقة الاستخدام",
+        "nav.faq": "الأسئلة",
+        "hero.eyebrow": "حتى يستيقظ طفلك مرة أقل",
+        "hero.brandLine": "Baby Sitter",
+        "hero.title": "عندما يتحرك طفلك،<br>شغّل صوت الأم والأب.",
+        "hero.lead":
+          "ضع هاتف Android غير مستخدم في غرفة الطفل، وسيتابع Baby Sitter الصوت والحركة قبل أن يستيقظ الطفل تمامًا. ثم يساعده على الهدوء بتهويدة بصوت الأم والأب ليعود إلى النوم.",
+        "hero.install": "تثبيت Baby Sitter",
+        "hero.viewGuide": "شاهد طريقة العمل أولًا",
+        "hero.footnote":
+          "صُممت المشاهدة عن بُعد لتعمل على شبكة Wi‑Fi نفسها فقط، ولا يتم إرسال فيديو غرفة الطفل إلى السحابة.",
+        "hero.imageAlt":
+          "Baby Sitter يراقب الطفل ويساعده على العودة إلى النوم بتهويدة بصوت الوالدين",
+        "story.kicker": "لماذا تصبح الليلة أهدأ",
+        "story.title": "ساعد طفلك على النوم جيدًا،<br>وامنح الوالدين قدرًا أكبر من الراحة.",
+        "story.body":
+          "عندما يبدأ طفلك بالتململ، لن تحتاج إلى الحيرة بين فتح الباب أو الانتظار قليلًا.",
+        "story.feature1Title": "استجب مبكرًا عندما يبدو أنه على وشك الاستيقاظ",
+        "story.feature1Body":
+          "قبل أن تكبر الحركة الصغيرة، يساعد التطبيق طفلك بلطف على العودة إلى النوم.",
+        "story.feature1Point1": "يتابع الصوت والحركة معًا.",
+        "story.feature1Point2": "يهدئه بصوت مألوف، مثل صوت الأم والأب.",
+        "story.feature2Title": "اطمئن عليه براحة من غرفة أخرى",
+        "story.feature2Body":
+          "يمكنك الاطمئنان من دون فتح باب غرفة الطفل مرارًا، خصوصًا في الليالي التي قد يزعجه فيها أي اضطراب بسيط.",
+        "story.feature2Point1": "الوصول عن بُعد مصمم للعمل على شبكة Wi‑Fi نفسها فقط.",
+        "story.feature2Point2": "عائلتك فقط يمكنها المشاهدة، لذلك يبقى الاستخدام مريحًا وخاصًا.",
+        "story.feature3Title": "افهم ما قد يزعج نومه",
+        "story.feature3Body":
+          "لا يقتصر الأمر على المشاهدة المباشرة؛ يمكنك أيضًا حفظ اللحظات اللطيفة وفهم ما قد يكون أزعج نوم طفلك.",
+        "story.feature3Point1":
+          "إذا رأيت لحظة جميلة، احفظها. نحتفظ بالفيديو لخمس دقائق قبلها وبعدها.",
+        "story.feature3Point2":
+          "إذا استيقظ الطفل، يبدأ تسجيل الفيديو من ثلاث دقائق قبل الاستيقاظ.",
+        "setup.kicker": "ما تحتاجه",
+        "setup.title": "يمكنك البدء هذه الليلة من دون شراء جهاز جديد.",
+        "setup.body":
+          "يكفي هاتف Android غير مستخدم، وحامل صغير، وشبكة Wi‑Fi المنزلية.",
+        "setup.quote":
+          "ضع هاتف Android غير مستخدم في مكان يرى سرير الطفل بوضوح.<br><strong>بدلًا من شراء جهاز غالٍ، يمكنك استخدام ما لديك في المنزل.</strong>",
+        "setup.tip":
+          "إذا كان هاتف الوالدين متصلًا بشبكة Wi‑Fi نفسها، يمكنك المشاهدة من دون إيقاظ الطفل. ومن الأفضل أيضًا وضع مقياس للرطوبة والحرارة قرب السرير.",
+        "setup.cardTitle": "جهّز هذه الأشياء فقط",
+        "setup.cardBody":
+          "حضّر العناصر أدناه. يتضمن التطبيق شرحًا تعليميًا، لذلك يبقى البدء سهلًا جدًا.",
+        "setup.item1": "هاتف Android لغرفة الطفل (مع تثبيت Baby Sitter)",
+        "setup.item2": "حامل هاتف بسيط",
+        "setup.item3": "شبكة Wi‑Fi المنزلية",
+        "setup.item4": "هاتف للمشاهدة عن بُعد",
+        "safety.kicker": "ملاحظات السلامة",
+        "safety.title": "أبقِ الهاتف خارج سرير الطفل،<br>واستخدمه كأداة مساعدة لقرار مقدم الرعاية.",
+        "safety.body":
+          "Baby Sitter أداة مساعدة للمراقبة المنزلية. ليس جهازًا طبيًا ولا يستبدل إشراف مقدم الرعاية.",
+        "safety.card1Label": "المكان",
+        "safety.card1Title": "ضع الهاتف والحامل خارج سرير الطفل وبعيدًا عن متناول يده",
+        "safety.card1Body":
+          "لا تضع الهاتف أو كابل الشحن أو الحامل داخل سرير الطفل أو على حافته. المكان الثابت على بُعد متر تقريبًا أكثر أمانًا.",
+        "safety.card2Label": "الإعداد",
+        "safety.card2Title": "اضبط زاوية واضحة، وتجنب الكابلات المتدلية والأسطح غير الثابتة",
+        "safety.card2Body":
+          "تأكد من ظهور السرير والطفل بوضوح، لكن تجنب الأثاث غير الثابت أو الأسلاك المتدلية أو أي شيء قد يسقط داخل منطقة النوم.",
+        "safety.card3Label": "الحدود",
+        "safety.card3Title": "لا تقدمه كجهاز طبي أو بديل للإشراف",
+        "safety.card3Body":
+          "الغرض من التطبيق مساعدتك على ملاحظة مؤشرات الاستيقاظ المحتملة مبكرًا. لا يضمن اكتشاف الطوارئ أو إصدار حكم طبي.",
+        "howto.kicker": "روتين الليل",
+        "howto.title": "اتبع الشرح التعليمي واضبطه مرة واحدة.",
+        "howto.body":
+          "اتبع الشرح التعليمي، فعّل ميزات الاستشعار والوصول عن بُعد اللازمة، وجهّز التهويدة.",
+        "howto.tip":
+          "إذا سجلت تهويدة بصوت أحد الوالدين، يمكن لطفلك سماع صوت مألوف والعودة إلى النوم بسهولة أكبر عندما يستيقظ.",
+        "howto.step1Label": "تفعيل الاستشعار",
+        "howto.step1Title": "فعّل استشعار Sound و Motion من Settings",
+        "howto.step1Body":
+          "اسمح بالأذونات واضبط الحساسية حتى يتمكن التطبيق من ملاحظة العلامات الصغيرة قبل أن يستيقظ الطفل تمامًا.",
+        "howto.step2Label": "الاتصال عن بُعد",
+        "howto.step2Title": "استخدم رمز QR للاتصال بسهولة من متصفح جهاز آخر",
+        "howto.step2Body":
+          "بعد الاتصال مرة واحدة، يمكنك فتح المتصفح كلما احتجت ومراقبة طفلك من دون فتح الباب.",
+        "faq.kicker": "أسئلة شائعة",
+        "faq.title": "أول ما يسأل عنه<br>الوالدان.",
+        "faq.body":
+          "جمعنا هنا أكثر الأسئلة التي تسبب الحيرة قبل التثبيت في الليلة الأولى.",
+        "faq.q1": "ما الذي أحتاجه للبدء هذه الليلة؟",
+        "faq.a1":
+          "يكفي هاتف Android في غرفة الطفل، وحامل بسيط، وشبكة Wi‑Fi منزلية، وجهاز آخر للمشاهدة. صُمم المنتج حتى يبدأ الوالدان من دون شراء كاميرا أطفال جديدة.",
+        "faq.q2": "هل هو مجاني؟",
+        "faq.a2":
+          "كل الميزات الأساسية للعناية بالطفل مجانية. ولا توجد إعلانات أيضًا.",
+        "faq.q3": "هل يتم رفع فيديو الطفل إلى السحابة؟",
+        "faq.a3":
+          "لا يتم إرسال فيديو غرفة الطفل إلى الخارج إطلاقًا. يمكن مشاركة الفيديو فقط عندما تكون الأجهزة متصلة بشبكة Wi‑Fi نفسها.",
+        "cta.kicker": "ابدأ هذه الليلة",
+        "cta.title": "غرفة طفل أهدأ، وقلب والدين أخف قليلًا.",
+        "cta.body":
+          "يكفي هاتف Android واحد وحامل صغير. <br>ساعد طفلك على النوم بهدوء أكبر ابتداءً من اليوم.",
+        "cta.install": "تثبيت Baby Sitter",
+        "cta.viewSetup": "راجع التجهيز مرة أخرى",
+        "cta.footer":
+          "يعمل الاتصال عن بُعد داخل شبكة Wi‑Fi نفسها فقط، ولا يتم رفع الفيديو إلى السحابة، ولا يجمع التطبيق معلومات شخصية."
+      };
+
       const translationsByLanguage = {
         ko: korean,
         en: english,
         id: indonesian,
         pt: portuguese,
-        es: spanish
+        es: spanish,
+        ar: arabic
       };
 
       const getStoredLanguage = () => {
@@ -1910,7 +2079,8 @@
           en: languageToggle.dataset.languageToggleLabelEn,
           id: languageToggle.dataset.languageToggleLabelId,
           pt: languageToggle.dataset.languageToggleLabelPt,
-          es: languageToggle.dataset.languageToggleLabelEs
+          es: languageToggle.dataset.languageToggleLabelEs,
+          ar: languageToggle.dataset.languageToggleLabelAr
         };
 
         return labels[language] || labels.en || "";
@@ -1996,6 +2166,7 @@
 
         currentLanguage = language;
         document.documentElement.lang = htmlLanguageByLanguage[language] || language;
+        document.documentElement.dir = language === "ar" ? "rtl" : "ltr";
         updateHeroLanguageImage(language);
         updateLanguageToggle(language);
         updatePlayStoreLinks(language);
