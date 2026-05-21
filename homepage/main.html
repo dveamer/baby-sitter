@@ -480,17 +480,6 @@
       box-shadow: 0 18px 34px rgba(173, 106, 126, 0.26);
     }
 
-    .install-btn .btn-icon {
-      position: relative;
-      z-index: 1;
-      display: block;
-      width: 40px;
-      height: 40px;
-      flex: 0 0 auto;
-      border-radius: 12px;
-      box-shadow: 0 8px 16px rgba(101, 63, 74, 0.18);
-    }
-
     .install-btn .btn-label {
       position: relative;
       z-index: 1;
@@ -930,6 +919,10 @@
       max-width: 720px;
     }
 
+    .setup-install-cta {
+      margin-top: 48px;
+    }
+
     .cta-stage .btn-secondary {
       color: var(--ink);
       background: rgba(255, 253, 251, 0.78);
@@ -1079,7 +1072,15 @@
     <section class="hero-stage" id="install">
       <div class="hero-inner">
         <header class="topbar">
-          <a class="brand" href="#install" aria-label="Baby Sitter">
+          <a
+            class="brand"
+            href="https://play.google.com/store/apps/details?id=com.dveamer.babysitter"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Baby Sitter 설치하러 가기"
+            data-i18n-aria-label="hero.install"
+            data-gtag-install-button="brand"
+            data-gtag-install-location="brand">
             <div class="brand-mark" aria-hidden="true">
               <img src="./assets/app-icon.webp" alt="" width="52" height="52">
             </div>
@@ -1150,7 +1151,6 @@
               rel="noreferrer"
               data-gtag-install-button="1"
               data-gtag-install-location="hero">
-              <img class="btn-icon" src="./assets/app-icon.webp" alt="" width="40" height="40" aria-hidden="true">
               <span class="btn-label" data-i18n="hero.install">Baby Sitter 설치하러 가기</span>
             </a>
           </div>
@@ -1244,6 +1244,19 @@
             <li data-i18n="setup.item4">원격으로 볼 폰</li>
           </ul>
         </aside>
+      </div>
+      <div class="section-inner setup-install-cta">
+        <div class="cta-row cta-centered">
+          <a
+            class="btn btn-primary install-btn"
+            href="https://play.google.com/store/apps/details?id=com.dveamer.babysitter"
+            target="_blank"
+            rel="noreferrer"
+            data-gtag-install-button="3"
+            data-gtag-install-location="pre-safety">
+            <span class="btn-label" data-i18n="cta.install">Baby Sitter 설치하러 가기</span>
+          </a>
+        </div>
       </div>
     </section>
 
@@ -1383,7 +1396,6 @@
             rel="noreferrer"
             data-gtag-install-button="2"
             data-gtag-install-location="cta">
-            <img class="btn-icon" src="./assets/app-icon.webp" alt="" width="40" height="40" aria-hidden="true">
             <span class="btn-label" data-i18n="cta.install">Baby Sitter 설치하러 가기</span>
           </a>
         </div>
