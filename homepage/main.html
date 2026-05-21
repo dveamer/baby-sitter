@@ -392,6 +392,7 @@
       flex-wrap: wrap;
       gap: 12px;
       align-items: center;
+      width: 100%;
     }
 
     .btn {
@@ -399,10 +400,13 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      gap: 10px;
       min-height: 54px;
       padding: 0 22px;
       border-radius: 999px;
       font-weight: 800;
+      line-height: 1.2;
+      text-align: center;
       transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
       overflow: hidden;
       isolation: isolate;
@@ -433,6 +437,32 @@
       color: #fffdfa;
       background: linear-gradient(135deg, #ce869a 0%, #e0a8b7 100%);
       box-shadow: 0 14px 26px rgba(173, 106, 126, 0.22);
+    }
+
+    .install-btn {
+      width: 100%;
+      max-width: 680px;
+      min-height: 72px;
+      padding: 0 32px;
+      gap: 14px;
+      font-size: clamp(1.08rem, 1.5vw, 1.3rem);
+      box-shadow: 0 18px 34px rgba(173, 106, 126, 0.26);
+    }
+
+    .install-btn .btn-icon {
+      position: relative;
+      z-index: 1;
+      display: block;
+      width: 40px;
+      height: 40px;
+      flex: 0 0 auto;
+      border-radius: 12px;
+      box-shadow: 0 8px 16px rgba(101, 63, 74, 0.18);
+    }
+
+    .install-btn .btn-label {
+      position: relative;
+      z-index: 1;
     }
 
     .btn-secondary {
@@ -844,6 +874,10 @@
       justify-content: center;
     }
 
+    .cta-centered .install-btn {
+      max-width: 720px;
+    }
+
     .cta-stage .btn-secondary {
       color: var(--ink);
       background: rgba(255, 253, 251, 0.78);
@@ -1049,16 +1083,15 @@
           </figure>
           <div class="cta-row">
             <a
-              class="btn btn-primary"
+              class="btn btn-primary install-btn"
               href="https://play.google.com/store/apps/details?id=com.dveamer.babysitter"
               target="_blank"
               rel="noreferrer"
               data-gtag-install-button="1"
-              data-gtag-install-location="hero"
-              data-i18n="hero.install">
-              Baby Sitter 설치하러 가기
+              data-gtag-install-location="hero">
+              <img class="btn-icon" src="./assets/app-icon.webp" alt="" width="40" height="40" aria-hidden="true">
+              <span class="btn-label" data-i18n="hero.install">Baby Sitter 설치하러 가기</span>
             </a>
-            <a class="btn btn-secondary" href="#how-to-use" data-i18n="hero.viewGuide">먼저 사용법 보기</a>
           </div>
           <p class="hero-footnote" data-i18n="hero.footnote">
             같은 Wi-Fi 안에서만 원격으로 보고, 영상을 클라우드에 올리지 않도록 설계되어 있어요.
@@ -1242,7 +1275,7 @@
         <div class="section-heading">
           <div>
             <span class="section-kicker" data-i18n="faq.kicker">자주 묻는 질문</span>
-            <h2 data-i18n-html="faq.title">해외 부모가<br>가장 먼저 묻는 것들.</h2>
+            <h2 data-i18n-html="faq.title">부모가<br>가장 먼저 묻는 것들.</h2>
           </div>
           <p data-i18n="faq.body">
             설치 전에 가장 많이 헷갈리는 부분을 먼저 정리해두었어요.
@@ -1258,16 +1291,16 @@
           </details>
 
           <details class="faq-item">
-            <summary data-i18n="faq.q2">집 밖에서도 볼 수 있나요?</summary>
+            <summary data-i18n="faq.q2">무료 인가요?</summary>
             <p data-i18n="faq.a2">
-              현재 랜딩에서 강조하는 기본 흐름은 같은 Wi-Fi 안에서 보는 방식입니다. 핵심 메시지는 집 안 프라이버시와 간단한 설정에 맞춰져 있어요.
+              아기를 케어하기 위한 핵심적인 기능은 모두 무료입니다. 광고 또한 없습니다.
             </p>
           </details>
 
           <details class="faq-item">
             <summary data-i18n="faq.q3">아기 영상을 클라우드에 올리나요?</summary>
             <p data-i18n="faq.a3">
-              홈페이지와 홍보 문구에서는 아기 방 영상이 클라우드로 전송되지 않는 점을 핵심 신뢰 요소로 안내하고 있어요. 또한 Baby Sitter는 의료기기가 아니며 보호자 감독을 대신하지 않습니다.
+              아기 방 영상은 절대 외부로 전송되지 않습니다. 같은 Wi-Fi 에 접속된 상태에서만 영상을 공유할수 있습니다.
             </p>
           </details>
         </div>
@@ -1283,20 +1316,18 @@
         </p>
         <div class="cta-row cta-centered">
           <a
-            class="btn btn-primary"
+            class="btn btn-primary install-btn"
             href="https://play.google.com/store/apps/details?id=com.dveamer.babysitter"
             target="_blank"
             rel="noreferrer"
             data-gtag-install-button="2"
-            data-gtag-install-location="cta"
-            data-i18n="cta.install">
-            Baby Sitter 설치하러 가기
+            data-gtag-install-location="cta">
+            <img class="btn-icon" src="./assets/app-icon.webp" alt="" width="40" height="40" aria-hidden="true">
+            <span class="btn-label" data-i18n="cta.install">Baby Sitter 설치하러 가기</span>
           </a>
-          <a class="btn btn-secondary" href="#setup" data-i18n="cta.viewSetup">준비물 다시 보기</a>
         </div>
         <div class="footer-note" data-i18n="cta.footer">
           같은 Wi-Fi 안에서만 원격 연결되며, 영상을 클라우드에 올리지 않고 개인정보도 수집하지 않습니다.
-          Baby Sitter는 의료기기가 아니며, 보호자 감독을 대신하지 않습니다.
         </div>
       </div>
     </section>
