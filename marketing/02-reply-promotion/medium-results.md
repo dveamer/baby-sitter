@@ -1,0 +1,137 @@
+## 2026-05-21
+
+- Medium reply result log initialized. No completed Medium comment registrations recorded yet.
+- 2026-05-21 01:20 KST - Completed 5 Medium reply tasks.
+  - https://medium.com/@breecelesteking/unlock-deep-and-peaceful-rest-the-ultimate-guide-to-ferber-method-sleep-training-4924e20c3bfc - 박수 및 응답 등록 확인. 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/thrive-global/why-does-my-baby-wake-at-3am-8c2e1a58e108 - 박수 및 응답 등록 확인. 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/illumination/your-baby-isnt-awake-because-they-re-hungry-87b9b5c7f6cc - 박수 및 응답 등록 확인. 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/@contact_96166/sleep-teaching-what-is-that-d4b3f9e885ec - 박수 및 응답 등록 확인. 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/@littleoneadvice/sleep-tight-tips-for-a-restful-night-with-your-baby-273f612221e5 - 박수 및 응답 등록 확인. 이미지 첨부 불가로 텍스트만 등록.
+- 2026-05-21 01:42 KST - Completed 5 Portuguese Medium reply tasks.
+  - https://medium.com/@mari.pissini/socorro-meu-beb%C3%AA-n%C3%A3o-desgruda-de-mim-a5b52f00d188 - 박수 및 응답 등록 확인. 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/@urbano.steh/como-assim-o-sono-do-beb%C3%AA-n%C3%A3o-vem-com-manual-eae02f306555 - 박수 및 응답 등록 확인. 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/@SofiaSineiro/terapia-do-sono-7c7161dfcb7f - 박수 및 응답 등록 확인. 이미지 첨부 불가로 텍스트만 등록.
+  - https://marianacamardelli.medium.com/minha-filha-dorme-no-meu-quarto-4e33274ab671 - 박수 및 응답 등록 확인. 이미지 첨부 불가로 텍스트만 등록.
+  - https://marianacamardelli.medium.com/amamenta%C3%A7%C3%A3o-coisas-que-ningu%C3%A9m-me-contou-71f8ebb21dab - 박수 및 응답 등록 확인. 이미지 첨부 불가로 텍스트만 등록.
+- 2026-05-21 04:42 KST - Completed 5 English Medium reply tasks.
+  - https://neha-74611.medium.com/the-ferber-method-for-sleep-training-everything-youve-ever-wanted-to-know-b0873b4f808e - 박수 및 응답 등록 확인. 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/@babywinkz/the-secrets-to-improve-your-childs-sleep-4e62099d993a - 박수 및 응답 등록 확인. 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/helping-babies-sleep/lhow-to-get-out-of-the-house-between-naps-when-you-are-sleep-training-d5586a214241 - 박수 및 응답 등록 확인. 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/@meghanav/sleep-training-54946f455014 - 박수 및 응답 등록 확인. 이미지 첨부 불가로 텍스트만 등록.
+  - https://taralawall.medium.com/hey-internet-why-wont-the-baby-sleep-ac9dbc89e720 - 박수 및 응답 등록 확인. 이미지 첨부 불가로 텍스트만 등록.
+- 2026-05-21 05:47 KST - Completed 5 Portuguese Medium reply tasks (second batch).
+  - https://medium.com/uma-vida-heliotr%C3%B3pica/o-desmame-ele-chegou-f802f62e3d1e - 박수 및 응답 등록 확인. 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/@valestaguero/amor-e-amamenta%C3%A7%C3%A3o-um-caso-real-127aa31283c8 - 박수 및 응답 등록 확인. 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/@elianadiasconsultoria/sono-de-bebe-%C3%A9-sagrado-5757194d50c3 - 박수 및 응답 등록 확인. 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/@leticia.quadros95/resenha-do-livro-crian%C3%A7as-francesas-n%C3%A3o-fazem-m-fce7759d2c22 - 박수 및 응답 등록 확인. 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/licen%C3%A7a-paternidade/eu-pai-na-amamenta%C3%A7%C3%A3o-be2de19f9d65 - 박수 및 응답 등록 확인. 이미지 첨부 불가로 텍스트만 등록.
+- 2026-05-21 06:45 KST - Completed 5 English Medium reply tasks (second batch).
+  - https://medium.com/@healthunits/cry-it-out-a-new-sleep-training-method-621ced0294fe - 박수 및 응답 등록 확인. 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/my-writing-journey/sleep-training-cda733d4227e - 박수 및 응답 등록 확인. 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/@PvonH/a-parents-guide-to-getting-a-good-night-s-sleep-969d15a1cf05 - 박수 및 응답 등록 확인. 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/thrive-global/crying-it-out-a-sleep-doctors-attempt-at-sleep-training-a04cf2143fdc - 박수 및 응답 등록 확인. 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/@bebino/a-practical-guide-to-helping-your-baby-sleep-independently-and-improving-your-own-sleep-proven-24f0c6da7934 - 박수 및 응답 등록 확인. 이미지 첨부 불가로 텍스트만 등록.
+- 2026-05-21 07:51 KST - Completed 5 Spanish Medium reply tasks.
+  - https://medium.com/@pediatrialdia99/por-qu%C3%A9-tu-beb%C3%A9-se-despierta-tanto-y-por-qu%C3%A9-es-normal-3f4ff1160888 - 박수 및 응답 등록 확인. 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/@somosmamas/beb%C3%A9s-como-hacer-para-que-aprenda-a-dormir-desde-el-primer-d%C3%ADa-ef4ce203d97a - 박수 및 응답 등록 확인. 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/@Macarenapalma/mi-hijo-no-quiere-dormir-solo-c135d6064f62 - 박수 및 응답 등록 확인. 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/@pinkpunksan/un-d%C3%ADa-va-a-dormir-de-corrido-afb51bfa7f9c - 박수 및 응답 등록 확인. 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/papaprendiz/he-renunciado-al-colecho-e66efa64382d - 박수 및 응답 등록 확인. 이미지 첨부 불가로 텍스트만 등록.
+- 2026-05-21 08:45 KST - Completed 5 Indonesian Medium reply tasks.
+  - https://medium.com/selasar-bintang/ketika-orang-dewasa-berhenti-mengecek-monster-di-bawah-tempat-tidur-497589543808 - 박수 및 응답 등록 확인. 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/@kanitaadzani/things-ill-re-read-when-my-inner-parent-kicks-in-a1df18750d8e - 박수 및 응답 등록 확인. 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/@lisnadyacahya/balada-transisi-menjadi-seorang-ibu-c67b1b11d2bb - 박수 및 응답 등록 확인. 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/@motherhoodbegins/berserah-tidak-sama-dengan-menyerah-de15fa58bd86 - 박수 및 응답 등록 확인. 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/@serabellaannora/menjadi-orang-tua-cinta-kami-menemukan-bentuk-barunya-63d297f43641 - 박수 및 응답 등록 확인. 이미지 첨부 불가로 텍스트만 등록.
+- 2026-05-21 09:44 KST - Completed 5 English Medium reply tasks (third/fourth batch).
+  - https://medium.com/@Devianate/12-baby-sleep-hacks-for-exhausted-new-parents-f076625741f8 - 박수 및 응답 등록 확인. 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/@kpoly8007/count-down-to-the-sleep-training-rematch-31ec99f0e5cd - 박수 및 응답 등록 확인. 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/@StressCache/spoiling-my-baby-good-88a6dffa85c3 - 박수 및 응답 등록 확인. 이미지 첨부 불가로 텍스트만 등록.
+  - https://neha-74611.medium.com/the-best-sleep-training-clocks-do-they-work-f100506da43d - 박수 및 응답 등록 확인. 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/@Patrecca/6-reasons-why-diy-sleep-training-can-go-awry-8a9b9cdb9c2f - 박수 및 응답 등록 확인. 이미지 첨부 불가로 텍스트만 등록.
+- 2026-05-21 10:44 KST - Completed 5 Medium reply tasks (English fourth/French batch).
+  - https://medium.com/activated-thinker/how-i-finally-got-all-my-kids-to-sleep-at-the-same-time-955da908fdaf - 박수 및 응답 등록 확인. 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/evolur/when-to-move-your-baby-to-crib-4cb0c4041b8c - 박수 및 응답 등록 확인. 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/@paul.joshua.y/13-tips-and-to-make-your-sleep-training-a-success-04f73b4ff3fe - 박수 및 응답 등록 확인. 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/@fahmiikram6/ce-que-les-donn%C3%A9es-disent-vraiment-sur-le-sommeil-des-b%C3%A9b%C3%A9s-et-ce-que-jai-v%C3%A9cu-14fd0fb2e654 - 박수 및 응답 등록 확인. 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/@cecidimaulo/nuits-infernalops-quand-mon-b%C3%A9b%C3%A9-devient-ladmin-sys-de-mes-cauchemars-2a4a3223ba42 - 박수 및 응답 등록 확인. 이미지 첨부 불가로 텍스트만 등록.
+- 2026-05-21 11:44 KST - Completed 5 Medium reply tasks (English fourth/French/English fifth backlog).
+  - https://medium.com/modern-parent/sleep-training-does-not-scar-your-baby-882b0149c9bf - 박수 및 응답 등록 확인. 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/les-turbulents/sommeil-en-cr%C3%A8che-un-sacr%C3%A9-changement-de-rythme-83224f731857 - 박수 및 응답 등록 확인. 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/@noemiemagda.thomas/le-sommeil-ce-nest-peut-%C3%AAtre-pas-le-probl%C3%A8me-de-ma-vie-82554097b4ad - 박수 및 응답 등록 확인. 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/maman-ecoute-la-science/lallaitement-maternel-etat-des-lieux-des-connaissances-pratiques-et-objectifs-des-organismes-76e2d0f4e426 - 박수 및 응답 등록 확인. 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/@lauhall/baby-sleep-advice-that-doesnt-work-1906453ab60b - 박수 및 응답 등록 확인. 이미지 첨부 불가로 텍스트만 등록.
+- 2026-05-21 11:44 KST - Skipped 1 Medium reply task.
+  - https://medium.com/@encyclopediadad/why-we-are-not-sleep-training-our-6-month-old-85c19ad56af6 - Medium 410 Deleted by author로 등록 불가. 완료 처리하지 않고 medium-tasks.md에 유지.
+- 2026-05-21 13:10 KST - Completed 2 Medium reply tasks before Chrome extension navigation timeout.
+  - https://medium.com/@NestedBean/ask-the-expert-is-my-baby-waking-from-habit-or-hunger-f0b96b390f63 - 박수 및 응답 등록 확인. 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/@erumtalal1/tried-and-tested-sleep-training-methods-from-a-mother-of-4-8654c504b735 - 박수 및 응답 등록 확인. 이미지 첨부 불가로 텍스트만 등록.
+- 2026-05-21 13:10 KST - Paused remaining Medium reply work.
+  - Chrome 확장 세션에서 이후 Medium URL 이동/검색 호출이 반복 타임아웃되어 5개까지 완료하지 못함. 실제 등록이 확인되지 않은 작업은 medium-tasks.md에 유지.
+- 2026-05-21 14:52 KST - Completed 3 Medium reply tasks before Chrome extension timeout.
+  - https://medium.com/@mapenglish.pat/will-a-hungry-baby-sleep-what-you-need-to-know-daddy-simply-b94ed3e8bfde - 박수 및 응답 등록 확인. 이미지 첨부 불가로 텍스트만 등록.
+  - https://babiesnmomies.medium.com/co-sleeping-should-your-child-sleep-in-your-bed-a68874374a43 - 박수 및 응답 등록 확인. 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/helping-babies-sleep/moving-baby-to-own-room-5-helpful-tips-for-a-smooth-transition-2e5d7055ab95 - 박수 및 응답 등록 확인. 이미지 첨부 불가로 텍스트만 등록.
+- 2026-05-21 14:52 KST - Paused remaining Medium reply work.
+  - https://meplace.medium.com/sweet-dreams-helping-little-ones-sleep-c2d5f1c8b6b6 - Chrome 확장 세션이 해당 Medium 탭에서 반복 타임아웃되어 등록 여부 확인 불가. 실제 등록 확인되지 않아 medium-tasks.md에 유지.
+- 2026-05-21 15:56 KST - Completed 1 Medium reply task before Chrome extension timeout.
+  - https://meplace.medium.com/sweet-dreams-helping-little-ones-sleep-c2d5f1c8b6b6 - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+- 2026-05-21 15:56 KST - Paused remaining Medium reply work.
+  - https://medium.com/illumination/how-to-train-your-baby-to-sleep-c38dded86d39 - Chrome 탭 제목에서 410 Deleted by author 확인. 완료 처리하지 않고 medium-tasks.md에 유지.
+  - https://medium.com/@moriah_lovett/to-co-sleep-or-crib-sleep-ee941bbda3b5, https://medium.com/@ergomotion/how-to-prepare-a-bed-for-a-baby-1df1ac8e058d, https://medium.com/@shizafatima669/your-babys-sleep-simple-ways-to-get-more-rest-66c88ebd6573 - Chrome 확장 세션 타임아웃으로 등록 여부를 검증하지 못함. 중복 방지를 위해 다음 실행에서 실제 댓글 목록 확인 필요.
+  - https://medium.com/@sasaleung_38143/my-triumph-in-solving-the-10-month-baby-sleep-regression-d1545a429030 - 추가 처리 시도 중 Chrome 확장 세션이 URL 이동 전후로 다시 타임아웃되어 등록하지 못함. medium-tasks.md에 유지.
+- 2026-05-21 16:53 KST - Checked 2 Medium reply tasks before Chrome extension timeout.
+  - https://medium.com/@moriah_lovett/to-co-sleep-or-crib-sleep-ee941bbda3b5 - Medium 응답 목록에서 dochimom 계정의 기존 Babysitter 댓글 확인. 이미 등록된 글이라 재등록하지 않음.
+  - https://medium.com/@ergomotion/how-to-prepare-a-bed-for-a-baby-1df1ac8e058d - Medium 응답 목록에서 dochimom 계정의 기존 Babysitter 댓글 확인. 이미 등록된 글이라 재등록하지 않음.
+- 2026-05-21 16:53 KST - Paused remaining Medium reply work.
+  - https://medium.com/@shizafatima669/your-babys-sleep-simple-ways-to-get-more-rest-66c88ebd6573 - Chrome 확장 세션이 Medium URL 이동 중 반복 타임아웃되어 등록 여부를 검증하지 못함. 실제 등록 확인되지 않아 medium-tasks.md에 유지.
+- 2026-05-21 18:00 KST - Completed 4 Medium reply tasks before Chrome extension timeout.
+  - https://medium.com/@sasaleung_38143/my-triumph-in-solving-the-10-month-baby-sleep-regression-d1545a429030 - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/@Bhaveshparmar_/unlock-the-secrets-of-peaceful-nights-with-baby-sleep-miracle-10-expert-tips-b6a72d2e836d - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/@angelshousecare/scientifically-proven-method-to-get-your-baby-to-sleep-20c0b2f7c06e - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/the-parenting-portal/sleep-training-your-toddler-is-not-as-bad-as-you-think-562bb0544764 - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+- 2026-05-21 18:00 KST - Paused remaining Medium reply work.
+  - https://medium.com/@shizafatima669/your-babys-sleep-simple-ways-to-get-more-rest-66c88ebd6573 - Chrome 확장 세션이 Medium URL 이동 중 반복 타임아웃되어 등록 여부를 검증하지 못함. 실제 등록 확인되지 않아 medium-tasks.md에 유지.
+  - https://medium.com/@contact_96166/baby-sleep-associations-7b2831d24d6 - Chrome 확장 세션이 Medium URL 이동 중 타임아웃되어 등록하지 못함. medium-tasks.md에 유지.
+  - https://medium.com/@creabizfit/the-ferber-method-a5baf4572307 - 처리 호출과 검증 호출이 모두 타임아웃되어 등록 여부를 확인하지 못함. 다음 실행에서 실제 응답 목록 확인 필요.
+  - https://medium.com/adulthood-chronicles/patience-over-sleep-training-ec9fbbc8d722, https://medium.com/@babywinkz/why-your-baby-will-never-sleep-through-the-night-dce8f39b8955 - 추가 후보 처리 중 Chrome 확장 세션이 반복 타임아웃되어 등록 여부를 확인하지 못함. 실제 등록 확인되지 않아 medium-tasks.md에 유지.
+- 2026-05-21 18:53 KST - Checked/completed 3 Medium reply tasks before Chrome extension timeout.
+  - https://medium.com/@shizafatima669/your-babys-sleep-simple-ways-to-get-more-rest-66c88ebd6573 - Medium 응답 목록에서 dochimom 계정의 기존 Babysitter 댓글 확인. 이미 등록된 글이라 재등록하지 않음.
+  - https://medium.com/@contact_96166/baby-sleep-associations-7b2831d24d6 - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/@creabizfit/the-ferber-method-a5baf4572307 - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+- 2026-05-21 18:53 KST - Paused remaining Medium reply work.
+  - https://medium.com/adulthood-chronicles/patience-over-sleep-training-ec9fbbc8d722 - 처리 중 Chrome 확장 호출이 시간 초과됐고, 후속 응답 목록 스냅샷도 시간 초과되어 등록 여부 확인 불가. 실제 등록 확인되지 않아 medium-tasks.md에 유지.
+- 2026-05-21 19:52 KST - Completed 1 Medium reply task before Chrome extension timeout.
+  - https://medium.com/adulthood-chronicles/patience-over-sleep-training-ec9fbbc8d722 - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+- 2026-05-21 19:52 KST - Paused remaining Medium reply work.
+  - https://medium.com/@babywinkz/why-your-baby-will-never-sleep-through-the-night-dce8f39b8955 - 응답 작성창에 댓글 초안은 확인됐으나, 제출/검증 중 Chrome 확장 호출이 반복 타임아웃되어 실제 등록 여부를 확인하지 못함. 완료 처리하지 않고 medium-tasks.md에 유지.
+  - https://medium.com/stem-little-explorers/what-to-expect-from-the-baby-in-19-and-20-month-stem-little-explorers-a98ea58190aa - 다음 후보로 열었으나 Medium 탭의 visible DOM 읽기 단계에서 Chrome 확장 세션이 다시 타임아웃되어 등록하지 못함. medium-tasks.md에 유지.
+- 2026-05-21 20:45 KST - Paused Medium reply work before any confirmed registration.
+  - Chrome 확장 연결과 열린 탭 조회는 성공했지만, `https://medium.com/@babywinkz/why-your-baby-will-never-sleep-through-the-night-dce8f39b8955` 탭 이동/회수/DOM 확인 호출이 반복 타임아웃되어 응답 목록 확인 및 댓글 등록을 진행하지 못함.
+  - 중복 등록 방지를 위해 완료 처리하지 않았고 `medium-tasks.md`는 변경하지 않음. 다음 실행은 이 URL의 실제 응답 목록에서 `dochimom`, 댓글 첫 문장, 또는 `babysitter.dveamer.com` 존재 여부를 먼저 확인해야 함.
+  - 사용한 Chrome 확장 탭은 `browser.tabs.finalize({ keep: [] })` 로 정리했고, Google Chrome 종료를 요청함. 확인 시각: `2026-05-21 20:45:49 KST`
+- 2026-05-21 21:47 KST - Paused Medium reply work before any confirmed registration.
+  - `https://medium.com/@babywinkz/why-your-baby-will-never-sleep-through-the-night-dce8f39b8955`는 Chrome 확장으로 열렸고 로그인 계정 `dochimom` 및 응답 작성창의 기존 Babysitter 초안은 확인했지만, 응답 목록에는 `There are currently no responses for this story`가 보여 실제 등록은 확인되지 않았음.
+  - 응답 제출 버튼 조작, 제출 후 검증, 스크린샷/visible DOM 확인, DOM 이벤트 제출 시도가 차례로 Chrome 확장 호출 타임아웃을 유발해 완료 처리하지 않음. 중복 방지를 위해 `medium-tasks.md`는 변경하지 않음.
+  - 사용한 Chrome 확장 탭은 재연결 후 `browser.tabs.finalize({ keep: [] })` 로 정리했고, Google Chrome 종료를 요청함. 확인 시각: `2026-05-21 21:47:07 KST`
+- 2026-05-21 22:44 KST - Completed 5 Medium reply tasks.
+  - https://medium.com/@babywinkz/why-your-baby-will-never-sleep-through-the-night-dce8f39b8955 - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/stem-little-explorers/what-to-expect-from-the-baby-in-19-and-20-month-stem-little-explorers-a98ea58190aa - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - https://neha-74611.medium.com/sleep-training-an-overtired-baby-vs-undertired-baby-8c8b25d6bdd5 - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/@tracynewberry/creating-a-sleep-bubble-is-an-incredible-way-of-helping-your-baby-sleep-well-f7c050bce4b6 - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/@Bhaveshparmar_/discovering-the-mysteries-of-infant-slumber-the-baby-sleep-miracle-56a6fc72968e - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+- 2026-05-21 23:45 KST - Completed 5 Medium reply tasks.
+  - https://medium.com/@finechildren.com/how-to-make-baby-sleep-at-night-8-baby-sleep-tips-ca47eae2ea57 - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/@creating.akf90/parenting-hacks-or-not-an-account-of-trial-and-error-3050140bf5cf - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/@smartkidsid/anak-susah-tidur-setiap-malam-ini-cara-sederhana-yang-diam-diam-membentuk-karakter-anak-sejak-dini-e241820c5d28 - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/@renoizhar/bue-bue-syair-pengantar-tidur-kepulauan-pandai-besi-de55e8f9e6f7 - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/komunitas-blogger-m/pelukan-lebih-dulu-jarum-belakangan-a81a835bd56b - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+
+## 2026-05-22
+
+- 2026-05-22 00:42 KST - Completed 5 Medium reply tasks.
+  - https://medium.com/@octoberletters/mereka-juga-pertama-kali-menjadi-orang-tua-8d3287726981 - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/perspektif-perempuan/yang-tidak-diceritakan-orang-tentang-pernikahan-0134864ab20a - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/@equipetapera/o-sono-dos-beb%C3%AAs-78b1d9c09b21 - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/@elianadiasconsultoria/consultoria-de-sono-online-defa86f8ca25 - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - https://maternagem-descalca.medium.com/cama-compartilhada-tudo-o-que-voc%C3%AA-precisa-saber-sobre-ba2baf06247b - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.

@@ -1,0 +1,292 @@
+## 2026-05-20
+
+- 초기 생성. 아직 댓글 등록 완료 건 없음.
+
+## 2026-05-20 자동화 시도 기록
+
+- `https://yukarecovery.tistory.com/43` 첫 후보 글로 Chrome 확장 세션을 재시도함.
+- Chrome 확장 연결과 탭 목록 조회는 정상이나, 티스토리 페이지 내부 조회/화면 캡처 단계가 60-120초 제한을 반복 초과해 실제 댓글/이미지 등록 전 중단함.
+- 등록 완료 또는 중복 확인이 끝난 글은 없으므로 `tstory-tasks.md` 는 유지함.
+
+## 2026-05-20 등록 완료
+
+- `https://yukarecovery.tistory.com/43` 공감 완료, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. 확인 시각: `2026-05-20 19:58:50 KST`
+- `https://coolrunnings.tistory.com/74` 이전 런에서 공감 반영된 상태를 확인했고, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. 확인 시각: `2026-05-20 20:06:07 KST`
+- `https://jjung-uni.tistory.com/10` 공감 완료, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. 확인 시각: `2026-05-20 20:06:07 KST`
+- `https://jjung-uni.tistory.com/11` 공감 완료, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. 확인 시각: `2026-05-20 20:06:07 KST`
+- `https://rani-home.tistory.com/13` 공감 완료, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. 확인 시각: `2026-05-20 20:06:07 KST`
+- `https://saltpepperandgarlic.tistory.com/19` 공감 완료, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. 확인 시각: `2026-05-20 20:06:07 KST`
+- `https://mylife222.tistory.com/8` 공감 완료, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. 확인 시각: `2026-05-20 21:45:51 KST`
+- `https://bakpal.tistory.com/72` 공감 완료, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. 확인 시각: `2026-05-20 21:45:51 KST`
+- `https://healthmind.tistory.com/entry/%EC%95%84%EA%B8%B0-%EB%B6%84%EB%A6%AC%EC%88%98%EB%A9%B4-%EC%84%B1%EA%B3%B5%ED%95%98%EB%8A%94-%EA%BF%80%ED%8C%81` 공감/댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. 확인 시각: `2026-05-20 21:45:51 KST`
+- `https://yukarecovery.tistory.com/46` 공감 완료, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. 확인 시각: `2026-05-20 21:45:51 KST`
+
+## 2026-05-20 미완료 기록
+
+- `https://futuremone.tistory.com/2243` 댓글 영역과 댓글 수는 보이나 실제 댓글 입력 폼이 렌더링되지 않아 등록하지 않음. `tstory-tasks.md` 에 유지함.
+- `https://poof31.tistory.com/2333` 공감은 반영됐으나 댓글 입력 후 `등록` 버튼이 계속 비활성 상태라 댓글 등록 확인에 실패함. 직접 API 호출/우회 실행은 사용하지 않고 중단했으며 `tstory-tasks.md` 에 유지함.
+
+## 2026-05-20 추가 등록 완료
+
+- `https://dodobok.tistory.com/entry/%EC%95%84%EA%B8%B0-%EB%B6%84%EB%A6%AC%EC%88%98%EB%A9%B4-%EB%B0%A9%EB%B2%95-%EC%84%B1%EA%B3%B5%EC%A0%81%EC%9D%B8-%EB%8F%85%EB%A6%BD-%EC%88%98%EB%A9%B4%EC%9D%84-%EC%9C%84%ED%95%9C-%EA%B0%80%EC%9D%B4%EB%93%9C` 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. 공감 버튼은 DOM 에 있으나 클릭 가능한 크기로 렌더링되지 않아 공감 클릭은 확인하지 못함. 확인 시각: `2026-05-20 23:46:50 KST`
+- `https://hyeok-e.tistory.com/entry/%EB%B6%84%EB%A6%AC%EC%88%98%EB%A9%B4-%EA%B0%80%EC%9D%B4%EB%93%9C-%EC%9D%98%EC%9D%98-%EC%A0%81%EC%9A%A9%EC%8B%9C%EA%B8%B0-%EB%8B%A8%EA%B3%84%EC%A0%81-%EC%A0%91%EA%B7%BC%EB%B2%95-%EC%96%B4%EB%A0%A4%EC%9B%80-%ED%95%B4%EA%B2%B0%EC%B1%85` 공감 완료, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. 확인 시각: `2026-05-20 23:46:50 KST`
+- `https://hapa9oo.tistory.com/entry/%EC%95%84%EA%B8%B0-%EC%88%98%EB%A9%B4%EA%B5%90%EC%9C%A1-%EB%B0%A9%EB%B2%95%EA%B3%BC-%EB%B6%84%EB%A6%AC%EC%88%98%EB%A9%B4-%EC%96%B8%EC%A0%9C-%EC%96%B4%EB%96%BB%EA%B2%8C-%EC%8B%9C%EC%9E%91%ED%95%B4%EC%95%BC-%EC%A2%8B%EC%9D%84%EA%B9%8C` 공감 완료, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. 확인 시각: `2026-05-20 23:46:50 KST`
+- `https://family-yes.tistory.com/194` 공감 완료, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. 확인 시각: `2026-05-20 23:46:50 KST`
+
+## 2026-05-20 추가 미완료 기록
+
+- `https://futuremone.tistory.com/2243` 재확인했으나 댓글 입력 폼이 렌더링되지 않아 등록하지 않음. `tstory-tasks.md` 에 유지함.
+- `https://poof31.tistory.com/2333` 일반 입력과 실제 키 입력 방식 모두 댓글 본문은 입력되지만 `등록` 버튼이 계속 비활성 상태라 댓글 등록 확인에 실패함. 공감 상태는 `좋아요27` 로 복구 확인했고, 직접 API 호출/우회 실행은 사용하지 않고 중단했으며 `tstory-tasks.md` 에 유지함.
+
+## 2026-05-21 등록 완료
+
+- `https://memospace.tistory.com/4` 공감 완료, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-21 00:54:12 KST`
+- `https://madam-bella.tistory.com/entry/%EC%95%84%EA%B8%B0-%EC%9D%B4%EC%95%93%EC%9D%B4-%EC%95%BC%EA%B2%BD%EC%A6%9D-%EC%9C%A0%EC%95%84%EC%95%BC%EA%B2%BD%EC%A6%9D-%EB%B6%84%EB%A6%AC%EC%88%98%EB%A9%B4` 공감 완료, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-21 00:54:12 KST`
+- `https://arttherapist.tistory.com/entry/%EC%95%84%EA%B8%B0-%EB%B6%84%EB%A6%AC%EC%88%98%EB%A9%B4-%EC%96%B8%EC%A0%9C%EB%B6%80%ED%84%B0-%EC%8B%9C%EC%9E%91%ED%95%B4%EC%95%BC-%ED%95%A0%EA%B9%8C-%EC%8B%9C%EA%B8%B0-%EC%9D%B4%EC%9C%A0%EC%99%80-%EB%B0%A9%EB%B2%95-%EC%B4%9D%EC%A0%95%EB%A6%AC` 공감 완료, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-21 00:54:12 KST`
+- `https://parkjamae.tistory.com/entry/%EB%B6%84%EB%A6%AC%EC%88%98%EB%A9%B4-%EC%96%B8%EC%A0%9C%EB%B6%80%ED%84%B0-%EC%95%84%EA%B8%B0-%EB%B6%84%EB%A6%AC%EC%88%98%EB%A9%B4-%EC%8B%9C%EC%9E%91-%EC%8B%9C%EA%B8%B0%EC%99%80-%EB%B0%A9%EB%B2%95` 공감 완료, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-21 00:54:12 KST`
+- `https://dagagam15.tistory.com/entry/%EC%95%84%EA%B8%B0-%EB%B6%84%EB%A6%AC%EC%88%98%EB%A9%B4-%EC%99%84%EB%B2%BD-%EA%B0%80%EC%9D%B4%EB%93%9C-%ED%9A%A8%EA%B3%BC%EC%A0%81%EC%9D%B8-%EB%B0%A9%EB%B2%95%EA%B3%BC-%EC%B5%9C%EC%A0%81%EC%9D%98-%EC%8B%9C%EA%B8%B0` 공감 완료, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-21 00:54:12 KST`
+- `https://finfree.tistory.com/137` 공감 완료, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-21 00:54:12 KST`
+
+## 2026-05-21 미완료 기록
+
+- `https://hanssiworld222.tistory.com/entry/%EC%95%84%EA%B8%B0-%EB%B6%84%EB%A6%AC%EC%88%98%EB%A9%B4-%EC%84%B1%EA%B3%B5%EB%B0%A9%EB%B2%95%EC%9A%B0%EB%A6%AC%EC%95%84%EA%B8%B0-%EB%B6%84%EB%A6%AC%EC%88%98%EB%A9%B4%EB%B0%A9%EB%B2%95-%EA%B3%B5%EA%B0%9C-7%EA%B0%9C%EC%9B%94%EB%B6%80%ED%84%B0-%EC%8B%9C%EC%9E%91%ED%95%9C-%EB%B6%84%EB%A6%AC%EC%88%98%EB%A9%B4` 본문 하단까지 확인했으나 좋아요만 있고 댓글 입력 폼이 없어 등록하지 않음. `tstory-tasks.md` 에 유지함.
+- `https://spring-note-book.tistory.com/82` 좋아요 버튼은 있으나 댓글 입력 폼이 없어 등록하지 않음. `tstory-tasks.md` 에 유지함.
+- `https://canada-eng.tistory.com/183` 공감은 클릭했고 댓글 본문 입력까지 진행했으나 등록 후 입력창이 비워지지 않아 실제 등록 완료로 확인하지 못함. 직접 API 호출/우회 실행은 사용하지 않고 중단했으며 `tstory-tasks.md` 에 유지함.
+
+## 2026-05-21 추가 등록 완료
+
+- `https://canada-eng.tistory.com/183` 공감 완료, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-21 01:45:38 KST`
+
+## 2026-05-21 추가 미완료 기록
+
+- `https://poof31.tistory.com/2333` 공감은 클릭했고 댓글 본문 입력까지 진행했으나 `등록` 버튼이 계속 비활성 상태라 댓글 등록 확인에 실패함. 직접 API 호출/우회 실행은 사용하지 않고 중단했으며 `tstory-tasks.md` 에 유지함. 확인 시각: `2026-05-21 01:45:38 KST`
+- `https://hanssiworld222.tistory.com/entry/%EC%95%84%EA%B8%B0-%EB%B6%84%EB%A6%AC%EC%88%98%EB%A9%B4-%EC%84%B1%EA%B3%B5%EB%B0%A9%EB%B2%95%EC%9A%B0%EB%A6%AC%EC%95%84%EA%B8%B0-%EB%B6%84%EB%A6%AC%EC%88%98%EB%A9%B4%EB%B0%A9%EB%B2%95-%EA%B3%B5%EA%B0%9C-7%EA%B0%9C%EC%9B%94%EB%B6%80%ED%84%B0-%EC%8B%9C%EC%9E%91%ED%95%9C-%EB%B6%84%EB%A6%AC%EC%88%98%EB%A9%B4` 본문 하단까지 재확인했으나 댓글 입력 폼이 없어 등록하지 않음. `tstory-tasks.md` 에 유지함. 확인 시각: `2026-05-21 01:45:38 KST`
+- `https://spring-note-book.tistory.com/82` 본문 하단까지 재확인했으나 댓글 입력 폼이 없어 등록하지 않음. `tstory-tasks.md` 에 유지함. 확인 시각: `2026-05-21 01:45:38 KST`
+- `https://101201171202.tistory.com/entry/%EC%9C%A1%EC%95%84%ED%8C%81-%EC%97%84%EB%A7%88%EC%99%80-%EC%95%84%EA%B8%B0%EC%9D%98-%EB%B6%84%EB%A6%AC%EC%88%98%EB%A9%B4` 티스토리 로그인 상태(`info57650`)는 확인됐고 공감도 클릭했으나, 댓글 본문 입력 후에도 `등록` 버튼이 계속 비활성 상태라 댓글 등록 확인에 실패함. 직접 API 호출/우회 실행은 사용하지 않고 중단했으며 `tstory-tasks.md` 에 유지함. 확인 시각: `2026-05-21 01:45:38 KST`
+
+## 2026-05-21 추가 등록 완료
+
+- `https://myoliveworld.tistory.com/77` 공감 완료, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-21 02:41:54 KST`
+- `https://yukarecovery.tistory.com/45` 공감 완료, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-21 02:41:54 KST`
+- `https://dalbitmom.tistory.com/32` 공감 완료, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-21 02:41:54 KST`
+- `https://blog2657.tistory.com/35` 공감 완료, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-21 02:41:54 KST`
+- `https://info-log-blog.tistory.com/17` 공감 완료, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-21 02:41:54 KST`
+
+## 2026-05-21 추가 미완료 기록
+
+- `https://futuremone.tistory.com/2243` 별도 Chrome 확장 탭에서 본문 하단과 댓글 영역을 재확인했으나 `댓글0` 만 보이고 댓글 입력 폼이 렌더링되지 않아 등록하지 않음. `tstory-tasks.md` 에 유지함. 확인 시각: `2026-05-21 03:46:33 KST`
+- `https://poof31.tistory.com/2333` 댓글 입력창은 있고 이미지 첨부용 `input[type=file]` 은 없었음. 일반 입력과 실제 키 입력 방식 모두 댓글 본문은 입력되지만 `등록` 버튼이 계속 비활성 상태라 댓글 등록 확인에 실패함. 직접 API 호출/우회 실행은 사용하지 않고 중단했으며 `tstory-tasks.md` 에 유지함. 확인 시각: `2026-05-21 03:46:33 KST`
+- `https://hanssiworld222.tistory.com/entry/%EC%95%84%EA%B8%B0-%EB%B6%84%EB%A6%AC%EC%88%98%EB%A9%B4-%EC%84%B1%EA%B3%B5%EB%B0%A9%EB%B2%95%EC%9A%B0%EB%A6%AC%EC%95%84%EA%B8%B0-%EB%B6%84%EB%A6%AC%EC%88%98%EB%A9%B4%EB%B0%A9%EB%B2%95-%EA%B3%B5%EA%B0%9C-7%EA%B0%9C%EC%9B%94%EB%B6%80%ED%84%B0-%EC%8B%9C%EC%9E%91%ED%95%9C-%EB%B6%84%EB%A6%AC%EC%88%98%EB%A9%B4` 본문 하단과 댓글 영역을 재확인했으나 댓글 입력 폼이 없어 등록하지 않음. `tstory-tasks.md` 에 유지함. 확인 시각: `2026-05-21 03:46:33 KST`
+- `https://spring-note-book.tistory.com/82` 본문 하단과 댓글 영역을 재확인했으나 댓글 입력 폼이 없어 등록하지 않음. `tstory-tasks.md` 에 유지함. 확인 시각: `2026-05-21 03:46:33 KST`
+- `https://101201171202.tistory.com/entry/%EC%9C%A1%EC%95%84%ED%8C%81-%EC%97%84%EB%A7%88%EC%99%80-%EC%95%84%EA%B8%B0%EC%9D%98-%EB%B6%84%EB%A6%AC%EC%88%98%EB%A9%B4` 댓글 입력창은 있고 이미지 첨부용 `input[type=file]` 은 없었음. 댓글 본문 입력 후에도 `등록` 버튼이 계속 비활성 상태라 댓글 등록 확인에 실패함. 직접 API 호출/우회 실행은 사용하지 않고 중단했으며 `tstory-tasks.md` 에 유지함. 확인 시각: `2026-05-21 03:46:33 KST`
+
+## 2026-05-21 추가 등록 완료
+
+- `https://hoppingg.tistory.com/entry/%EC%95%84%EA%B8%B0-%EB%B6%84%EB%A6%AC%EC%88%98%EB%A9%B4-%EB%B0%A9%EB%B2%95` 공감 버튼 클릭 후 `좋아요1` 반영 확인, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-21 04:44:53 KST`
+- `https://10minbaby.tistory.com/entry/5%EA%B0%9C%EC%9B%94-%EC%95%84%EA%B8%B0-%EC%88%98%EB%A9%B4%EA%B5%90%EC%9C%A1-%ED%8E%98%EB%A5%B4%EB%B2%84-%EB%B0%A9%EC%8B%9D%EC%9C%BC%EB%A1%9C-%EB%B0%A4%EC%88%98%EB%A9%B4-%EC%84%B1%EA%B3%B5%ED%95%98%EA%B8%B0` 공감 버튼 클릭 후 `좋아요2` 반영 확인, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-21 04:44:53 KST`
+- `https://bbook2eee.tistory.com/entry/%ED%8D%BC%EB%B2%84%EB%B2%95-%EB%B6%80%EC%9E%91%EC%9A%A9-33%EC%9D%BC-%EC%95%84%EA%B8%B0-%ED%8D%BC%EB%B2%84%EB%B2%95-%EC%88%98%EB%A9%B4%EA%B5%90%EC%9C%A1-%EC%9D%BC%EC%A7%80feat%EB%B2%A0%EC%9D%B4%EB%B9%84%ED%83%80%EC%9E%84` 공감 버튼 클릭 후 `좋아요1` 반영 확인, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-21 04:44:53 KST`
+- `https://yoloyolo-life.tistory.com/entry/%EC%8C%8D%EB%91%A5%EC%9D%B4-%EC%88%98%EB%A9%B4%EA%B5%90%EC%9C%A1-%EB%B0%A9%EB%B2%95-%EC%8B%9C%EA%B8%B0-%ED%8D%BC%EB%B2%84%EB%B2%95-%EC%95%88%EB%88%95%EB%B2%95-%EC%89%AC%EB%8B%A5%EB%B2%95-%EA%BF%80%ED%8C%81%ED%98%84%EC%9E%AC-%EB%91%90-%EB%8F%8C-%EC%88%98%EB%A9%B4%EA%B5%90%EC%9C%A1-%ED%9B%84%EA%B8%B0` 공감 버튼 클릭, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-21 04:44:53 KST`
+- `https://becomingmaman.tistory.com/20` 공감 버튼 클릭, 구형 댓글 UI 의 `댓글달기` 버튼으로 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-21 04:44:53 KST`
+
+## 2026-05-21 추가 등록 완료
+
+- `https://duedoe.tistory.com/14` 공감 버튼 클릭 후 `좋아요2` 반영 확인, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-21 05:41:41 KST`
+- `https://xxxx3.tistory.com/entry/%EC%95%84%EA%B8%B0-%EC%88%98%EB%A9%B4%EA%B5%90%EC%9C%A1-%EB%B0%A9%EB%B2%95-%EC%A0%95%EB%A6%AC-%EB%B0%A4%EC%88%98-%EB%81%8A%EB%8A%94-%EC%8B%9C%EA%B8%B0%EB%B6%80%ED%84%B0-%EC%88%98%EB%A9%B4-%EB%A3%A8%ED%8B%B4%EA%B9%8C%EC%A7%80-%EC%99%84%EB%B2%BD-%EA%B0%80%EC%9D%B4%EB%93%9C` 공감 버튼 클릭 후 `좋아요1` 반영 확인, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-21 05:40:45 KST`
+
+## 2026-05-21 추가 미완료 기록
+
+- `https://futuremone.tistory.com/2243` 별도 Chrome 확장 탭에서 본문 하단과 댓글 영역을 재확인했으나 `댓글0` 만 보이고 댓글 입력 폼이 렌더링되지 않아 등록하지 않음. 공감 상태는 `좋아요1` 로 복구 확인했고, 직접 API 호출/우회 실행은 사용하지 않았으며 `tstory-tasks.md` 에 유지함. 확인 시각: `2026-05-21 05:40:35 KST`
+- `https://poof31.tistory.com/2333` 댓글 입력창은 있고 이미지 첨부용 `input[type=file]` 은 없었음. 댓글 본문 입력 후에도 `등록` 버튼이 계속 비활성 상태라 댓글 등록 확인에 실패함. 공감 버튼 클릭 후 `좋아요27` 반영 확인했고, 직접 API 호출/우회 실행은 사용하지 않았으며 `tstory-tasks.md` 에 유지함. 확인 시각: `2026-05-21 05:40:37 KST`
+- `https://101201171202.tistory.com/entry/%EC%9C%A1%EC%95%84%ED%8C%81-%EC%97%84%EB%A7%88%EC%99%80-%EC%95%84%EA%B8%B0%EC%9D%98-%EB%B6%84%EB%A6%AC%EC%88%98%EB%A9%B4` 댓글 입력창은 있고 이미지 첨부용 `input[type=file]` 은 없었음. 댓글 본문 입력 후에도 `등록` 버튼이 계속 비활성 상태라 댓글 등록 확인에 실패함. 공감 상태는 `좋아요4` 로 복구 확인했고, 직접 API 호출/우회 실행은 사용하지 않았으며 `tstory-tasks.md` 에 유지함. 확인 시각: `2026-05-21 05:40:36 KST`
+
+## 2026-05-21 추가 등록 완료
+
+- `https://hyunbunny.tistory.com/entry/%EC%95%84%EA%B8%B0-%EC%88%98%EB%A9%B4%EA%B5%90%EC%9C%A1-%EC%8B%9C%EA%B8%B0-%EB%B0%8F-%EB%B0%A9%EB%B2%95%ED%8D%BC%EB%B2%84%EB%B2%95-%EC%89%AC%EB%8B%A5%EB%B2%95-%EC%95%88%EB%88%95%EB%B2%95` 공감 버튼 클릭 후 `좋아요1` 반영 확인, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-21 06:41:18 KST`
+- `https://ksbum7.tistory.com/3` 공감 버튼 클릭 후 `좋아요3` 반영 확인, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-21 06:41:18 KST`
+- `https://mynews6376.tistory.com/32` 공감 버튼 클릭 후 `좋아요1` 반영 확인, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-21 06:41:18 KST`
+- `https://specialtea-y.tistory.com/122` 공감 버튼 클릭 후 `좋아요1` 반영 확인, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-21 06:41:18 KST`
+- `https://1-candy.tistory.com/3` 공감 버튼 클릭 후 `좋아요6` 반영 확인, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-21 06:41:18 KST`
+
+## 2026-05-21 추가 미완료 기록
+
+- `https://strongheart-mom.tistory.com/12` 공감 버튼 클릭 후 `좋아요2` 반영 확인. 별도 Chrome 확장 탭에서 댓글 입력창을 찾지 못해 댓글 등록은 하지 않았고, 직접 API 호출/우회 실행은 사용하지 않았으며 `tstory-tasks.md` 에 유지함. 확인 시각: `2026-05-21 06:41:18 KST`
+- `https://thoistory.tistory.com/261` 공감 버튼 클릭 후 `좋아요7` 반영 확인. 별도 Chrome 확장 탭에서 댓글 입력창을 찾지 못해 댓글 등록은 하지 않았고, 직접 API 호출/우회 실행은 사용하지 않았으며 `tstory-tasks.md` 에 유지함. 확인 시각: `2026-05-21 06:41:18 KST`
+- `https://science-explore.tistory.com/1966` 공감 버튼 클릭 후 `좋아요1` 반영 확인. 별도 Chrome 확장 탭에서 댓글 입력창을 찾지 못해 댓글 등록은 하지 않았고, 직접 API 호출/우회 실행은 사용하지 않았으며 `tstory-tasks.md` 에 유지함. 확인 시각: `2026-05-21 06:41:18 KST`
+
+## 2026-05-21 추가 등록 완료
+
+- `https://joilsen11.tistory.com/entry/%EC%95%84%EA%B8%B0-%EC%9D%B4%EC%9C%A0%EC%8B%9D-%EC%88%98%EB%A9%B4%EA%B5%90%EC%9C%A1-%EC%B4%9D-%EC%A0%95%EB%A6%AC-%EA%B3%BD%EC%9C%A4%EC%B2%A0-%EC%95%84%EC%9D%B4%EC%97%B0%EA%B5%AC%EC%86%8C` 공감 버튼 클릭 후 `좋아요2` 반영 확인, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-21 07:57:41 KST`
+- `https://story-9051.tistory.com/99` 공감 버튼 클릭 후 `좋아요2` 반영 확인, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-21 07:57:41 KST`
+- `https://mondayafternoon.tistory.com/60` 공감 버튼 클릭, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-21 07:57:41 KST`
+- `https://view240822.tistory.com/32` 공감 버튼 클릭, 댓글 등록 완료. 댓글 UI 에 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `babysitter.dveamer.com` 노출 확인. 확인 시각: `2026-05-21 07:57:41 KST`
+
+## 2026-05-21 추가 미완료 기록
+
+- `https://grit-log.tistory.com/entry/%ED%8D%BC%EB%B2%84%EB%B2%95-%EC%9E%A5%EC%A0%90-%EB%B0%8F-%EC%8B%9C%EA%B8%B0%EC%88%98%EB%A9%B4%EA%B5%90%EC%9C%A1-%EB%B0%A9%EB%B2%95-%EB%B0%8F-%EB%B6%80%EC%9E%91%EC%9A%A9` 댓글 입력창은 있으나 댓글 본문 입력 후에도 `등록` 버튼이 계속 비활성 상태라 댓글 등록 확인에 실패함. 이미지 첨부용 `input[type=file]` 은 확인하지 못했고, 직접 API 호출/우회 실행은 사용하지 않았으며 `tstory-tasks.md` 에 유지함. 확인 시각: `2026-05-21 07:57:41 KST`
+
+## 2026-05-21 추가 등록 완료
+
+- `https://panicselling.tistory.com/entry/%EC%88%98%EB%A9%B4-%EA%B5%90%EC%9C%A1-%ED%8D%BC%EB%B2%84%EB%B2%95` 공감 버튼 클릭 후 `좋아요1` 반영 확인, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-21 09:43:58 KST`
+- `https://rani-home.tistory.com/16` 공감 버튼 클릭, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-21 09:43:58 KST`
+- `https://bbook2eee.tistory.com/entry/%EC%83%88%EB%B2%BD%EC%88%98%EC%9C%A0-%EC%95%88%EB%85%95-67%EC%9D%BC-%ED%86%B5%EC%9E%A0-%EB%8F%84%EC%A0%84%EA%B8%B0feat-%ED%8D%BC%EB%B2%84%EB%B2%95` 공감 버튼 클릭, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-21 09:43:58 KST`
+- `https://luckydaon.tistory.com/2` 공감 버튼 클릭 후 `좋아요2` 반영 확인, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-21 09:43:58 KST`
+- `https://hapa9oo.tistory.com/entry/6%EA%B0%9C%EC%9B%94-%EC%95%84%EA%B8%B0-%EC%9E%A0%EC%9E%90%EB%A6%AC-%EB%B6%84%EB%A6%AC%EC%88%98%EB%A9%B4-%EC%8B%9C%EB%8F%84%ED%95%B4%EB%8F%84-%EB%90%A0%EA%B9%8C%EC%9A%94-%EA%B2%BD%ED%97%98%EB%8B%B4%EA%B3%BC-%EC%84%B1%EA%B3%B5%ED%8C%81` 공감 버튼 클릭, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-21 09:43:58 KST`
+
+## 2026-05-21 추가 등록 완료
+
+- `https://daymonthyear.tistory.com/entry/baby-sleep-training-methods` 공감 버튼 클릭, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-21 10:43:38 KST`
+- `https://kkokko6.tistory.com/2` 공감 버튼 클릭, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-21 10:43:38 KST`
+- `https://j001111.tistory.com/22` 공감 버튼 클릭 후 `좋아요5` 반영 확인, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-21 10:43:38 KST`
+- `https://healthnews1004.tistory.com/entry/5%EA%B0%9C%EC%9B%94-%EC%95%84%EA%B8%B0-%EC%88%98%EB%A9%B4%EA%B5%90%EC%9C%A1` 공감 버튼 클릭, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-21 10:43:38 KST`
+
+## 2026-05-21 추가 미완료 기록
+
+- `https://dreamtree2.tistory.com/entry/%EC%83%9D%ED%9B%84-6%EA%B0%9C%EC%9B%94-%EC%95%84%EA%B8%B0-%EC%96%B8%EC%A0%9C%EB%B6%80%ED%84%B0-%EC%88%98%EB%A9%B4-%EA%B5%90%EC%9C%A1%EC%9D%84-%EC%8B%9C%EC%9E%91%ED%95%B4%EC%95%BC-%ED%95%A0%EA%B9%8C` 공감 버튼 클릭 후 `좋아요1` 반영 확인. 댓글 UI 에 이미지 첨부용 `input[type=file]` 은 없었고, 댓글 본문 입력 후에도 `등록` 버튼이 계속 비활성 상태라 댓글 등록 확인에 실패함. 직접 API 호출/우회 실행은 사용하지 않았으며 `tstory-tasks.md` 에 유지함. 확인 시각: `2026-05-21 10:43:38 KST`
+- `https://grit-log.tistory.com/entry/%ED%8D%BC%EB%B2%84%EB%B2%95-%EC%9E%A5%EC%A0%90-%EB%B0%8F-%EC%8B%9C%EA%B8%B0%EC%88%98%EB%A9%B4%EA%B5%90%EC%9C%A1-%EB%B0%A9%EB%B2%95-%EB%B0%8F-%EB%B6%80%EC%9E%91%EC%9A%A9` 댓글 UI 에 이미지 첨부용 `input[type=file]` 은 없었고, 일반 입력과 실제 키 입력 방식 모두 댓글 본문은 입력되지만 `등록` 버튼이 계속 비활성 상태라 댓글 등록 확인에 실패함. 공감 버튼은 찾지 못했고, 직접 API 호출/우회 실행은 사용하지 않았으며 `tstory-tasks.md` 에 유지함. 확인 시각: `2026-05-21 10:43:38 KST`
+
+## 2026-05-21 추가 등록 완료
+
+- `https://strongheart-mom.tistory.com/12` 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-21 11:55:15 KST`
+- `https://thoistory.tistory.com/261` 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-21 11:55:15 KST`
+
+## 2026-05-21 추가 미완료 기록
+
+- `https://science-explore.tistory.com/1966` `댓글0` 영역을 클릭해도 댓글 입력창이 렌더링되지 않아 등록하지 않음. 직접 API 호출/우회 실행은 사용하지 않았으며 `tstory-tasks.md` 에 유지함. 확인 시각: `2026-05-21 11:55:15 KST`
+- `https://grit-log.tistory.com/entry/%ED%8D%BC%EB%B2%84%EB%B2%95-%EC%9E%A5%EC%A0%90-%EB%B0%8F-%EC%8B%9C%EA%B8%B0%EC%88%98%EB%A9%B4%EA%B5%90%EC%9C%A1-%EB%B0%A9%EB%B2%95-%EB%B0%8F-%EB%B6%80%EC%9E%91%EC%9A%A9` 댓글 UI 에 이미지 첨부용 `input[type=file]` 은 없었고, 일반 입력과 실제 키 입력 방식 모두 댓글 본문은 입력되지만 `등록` 버튼이 계속 비활성 상태라 댓글 등록 확인에 실패함. 직접 API 호출/우회 실행은 사용하지 않았으며 `tstory-tasks.md` 에 유지함. 확인 시각: `2026-05-21 11:55:15 KST`
+- `https://dreamtree2.tistory.com/entry/%EC%83%9D%ED%9B%84-6%EA%B0%9C%EC%9B%94-%EC%95%84%EA%B8%B0-%EC%96%B8%EC%A0%9C%EB%B6%80%ED%84%B0-%EC%88%98%EB%A9%B4-%EA%B5%90%EC%9C%A1%EC%9D%84-%EC%8B%9C%EC%9E%91%ED%95%B4%EC%95%BC-%ED%95%A0%EA%B9%8C` 댓글 UI 에 이미지 첨부용 `input[type=file]` 은 없었고, 일반 입력과 실제 키 입력 방식 모두 댓글 본문은 입력되지만 `등록` 버튼이 계속 비활성 상태라 댓글 등록 확인에 실패함. 직접 API 호출/우회 실행은 사용하지 않았으며 `tstory-tasks.md` 에 유지함. 확인 시각: `2026-05-21 11:55:15 KST`
+- `https://poof31.tistory.com/2333` 댓글 UI 에 이미지 첨부용 `input[type=file]` 은 없었고, 댓글 본문 입력 후에도 `등록` 버튼이 계속 비활성 상태라 댓글 등록 확인에 실패함. 직접 API 호출/우회 실행은 사용하지 않았으며 `tstory-tasks.md` 에 유지함. 확인 시각: `2026-05-21 11:55:15 KST`
+- `https://101201171202.tistory.com/entry/%EC%9C%A1%EC%95%84%ED%8C%81-%EC%97%84%EB%A7%88%EC%99%80-%EC%95%84%EA%B8%B0%EC%9D%98-%EB%B6%84%EB%A6%AC%EC%88%98%EB%A9%B4` 댓글 UI 에 이미지 첨부용 `input[type=file]` 은 없었고, 댓글 본문 입력 후에도 `등록` 버튼이 계속 비활성 상태라 댓글 등록 확인에 실패함. 직접 API 호출/우회 실행은 사용하지 않았으며 `tstory-tasks.md` 에 유지함. 확인 시각: `2026-05-21 11:55:15 KST`
+
+## 2026-05-21 추가 등록 완료
+
+- `https://iamom.tistory.com/entry/%EC%8B%A0%EC%83%9D%EC%95%84-%EC%88%98%EB%A9%B4%EA%B5%90%EC%9C%A1-%EC%96%B8%EC%A0%9C%EB%B6%80%ED%84%B0-%EC%96%B4%EB%96%BB%EA%B2%8C-%EC%8B%9C%EC%9E%91%ED%95%B4%EC%95%BC-%ED%95%A0%EA%B9%8C` 공감 버튼 클릭 후 `좋아요2` 반영 확인, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-21 13:20:18 KST`
+- `https://swiss-lily.tistory.com/19` 공감 버튼 클릭 후 `좋아요1` 반영 확인, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `info57650` 댓글과 `babysitter.dveamer.com` 노출 확인. 확인 시각: `2026-05-21 13:20:18 KST`
+- `https://lavie.tistory.com/entry/%EC%88%98%EB%A9%B4%EA%B5%90%EC%9C%A1-%EC%97%86%EC%9D%B4-%EC%9A%B8%EB%A6%AC%EC%A7%80-%EC%95%8A%EA%B3%A0-%EC%95%84%EA%B8%B0-%EC%9E%AC%EC%9A%B4-%ED%9B%84%EA%B8%B0` 공감 버튼 클릭, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `댓글2`, `info57650` 댓글과 `babysitter.dveamer.com` 노출 확인. 확인 시각: `2026-05-21 13:20:18 KST`
+
+## 2026-05-21 추가 미완료 기록
+
+- `https://wouldyoucomeover2me.tistory.com/209` PC 페이지는 열렸으나 본문/DOM 접근이 반복적으로 타임아웃됐고, 모바일 경로 `https://wouldyoucomeover2me.tistory.com/m/209` 에서는 댓글 입력 UI 가 없어 등록하지 않음. 직접 API 호출/우회 실행은 사용하지 않았으며 `tstory-tasks.md` 에 유지함. 확인 시각: `2026-05-21 13:20:18 KST`
+- `https://bless123.tistory.com/5` Chrome 확장 세션에서 URL 이동 또는 DOM 접근이 반복적으로 타임아웃됐고, 모바일 경로 `https://bless123.tistory.com/m/5` 에서는 댓글 입력 UI 가 없어 등록하지 않음. 직접 API 호출/우회 실행은 사용하지 않았으며 `tstory-tasks.md` 에 유지함. 확인 시각: `2026-05-21 13:20:18 KST`
+- `https://dreamtree2.tistory.com/entry/%EC%83%9D%ED%9B%84-6%EA%B0%9C%EC%9B%94-%EC%95%84%EA%B8%B0-%EC%96%B8%EC%A0%9C%EB%B6%80%ED%84%B0-%EC%88%98%EB%A9%B4-%EA%B5%90%EC%9C%A1%EC%9D%84-%EC%8B%9C%EC%9E%91%ED%95%B4%EC%95%BC-%ED%95%A0%EA%B9%8C` 재확인했으나 댓글 본문 입력 후에도 `등록` 버튼이 계속 비활성 상태라 댓글 등록 확인에 실패함. 이미지 첨부용 `input[type=file]` 은 없었고, 직접 API 호출/우회 실행은 사용하지 않았으며 `tstory-tasks.md` 에 유지함. 확인 시각: `2026-05-21 13:20:18 KST`
+
+## 2026-05-21 자동화 시도 기록
+
+- 남은 5개 task(`science-explore`, `grit-log`, `dreamtree2`, `wouldyoucomeover2me`, `bless123`)를 Codex Chrome 확장 세션에서 각각 새 탭으로 열었음.
+- 5개 탭 모두 제목과 URL 목록 조회까지는 성공했으나, 댓글/공감 영역 접근을 위한 화면 캡처와 짧은 DOM 읽기가 반복적으로 120초 제한을 초과함.
+- `openchrome`, Chrome DevTools, 직접 API 호출, 우회 등록은 사용하지 않았고, 등록 완료를 확인한 글이 없어 `tstory-tasks.md` 는 유지함.
+- 사용한 Chrome 확장 탭은 `browser.tabs.finalize({ keep: [] })` 로 정리했고, 이후 Google Chrome 종료를 시도함. 확인 시각: `2026-05-21 13:48:45 KST`
+
+## 2026-05-21 자동화 시도 기록
+
+- 다음 미처리 5개 task(Task 46 `wallyhotelbaby`, Task 47 `bee90`, Task 48 `jiso0914`, Task 49 `twonyang`, Task 50 `bizdigger`)를 Codex Chrome 확장 세션에서 각각 새 탭으로 열어 병렬 진행을 시도함.
+- 실행 중 Chrome 확장 호출이 120초 제한을 초과했고, 이후 탭 목록 확인 시 Task 48-50 URL 은 열린 상태였으나 Task 46-47 로 추정되는 탭은 `about:blank` 상태였음.
+- 열린 Task 48-50 탭도 댓글/공감 영역 확인을 위한 화면 캡처, locator, 짧은 DOM 읽기가 반복적으로 제한 시간을 초과해 댓글 등록 완료를 확인하지 못함.
+- `openchrome`, Chrome DevTools, 직접 API 호출, 우회 등록은 사용하지 않았고, 등록 완료를 확인한 글이 없어 `tstory-tasks.md` 는 유지함.
+- 사용한 Chrome 확장 탭은 `browser.tabs.finalize({ keep: [] })` 로 정리했고, 이후 Google Chrome 종료를 시도함. 확인 시각: `2026-05-21 15:02:39 KST`
+
+## 2026-05-21 추가 등록 완료
+
+- `https://wallyhotelbaby.tistory.com/entry/%EB%B6%84%EB%A6%AC%EC%88%98%EB%A9%B4-%EC%96%B8%EC%A0%9C%EB%B6%80%ED%84%B0-%EC%8B%9C%EC%9E%91%ED%95%A0%EA%B9%8C-feat-%EC%8B%9C%EA%B8%B0-%EB%B0%A9%EB%B2%95` 공감 버튼 클릭 후 `좋아요4` 반영 확인, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `댓글1`, `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-21 15:52:26 KST`
+
+## 2026-05-21 자동화 시도 기록
+
+- Task 47 `bee90`, Task 48 `jiso0914`, Task 49 `twonyang`, Task 50 `bizdigger`를 Task 46 성공 절차와 같은 방식으로 별도 Chrome 확장 탭에서 병렬 진행하려고 했으나 실행 호출이 120초 제한을 초과함.
+- 재연결 후 4개 URL과 제목은 열린 탭 목록에서 확인됐지만, Task 47 단독 DOM 확인 및 탭 닫기 호출까지 다시 제한 시간을 초과해 댓글 등록 완료 여부를 확인하지 못함.
+- 공개 페이지 HTML은 티스토리 댓글 위젯 내용을 포함하지 않아 Task 46도 링크가 노출되지 않았으므로 완료 검증 자료로 사용하지 않았음.
+- `openchrome`, Chrome DevTools, 직접 API 호출, 우회 등록은 사용하지 않았고, 등록 완료를 확인하지 못한 Task 47-50은 `tstory-tasks.md` 에 유지함. 확인 시각: `2026-05-21 15:52:26 KST`
+
+## 2026-05-21 추가 등록 완료
+
+- `https://simplebabytips.tistory.com/entry/%EC%95%84%EA%B8%B0-%EB%B6%84%EB%A6%AC%EC%88%98%EB%A9%B4-%EC%9E%A5%EC%A0%90-%EB%8B%A8%EC%A0%90-%EC%8B%9C%EC%9E%91-%EC%8B%9C%EA%B8%B0-30%EC%B4%88-%EC%9C%A1%EC%95%84-%EA%BF%80%ED%8C%81` 공감 버튼 클릭 후 `좋아요1` 반영 확인, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `댓글1`, `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-21 16:54:13 KST`
+- `https://yukarecovery.tistory.com/44` 공감 버튼 클릭 후 `좋아요1` 반영 확인, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `댓글1`, `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-21 16:54:13 KST`
+
+## 2026-05-21 추가 미완료 기록
+
+- `https://re-view-lee.tistory.com/188` 별도 Chrome 확장 탭은 열렸으나 병렬 처리 호출이 120초 제한을 초과했고, 이후 단독 DOM 확인과 화면 캡처도 제한 시간을 초과해 댓글 등록 완료 여부를 확인하지 못함. 직접 API 호출/우회 실행은 사용하지 않았으며 `tstory-tasks.md` 에 유지함. 확인 시각: `2026-05-21 16:54:13 KST`
+- `https://summerspecial3.tistory.com/6` 별도 Chrome 확장 탭은 열렸으나 병렬 처리 호출이 120초 제한을 초과했고, 이후 단독 DOM 확인도 제한 시간을 초과해 댓글 등록 완료 여부를 확인하지 못함. 직접 API 호출/우회 실행은 사용하지 않았으며 `tstory-tasks.md` 에 유지함. 확인 시각: `2026-05-21 16:54:13 KST`
+- `https://heartplay.tistory.com/728` 별도 Chrome 확장 탭은 열렸으나 병렬 처리 호출이 120초 제한을 초과했고, 이후 단독 DOM 확인도 제한 시간을 초과해 댓글 등록 완료 여부를 확인하지 못함. 직접 API 호출/우회 실행은 사용하지 않았으며 `tstory-tasks.md` 에 유지함. 확인 시각: `2026-05-21 16:54:13 KST`
+- Task 53-55 탭 개별 정리 호출은 제한 시간을 초과했으나, 이후 `browser.tabs.finalize({ keep: [] })` 는 성공함. Google Chrome 종료를 `osascript` 로 시도했고 명령은 0으로 종료됐지만, sandbox 제약으로 프로세스 종료 여부는 추가 검증하지 못함. `openchrome`, Chrome DevTools, 직접 API 호출, 우회 등록은 사용하지 않았음. 확인 시각: `2026-05-21 16:56:02 KST`
+
+## 2026-05-21 추가 등록 완료
+
+- `https://re-view-lee.tistory.com/188` 공감 버튼 클릭을 시도했고, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-21 18:02:03 KST`
+
+## 2026-05-21 추가 미완료 기록
+
+- `https://summerspecial3.tistory.com/6` 새 Chrome 확장 탭에서 제목과 URL은 확인됐으나, 댓글/공감 영역 확인을 위한 단독 조회가 120초 제한을 초과해 댓글 등록을 진행하지 않음. 직접 API 호출/우회 실행은 사용하지 않았으며 `tstory-tasks.md` 에 유지함. 확인 시각: `2026-05-21 18:02:03 KST`
+- `https://heartplay.tistory.com/728` 새 Chrome 확장 탭에서 제목과 URL은 확인됐으나, 댓글 입력창/본문 확인용 locator 조회가 120초 제한을 초과해 댓글 등록을 진행하지 않음. 직접 API 호출/우회 실행은 사용하지 않았으며 `tstory-tasks.md` 에 유지함. 확인 시각: `2026-05-21 18:02:03 KST`
+- `https://bee90.tistory.com/entry/%EB%B6%84%EB%A6%AC-%EC%88%98%EB%A9%B4%EC%9D%98-%EC%A0%81%EC%A0%95-%EC%8B%9C%EA%B8%B0%EC%99%80-%EB%B0%A9%EB%B2%95` 새 Chrome 확장 탭에서 제목과 URL은 확인됐으나, 댓글 입력창/본문 확인용 locator 조회가 제한 시간 안에 응답하지 않아 댓글 등록을 진행하지 않음. 직접 API 호출/우회 실행은 사용하지 않았으며 `tstory-tasks.md` 에 유지함. 확인 시각: `2026-05-21 18:02:03 KST`
+- `https://jiso0914.tistory.com/entry/%EC%9C%A1%EC%95%84-%ED%8C%81-%EC%95%84%EA%B8%B0-%EB%B6%84%EB%A6%AC%EC%88%98%EB%A9%B4-%EB%B6%84%EB%A6%AC%EC%88%98%EB%A9%B4-%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%95-%EB%B6%84%EB%A6%AC%EC%88%98%EB%A9%B4-%EC%9E%A5%EC%A0%90%EB%93%A4-%EC%A3%BC%EC%9D%98%EC%82%AC%ED%95%AD` 새 Chrome 확장 탭에서 제목과 URL은 확인됐으나, 댓글 입력창/본문 확인용 locator 조회가 제한 시간 안에 응답하지 않아 댓글 등록을 진행하지 않음. 직접 API 호출/우회 실행은 사용하지 않았으며 `tstory-tasks.md` 에 유지함. 확인 시각: `2026-05-21 18:02:03 KST`
+- `https://twonyang.tistory.com/entry/%EB%B3%B8%EB%B2%A0%EB%B2%A0-%EC%95%84%EA%B8%B0-%EC%B9%A8%EB%8C%80%EA%B0%80%EB%93%9C-%EA%B5%AC%EB%A7%A4-%ED%9B%84%EA%B8%B0` 새 Chrome 확장 탭 생성을 시도했으나 호출이 120초 제한을 초과했고, 이후 탭 목록에는 `about:blank` 으로 남아 댓글 등록을 진행하지 않음. 직접 API 호출/우회 실행은 사용하지 않았으며 `tstory-tasks.md` 에 유지함. 확인 시각: `2026-05-21 18:02:03 KST`
+
+## 2026-05-21 추가 등록 완료
+
+- `https://mamasdiary.tistory.com/entry/%EC%88%98%EB%A9%B4%EA%B5%90%EC%9C%A1-%EC%83%9D%ED%9B%84-46%EA%B0%9C%EC%9B%94-%EC%88%98%EB%A9%B4-%ED%9B%88%EB%A0%A8-%EC%96%B8%EC%A0%9C-%EC%8B%9C%EC%9E%91%ED%95%B4%EC%95%BC-%ED%95%A0%EA%B9%8C` 공감 버튼 클릭 후 `좋아요2` 반영 확인, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-21 18:55:05 KST`
+
+## 2026-05-21 자동화 시도 기록
+
+- Task 57 `aromatic`, Task 58 `insightful-explorer`, Task 59 `coinpipe`, Task 60 `jayreview`를 Codex Chrome 확장 세션에서 각각 새 탭으로 열어 병렬 진행을 시도함.
+- 4개 탭 모두 제목과 URL은 열린 탭 목록에서 확인됐으나, 병렬 등록 호출이 120초 제한을 초과함.
+- 이후 Task 57의 전체 본문 확인과 Task 59의 짧은 selector 기반 등록/검증을 각각 단독으로 재시도했지만 Chrome 확장 호출이 제한 시간을 초과해 댓글 등록 완료 여부를 확인하지 못함.
+- 등록 완료가 검증되지 않은 Task 57-60은 `tstory-tasks.md` 에 유지함. `openchrome`, Chrome DevTools, 직접 API 호출, 우회 등록은 사용하지 않았음. 확인 시각: `2026-05-21 18:55:05 KST`
+
+## 2026-05-21 추가 등록 완료
+
+- `https://dearyour.tistory.com/entry/%EC%8B%A0%EC%83%9D%EC%95%84-%EC%88%98%EB%A9%B4%EA%B5%90%EC%9C%A1-%EC%96%B8%EC%A0%9C%EB%B6%80%ED%84%B0-%EC%96%B4%EB%96%BB%EA%B2%8C-%EC%8B%9C%EC%9E%91%ED%95%A0%EA%B9%8C` 공감 버튼 클릭 후 `좋아요3` 반영 확인, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `댓글3`, `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-21 19:57:27 KST`
+- `https://aromatic.tistory.com/entry/%EC%8B%A0%EC%83%9D%EC%95%84-%EC%88%98%EB%A9%B4%EA%B5%90%EC%9C%A1-%EC%A0%9C%EB%8C%80%EB%A1%9C-%EC%8B%9C%EC%9E%91%ED%95%98%EB%8A%94-%EB%B2%95-%EC%B4%88%EB%B3%B4-%EB%B6%80%EB%AA%A8%EB%A5%BC-%EC%9C%84%ED%95%9C-%EC%8B%A4%EC%A0%84-%EA%B0%80%EC%9D%B4%EB%93%9C` 공감 버튼 클릭 후 `좋아요1` 반영 확인, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `댓글2`, `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-21 19:57:27 KST`
+
+## 2026-05-21 추가 미완료 기록
+
+- `https://insightful-explorer.tistory.com/681` 새 Chrome 확장 탭에서 제목과 URL은 확인됐으나, 페이지 내부 확인 호출이 반복적으로 제한 시간을 초과해 댓글 등록을 진행하지 않음. 직접 API 호출, Chrome DevTools, `openchrome` 우회는 사용하지 않았으며 `tstory-tasks.md` 에 유지함. 확인 시각: `2026-05-21 19:57:27 KST`
+- `https://coinpipe.tistory.com/33` 새 Chrome 확장 탭에서 제목과 URL은 확인됐으나, selector 기반 댓글 영역 확인과 입력창 조회 호출이 제한 시간을 초과해 댓글 등록을 진행하지 않음. 직접 API 호출, Chrome DevTools, `openchrome` 우회는 사용하지 않았으며 `tstory-tasks.md` 에 유지함. 확인 시각: `2026-05-21 19:57:27 KST`
+
+## 2026-05-21 자동화 시도 기록
+
+- Task 63 `itoshiiii`, Task 64 `timetrevi`, Task 65 `blblbl`, Task 66 `wonder-i`, Task 67 `sales-papa`를 Codex Chrome 확장 세션에서 각각 새 탭으로 열어 병렬 진행을 시도함.
+- 5개 탭 모두 최초 `goto` 완료 신호는 제한 시간을 초과했지만, 재확인 시 열린 탭 목록에서 각 글의 제목과 URL은 확인됨.
+- 이후 Task 63 단독 처리로 전환했으나 댓글/공감 영역 확인 단계가 120초 제한을 초과했고, 상태 확인용 화면 캡처 호출도 제한 시간을 초과해 커널이 초기화됨.
+- `openchrome`, Chrome DevTools, 직접 API 호출, 우회 등록은 사용하지 않았고, 등록 완료를 확인한 글이 없어 `tstory-tasks.md` 는 유지함.
+- 사용한 Chrome 확장 탭은 재연결 후 `browser.tabs.finalize({ keep: [] })` 로 정리함. 이후 Google Chrome 종료를 `osascript` 로 시도했고 명령은 0으로 종료됐지만 macOS 서비스 연결 경고가 출력됐으며, sandbox 제약으로 프로세스 종료 여부는 추가 검증하지 못함. 확인 시각: `2026-05-21 20:51:30 KST`
+
+## 2026-05-21 추가 등록 완료
+
+- `https://kidsmart.tistory.com/entry/%EC%95%84%EA%B8%B0%EC%99%80-%ED%95%A8%EA%BB%98-%EA%B3%B5%EB%8F%99%EC%88%98%EB%A9%B4-%EB%B6%84%EB%A6%AC%EC%88%98%EB%A9%B4-%EC%9E%A5%EB%8B%A8%EC%A0%90-%EB%B9%84%EA%B5%90` 공감 버튼 클릭 후 `좋아요3` -> `좋아요4` 반영 확인, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `댓글4`, `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-21 21:50:33 KST`
+
+## 2026-05-21 추가 미완료 기록
+
+- Task 60 `https://jayreview.tistory.com/80`, Task 62 `https://poof31.tistory.com/1636`, Task 69 `https://6ahmom.tistory.com/17`, Task 70 `https://onuihae.tistory.com/6` 를 각각 새 Chrome 확장 탭으로 열어 병렬 등록을 시도함.
+- 4개 탭 모두 제목과 URL은 열린 탭 목록에서 확인됐으나, 병렬 등록 호출이 120초 제한을 초과함.
+- 이후 탭별 검증을 시도했지만 댓글/공감 영역 확인용 locator, 페이지 텍스트 확인, 화면 캡처 호출이 반복적으로 제한 시간을 초과해 등록 완료 여부를 확인하지 못함.
+- `openchrome`, Chrome DevTools, 직접 API 호출, 우회 등록은 사용하지 않았고, 등록 완료를 확인하지 못한 Task 60/62/69/70은 `tstory-tasks.md` 에 유지함. 사용한 Chrome 확장 탭은 `browser.tabs.finalize({ keep: [] })` 로 정리함. 확인 시각: `2026-05-21 21:50:33 KST`
+
+## 2026-05-21 추가 등록 완료
+
+- `https://1101410.tistory.com/22` 공감은 이미 완료 상태로 확인했고, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-21 22:53:22 KST`
+- `https://kkaesuni.tistory.com/17` 공감은 이미 완료 상태로 확인했고, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `댓글2`, `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-21 22:53:22 KST`
+
+## 2026-05-21 추가 미완료 기록
+
+- Task 73 `https://djtkgodtk.tistory.com/entry/%ED%8D%BC%EB%B2%84%EB%B2%95-%EC%88%98%EB%A9%B4-%EA%B5%90%EC%9C%A1-%EC%9B%90%EB%A6%AC%EC%99%80-%EC%8B%A4%EC%A0%84-%EC%A0%81%EC%9A%A9-%EB%B0%A9%EB%B2%95` 는 Chrome 확장 탭에서 최종 본문과 공감/공유/구독 영역은 확인했지만 댓글 입력창을 찾을 수 없어 등록하지 않음. 댓글 등록 성공이 아니므로 `tstory-tasks.md` 에 유지함. 확인 시각: `2026-05-21 22:53:22 KST`
+- Task 71 `https://oongblog10.tistory.com/entry/%EC%95%84%EA%B8%B0-%EC%88%98%EB%A9%B4%EA%B5%90%EC%9C%A1-%EC%B4%88%EB%B3%B4-%EB%B6%80%EB%AA%A8%EB%A5%BC-%EC%9C%84%ED%95%9C-%EA%B3%BC%ED%95%99%EC%A0%81-%EB%B0%A9%EB%B2%95` 처리 중 댓글 링크 클릭이 같은 블로그의 다른 글 `https://oongblog10.tistory.com/20#comment22996421` 로 이동해 Task 71 댓글이 오등록됨. UI 삭제 링크 클릭은 확인창에서 Chrome 확장 호출이 제한 시간을 초과해 삭제 완료를 확인하지 못함. 원래 Task 71은 완료 처리하지 않고 `tstory-tasks.md` 에 유지함. 확인 시각: `2026-05-21 22:53:22 KST`
+- Task 72 `https://hansol2409.tistory.com/entry/%EC%88%98%EB%A9%B4%EA%B5%90%EC%9C%A1-%EC%8B%9C%EA%B8%B0-%EB%B0%A9%EB%B2%95-%ED%8D%BC%EB%B2%84%EB%B2%95-%EC%89%AC%EB%8B%A5%EB%B2%95-%EC%95%84%EB%8B%A5%EB%B2%95-%EC%95%88%EB%88%95%EB%B2%95` 처리 중 댓글 링크 클릭이 같은 블로그의 다른 글 `https://hansol2409.tistory.com/93#comment26814737` 로 이동해 Task 72 댓글이 오등록됨. UI 삭제 링크 클릭은 확인창에서 Chrome 확장 호출이 제한 시간을 초과해 삭제 완료를 확인하지 못함. 원래 Task 72는 완료 처리하지 않고 `tstory-tasks.md` 에 유지함. 확인 시각: `2026-05-21 22:53:22 KST`
+- 사용한 Chrome 확장 탭 9개는 `browser.tabs.finalize({ keep: [] })` 로 정리해 이후 탭 목록 0개를 확인함. Google Chrome 종료를 `osascript` 로 시도했고 명령은 0으로 종료됐지만 macOS 서비스 연결 경고가 출력됨. 확인 시각: `2026-05-21 22:55:06 KST`
+
+## 2026-05-21 추가 등록 완료
+
+- `https://il4000li.tistory.com/26` 공감 버튼 클릭 후 `좋아요2` -> `좋아요3` 반영 확인, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `댓글9`, `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-21 23:44:21 KST`
+- `https://nmallecn.tistory.com/entry/%EB%A7%98%EC%95%84%EC%9D%B4-%EC%8A%A4%EB%A7%88%ED%8A%B8-%EB%B2%A0%EC%9D%B4%EB%B9%84%EC%B9%B4%EB%A9%94%EB%9D%BC-%EC%95%84%EA%B8%B0-%ED%98%B8%ED%9D%A1%EA%B9%8C%EC%A7%80-%EC%8B%A4%EC%8B%9C%EA%B0%84%EC%9C%BC%EB%A1%9C-%EB%B3%B8%EB%8B%A4%EB%A9%B4` 공감 버튼 클릭 후 `좋아요1` 반영 확인, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `댓글1`, `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-21 23:44:21 KST`
+- `https://insightful-explorer.tistory.com/681` 공감 버튼 클릭, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `댓글1`, `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-21 23:44:21 KST`
+- `https://coinpipe.tistory.com/33` 공감 버튼 클릭 후 `좋아요6` -> `좋아요7` 반영 확인, 구형 `textarea[name="comment"]` 댓글 UI 로 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-21 23:44:21 KST`
+- `https://jayreview.tistory.com/80` 공감 버튼 클릭 후 `좋아요9` -> `좋아요10` 반영 확인, 구형 `textarea[name="comment"]` 댓글 UI 로 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-21 23:44:21 KST`
+
+## 2026-05-22 추가 등록 완료
+
+- `https://itoshiiii.tistory.com/entry/%EC%98%81%EC%9C%A0%EC%95%84-%EC%88%98%EB%A9%B4%EA%B5%90%EC%9C%A1-%EC%99%84%EC%A0%84-%EA%B0%80%EC%9D%B4%EB%93%9C-%EC%96%B8%EC%A0%9C-%EC%96%B4%EB%96%BB%EA%B2%8C-%EC%8B%9C%EC%9E%91%ED%95%B4%EC%95%BC-%ED%95%A0%EA%B9%8C` 공감 버튼 클릭 후 `좋아요1` -> `좋아요2` 반영 확인, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `댓글1`, `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-22 00:44:55 KST`
+- `https://timetrevi.tistory.com/entry/%EC%95%84%EA%B8%B0-%EB%B6%84%EB%A6%AC%EC%88%98%EB%A9%B4-%EB%B0%A9%EB%B2%95-3%EB%8B%A8%EA%B3%84-%EC%83%9D%ED%9B%84-6%EA%B0%9C%EC%9B%94%EB%B6%80%ED%84%B0` 공감 버튼 클릭, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-22 00:44:55 KST`
+- `https://wonder-i.tistory.com/26` 공감 버튼 클릭, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-22 00:44:55 KST`
+- `https://sales-papa.tistory.com/entry/%EC%8B%A0%EC%83%9D%EC%95%84-%EC%88%98%EB%A9%B4%EA%B5%90%EC%9C%A1-%EB%B0%A9%EB%B2%95-50%EC%9D%BC-%EC%95%84%EA%B8%B0-%EA%B8%B0%EC%A0%81-%ED%86%B5%EC%9E%A0-%EC%84%B1%EA%B3%B5` 공감 버튼 클릭, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-22 00:44:55 KST`
+- `https://6ahmom.tistory.com/17` 공감 버튼 클릭, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-22 00:44:55 KST`
+
+## 2026-05-22 추가 미완료 기록
+
+- `https://blblbl.tistory.com/entry/%EC%95%84%EA%B8%B0-%EB%B6%84%EB%A6%AC%EC%88%98%EB%A9%B4-%EC%8B%9C%EA%B8%B0-%EB%B0%A9%EB%B2%95-%EC%9E%A5%EB%8B%A8%EC%A0%90-%EA%B5%90%EC%9C%A1-%EB%B0%A9%EB%B2%95-%ED%8F%AC%EC%8A%A4%ED%8C%85` 댓글 UI 에 이미지 첨부용 `input[type=file]` 은 없었고, `textarea` 입력 후 실제 키 입력 방식까지 재시도했으나 `등록` 버튼이 계속 비활성 상태라 댓글 등록 확인에 실패함. 직접 API 호출/우회 실행은 사용하지 않았으며 `tstory-tasks.md` 에 유지함. 확인 시각: `2026-05-22 00:44:55 KST`
