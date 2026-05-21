@@ -1105,13 +1105,15 @@
               data-language-toggle-label-id="Pilih bahasa"
               data-language-toggle-label-pt="Selecionar idioma"
               data-language-toggle-label-es="Seleccionar idioma"
-              data-language-toggle-label-ar="اختيار اللغة">
+              data-language-toggle-label-ar="اختيار اللغة"
+              data-language-toggle-label-ru="Выбор языка">
               <button type="button" class="is-active" data-language-option="ko" aria-pressed="true">KO</button>
               <button type="button" data-language-option="en" aria-pressed="false">EN</button>
               <button type="button" data-language-option="id" aria-pressed="false">ID</button>
               <button type="button" data-language-option="pt" aria-pressed="false">PT</button>
               <button type="button" data-language-option="es" aria-pressed="false">ES</button>
               <button type="button" data-language-option="ar" aria-pressed="false">AR</button>
+              <button type="button" data-language-option="ru" aria-pressed="false">RU</button>
             </div>
           </div>
         </header>
@@ -1398,14 +1400,15 @@
   <script>
     (() => {
       const languageStorageKey = "baby-sitter-homepage-language";
-      const supportedLanguages = ["ko", "en", "id", "pt", "es", "ar"];
+      const supportedLanguages = ["ko", "en", "id", "pt", "es", "ar", "ru"];
       const htmlLanguageByLanguage = {
         ko: "ko",
         en: "en",
         id: "id",
         pt: "pt-BR",
         es: "es-419",
-        ar: "ar"
+        ar: "ar",
+        ru: "ru"
       };
 
       const normalizeLanguage = (value) => {
@@ -1419,6 +1422,7 @@
         if (normalized.startsWith("pt")) return "pt";
         if (normalized.startsWith("es")) return "es";
         if (normalized.startsWith("ar")) return "ar";
+        if (normalized.startsWith("ru")) return "ru";
         return null;
       };
 
@@ -2033,13 +2037,126 @@
           "يعمل الاتصال عن بُعد داخل شبكة Wi‑Fi نفسها فقط، ولا يتم رفع الفيديو إلى السحابة، ولا يجمع التطبيق معلومات شخصية."
       };
 
+      const russian = {
+        ...english,
+        "meta.title": "Baby Sitter | Более спокойная ночь без частого открывания двери",
+        "meta.description":
+          "Страница Baby Sitter: используйте старый Android-телефон, чтобы присматривать за детской, замечать звук и движение и успокаивать малыша колыбельной, записанной голосом родителей.",
+        "brand.subtitle": "Для более спокойного сна малыша и родителей",
+        "nav.label": "Навигация по разделам",
+        "nav.story": "О приложении",
+        "nav.setup": "Подготовка",
+        "nav.safety": "Безопасность",
+        "nav.howToUse": "Как пользоваться",
+        "nav.faq": "FAQ",
+        "hero.eyebrow": "Чтобы малыш просыпался на один раз меньше",
+        "hero.brandLine": "Baby Sitter",
+        "hero.title": "Если малыш зашевелился,<br>включите голос мамы и папы.",
+        "hero.lead":
+          "Поставьте в детской неиспользуемый Android-телефон, и Baby Sitter будет следить за звуком и движением до того, как малыш полностью проснется. Приложение успокоит его колыбельной голосом мамы и папы и поможет снова уснуть.",
+        "hero.install": "Установить Baby Sitter",
+        "hero.viewGuide": "Сначала посмотреть, как работает",
+        "hero.footnote":
+          "Удаленный просмотр рассчитан только на одну и ту же сеть Wi‑Fi, а видео из детской не отправляется в облако.",
+        "hero.imageAlt":
+          "Baby Sitter присматривает за малышом и помогает ему снова уснуть под колыбельную голосом родителей",
+        "story.kicker": "Почему становится спокойнее",
+        "story.title": "Помогите малышу лучше спать,<br>а родителям немного легче выдохнуть.",
+        "story.body":
+          "Когда малыш начинает беспокоиться, вам не нужно каждый раз выбирать между тем, чтобы открыть дверь, и тем, чтобы еще подождать.",
+        "story.feature1Title": "Реагируйте раньше, когда малыш почти проснулся",
+        "story.feature1Body":
+          "Пока легкое беспокойство не усилилось, приложение мягко помогает малышу снова заснуть.",
+        "story.feature1Point1": "Следит за звуком и движением одновременно.",
+        "story.feature1Point2": "Успокаивает знакомым звуком, например голосом мамы и папы.",
+        "story.feature2Title": "Проверяйте малыша из другой комнаты",
+        "story.feature2Body":
+          "Можно посмотреть, что происходит, не открывая дверь в детскую снова и снова. Это особенно важно в ночи, когда даже маленькое вмешательство может разбудить малыша.",
+        "story.feature2Point1": "Удаленный доступ рассчитан только на одну и ту же сеть Wi‑Fi.",
+        "story.feature2Point2": "Смотреть может только ваша семья, поэтому пользоваться приложением спокойно и приватно.",
+        "story.feature3Title": "Понимайте, что может мешать сну",
+        "story.feature3Body":
+          "Это не только прямой просмотр: вы можете сохранить милые моменты и лучше понять, что могло потревожить сон малыша.",
+        "story.feature3Point1":
+          "Если заметили милый момент, сохраните его. Мы сохраняем видео за 5 минут до и после него.",
+        "story.feature3Point2":
+          "Если малыш проснулся, запись видео начинается за 3 минуты до пробуждения.",
+        "setup.kicker": "Что понадобится",
+        "setup.title": "Можно начать уже сегодня ночью без покупки нового устройства.",
+        "setup.body":
+          "Достаточно старого Android-телефона, небольшой подставки и домашней сети Wi‑Fi.",
+        "setup.quote":
+          "Поставьте старый Android-телефон так, чтобы он хорошо видел кроватку.<br><strong>Вместо покупки дорогого устройства можно использовать то, что уже есть дома.</strong>",
+        "setup.tip":
+          "Если телефон родителей подключен к той же сети Wi‑Fi, можно смотреть за малышом, не будя его. Еще лучше поставить рядом с кроваткой термометр и гигрометр.",
+        "setup.cardTitle": "Подготовьте только это",
+        "setup.cardBody":
+          "Подготовьте эти вещи. В приложении есть обучение, поэтому начать очень просто.",
+        "setup.item1": "Android-телефон для детской комнаты (с установленным Baby Sitter)",
+        "setup.item2": "Простая подставка для телефона",
+        "setup.item3": "Домашняя сеть Wi‑Fi",
+        "setup.item4": "Телефон для удаленного просмотра",
+        "safety.kicker": "Безопасность",
+        "safety.title": "Держите телефон вне кроватки,<br>и используйте приложение как помощь для решения взрослого.",
+        "safety.body":
+          "Baby Sitter — домашний помощник для наблюдения. Это не медицинское устройство и оно не заменяет присмотр взрослого.",
+        "safety.card1Label": "Размещение",
+        "safety.card1Title": "Держите телефон и подставку вне кроватки и вне досягаемости ребенка",
+        "safety.card1Body":
+          "Не кладите телефон, зарядный кабель или подставку внутрь кроватки или на ее край. Стабильное место примерно в метре от кроватки безопаснее.",
+        "safety.card2Label": "Установка",
+        "safety.card2Title": "Выберите понятный угол обзора, но избегайте свободных кабелей и неустойчивых поверхностей",
+        "safety.card2Body":
+          "Убедитесь, что кроватка и малыш хорошо видны, но избегайте неустойчивой мебели, свисающих проводов и всего, что может упасть в зону сна.",
+        "safety.card3Label": "Ограничения",
+        "safety.card3Title": "Не представляйте приложение как медицинское устройство или замену присмотру",
+        "safety.card3Body":
+          "Приложение помогает раньше заметить вероятное пробуждение. Оно не гарантирует обнаружение экстренных ситуаций и не дает медицинских заключений.",
+        "howto.kicker": "Ночной порядок",
+        "howto.title": "Пройдите обучение и настройте один раз.",
+        "howto.body":
+          "Следуйте обучению, включите нужные функции распознавания и удаленного доступа, затем подготовьте колыбельную.",
+        "howto.tip":
+          "Если записать колыбельную голосом родителей, малыш услышит знакомый звук и сможет легче снова уснуть после пробуждения.",
+        "howto.step1Label": "Включите распознавание",
+        "howto.step1Title": "Включите распознавание Sound и Motion в Settings",
+        "howto.step1Body":
+          "Разрешите нужные доступы и настройте чувствительность, чтобы приложение замечало небольшие признаки до полного пробуждения малыша.",
+        "howto.step2Label": "Подключитесь удаленно",
+        "howto.step2Title": "Используйте QR-код, чтобы легко подключиться из браузера другого устройства",
+        "howto.step2Body":
+          "После первого подключения можно открывать браузер в нужный момент и смотреть за малышом, не открывая дверь.",
+        "faq.kicker": "Частые вопросы",
+        "faq.title": "Что родители<br>спрашивают первым делом.",
+        "faq.body":
+          "Здесь собраны вопросы, которые чаще всего мешают установить приложение перед первой ночью.",
+        "faq.q1": "Что нужно, чтобы начать сегодня ночью?",
+        "faq.a1":
+          "Достаточно одного Android-телефона в детской, простой подставки, домашней сети Wi‑Fi и еще одного устройства для просмотра. Идея в том, чтобы начать без покупки новой детской камеры.",
+        "faq.q2": "Это бесплатно?",
+        "faq.a2":
+          "Все основные функции для ухода за малышом бесплатны. Рекламы тоже нет.",
+        "faq.q3": "Видео из детской отправляется в облако?",
+        "faq.a3":
+          "Видео из детской никогда не отправляется наружу. Просмотр доступен только когда устройства подключены к одной и той же сети Wi‑Fi.",
+        "cta.kicker": "Начните сегодня ночью",
+        "cta.title": "Детская тише, а на душе у родителей немного легче.",
+        "cta.body":
+          "Достаточно одного Android-телефона и небольшой подставки. <br>Помогите малышу спать спокойнее уже сегодня.",
+        "cta.install": "Установить Baby Sitter",
+        "cta.viewSetup": "Посмотреть подготовку еще раз",
+        "cta.footer":
+          "Удаленное подключение работает только в одной сети Wi‑Fi, видео не отправляется в облако, а приложение не собирает персональные данные."
+      };
+
       const translationsByLanguage = {
         ko: korean,
         en: english,
         id: indonesian,
         pt: portuguese,
         es: spanish,
-        ar: arabic
+        ar: arabic,
+        ru: russian
       };
 
       const getStoredLanguage = () => {
@@ -2080,7 +2197,8 @@
           id: languageToggle.dataset.languageToggleLabelId,
           pt: languageToggle.dataset.languageToggleLabelPt,
           es: languageToggle.dataset.languageToggleLabelEs,
-          ar: languageToggle.dataset.languageToggleLabelAr
+          ar: languageToggle.dataset.languageToggleLabelAr,
+          ru: languageToggle.dataset.languageToggleLabelRu
         };
 
         return labels[language] || labels.en || "";
