@@ -6,6 +6,279 @@
     "website": "https://babysitter.dveamer.com/index.html"
   },
   "listings": {
+    "af": {
+      "title": "Baby Sitter: Babamonitor",
+      "short_description": "Maak 'n ou Android-foon 'n babamonitor op jou huis-Wi-Fi.",
+      "full_description": [
+        "Baby Sitter verander 'n ou Android-foon in 'n babamonitor vir rustiger aande op jou huis-Wi-Fi.",
+        "",
+        "Sit een foon in die babakamer en kyk van 'n ander kamer af. Die app let op klank en beweging, kan 'n wiegelied in 'n ouer se stem speel, en laat jou oomblikke rondom wakkerword bêre.",
+        "",
+        "Dit werk vir kyk op dieselfde Wi-Fi, stuur nie babakamer-video na die wolk nie, en versamel nie persoonlike data nie.",
+        "",
+        "Veiligheid: hou die foon, staander en laaikabel buite die bedjie en buite bereik. Baby Sitter is nie 'n mediese toestel nie en vervang nie toesig deur 'n versorger nie."
+      ]
+    },
+    "sq": {
+      "title": "Baby Sitter: Monitor Bebi",
+      "short_description": "Ktheje një Android të vjetër në monitor bebi për Wi-Fi në shtëpi.",
+      "full_description": [
+        "Baby Sitter e kthen një telefon të vjetër Android në monitor bebi për net më të qeta në Wi-Fi-në e shtëpisë.",
+        "",
+        "Vendos një telefon në dhomën e bebit dhe shiko nga një dhomë tjetër. Aplikacioni dallon zërin dhe lëvizjen, mund të luajë një ninullë me zërin e prindit dhe ruan çastet rreth zgjimit.",
+        "",
+        "Funksionon në të njëjtin Wi-Fi, nuk dërgon video të dhomës së bebit në cloud dhe nuk mbledh të dhëna personale.",
+        "",
+        "Siguria: mbaj telefonin, mbajtësen dhe kabllon e karikimit jashtë krevatit dhe larg bebit. Baby Sitter nuk është pajisje mjekësore dhe nuk zëvendëson mbikëqyrjen e kujdestarit."
+      ]
+    },
+    "am": {
+      "title": "Baby Sitter: የሕፃን ሞኒተር",
+      "short_description": "የቆየ Android ስልክን በቤት Wi‑Fi የሕፃን ሞኒተር ያድርጉ።",
+      "full_description": [
+        "Baby Sitter የቆየ Android ስልክን በቤት Wi-Fi ላይ ለሕፃን ክፍል መመልከቻ የሚሆን ሞኒተር ያደርገዋል።",
+        "",
+        "አንድ ስልክ በሕፃኑ ክፍል ውስጥ ያስቀምጡ፣ ከሌላ ክፍልም ይመልከቱ። መተግበሪያው ድምፅና እንቅስቃሴ ያስተውላል፣ በወላጅ ድምፅ የተቀዳ ማስተኛ ዘፈን ሊጫወት ይችላል፣ እና በመንቃት ዙሪያ ያሉ ጊዜዎችን ለኋላ ማየት ያስቀምጣል።",
+        "",
+        "በተመሳሳይ Wi-Fi ላይ ብቻ ይሰራል፣ የሕፃን ክፍል ቪዲዮ ወደ cloud አይላክም፣ የግል መረጃም አይሰበስብም።",
+        "",
+        "ደህንነት፦ ስልኩን፣ መያዣውን እና የኃይል ገመዱን ከአልጋው ውጭ እና ከሕፃኑ እጅ ርቀው ያቆዩ። Baby Sitter የሕክምና መሣሪያ አይደለም፣ የአሳዳጊ ክትትልንም አይተካም።"
+      ]
+    },
+    "ar": {
+      "title": "Baby Sitter: مراقب الطفل",
+      "short_description": "حوّل هاتف Android قديماً إلى مراقب طفل على Wi‑Fi المنزل.",
+      "full_description": [
+        "يحوّل Baby Sitter هاتف Android قديماً إلى مراقب طفل لليالٍ أهدأ عبر شبكة Wi-Fi المنزلية.",
+        "",
+        "ضع هاتفاً في غرفة الطفل وتابع من غرفة أخرى. يلاحظ التطبيق الصوت والحركة، ويمكنه تشغيل تهويدة بصوت أحد الوالدين، كما يتيح حفظ اللحظات حول وقت استيقاظ الطفل لمراجعتها لاحقاً.",
+        "",
+        "يعمل للمشاهدة على شبكة Wi-Fi نفسها، ولا يرسل فيديو غرفة الطفل إلى السحابة، ولا يجمع بيانات شخصية.",
+        "",
+        "السلامة: أبقِ الهاتف والحامل وكابل الشحن خارج السرير وبعيداً عن متناول الطفل. Baby Sitter ليس جهازاً طبياً ولا يغني عن إشراف مقدم الرعاية."
+      ]
+    },
+    "hy-AM": {
+      "title": "Baby Sitter: Մանկական մոնիտոր",
+      "short_description": "Հին Android-ը դարձրեք մանկական մոնիտոր տան Wi‑Fi-ի համար։",
+      "full_description": [
+        "Baby Sitter-ը հին Android հեռախոսը դարձնում է մանկական մոնիտոր՝ տան Wi-Fi-ում ավելի հանգիստ գիշերների համար։",
+        "",
+        "Մի հեռախոս դրեք մանկասենյակում և հետևեք մյուս սենյակից։ Հավելվածը նկատում է ձայնն ու շարժումը, կարող է նվագարկել ծնողի ձայնով օրորոցային և պահպանել արթնանալու պահերը հետագայում դիտելու համար։",
+        "",
+        "Այն աշխատում է նույն Wi-Fi-ում, մանկասենյակի տեսանյութը չի ուղարկում ամպ և անձնական տվյալներ չի հավաքում։",
+        "",
+        "Անվտանգություն․ հեռախոսը, հենակը և լիցքավորման մալուխը պահեք մահճակալից դուրս և երեխայի հասանելիությունից հեռու։ Baby Sitter-ը բժշկական սարք չէ և չի փոխարինում խնամողի վերահսկողությանը։"
+      ]
+    },
+    "az-AZ": {
+      "title": "Baby Sitter: Körpə Monitoru",
+      "short_description": "Köhnə Android telefonu ev Wi‑Fi-da körpə monitoruna çevirin.",
+      "full_description": [
+        "Baby Sitter köhnə Android telefonunu ev Wi-Fi şəbəkəsində daha sakit gecələr üçün körpə monitoruna çevirir.",
+        "",
+        "Bir telefonu körpənin otağına qoyun və başqa otaqdan izləyin. Tətbiq səs və hərəkəti sezə bilir, valideyn səsi ilə yazılmış laylanı səsləndirə bilər və oyanma ətrafındakı anları sonradan baxmaq üçün saxlaya bilər.",
+        "",
+        "Eyni Wi-Fi şəbəkəsində işləyir, körpə otağının videosunu buluda göndərmir və şəxsi məlumat toplamır.",
+        "",
+        "Təhlükəsizlik: telefonu, dayağı və şarj kabelini beşiyin kənarında deyil, uşağın əli çatmayan yerdə saxlayın. Baby Sitter tibbi cihaz deyil və baxıcının nəzarətini əvəz etmir."
+      ]
+    },
+    "bn-BD": {
+      "title": "Baby Sitter: শিশু মনিটর",
+      "short_description": "পুরনো Android ফোনকে ঘরের Wi‑Fi শিশু মনিটর বানান।",
+      "full_description": [
+        "Baby Sitter একটি পুরনো Android ফোনকে ঘরের Wi-Fi-তে শান্ত রাতের জন্য শিশু মনিটরে বদলে দেয়।",
+        "",
+        "একটি ফোন শিশুর ঘরে রাখুন, তারপর অন্য ঘর থেকে দেখুন। অ্যাপটি শব্দ ও নড়াচড়া বুঝতে সাহায্য করে, বাবা বা মায়ের কণ্ঠে রেকর্ড করা লোরি চালাতে পারে, এবং জেগে ওঠার আশপাশের মুহূর্ত পরে দেখার জন্য সংরক্ষণ করতে দেয়।",
+        "",
+        "এটি একই Wi-Fi-তে কাজ করে, শিশুর ঘরের ভিডিও ক্লাউডে পাঠায় না এবং ব্যক্তিগত তথ্য সংগ্রহ করে না।",
+        "",
+        "নিরাপত্তা: ফোন, স্ট্যান্ড ও চার্জিং কেবল খাটের বাইরে এবং শিশুর নাগালের বাইরে রাখুন। Baby Sitter কোনো চিকিৎসা যন্ত্র নয় এবং পরিচর্যাকারীর তদারকির বিকল্প নয়।"
+      ]
+    },
+    "eu-ES": {
+      "title": "Baby Sitter: Haur Monitorea",
+      "short_description": "Bihurtu Android zahar bat etxeko Wi‑Fi bidezko haur monitore.",
+      "full_description": [
+        "Baby Sitter-ek Android telefono zahar bat haur monitore bihurtzen du, etxeko Wi-Fi bidez gau lasaiagoak izateko.",
+        "",
+        "Jarri telefono bat haurraren gelan eta begiratu beste gela batetik. Aplikazioak soinua eta mugimendua antzematen laguntzen du, guraso baten ahotsez grabatutako lo-kanta erreproduzi dezake eta esnatze inguruko uneak gordetzeko aukera ematen du.",
+        "",
+        "Wi-Fi sare berean funtzionatzen du, ez du haurraren gelako bideoa hodeira bidaltzen, eta ez du datu pertsonalik biltzen.",
+        "",
+        "Segurtasuna: mantendu telefonoa, euskarria eta kargatzeko kablea sehaskatik kanpo eta haurraren eskuetatik urrun. Baby Sitter ez da gailu medikoa eta ez du zaintzailearen gainbegiratzea ordezkatzen."
+      ]
+    },
+    "be": {
+      "title": "Baby Sitter: Манітор дзіцяці",
+      "short_description": "Ператварыце стары Android у манітор дзіцяці праз хатні Wi‑Fi.",
+      "full_description": [
+        "Baby Sitter ператварае стары тэлефон Android у манітор дзіцяці для больш спакойных начэй праз хатні Wi-Fi.",
+        "",
+        "Пастаўце адзін тэлефон у дзіцячым пакоі і назірайце з іншага пакоя. Праграма заўважае гук і рух, можа прайграць калыханку голасам бацькоў і захаваць моманты вакол прачынання для пазнейшага прагляду.",
+        "",
+        "Працуе ў той жа сетцы Wi-Fi, не адпраўляе відэа з дзіцячага пакоя ў воблака і не збірае асабістыя даныя.",
+        "",
+        "Бяспека: трымайце тэлефон, падстаўку і кабель зарадкі па-за ложачкам і па-за дасяжнасцю дзіцяці. Baby Sitter не з'яўляецца медыцынскай прыладай і не замяняе нагляд дарослага."
+      ]
+    },
+    "bg": {
+      "title": "Baby Sitter: Бебе монитор",
+      "short_description": "Превърнете стар Android в бебе монитор през домашния Wi‑Fi.",
+      "full_description": [
+        "Baby Sitter превръща стар Android телефон в бебе монитор за по-спокойни нощи през домашния Wi-Fi.",
+        "",
+        "Поставете един телефон в стаята на бебето и наблюдавайте от друга стая. Приложението отчита звук и движение, може да пусне приспивна песен с гласа на родител и позволява да запазвате моменти около събуждането.",
+        "",
+        "Работи в същата Wi-Fi мрежа, не изпраща видео от детската стая в облака и не събира лични данни.",
+        "",
+        "Безопасност: дръжте телефона, стойката и кабела за зареждане извън креватчето и далеч от детето. Baby Sitter не е медицинско устройство и не заменя надзора на възрастен."
+      ]
+    },
+    "my-MM": {
+      "title": "Baby Sitter: ကလေးမော်နီတာ",
+      "short_description": "Android ဖုန်းဟောင်းကို အိမ် Wi‑Fi ကလေးမော်နီတာအဖြစ် သုံးပါ။",
+      "full_description": [
+        "Baby Sitter သည် Android ဖုန်းဟောင်းကို အိမ် Wi-Fi ပေါ်တွင် ညအချိန်ပိုစိတ်အေးရသော ကလေးမော်နီတာအဖြစ် ပြောင်းလဲပေးသည်။",
+        "",
+        "ဖုန်းတစ်လုံးကို ကလေးခန်းထဲတွင် ထားပြီး အခြားအခန်းမှ ကြည့်နိုင်ပါသည်။ အက်ပ်သည် အသံနှင့် လှုပ်ရှားမှုကို သတိပြုစေပြီး မိဘအသံဖြင့် မှတ်ထားသော သီချင်းငယ်ကို ဖွင့်နိုင်ကာ ကလေးနိုးချိန်အနီးရှိ အခိုက်အတန့်များကို နောက်မှကြည့်ရန် သိမ်းနိုင်ပါသည်။",
+        "",
+        "Wi-Fi တစ်ခုတည်းတွင်သာ ကြည့်ရှုရန် ရည်ရွယ်ထားပြီး ကလေးခန်းဗီဒီယိုကို cloud သို့ မပို့ပါ၊ ကိုယ်ရေးဒေတာလည်း မစုဆောင်းပါ။",
+        "",
+        "လုံခြုံရေး: ဖုန်း၊ တိုင်နှင့် အားသွင်းကြိုးကို ကလေးအိပ်ရာအတွင်း မထားဘဲ ကလေးလက်လှမ်းမမီသောနေရာတွင် ထားပါ။ Baby Sitter သည် ဆေးဘက်ဆိုင်ရာကိရိယာ မဟုတ်သလို ပြုစုသူ၏ ကြီးကြပ်မှုကိုလည်း အစားမထိုးပါ။"
+      ]
+    },
+    "ca": {
+      "title": "Baby Sitter: Monitor Nadó",
+      "short_description": "Converteix un Android vell en monitor de nadó al Wi‑Fi de casa.",
+      "full_description": [
+        "Baby Sitter converteix un telèfon Android vell en un monitor de nadó per a nits més tranquil·les amb el Wi-Fi de casa.",
+        "",
+        "Deixa un telèfon a l'habitació del nadó i mira des d'una altra habitació. L'app detecta so i moviment, pot reproduir una cançó de bressol amb la veu d'un pare o mare, i et permet desar moments al voltant dels despertars.",
+        "",
+        "Funciona a la mateixa xarxa Wi-Fi, no envia vídeo de l'habitació al núvol i no recull dades personals.",
+        "",
+        "Seguretat: mantén el telèfon, el suport i el cable de càrrega fora del bressol i lluny de l'abast del nadó. Baby Sitter no és un dispositiu mèdic i no substitueix la supervisió d'un cuidador."
+      ]
+    },
+    "zh-HK": {
+      "title": "Baby Sitter: 嬰兒監視器",
+      "short_description": "將舊 Android 手機變成家中 Wi‑Fi 嬰兒監視器。",
+      "full_description": [
+        "Baby Sitter 可將舊 Android 手機變成家中 Wi-Fi 嬰兒監視器，讓晚上更安心。",
+        "",
+        "把一部手機放在嬰兒房，然後在另一個房間查看。應用程式可留意聲音和動作，可播放以父母聲音錄製的搖籃曲，亦可保存寶寶醒來前後的片段供日後查看。",
+        "",
+        "只為同一 Wi-Fi 網絡內查看而設，不會把嬰兒房影片傳送到雲端，也不會收集個人資料。",
+        "",
+        "安全提示：請把手機、支架和充電線放在嬰兒床外並遠離寶寶可觸及的位置。Baby Sitter 不是醫療裝置，亦不能取代照顧者監督。"
+      ]
+    },
+    "zh-CN": {
+      "title": "Baby Sitter: 婴儿监视器",
+      "short_description": "把旧 Android 手机变成家中 Wi‑Fi 婴儿监视器。",
+      "full_description": [
+        "Baby Sitter 可把旧 Android 手机变成家中 Wi-Fi 婴儿监视器，让夜晚更安心。",
+        "",
+        "将一部手机放在婴儿房，然后在另一间房查看。应用会留意声音和动作，可播放父母声音录制的摇篮曲，也能保存宝宝醒来前后的片段以便稍后查看。",
+        "",
+        "它用于同一 Wi-Fi 下的查看，不会把婴儿房视频发送到云端，也不会收集个人数据。",
+        "",
+        "安全提示：请将手机、支架和充电线放在婴儿床外并远离宝宝触及范围。Baby Sitter 不是医疗设备，也不能替代看护人的监督。"
+      ]
+    },
+    "zh-TW": {
+      "title": "Baby Sitter: 嬰兒監視器",
+      "short_description": "把舊 Android 手機變成家中 Wi‑Fi 嬰兒監視器。",
+      "full_description": [
+        "Baby Sitter 可把舊 Android 手機變成家中 Wi-Fi 嬰兒監視器，讓夜晚更安心。",
+        "",
+        "將一支手機放在嬰兒房，然後從另一個房間查看。App 會留意聲音與動作，可播放用爸媽聲音錄好的搖籃曲，也能保存寶寶醒來前後的片段以便之後查看。",
+        "",
+        "它用於同一 Wi-Fi 內查看，不會把嬰兒房影片送到雲端，也不會收集個人資料。",
+        "",
+        "安全提醒：請將手機、支架與充電線放在嬰兒床外並遠離寶寶可觸及處。Baby Sitter 不是醫療裝置，也不能取代照顧者監督。"
+      ]
+    },
+    "hr": {
+      "title": "Baby Sitter: Baby Monitor",
+      "short_description": "Pretvorite stari Android u baby monitor na kućnom Wi‑Fiju.",
+      "full_description": [
+        "Baby Sitter pretvara stari Android telefon u baby monitor za mirnije noći na kućnom Wi-Fiju.",
+        "",
+        "Stavite jedan telefon u dječju sobu i gledajte iz druge sobe. Aplikacija primjećuje zvuk i pokret, može pustiti uspavanku glasom roditelja i spremiti trenutke oko buđenja za kasniji pregled.",
+        "",
+        "Radi na istoj Wi-Fi mreži, ne šalje video iz dječje sobe u oblak i ne prikuplja osobne podatke.",
+        "",
+        "Sigurnost: držite telefon, stalak i kabel za punjenje izvan krevetića i izvan dohvata djeteta. Baby Sitter nije medicinski uređaj i ne zamjenjuje nadzor skrbnika."
+      ]
+    },
+    "cs-CZ": {
+      "title": "Baby Sitter: Chůvička",
+      "short_description": "Proměňte starý Android v chůvičku pro domácí Wi‑Fi noci.",
+      "full_description": [
+        "Baby Sitter promění starý telefon Android v dětskou chůvičku pro klidnější noci na domácí Wi-Fi.",
+        "",
+        "Položte jeden telefon do dětského pokoje a sledujte z jiné místnosti. Aplikace vnímá zvuk a pohyb, může přehrát ukolébavku hlasem rodiče a uložit chvíle kolem probuzení k pozdější kontrole.",
+        "",
+        "Funguje ve stejné Wi-Fi síti, neodesílá video z dětského pokoje do cloudu a nesbírá osobní údaje.",
+        "",
+        "Bezpečnost: telefon, stojánek i nabíjecí kabel držte mimo postýlku a mimo dosah dítěte. Baby Sitter není zdravotnický prostředek a nenahrazuje dohled pečující osoby."
+      ]
+    },
+    "da-DK": {
+      "title": "Baby Sitter: Babyalarm",
+      "short_description": "Gør en gammel Android til babyalarm på hjemmets Wi‑Fi.",
+      "full_description": [
+        "Baby Sitter gør en gammel Android-telefon til en babyalarm til roligere aftener på hjemmets Wi-Fi.",
+        "",
+        "Læg en telefon på babyens værelse, og kig med fra et andet rum. Appen registrerer lyd og bevægelse, kan afspille en vuggevise med en forælders stemme og gemme øjeblikke omkring opvågning til senere.",
+        "",
+        "Den fungerer på samme Wi-Fi, sender ikke video fra børneværelset til skyen og indsamler ikke personlige data.",
+        "",
+        "Sikkerhed: hold telefon, holder og opladerkabel uden for sengen og uden for barnets rækkevidde. Baby Sitter er ikke medicinsk udstyr og erstatter ikke opsyn fra en omsorgsperson."
+      ]
+    },
+    "nl-NL": {
+      "title": "Baby Sitter: Babyfoon",
+      "short_description": "Maak van een oude Android een babyfoon op je thuis-Wi‑Fi.",
+      "full_description": [
+        "Baby Sitter verandert een oude Android-telefoon in een babyfoon voor rustigere avonden via je thuis-Wi-Fi.",
+        "",
+        "Zet één telefoon in de babykamer en kijk mee vanuit een andere kamer. De app merkt geluid en beweging op, kan een slaapliedje met de stem van een ouder afspelen en momenten rond wakker worden bewaren om later terug te kijken.",
+        "",
+        "Werkt op hetzelfde Wi-Fi-netwerk, stuurt geen video van de babykamer naar de cloud en verzamelt geen persoonlijke gegevens.",
+        "",
+        "Veiligheid: houd telefoon, standaard en laadkabel buiten het bedje en buiten bereik van je baby. Baby Sitter is geen medisch hulpmiddel en vervangt geen toezicht door een verzorger."
+      ]
+    },
+    "en-AU": {
+      "title": "Baby Sitter: Baby Monitor",
+      "short_description": "Turn an old Android phone into a baby monitor for calmer Wi‑Fi nights.",
+      "full_description": [
+        "Baby Sitter turns an old Android phone into a baby monitor for calmer nights on your home Wi-Fi.",
+        "",
+        "Place one phone in the baby's room and watch from another room. It notices sound and motion, can play a lullaby in a parent's voice, and lets you save moments around wake-ups to review later.",
+        "",
+        "It works on the same Wi-Fi, does not send nursery video to the cloud, and does not collect personal data.",
+        "",
+        "Safety: keep the phone, stand, and charging cable outside the cot and out of reach. Baby Sitter is not a medical device and does not replace caregiver supervision."
+      ]
+    },
+    "en-CA": {
+      "title": "Baby Sitter: Baby Monitor",
+      "short_description": "Turn an old Android phone into a baby monitor for calmer Wi‑Fi nights.",
+      "full_description": [
+        "Baby Sitter turns an old Android phone into a baby monitor for calmer nights on your home Wi-Fi.",
+        "",
+        "Place one phone in the baby's room and watch from another room. It notices sound and motion, can play a lullaby in a parent's voice, and lets you save moments around wake-ups to review later.",
+        "",
+        "It works on the same Wi-Fi, does not send nursery video to the cloud, and does not collect personal data.",
+        "",
+        "Safety: keep the phone, stand, and charging cable outside the crib and out of reach. Baby Sitter is not a medical device and does not replace caregiver supervision."
+      ]
+    },
     "en-US": {
       "title": "Baby Sitter: Baby Monitor",
       "short_description": "Turn an old Android phone into a baby monitor for calmer same-Wi-Fi nights.",
@@ -38,7 +311,243 @@
         "- Baby Sitter is not a medical device",
         "- Baby Sitter does not replace caregiver supervision",
         "",
-        "If you already have an old Android phone at home, you can start tonight without buying a new baby camera."
+        "If you already have an old Android phone at home, you can start tonight without buying a new baby camera.",
+        "",
+        "#Parenting #IndependentSleep #Lullaby #ParentingMustHave #Childbirth #ParentingDone #HomeCCTV #HomeCam #Baby #Newborn"
+      ]
+    },
+    "en-GB": {
+      "title": "Baby Sitter: Baby Monitor",
+      "short_description": "Turn an old Android phone into a baby monitor for calmer Wi‑Fi nights.",
+      "full_description": [
+        "Baby Sitter turns an old Android phone into a baby monitor for calmer nights on your home Wi-Fi.",
+        "",
+        "Place one phone in the baby's room and watch from another room. It notices sound and motion, can play a lullaby in a parent's voice, and lets you save moments around wake-ups to review later.",
+        "",
+        "It works on the same Wi-Fi, does not send nursery video to the cloud, and does not collect personal data.",
+        "",
+        "Safety: keep the phone, stand, and charging cable outside the cot and out of reach. Baby Sitter is not a medical device and does not replace caregiver supervision."
+      ]
+    },
+    "en-IN": {
+      "title": "Baby Sitter: Baby Monitor",
+      "short_description": "Turn an old Android phone into a baby monitor for calmer Wi‑Fi nights.",
+      "full_description": [
+        "Baby Sitter turns an old Android phone into a baby monitor for calmer nights on your home Wi-Fi.",
+        "",
+        "Place one phone in the baby's room and watch from another room. It notices sound and motion, can play a lullaby in a parent's voice, and lets you save moments around wake-ups to review later.",
+        "",
+        "It works on the same Wi-Fi, does not send nursery video to the cloud, and does not collect personal data.",
+        "",
+        "Safety: keep the phone, stand, and charging cable outside the crib and out of reach. Baby Sitter is not a medical device and does not replace caregiver supervision."
+      ]
+    },
+    "en-SG": {
+      "title": "Baby Sitter: Baby Monitor",
+      "short_description": "Turn an old Android phone into a baby monitor for calmer Wi‑Fi nights.",
+      "full_description": [
+        "Baby Sitter turns an old Android phone into a baby monitor for calmer nights on your home Wi-Fi.",
+        "",
+        "Place one phone in the baby's room and watch from another room. It notices sound and motion, can play a lullaby in a parent's voice, and lets you save moments around wake-ups to review later.",
+        "",
+        "It works on the same Wi-Fi, does not send nursery video to the cloud, and does not collect personal data.",
+        "",
+        "Safety: keep the phone, stand, and charging cable outside the cot and out of reach. Baby Sitter is not a medical device and does not replace caregiver supervision."
+      ]
+    },
+    "en-ZA": {
+      "title": "Baby Sitter: Baby Monitor",
+      "short_description": "Turn an old Android phone into a baby monitor for calmer Wi‑Fi nights.",
+      "full_description": [
+        "Baby Sitter turns an old Android phone into a baby monitor for calmer nights on your home Wi-Fi.",
+        "",
+        "Place one phone in the baby's room and watch from another room. It notices sound and motion, can play a lullaby in a parent's voice, and lets you save moments around wake-ups to review later.",
+        "",
+        "It works on the same Wi-Fi, does not send nursery video to the cloud, and does not collect personal data.",
+        "",
+        "Safety: keep the phone, stand, and charging cable outside the cot and out of reach. Baby Sitter is not a medical device and does not replace caregiver supervision."
+      ]
+    },
+    "et": {
+      "title": "Baby Sitter: Beebimonitor",
+      "short_description": "Muuda vana Android koduse Wi‑Fi beebimonitoriks.",
+      "full_description": [
+        "Baby Sitter muudab vana Android-telefoni koduse Wi-Fi beebimonitoriks, et õhtud oleksid rahulikumad.",
+        "",
+        "Pane üks telefon beebituppa ja vaata teisest toast. Rakendus märkab heli ja liikumist, saab esitada vanema häälega hällilaulu ning salvestada ärkamise ümber toimunud hetki hilisemaks vaatamiseks.",
+        "",
+        "See töötab samas Wi-Fi võrgus, ei saada beebitoa videot pilve ega kogu isikuandmeid.",
+        "",
+        "Ohutus: hoia telefon, alus ja laadimiskaabel võrevoodist väljas ning lapse käeulatusest eemal. Baby Sitter ei ole meditsiiniseade ega asenda hooldaja järelevalvet."
+      ]
+    },
+    "fil": {
+      "title": "Baby Sitter: Baby Monitor",
+      "short_description": "Gawing baby monitor sa home Wi‑Fi ang lumang Android phone.",
+      "full_description": [
+        "Ginagawang baby monitor ng Baby Sitter ang lumang Android phone para mas kalmado ang gabi sa home Wi-Fi.",
+        "",
+        "Maglagay ng isang phone sa kuwarto ng baby at manood mula sa ibang kuwarto. Napapansin ng app ang tunog at galaw, puwedeng magpatugtog ng lullaby sa boses ng magulang, at puwedeng mag-save ng mga sandali bago o pagkatapos magising ang baby.",
+        "",
+        "Gumagana ito sa parehong Wi-Fi, hindi ipinapadala sa cloud ang video ng kuwarto ng baby, at hindi nangongolekta ng personal na data.",
+        "",
+        "Kaligtasan: ilagay ang phone, stand, at charging cable sa labas ng crib at hindi maaabot ng baby. Ang Baby Sitter ay hindi medical device at hindi kapalit ng pagbabantay ng caregiver."
+      ]
+    },
+    "fi-FI": {
+      "title": "Baby Sitter: Itkuhälytin",
+      "short_description": "Muuta vanha Android kotisi Wi‑Fi-itkuhälyttimeksi.",
+      "full_description": [
+        "Baby Sitter muuttaa vanhan Android-puhelimen itkuhälyttimeksi rauhallisempiin iltoihin kodin Wi-Fi-verkossa.",
+        "",
+        "Aseta yksi puhelin vauvan huoneeseen ja katso toisesta huoneesta. Sovellus huomaa äänen ja liikkeen, voi soittaa vanhemman äänellä tallennetun tuutulaulun ja tallentaa heräämisen ympärillä olevia hetkiä myöhempää katselua varten.",
+        "",
+        "Se toimii samassa Wi-Fi-verkossa, ei lähetä lastenhuoneen videota pilveen eikä kerää henkilötietoja.",
+        "",
+        "Turvallisuus: pidä puhelin, teline ja latausjohto poissa pinnasängystä ja vauvan ulottuvilta. Baby Sitter ei ole lääkinnällinen laite eikä korvaa hoitajan valvontaa."
+      ]
+    },
+    "fr-CA": {
+      "title": "Baby Sitter: Babyphone",
+      "short_description": "Transformez un vieux Android en moniteur bébé sur votre Wi‑Fi.",
+      "full_description": [
+        "Baby Sitter transforme un vieux téléphone Android en moniteur pour bébé pour des nuits plus calmes sur le Wi-Fi de la maison.",
+        "",
+        "Placez un téléphone dans la chambre du bébé et regardez depuis une autre pièce. L'application détecte les sons et les mouvements, peut faire jouer une berceuse avec la voix d'un parent et vous permet de conserver les moments autour des réveils.",
+        "",
+        "Elle fonctionne sur le même Wi-Fi, n'envoie pas la vidéo de la chambre dans le nuage et ne recueille pas de données personnelles.",
+        "",
+        "Sécurité : gardez le téléphone, le support et le câble de recharge hors du lit et hors de portée. Baby Sitter n'est pas un dispositif médical et ne remplace pas la surveillance d'un adulte."
+      ]
+    },
+    "fr-FR": {
+      "title": "Baby Sitter: Babyphone",
+      "short_description": "Transformez un ancien Android en babyphone sur le Wi‑Fi de la maison.",
+      "full_description": [
+        "Baby Sitter transforme un ancien téléphone Android en babyphone pour des nuits plus sereines sur le Wi-Fi de la maison.",
+        "",
+        "Placez un téléphone dans la chambre de bébé et regardez depuis une autre pièce. L'application détecte les sons et les mouvements, peut lancer une berceuse avec la voix d'un parent et vous permet d'enregistrer les moments autour des réveils.",
+        "",
+        "Elle fonctionne sur le même Wi-Fi, n'envoie pas la vidéo de la chambre dans le cloud et ne collecte pas de données personnelles.",
+        "",
+        "Sécurité : gardez le téléphone, le support et le câble de charge hors du lit et hors de portée. Baby Sitter n'est pas un dispositif médical et ne remplace pas la surveillance d'un adulte."
+      ]
+    },
+    "gl-ES": {
+      "title": "Baby Sitter: Monitor Bebé",
+      "short_description": "Converte un Android vello nun monitor de bebé para o Wi‑Fi da casa.",
+      "full_description": [
+        "Baby Sitter converte un teléfono Android vello nun monitor de bebé para noites máis tranquilas no Wi-Fi da casa.",
+        "",
+        "Deixa un teléfono no cuarto do bebé e mira desde outro cuarto. A app detecta son e movemento, pode reproducir unha canción de berce coa voz dun pai ou nai e permite gardar momentos arredor dos espertar para velos despois.",
+        "",
+        "Funciona na mesma rede Wi-Fi, non envía vídeo do cuarto do bebé á nube e non recolle datos persoais.",
+        "",
+        "Seguridade: mantén o teléfono, o soporte e o cable de carga fóra do berce e lonxe do alcance do bebé. Baby Sitter non é un dispositivo médico e non substitúe a supervisión dunha persoa coidadora."
+      ]
+    },
+    "ka-GE": {
+      "title": "Baby Sitter: ბეიბი მონიტორი",
+      "short_description": "ძველი Android გადააქციეთ სახლის Wi‑Fi ბავშვის მონიტორად.",
+      "full_description": [
+        "Baby Sitter ძველ Android ტელეფონს აქცევს ბავშვის მონიტორად, რათა სახლის Wi-Fi-ზე ღამეები უფრო მშვიდი იყოს.",
+        "",
+        "ერთი ტელეფონი დადგით ბავშვის ოთახში და უყურეთ სხვა ოთახიდან. აპი ამჩნევს ხმასა და მოძრაობას, შეუძლია მშობლის ხმით ჩაწერილი იავნანას დაკვრა და გაღვიძების გარშემო მომენტების შენახვა.",
+        "",
+        "მუშაობს იმავე Wi-Fi-ზე, ბავშვის ოთახის ვიდეოს ღრუბელში არ აგზავნის და პირად მონაცემებს არ აგროვებს.",
+        "",
+        "უსაფრთხოება: ტელეფონი, სადგამი და დამტენი კაბელი საწოლიდან გარეთ და ბავშვისთვის მიუწვდომლად დატოვეთ. Baby Sitter სამედიცინო მოწყობილობა არ არის და მზრუნველის ზედამხედველობას არ ცვლის."
+      ]
+    },
+    "de-DE": {
+      "title": "Baby Sitter: Babyphone",
+      "short_description": "Mach ein altes Android-Handy zum Babyphone im Heim-WLAN.",
+      "full_description": [
+        "Baby Sitter macht ein altes Android-Handy zum Babyphone für ruhigere Nächte im Heim-WLAN.",
+        "",
+        "Lege ein Handy ins Babyzimmer und schau von einem anderen Raum aus zu. Die App bemerkt Geräusche und Bewegung, kann ein Schlaflied mit der Stimme eines Elternteils abspielen und Momente rund ums Aufwachen zum späteren Ansehen speichern.",
+        "",
+        "Sie funktioniert im selben WLAN, sendet kein Video aus dem Babyzimmer in die Cloud und sammelt keine personenbezogenen Daten.",
+        "",
+        "Sicherheit: Halte Handy, Halterung und Ladekabel außerhalb des Bettchens und außer Reichweite. Baby Sitter ist kein Medizinprodukt und ersetzt nicht die Aufsicht durch eine Betreuungsperson."
+      ]
+    },
+    "el-GR": {
+      "title": "Baby Sitter: Ενδοεπικοινωνία",
+      "short_description": "Κάντε ένα παλιό Android ενδοεπικοινωνία μωρού στο Wi‑Fi.",
+      "full_description": [
+        "Το Baby Sitter μετατρέπει ένα παλιό τηλέφωνο Android σε ενδοεπικοινωνία μωρού για πιο ήσυχες νύχτες στο οικιακό Wi-Fi.",
+        "",
+        "Βάλτε ένα τηλέφωνο στο δωμάτιο του μωρού και παρακολουθήστε από άλλο δωμάτιο. Η εφαρμογή αντιλαμβάνεται ήχο και κίνηση, μπορεί να παίξει νανούρισμα με τη φωνή γονέα και να αποθηκεύσει στιγμές γύρω από το ξύπνημα για αργότερα.",
+        "",
+        "Λειτουργεί στο ίδιο Wi-Fi, δεν στέλνει βίντεο του δωματίου στο cloud και δεν συλλέγει προσωπικά δεδομένα.",
+        "",
+        "Ασφάλεια: κρατήστε το τηλέφωνο, τη βάση και το καλώδιο φόρτισης έξω από την κούνια και μακριά από το μωρό. Το Baby Sitter δεν είναι ιατρική συσκευή και δεν αντικαθιστά την επίβλεψη φροντιστή."
+      ]
+    },
+    "gu": {
+      "title": "Baby Sitter: બેબી મોનિટર",
+      "short_description": "જૂના Android ફોનને ઘરનાં Wi‑Fi બેબી મોનિટરમાં ફેરવો.",
+      "full_description": [
+        "Baby Sitter જૂના Android ફોનને ઘરનાં Wi-Fi પર શાંત રાતો માટે બેબી મોનિટરમાં ફેરવે છે.",
+        "",
+        "એક ફોન બાળકના રૂમમાં મૂકો અને બીજા રૂમમાંથી જુઓ. એપ અવાજ અને હલનચલન ધ્યાનમાં લે છે, માતા કે પિતાના અવાજમાં રેકોર્ડ કરેલું લોરીગીત વગાડી શકે છે અને જાગવાના આસપાસના પળો પછી જોવા માટે સાચવી શકે છે.",
+        "",
+        "તે એક જ Wi-Fi પર કામ કરે છે, બાળકના રૂમનો વિડિયો ક્લાઉડમાં મોકલતું નથી અને વ્યક્તિગત ડેટા એકત્ર કરતું નથી.",
+        "",
+        "સુરક્ષા: ફોન, સ્ટેન્ડ અને ચાર્જિંગ કેબલ ખાટલાની બહાર અને બાળકની પહોંચથી દૂર રાખો. Baby Sitter તબીબી સાધન નથી અને સંભાળનારની દેખરેખનો વિકલ્પ નથી."
+      ]
+    },
+    "iw-IL": {
+      "title": "Baby Sitter: מוניטור תינוק",
+      "short_description": "הפכו טלפון Android ישן למוניטור תינוק ב‑Wi‑Fi הביתי.",
+      "full_description": [
+        "Baby Sitter הופך טלפון Android ישן למוניטור תינוק ללילות רגועים יותר דרך ה-Wi-Fi הביתי.",
+        "",
+        "הניחו טלפון אחד בחדר התינוק וצפו מחדר אחר. האפליקציה מזהה קול ותנועה, יכולה להשמיע שיר ערש בקול של הורה, ומאפשרת לשמור רגעים סביב ההתעוררות לבדיקה מאוחרת יותר.",
+        "",
+        "היא פועלת באותו Wi-Fi, לא שולחת וידאו מחדר התינוק לענן, ולא אוספת מידע אישי.",
+        "",
+        "בטיחות: שמרו את הטלפון, המעמד וכבל הטעינה מחוץ למיטת התינוק והרחק מהישג ידו. Baby Sitter אינו מכשיר רפואי ואינו מחליף השגחה של מטפל."
+      ]
+    },
+    "hi-IN": {
+      "title": "Baby Sitter: बेबी मॉनिटर",
+      "short_description": "पुराने Android फोन को घर के Wi‑Fi बेबी मॉनिटर में बदलें।",
+      "full_description": [
+        "Baby Sitter पुराने Android फोन को घर के Wi-Fi पर शांत रातों के लिए बेबी मॉनिटर बना देता है।",
+        "",
+        "एक फोन बच्चे के कमरे में रखें और दूसरे कमरे से देखें। ऐप आवाज और हलचल पर ध्यान देता है, माता-पिता की आवाज में रिकॉर्ड की गई लोरी चला सकता है, और जागने के आसपास के पल बाद में देखने के लिए सहेजने देता है।",
+        "",
+        "यह उसी Wi-Fi पर काम करता है, बच्चे के कमरे का वीडियो क्लाउड पर नहीं भेजता और निजी डेटा नहीं इकट्ठा करता।",
+        "",
+        "सुरक्षा: फोन, स्टैंड और चार्जिंग केबल को पालने से बाहर और बच्चे की पहुंच से दूर रखें। Baby Sitter कोई चिकित्सा उपकरण नहीं है और देखभाल करने वाले की निगरानी की जगह नहीं लेता।"
+      ]
+    },
+    "hu-HU": {
+      "title": "Baby Sitter: Babafigyelő",
+      "short_description": "Alakítsd régi Androidod babafigyelővé az otthoni Wi‑Fin.",
+      "full_description": [
+        "A Baby Sitter egy régi Android telefont babafigyelővé alakít a nyugodtabb otthoni Wi-Fi-s estékhez.",
+        "",
+        "Tegyél egy telefont a babaszobába, és figyeld egy másik szobából. Az app észleli a hangot és a mozgást, lejátszhat szülői hangon rögzített altatódalt, és elmentheti az ébredés körüli pillanatokat későbbi visszanézésre.",
+        "",
+        "Ugyanazon a Wi-Fi-n működik, nem küld videót a babaszobából a felhőbe, és nem gyűjt személyes adatokat.",
+        "",
+        "Biztonság: a telefont, tartót és töltőkábelt tartsd a kiságyon kívül, a baba számára elérhetetlen helyen. A Baby Sitter nem orvosi eszköz, és nem helyettesíti a gondozói felügyeletet."
+      ]
+    },
+    "is-IS": {
+      "title": "Baby Sitter: Barnavakt",
+      "short_description": "Breyttu gömlum Android-síma í barnavakt á Wi‑Fi heima.",
+      "full_description": [
+        "Baby Sitter breytir gömlum Android-síma í barnavakt fyrir rólegri kvöld á heima-Wi-Fi.",
+        "",
+        "Settu einn síma í barnaherbergið og fylgstu með úr öðru herbergi. Appið tekur eftir hljóði og hreyfingu, getur spilað vögguvísu með rödd foreldris og geymt augnablik í kringum vöknun til að skoða síðar.",
+        "",
+        "Það virkar á sama Wi-Fi, sendir ekki myndband úr barnaherberginu í skýið og safnar ekki persónuupplýsingum.",
+        "",
+        "Öryggi: hafðu síma, stand og hleðslusnúru utan barnarúmsins og þar sem barnið nær ekki til. Baby Sitter er ekki lækningatæki og kemur ekki í stað eftirlits umönnunaraðila."
       ]
     },
     "id": {
@@ -73,7 +582,351 @@
         "- Baby Sitter bukan alat medis",
         "- Baby Sitter tidak menggantikan pengawasan orang tua atau pengasuh",
         "",
-        "Jika Anda sudah punya HP Android lama di rumah, Anda bisa mulai malam ini tanpa membeli kamera bayi baru."
+        "Jika Anda sudah punya HP Android lama di rumah, Anda bisa mulai malam ini tanpa membeli kamera bayi baru.",
+        "",
+        "#ParentingAnak #TidurMandiri #NinaBobo #PerlengkapanBayiWajib #Melahirkan #AkhirnyaBayiTidur #CCTVRumah #KameraRumah #Bayi #BayiBaruLahir"
+      ]
+    },
+    "it-IT": {
+      "title": "Baby Sitter: Monitor Bebè",
+      "short_description": "Trasforma un vecchio Android in monitor bebè sul Wi‑Fi di casa.",
+      "full_description": [
+        "Baby Sitter trasforma un vecchio telefono Android in un monitor per bebè per notti più tranquille sul Wi-Fi di casa.",
+        "",
+        "Metti un telefono nella stanza del bambino e guarda da un'altra stanza. L'app rileva suoni e movimenti, può riprodurre una ninna nanna con la voce di un genitore e consente di salvare i momenti intorno ai risvegli.",
+        "",
+        "Funziona sulla stessa rete Wi-Fi, non invia video della cameretta al cloud e non raccoglie dati personali.",
+        "",
+        "Sicurezza: tieni telefono, supporto e cavo di ricarica fuori dal lettino e lontano dalla portata del bambino. Baby Sitter non è un dispositivo medico e non sostituisce la supervisione di un adulto."
+      ]
+    },
+    "ja-JP": {
+      "title": "Baby Sitter: ベビーモニター",
+      "short_description": "古いAndroidを自宅Wi‑Fiのベビーモニターに。",
+      "full_description": [
+        "Baby Sitterは、古いAndroidスマートフォンを自宅Wi-Fiで使うベビーモニターに変え、夜の見守りを少し落ち着かせます。",
+        "",
+        "1台を赤ちゃんの部屋に置き、別の部屋から確認できます。音と動きを見守り、親の声で録音した子守歌を再生でき、起きそうな前後の場面を後で見返すために保存できます。",
+        "",
+        "同じWi-Fi内での利用を想定し、赤ちゃんの部屋の映像をクラウドへ送信せず、個人データも収集しません。",
+        "",
+        "安全のため、スマートフォン、スタンド、充電ケーブルはベビーベッドの外、赤ちゃんの手が届かない場所に置いてください。Baby Sitterは医療機器ではなく、保護者や介護者の見守りに代わるものではありません。"
+      ]
+    },
+    "kn-IN": {
+      "title": "Baby Sitter: ಬೇಬಿ ಮಾನಿಟರ್",
+      "short_description": "ಹಳೆಯ Android ಫೋನ್ ಅನ್ನು ಮನೆ Wi‑Fi ಬೇಬಿ ಮಾನಿಟರ್ ಆಗಿಸಿ.",
+      "full_description": [
+        "Baby Sitter ಹಳೆಯ Android ಫೋನ್ ಅನ್ನು ಮನೆಯ Wi-Fi ನಲ್ಲಿ ಶಾಂತ ರಾತ್ರಿಗಳಿಗಾಗಿ ಬೇಬಿ ಮಾನಿಟರ್ ಆಗಿ ಮಾಡುತ್ತದೆ.",
+        "",
+        "ಒಂದು ಫೋನ್ ಅನ್ನು ಮಗುವಿನ ಕೊಠಡಿಯಲ್ಲಿ ಇಡಿ ಮತ್ತು ಇನ್ನೊಂದು ಕೊಠಡಿಯಿಂದ ನೋಡಿ. ಆಪ್ ಶಬ್ದ ಮತ್ತು ಚಲನವಲನವನ್ನು ಗಮನಿಸುತ್ತದೆ, ಪೋಷಕರ ಧ್ವನಿಯಲ್ಲಿ ದಾಖಲಿಸಿದ ತೂಗುಗೀತೆಯನ್ನು ಪ್ಲೇ ಮಾಡಬಹುದು ಮತ್ತು ಎಚ್ಚರವಾಗುವ ಸಮಯದ ಕ್ಷಣಗಳನ್ನು ನಂತರ ನೋಡಲು ಉಳಿಸಬಹುದು.",
+        "",
+        "ಇದು ಅದೇ Wi-Fi ನಲ್ಲಿ ಕೆಲಸ ಮಾಡುತ್ತದೆ, ಮಗುವಿನ ಕೊಠಡಿಯ ವೀಡಿಯೊವನ್ನು ಕ್ಲೌಡ್‌ಗೆ ಕಳುಹಿಸುವುದಿಲ್ಲ ಮತ್ತು ವೈಯಕ್ತಿಕ ಡೇಟಾವನ್ನು ಸಂಗ್ರಹಿಸುವುದಿಲ್ಲ.",
+        "",
+        "ಸುರಕ್ಷತೆ: ಫೋನ್, ಸ್ಟ್ಯಾಂಡ್ ಮತ್ತು ಚಾರ್ಜಿಂಗ್ ಕೇಬಲ್ ಅನ್ನು ಹಾಸಿಗೆಯ ಹೊರಗೆ ಮತ್ತು ಮಗುವಿನ ಕೈಗೆಟುಕದಂತೆ ಇಡಿ. Baby Sitter ವೈದ್ಯಕೀಯ ಸಾಧನ ಅಲ್ಲ ಮತ್ತು ಪಾಲಕರ ಮೇಲ್ವಿಚಾರಣೆಗೆ ಬದಲಿ ಅಲ್ಲ."
+      ]
+    },
+    "kk": {
+      "title": "Baby Sitter: Бала мониторы",
+      "short_description": "Ескі Android телефонын үй Wi‑Fi бала мониторына айналдырыңыз.",
+      "full_description": [
+        "Baby Sitter ескі Android телефонын үйдегі Wi-Fi арқылы тыныш түндерге арналған бала мониторына айналдырады.",
+        "",
+        "Бір телефонды баланың бөлмесіне қойып, басқа бөлмеден бақылаңыз. Қолданба дыбыс пен қозғалысты байқайды, ата-ананың дауысымен жазылған бесік жырын ойната алады және ояну кезіндегі сәттерді кейін көру үшін сақтайды.",
+        "",
+        "Ол бір Wi-Fi желісінде жұмыс істейді, бала бөлмесінің видеосын бұлтқа жібермейді және жеке деректерді жинамайды.",
+        "",
+        "Қауіпсіздік: телефонды, тіректі және зарядтау кабелін бесіктен тыс әрі баланың қолы жетпейтін жерде ұстаңыз. Baby Sitter медициналық құрылғы емес және күтушінің бақылауын алмастырмайды."
+      ]
+    },
+    "km-KH": {
+      "title": "Baby Sitter: ម៉ូនីទ័រទារក",
+      "short_description": "បម្លែង Android ចាស់ជា ម៉ូនីទ័រទារកលើ Wi‑Fi ផ្ទះ។",
+      "full_description": [
+        "Baby Sitter បម្លែងទូរសព្ទ Android ចាស់ទៅជាម៉ូនីទ័រទារក សម្រាប់យប់ស្ងប់ស្ងាត់ជាងមុនលើ Wi-Fi នៅផ្ទះ។",
+        "",
+        "ដាក់ទូរសព្ទមួយក្នុងបន្ទប់ទារក ហើយមើលពីបន្ទប់ផ្សេង។ កម្មវិធីអាចសង្កេតសំឡេង និងចលនា អាចចាក់បទកន្ធួយដែលថតជាសំឡេងឪពុកម្តាយ និងអាចរក្សាទុកពេលវេលាជុំវិញការភ្ញាក់ដើម្បីមើលក្រោយ។",
+        "",
+        "វាដំណើរការលើ Wi-Fi តែមួយ មិនផ្ញើវីដេអូបន្ទប់ទារកទៅ cloud និងមិនប្រមូលទិន្នន័យផ្ទាល់ខ្លួន។",
+        "",
+        "សុវត្ថិភាព៖ រក្សាទូរសព្ទ ជើងទ្រ និងខ្សែសាកនៅក្រៅគ្រែទារក និងឆ្ងាយពីដៃទារក។ Baby Sitter មិនមែនជាឧបករណ៍វេជ្ជសាស្រ្ត ហើយមិនជំនួសការត្រួតពិនិត្យរបស់អ្នកថែទាំទេ។"
+      ]
+    },
+    "ko-KR": {
+      "title": "Baby Sitter : 분리 수면 지원",
+      "short_description": "아기가 깼을 때 다시 스스로 잠들 수 있도록 도와줍니다.",
+      "full_description": [
+        "문을 자주 열지 않아도 안심되는 밤, Baby Sitter",
+        "",
+        "Baby Sitter는 아기의 소리와 움직임을 함께 살펴 깰 듯한 순간을 먼저 알아차리고,",
+        "익숙한 부모 목소리 자장가로 다시 잠들 수 있도록 돕는 아기 수면 보조 앱입니다.",
+        "",
+        "밤마다 아기 방 문을 열어볼지, 조금 더 기다릴지 망설였던 순간에",
+        "다른 방에서도 아기의 상태를 확인하고 필요한 때에만 반응할 수 있도록 도와줘요.",
+        "",
+        "주요 기능",
+        "",
+        "- 소리와 움직임 감지",
+        "아기의 작은 뒤척임과 칭얼거림을 함께 살펴",
+        "깨어나기 전 신호를 더 자연스럽게 확인할 수 있어요.",
+        "",
+        "- 부모 목소리 자장가 재생",
+        "엄마, 아빠 목소리를 미리 녹음해두면",
+        "아기가 깰 때 익숙한 소리로 다시 잠들 수 있도록 도와줘요.",
+        "",
+        "- 다른 방에서 원격 확인",
+        "같은 Wi-Fi 안에서만 연결되도록 구성되어 있어",
+        "가족끼리 안심하고 아기의 잠든 모습을 볼 수 있어요.",
+        "QR 코드로 다른 기기의 브라우저에서 쉽게 연결할 수 있어요.",
+        "",
+        "- 수면 방해 원인 파악",
+        "실시간 보기뿐 아니라 중요한 순간을 기록해",
+        "아기가 왜 깨는지 수면 패턴을 살펴보는 데 도움을 줘요.",
+        "",
+        "- 새 장비 없이 바로 시작",
+        "집에 쉬고 있는 안드로이드폰과 작은 거치대만 있으면",
+        "오늘 밤 바로 시작할 수 있어요.",
+        "",
+        "- 데이터 수집 없음",
+        "데이터를 수집하지 않아 더 안심하고 사용할 수 있어요.",
+        "",
+        "이런 분께 추천해요",
+        "- 분리수면을 시작한 부모",
+        "- 밤중에 아기 방 문을 자주 열지 않고 상태를 확인하고 싶은 분",
+        "- 부모 목소리 자장가로 아기를 달래고 싶은 분",
+        "- 비싼 홈CCTV 대신 집에 있는 안드로이드폰을 활용하고 싶은 분",
+        "",
+        "아기 방은 더 조용하게, 부모 마음은 조금 더 가볍게.",
+        "",
+        "홈페이지 : https://babysitter.dveamer.com",
+        "",
+        "소리 감지 가이드 : https://youtube.com/shorts/v4Ubwt4_gNk",
+        "움직임 감지 가이드 : https://youtube.com/shorts/v907qek1LMs",
+        "실시간 자는 모습 확인 가이드 : https://youtube.com/shorts/X9YGy1jUIss",
+        "",
+        "#육아 #분리수면 #자장가 #육아꿀템 #출산 #육퇴 #홈CCTV #홈캠 #baby #신생아"
+      ],
+      "video_url": "https://youtube.com/shorts/2ufAmg3aCDA"
+    },
+    "ky-KG": {
+      "title": "Baby Sitter: Бала монитору",
+      "short_description": "Эски Android телефонуңузду үй Wi‑Fi бала монитору кылыңыз.",
+      "full_description": [
+        "Baby Sitter эски Android телефонуңузду үй Wi-Fi аркылуу тынчыраак түндөр үчүн бала мониторуна айлантат.",
+        "",
+        "Бир телефонду баланын бөлмөсүнө коюп, башка бөлмөдөн караңыз. Колдонмо үн жана кыймылды байкайт, ата-эненин үнү менен жазылган бешик ырын ойното алат жана ойгонуу айланасындагы учурларды кийин көрүү үчүн сактайт.",
+        "",
+        "Ал ошол эле Wi-Fi тармагында иштейт, баланын бөлмөсүнүн видеосун булутка жөнөтпөйт жана жеке маалымат чогултпайт.",
+        "",
+        "Коопсуздук: телефонду, таянычты жана кубаттагыч кабелди керебеттин сыртында, баланын колу жетпеген жерде кармаңыз. Baby Sitter медициналык түзмөк эмес жана кароочунун көзөмөлүн алмаштырбайт."
+      ]
+    },
+    "lo-LA": {
+      "title": "Baby Sitter: ມອນິເຕີເດັກ",
+      "short_description": "ໃຊ້ Android ເກົ່າເປັນມອນິເຕີເດັກຜ່ານ Wi‑Fi ບ້ານ.",
+      "full_description": [
+        "Baby Sitter ປ່ຽນໂທລະສັບ Android ເກົ່າໃຫ້ເປັນມອນິເຕີເດັກ ສຳລັບກາງຄືນທີ່ສະຫງົບຂຶ້ນຜ່ານ Wi-Fi ໃນບ້ານ.",
+        "",
+        "ວາງໂທລະສັບໜຶ່ງໃນຫ້ອງເດັກ ແລ້ວເບິ່ງຈາກຫ້ອງອື່ນ. ແອັບສັງເກດສຽງ ແລະ ການເຄື່ອນໄຫວ, ສາມາດເປີດເພງກ່ອມດ້ວຍສຽງພໍ່ແມ່ ແລະ ເກັບຊ່ວງເວລາຮອບການຕື່ນໄວ້ເບິ່ງພາຍຫຼັງ.",
+        "",
+        "ໃຊ້ໃນ Wi-Fi ດຽວກັນ, ບໍ່ສົ່ງວິດີໂອຫ້ອງເດັກໄປ cloud ແລະ ບໍ່ເກັບຂໍ້ມູນສ່ວນຕົວ.",
+        "",
+        "ຄວາມປອດໄພ: ເກັບໂທລະສັບ, ຂາຕັ້ງ ແລະ ສາຍຊາດໄວ້ນອກຕຽງ ແລະ ໃຫ້ພົ້ນມືເດັກ. Baby Sitter ບໍ່ແມ່ນອຸປະກອນການແພດ ແລະ ບໍ່ແທນການເບິ່ງແຍງຂອງຜູ້ດູແລ."
+      ]
+    },
+    "lv": {
+      "title": "Baby Sitter: Mazuļa Monitors",
+      "short_description": "Pārvērt vecu Android par mazuļa monitoru mājas Wi‑Fi tīklā.",
+      "full_description": [
+        "Baby Sitter pārvērš vecu Android tālruni par mazuļa monitoru mierīgākiem vakariem mājas Wi-Fi tīklā.",
+        "",
+        "Novieto vienu tālruni mazuļa istabā un skaties no citas telpas. Lietotne pamana skaņu un kustību, var atskaņot šūpuļdziesmu vecāka balsī un saglabāt mirkļus ap pamošanos vēlākai apskatei.",
+        "",
+        "Tā darbojas tajā pašā Wi-Fi tīklā, nesūta mazuļa istabas video uz mākoni un nevāc personas datus.",
+        "",
+        "Drošība: turi tālruni, statīvu un uzlādes kabeli ārpus gultiņas un bērnam neaizsniedzamā vietā. Baby Sitter nav medicīnas ierīce un neaizstāj aprūpētāja uzraudzību."
+      ]
+    },
+    "lt": {
+      "title": "Baby Sitter: Kūdikio Monitor",
+      "short_description": "Paverskite seną Android kūdikio monitoriumi namų Wi‑Fi tinkle.",
+      "full_description": [
+        "Baby Sitter seną Android telefoną paverčia kūdikio monitoriumi ramesniems vakarams namų Wi-Fi tinkle.",
+        "",
+        "Padėkite vieną telefoną kūdikio kambaryje ir stebėkite iš kito kambario. Programėlė pastebi garsą ir judesį, gali paleisti lopšinę tėvų balsu ir leidžia išsaugoti akimirkas prieš ar po prabudimo.",
+        "",
+        "Ji veikia tame pačiame Wi-Fi tinkle, nesiunčia kūdikio kambario vaizdo į debesį ir nerenka asmens duomenų.",
+        "",
+        "Saugumas: telefoną, laikiklį ir įkrovimo laidą laikykite už lovytės ribų ir kūdikiui nepasiekiamoje vietoje. Baby Sitter nėra medicinos prietaisas ir nepakeičia prižiūrinčio asmens priežiūros."
+      ]
+    },
+    "mk-MK": {
+      "title": "Baby Sitter: Бебе монитор",
+      "short_description": "Претворете стар Android во бебе монитор на домашен Wi‑Fi.",
+      "full_description": [
+        "Baby Sitter претвора стар Android телефон во бебе монитор за помирни ноќи преку домашниот Wi-Fi.",
+        "",
+        "Ставете еден телефон во собата на бебето и гледајте од друга соба. Апликацијата забележува звук и движење, може да пушти приспивна песна со глас на родител и да зачува моменти околу будењето за подоцна.",
+        "",
+        "Работи на истата Wi-Fi мрежа, не испраќа видео од собата на бебето во cloud и не собира лични податоци.",
+        "",
+        "Безбедност: држете ги телефонот, држачот и кабелот за полнење надвор од креветчето и подалеку од дофат на бебето. Baby Sitter не е медицински уред и не ја заменува грижата на возрасен."
+      ]
+    },
+    "ms-MY": {
+      "title": "Baby Sitter: Monitor Bayi",
+      "short_description": "Jadikan Android lama monitor bayi melalui Wi‑Fi rumah.",
+      "full_description": [
+        "Baby Sitter menukar telefon Android lama menjadi monitor bayi untuk malam yang lebih tenang di Wi-Fi rumah.",
+        "",
+        "Letakkan satu telefon di bilik bayi dan pantau dari bilik lain. Aplikasi ini mengesan bunyi dan pergerakan, boleh memainkan lagu dodoi dengan suara ibu atau bapa, dan membolehkan anda menyimpan detik sekitar bayi terjaga.",
+        "",
+        "Ia berfungsi pada Wi-Fi yang sama, tidak menghantar video bilik bayi ke awan dan tidak mengumpul data peribadi.",
+        "",
+        "Keselamatan: pastikan telefon, pemegang dan kabel pengecas berada di luar katil bayi dan jauh daripada capaian. Baby Sitter bukan peranti perubatan dan tidak menggantikan pengawasan penjaga."
+      ]
+    },
+    "ms": {
+      "title": "Baby Sitter: Monitor Bayi",
+      "short_description": "Jadikan Android lama monitor bayi melalui Wi‑Fi rumah.",
+      "full_description": [
+        "Baby Sitter menukar telefon Android lama menjadi monitor bayi untuk malam yang lebih tenang di Wi-Fi rumah.",
+        "",
+        "Letakkan satu telefon di bilik bayi dan pantau dari bilik lain. Aplikasi ini mengesan bunyi dan pergerakan, boleh memainkan lagu dodoi dengan suara ibu atau bapa, dan membolehkan anda menyimpan detik sekitar bayi terjaga.",
+        "",
+        "Ia berfungsi pada Wi-Fi yang sama, tidak menghantar video bilik bayi ke awan dan tidak mengumpul data peribadi.",
+        "",
+        "Keselamatan: pastikan telefon, pemegang dan kabel pengecas berada di luar katil bayi dan jauh daripada capaian. Baby Sitter bukan peranti perubatan dan tidak menggantikan pengawasan penjaga."
+      ]
+    },
+    "ml-IN": {
+      "title": "Baby Sitter: ബേബി മോണിറ്റർ",
+      "short_description": "പഴയ Android ഫോൺ വീട്ടിലെ Wi‑Fi ബേബി മോണിറ്ററാക്കൂ.",
+      "full_description": [
+        "Baby Sitter പഴയ Android ഫോൺ വീട്ടിലെ Wi-Fi വഴി ശാന്തമായ രാത്രികൾക്കായുള്ള ബേബി മോണിറ്ററാക്കി മാറ്റുന്നു.",
+        "",
+        "ഒരു ഫോൺ കുഞ്ഞിന്റെ മുറിയിൽ വച്ച് മറ്റൊരു മുറിയിൽ നിന്ന് നോക്കാം. ആപ്പ് ശബ്ദവും ചലനവും ശ്രദ്ധിക്കുന്നു, അമ്മയുടെയോ അച്ഛന്റെയോ ശബ്ദത്തിൽ റെക്കോർഡ് ചെയ്ത താലോലം പ്ലേ ചെയ്യാം, കുഞ്ഞ് ഉണരുന്ന സമയത്തെ നിമിഷങ്ങൾ പിന്നീട് കാണാൻ സൂക്ഷിക്കാം.",
+        "",
+        "ഇത് അതേ Wi-Fi-ൽ പ്രവർത്തിക്കുന്നു, കുഞ്ഞിന്റെ മുറിയിലെ വീഡിയോ cloud-ലേക്ക് അയയ്ക്കില്ല, വ്യക്തിഗത ഡാറ്റ ശേഖരിക്കില്ല.",
+        "",
+        "സുരക്ഷ: ഫോൺ, സ്റ്റാൻഡ്, ചാർജിംഗ് കേബിൾ എന്നിവ കിടക്കയ്ക്ക് പുറത്തും കുഞ്ഞിന്റെ കൈവശമാകാത്തിടത്തും വയ്ക്കുക. Baby Sitter ഒരു മെഡിക്കൽ ഉപകരണമല്ല, പരിചരിക്കുന്നവരുടെ മേൽനോട്ടത്തിന് പകരമല്ല."
+      ]
+    },
+    "mr-IN": {
+      "title": "Baby Sitter: बेबी मॉनिटर",
+      "short_description": "जुना Android फोन घरच्या Wi‑Fi बेबी मॉनिटरमध्ये बदला.",
+      "full_description": [
+        "Baby Sitter जुना Android फोन घरच्या Wi-Fi वर शांत रात्रींसाठी बेबी मॉनिटरमध्ये बदलतो.",
+        "",
+        "एक फोन बाळाच्या खोलीत ठेवा आणि दुसऱ्या खोलीतून पाहा. अॅप आवाज आणि हालचाल ओळखते, आई किंवा वडिलांच्या आवाजातील अंगाईगीत वाजवू शकते आणि जागे होण्याच्या आसपासचे क्षण नंतर पाहण्यासाठी जतन करू देते.",
+        "",
+        "हे त्याच Wi-Fi वर काम करते, बाळाच्या खोलीचा व्हिडिओ क्लाउडवर पाठवत नाही आणि वैयक्तिक डेटा गोळा करत नाही.",
+        "",
+        "सुरक्षा: फोन, स्टँड आणि चार्जिंग केबल पाळण्याच्या बाहेर आणि बाळाच्या हाताबाहेर ठेवा. Baby Sitter वैद्यकीय उपकरण नाही आणि काळजीवाहकांच्या देखरेखीची जागा घेत नाही."
+      ]
+    },
+    "mn-MN": {
+      "title": "Baby Sitter: Хүүхдийн монитор",
+      "short_description": "Хуучин Android-оо гэрийн Wi‑Fi хүүхдийн монитор болго.",
+      "full_description": [
+        "Baby Sitter хуучин Android утсыг гэрийн Wi-Fi дээр илүү тайван шөнүүдэд зориулсан хүүхдийн монитор болгодог.",
+        "",
+        "Нэг утсыг хүүхдийн өрөөнд тавиад өөр өрөөнөөс харна. Апп нь дуу, хөдөлгөөнийг анзаарч, эцэг эхийн хоолойгоор бичсэн бүүвэйн дуу тоглуулж, сэрэх үеийн мөчүүдийг дараа үзэхээр хадгалж чадна.",
+        "",
+        "Ижил Wi-Fi дээр ажиллаж, хүүхдийн өрөөний видеог үүл рүү илгээхгүй, хувийн мэдээлэл цуглуулахгүй.",
+        "",
+        "Аюулгүй байдал: утас, тавиур, цэнэглэгч кабелийг орноос гадна, хүүхдийн гар хүрэхгүй газар байлга. Baby Sitter нь эмнэлгийн төхөөрөмж биш бөгөөд асран хамгаалагчийн хяналтыг орлохгүй."
+      ]
+    },
+    "ne-NP": {
+      "title": "Baby Sitter: बेबी मोनिटर",
+      "short_description": "पुरानो Android फोनलाई घरको Wi‑Fi बेबी मोनिटर बनाउनुहोस्।",
+      "full_description": [
+        "Baby Sitter ले पुरानो Android फोनलाई घरको Wi-Fi मा शान्त रातका लागि बेबी मोनिटर बनाउँछ।",
+        "",
+        "एउटा फोन बच्चाको कोठामा राख्नुहोस् र अर्को कोठाबाट हेर्नुहोस्। एपले आवाज र चालचलनमा ध्यान दिन्छ, अभिभावकको आवाजमा रेकर्ड गरिएको लोरी बजाउन सक्छ र बच्चा ब्यूँझिने वरिपरिका क्षणहरू पछि हेर्न सुरक्षित गर्न दिन्छ।",
+        "",
+        "यो एउटै Wi-Fi मा काम गर्छ, बच्चाको कोठाको भिडियो क्लाउडमा पठाउँदैन र व्यक्तिगत डेटा सङ्कलन गर्दैन।",
+        "",
+        "सुरक्षा: फोन, स्ट्यान्ड र चार्जिङ केबल खाटबाट बाहिर र बच्चाको पहुँचबाट टाढा राख्नुहोस्। Baby Sitter चिकित्सा उपकरण होइन र हेरचाहकर्ताको निगरानीको विकल्प होइन।"
+      ]
+    },
+    "no-NO": {
+      "title": "Baby Sitter: Babycall",
+      "short_description": "Gjør en gammel Android til babycall på hjemmets Wi‑Fi.",
+      "full_description": [
+        "Baby Sitter gjør en gammel Android-telefon til en babycall for roligere kvelder på hjemmets Wi-Fi.",
+        "",
+        "Legg én telefon på babyrommet og følg med fra et annet rom. Appen legger merke til lyd og bevegelse, kan spille en vuggesang med en forelders stemme og lar deg lagre øyeblikk rundt oppvåkning til senere.",
+        "",
+        "Den fungerer på samme Wi-Fi, sender ikke video fra babyrommet til skyen og samler ikke inn personopplysninger.",
+        "",
+        "Sikkerhet: hold telefon, stativ og ladekabel utenfor sengen og utenfor barnets rekkevidde. Baby Sitter er ikke medisinsk utstyr og erstatter ikke tilsyn fra en omsorgsperson."
+      ]
+    },
+    "fa": {
+      "title": "Baby Sitter: مانیتور کودک",
+      "short_description": "گوشی Android قدیمی را به مانیتور کودک در Wi‑Fi خانه تبدیل کنید.",
+      "full_description": [
+        "Baby Sitter یک گوشی Android قدیمی را برای شب‌های آرام‌تر در Wi-Fi خانه به مانیتور کودک تبدیل می‌کند.",
+        "",
+        "یک گوشی را در اتاق کودک بگذارید و از اتاق دیگر نگاه کنید. برنامه صدا و حرکت را تشخیص می‌دهد، می‌تواند لالایی ضبط‌شده با صدای والدین را پخش کند و لحظه‌های اطراف بیدار شدن کودک را برای بازبینی بعدی ذخیره کند.",
+        "",
+        "روی همان Wi-Fi کار می‌کند، ویدیوی اتاق کودک را به فضای ابری نمی‌فرستد و داده شخصی جمع‌آوری نمی‌کند.",
+        "",
+        "ایمنی: گوشی، پایه و کابل شارژ را بیرون از تخت و دور از دسترس کودک نگه دارید. Baby Sitter وسیله پزشکی نیست و جای نظارت مراقب را نمی‌گیرد."
+      ]
+    },
+    "fa-AE": {
+      "title": "Baby Sitter: مانیتور کودک",
+      "short_description": "گوشی Android قدیمی را به مانیتور کودک در Wi‑Fi خانه تبدیل کنید.",
+      "full_description": [
+        "Baby Sitter یک گوشی Android قدیمی را برای شب‌های آرام‌تر در Wi-Fi خانه به مانیتور کودک تبدیل می‌کند.",
+        "",
+        "یک گوشی را در اتاق کودک بگذارید و از اتاق دیگر نگاه کنید. برنامه صدا و حرکت را تشخیص می‌دهد، می‌تواند لالایی ضبط‌شده با صدای والدین را پخش کند و لحظه‌های اطراف بیدار شدن کودک را برای بازبینی بعدی ذخیره کند.",
+        "",
+        "روی همان Wi-Fi کار می‌کند، ویدیوی اتاق کودک را به فضای ابری نمی‌فرستد و داده شخصی جمع‌آوری نمی‌کند.",
+        "",
+        "ایمنی: گوشی، پایه و کابل شارژ را بیرون از تخت و دور از دسترس کودک نگه دارید. Baby Sitter وسیله پزشکی نیست و جای نظارت مراقب را نمی‌گیرد."
+      ]
+    },
+    "fa-AF": {
+      "title": "Baby Sitter: مانیتور کودک",
+      "short_description": "گوشی Android کهنه را به مانیتور کودک در Wi‑Fi خانه تبدیل کنید.",
+      "full_description": [
+        "Baby Sitter یک گوشی Android کهنه را برای شب‌های آرام‌تر در Wi-Fi خانه به مانیتور کودک تبدیل می‌کند.",
+        "",
+        "یک گوشی را در اتاق کودک بگذارید و از اتاق دیگر ببینید. برنامه صدا و حرکت را تشخیص می‌دهد، می‌تواند لالایی ضبط‌شده با صدای والدین را پخش کند و لحظه‌های اطراف بیدار شدن کودک را برای دیدن بعدی ذخیره کند.",
+        "",
+        "روی همان Wi-Fi کار می‌کند، ویدیوی اتاق کودک را به فضای ابری نمی‌فرستد و معلومات شخصی جمع‌آوری نمی‌کند.",
+        "",
+        "ایمنی: گوشی، پایه و کیبل شارژ را بیرون از تخت و دور از دسترس کودک نگه دارید. Baby Sitter وسیله طبی نیست و جای نظارت مراقب را نمی‌گیرد."
+      ]
+    },
+    "fa-IR": {
+      "title": "Baby Sitter: مانیتور کودک",
+      "short_description": "گوشی Android قدیمی را به مانیتور کودک در Wi‑Fi خانه تبدیل کنید.",
+      "full_description": [
+        "Baby Sitter یک گوشی Android قدیمی را برای شب‌های آرام‌تر در Wi-Fi خانه به مانیتور کودک تبدیل می‌کند.",
+        "",
+        "یک گوشی را در اتاق کودک بگذارید و از اتاق دیگر نگاه کنید. برنامه صدا و حرکت را تشخیص می‌دهد، می‌تواند لالایی ضبط‌شده با صدای والدین را پخش کند و لحظه‌های اطراف بیدار شدن کودک را برای بازبینی بعدی ذخیره کند.",
+        "",
+        "روی همان Wi-Fi کار می‌کند، ویدیوی اتاق کودک را به فضای ابری نمی‌فرستد و داده شخصی جمع‌آوری نمی‌کند.",
+        "",
+        "ایمنی: گوشی، پایه و کابل شارژ را بیرون از تخت و دور از دسترس کودک نگه دارید. Baby Sitter وسیله پزشکی نیست و جای نظارت مراقب را نمی‌گیرد."
+      ]
+    },
+    "pl-PL": {
+      "title": "Baby Sitter: Niania Wi-Fi",
+      "short_description": "Zmień stary telefon Android w nianię na domowym Wi‑Fi.",
+      "full_description": [
+        "Baby Sitter zmienia stary telefon Android w elektroniczną nianię na spokojniejsze noce w domowej sieci Wi-Fi.",
+        "",
+        "Połóż jeden telefon w pokoju dziecka i obserwuj z innego pokoju. Aplikacja zauważa dźwięk i ruch, może odtworzyć kołysankę głosem rodzica i pozwala zapisać chwile wokół przebudzenia do późniejszego obejrzenia.",
+        "",
+        "Działa w tej samej sieci Wi-Fi, nie wysyła wideo z pokoju dziecka do chmury i nie zbiera danych osobowych.",
+        "",
+        "Bezpieczeństwo: trzymaj telefon, uchwyt i kabel ładowania poza łóżeczkiem oraz poza zasięgiem dziecka. Baby Sitter nie jest wyrobem medycznym i nie zastępuje nadzoru opiekuna."
       ]
     },
     "pt-BR": {
@@ -108,7 +961,126 @@
         "- Baby Sitter não é um dispositivo médico",
         "- Baby Sitter não substitui a supervisão do cuidador",
         "",
-        "Se você já tem um Android antigo em casa, pode começar hoje à noite sem comprar uma câmera nova para bebê."
+        "Se você já tem um Android antigo em casa, pode começar hoje à noite sem comprar uma câmera nova para bebê.",
+        "",
+        "#Maternidade #SonoIndependente #CancaoDeNinar #EssenciaisDoBebe #Parto #BebeDormiu #CCTVResidencial #CameraResidencial #Bebe #RecemNascido"
+      ]
+    },
+    "pt-PT": {
+      "title": "Baby Sitter: Monitor Bebé",
+      "short_description": "Transforme um Android antigo em monitor de bebé no Wi‑Fi de casa.",
+      "full_description": [
+        "Baby Sitter transforma um telemóvel Android antigo num monitor de bebé para noites mais tranquilas no Wi-Fi de casa.",
+        "",
+        "Coloque um telemóvel no quarto do bebé e acompanhe a partir de outra divisão. A app deteta som e movimento, pode reproduzir uma canção de embalar com a voz de um dos pais e permite guardar momentos em torno do despertar para rever mais tarde.",
+        "",
+        "Funciona na mesma rede Wi-Fi, não envia vídeo do quarto do bebé para a cloud e não recolhe dados pessoais.",
+        "",
+        "Segurança: mantenha o telemóvel, o suporte e o cabo de carregamento fora da cama e longe do alcance do bebé. Baby Sitter não é um dispositivo médico e não substitui a supervisão de um cuidador."
+      ]
+    },
+    "pa": {
+      "title": "Baby Sitter: ਬੇਬੀ ਮਾਨੀਟਰ",
+      "short_description": "ਪੁਰਾਣੇ Android ਫੋਨ ਨੂੰ ਘਰੇਲੂ Wi‑Fi ਬੇਬੀ ਮਾਨੀਟਰ ਬਣਾਓ।",
+      "full_description": [
+        "Baby Sitter ਪੁਰਾਣੇ Android ਫੋਨ ਨੂੰ ਘਰੇਲੂ Wi-Fi ਉੱਤੇ ਸ਼ਾਂਤ ਰਾਤਾਂ ਲਈ ਬੇਬੀ ਮਾਨੀਟਰ ਵਿੱਚ ਬਦਲਦਾ ਹੈ।",
+        "",
+        "ਇੱਕ ਫੋਨ ਬੱਚੇ ਦੇ ਕਮਰੇ ਵਿੱਚ ਰੱਖੋ ਅਤੇ ਦੂਜੇ ਕਮਰੇ ਤੋਂ ਦੇਖੋ। ਐਪ ਆਵਾਜ਼ ਅਤੇ ਹਿਲਜੁਲ ਨੂੰ ਨੋਟ ਕਰਦੀ ਹੈ, ਮਾਪਿਆਂ ਦੀ ਆਵਾਜ਼ ਵਿੱਚ ਰਿਕਾਰਡ ਕੀਤੀ ਲੋਰੀ ਚਲਾ ਸਕਦੀ ਹੈ ਅਤੇ ਬੱਚੇ ਦੇ ਜਾਗਣ ਦੇ ਆਲੇ-ਦੁਆਲੇ ਦੇ ਪਲ ਬਾਅਦ ਵਿੱਚ ਵੇਖਣ ਲਈ ਸੰਭਾਲ ਸਕਦੀ ਹੈ।",
+        "",
+        "ਇਹ ਉਸੇ Wi-Fi 'ਤੇ ਕੰਮ ਕਰਦੀ ਹੈ, ਬੱਚੇ ਦੇ ਕਮਰੇ ਦੀ ਵੀਡੀਓ cloud ਵਿੱਚ ਨਹੀਂ ਭੇਜਦੀ ਅਤੇ ਨਿੱਜੀ ਡਾਟਾ ਇਕੱਠਾ ਨਹੀਂ ਕਰਦੀ।",
+        "",
+        "ਸੁਰੱਖਿਆ: ਫੋਨ, ਸਟੈਂਡ ਅਤੇ ਚਾਰਜਿੰਗ ਕੇਬਲ ਨੂੰ ਪਾਲਣੇ ਤੋਂ ਬਾਹਰ ਅਤੇ ਬੱਚੇ ਦੀ ਪਹੁੰਚ ਤੋਂ ਦੂਰ ਰੱਖੋ। Baby Sitter ਕੋਈ ਮੈਡੀਕਲ ਡਿਵਾਈਸ ਨਹੀਂ ਅਤੇ ਦੇਖਭਾਲ ਕਰਨ ਵਾਲੇ ਦੀ ਨਿਗਰਾਨੀ ਦਾ ਬਦਲ ਨਹੀਂ।"
+      ]
+    },
+    "ro": {
+      "title": "Baby Sitter: Monitor Bebeluș",
+      "short_description": "Transformă un Android vechi în monitor de bebeluș pe Wi‑Fi.",
+      "full_description": [
+        "Baby Sitter transformă un telefon Android vechi într-un monitor pentru bebeluș, pentru nopți mai liniștite pe Wi-Fi-ul de acasă.",
+        "",
+        "Așază un telefon în camera bebelușului și urmărește din altă cameră. Aplicația observă sunetul și mișcarea, poate reda un cântec de leagăn cu vocea unui părinte și permite salvarea momentelor din jurul trezirii.",
+        "",
+        "Funcționează pe același Wi-Fi, nu trimite video din camera bebelușului în cloud și nu colectează date personale.",
+        "",
+        "Siguranță: ține telefonul, suportul și cablul de încărcare în afara pătuțului și departe de bebeluș. Baby Sitter nu este dispozitiv medical și nu înlocuiește supravegherea unui îngrijitor."
+      ]
+    },
+    "rm": {
+      "title": "Baby Sitter: Monitor da pop",
+      "short_description": "Fa da tes Android vegl in monitor da pop sin il Wi‑Fi da chasa.",
+      "full_description": [
+        "Baby Sitter fa dad in telefon Android vegl in monitor da pop per sairas pli quietas sin il Wi-Fi da chasa.",
+        "",
+        "Metta in telefon en la stanza dal pop e guarda d'ina autra stanza. L'app remartga tun e moviment, po sunar ina chanzun da durmir cun la vusch d'in genitur e lascha memorisar muments enturn il svegliar per guardar pli tard.",
+        "",
+        "Ella funcziuna sin il medem Wi-Fi, na trametta betg video da la stanza dal pop en il cloud e na rimna betg datas persunalas.",
+        "",
+        "Segirtad: tegna il telefon, il stativ e il cabel da chargiar ordaifer il letgin e lunsch davent dal pop. Baby Sitter n'è betg in apparat medicinal e na remplazza betg la surveglianza d'ina persuna che tgira."
+      ]
+    },
+    "ru-RU": {
+      "title": "Baby Sitter: Видеоняня",
+      "short_description": "Превратите старый Android в видеоняню для домашнего Wi‑Fi.",
+      "full_description": [
+        "Baby Sitter превращает старый Android-телефон в видеоняню для более спокойных ночей через домашний Wi-Fi.",
+        "",
+        "Поставьте один телефон в комнате малыша и смотрите из другой комнаты. Приложение замечает звук и движение, может включить колыбельную голосом родителя и сохранять моменты вокруг пробуждения для просмотра позже.",
+        "",
+        "Работает в той же сети Wi-Fi, не отправляет видео из детской комнаты в облако и не собирает персональные данные.",
+        "",
+        "Безопасность: держите телефон, подставку и зарядный кабель вне кроватки и вне досягаемости ребенка. Baby Sitter не является медицинским устройством и не заменяет присмотр взрослого."
+      ]
+    },
+    "sr": {
+      "title": "Baby Sitter: Беби монитор",
+      "short_description": "Претворите стари Android у беби монитор на кућном Wi‑Fi-ју.",
+      "full_description": [
+        "Baby Sitter претвара стари Android телефон у беби монитор за мирније ноћи преко кућног Wi-Fi-ја.",
+        "",
+        "Ставите један телефон у бебину собу и гледајте из друге собе. Апликација примећује звук и покрет, може да пусти успаванку гласом родитеља и да сачува тренутке око буђења за каснији преглед.",
+        "",
+        "Ради на истом Wi-Fi-ју, не шаље видео из бебине собе у облак и не прикупља личне податке.",
+        "",
+        "Безбедност: држите телефон, сталак и кабл за пуњење ван кревеца и ван домашаја бебе. Baby Sitter није медицински уређај и не замењује надзор неговатеља."
+      ]
+    },
+    "si-LK": {
+      "title": "Baby Sitter: බේබි මොනිටරය",
+      "short_description": "පැරණි Android දුරකථනය Wi‑Fi බේබි මොනිටරයක් කරගන්න.",
+      "full_description": [
+        "Baby Sitter පැරණි Android දුරකථනයක් නිවසේ Wi-Fi හරහා වඩා සන්සුන් රාත්‍රී සඳහා බේබි මොනිටරයක් බවට පත් කරයි.",
+        "",
+        "දුරකථනයක් ළදරුවාගේ කාමරයේ තබා අනෙක් කාමරයක සිට බලන්න. යෙදුම ශබ්දය සහ චලනය ගැන අවධානය දක්වයි, දෙමාපිය හඬින් පටිගත කළ ලාලිත ගීතයක් වාදනය කළ හැක, සහ ළදරුවා අවදි වන අවස්ථා පසුව බැලීමට සුරකින්න ඉඩ දෙයි.",
+        "",
+        "එය එකම Wi-Fi මත ක්‍රියා කරයි, ළදරු කාමර වීඩියෝ cloud වෙත නොයවයි, පෞද්ගලික දත්ත රැස් නොකරයි.",
+        "",
+        "ආරක්ෂාව: දුරකථනය, ස්ථාවරය සහ චාජ් කේබලය ළදරු ඇඳෙන් පිටත සහ ළදරුවාට ළඟා නොවන තැන තබන්න. Baby Sitter වෛද්‍ය උපකරණයක් නොවේ සහ රැකබලා ගන්නා අයගේ අධීක්ෂණය වෙනුවට භාවිත කළ නොහැක."
+      ]
+    },
+    "sk": {
+      "title": "Baby Sitter: Pestúnka",
+      "short_description": "Zmeňte starý Android na pestúnku cez domáce Wi‑Fi.",
+      "full_description": [
+        "Baby Sitter premení starý Android telefón na detskú pestúnku pre pokojnejšie noci cez domáce Wi-Fi.",
+        "",
+        "Položte jeden telefón do detskej izby a sledujte z inej miestnosti. Aplikácia vníma zvuk a pohyb, môže prehrať uspávanku hlasom rodiča a uložiť chvíle okolo prebudenia na neskoršiu kontrolu.",
+        "",
+        "Funguje na tej istej Wi-Fi, neposiela video z detskej izby do cloudu a nezhromažďuje osobné údaje.",
+        "",
+        "Bezpečnosť: telefón, stojan a nabíjací kábel držte mimo postieľky a mimo dosahu dieťaťa. Baby Sitter nie je zdravotnícka pomôcka a nenahrádza dohľad opatrovateľa."
+      ]
+    },
+    "sl": {
+      "title": "Baby Sitter: Baby Monitor",
+      "short_description": "Spremenite star Android v baby monitor prek domačega Wi‑Fi.",
+      "full_description": [
+        "Baby Sitter spremeni star telefon Android v baby monitor za mirnejše noči prek domačega Wi-Fi.",
+        "",
+        "En telefon postavite v otroško sobo in spremljajte iz druge sobe. Aplikacija zazna zvok in gibanje, lahko predvaja uspavanko z glasom starša ter shrani trenutke okoli prebujanja za poznejši ogled.",
+        "",
+        "Deluje v istem omrežju Wi-Fi, videa iz otroške sobe ne pošilja v oblak in ne zbira osebnih podatkov.",
+        "",
+        "Varnost: telefon, stojalo in polnilni kabel naj bodo zunaj posteljice in izven dosega otroka. Baby Sitter ni medicinski pripomoček in ne nadomešča nadzora skrbnika."
       ]
     },
     "es-419": {
@@ -143,7 +1115,152 @@
         "- Baby Sitter no es un dispositivo médico",
         "- Baby Sitter no reemplaza la supervisión del cuidador",
         "",
-        "Si ya tienes un Android viejo en casa, puedes empezar esta noche sin comprar una cámara nueva para bebé."
+        "Si ya tienes un Android viejo en casa, puedes empezar esta noche sin comprar una cámara nueva para bebé.",
+        "",
+        "#Crianza #SuenoIndependiente #CancionDeCuna #ImprescindiblesBebe #Parto #PorFinDurmio #CCTVEnCasa #CamaraParaCasa #Bebe #RecienNacido"
+      ]
+    },
+    "es-ES": {
+      "title": "Baby Sitter: Monitor Bebé",
+      "short_description": "Convierte tu Android viejo en monitor de bebé para el Wi‑Fi de casa.",
+      "full_description": [
+        "Baby Sitter convierte un teléfono Android viejo en un monitor de bebé para noches más tranquilas en el Wi-Fi de casa.",
+        "",
+        "Deja un teléfono en la habitación del bebé y mira desde otra habitación. La app detecta sonido y movimiento, puede reproducir una canción de cuna con la voz de mamá o papá y permite guardar momentos alrededor de los despertares para revisarlos después.",
+        "",
+        "Funciona en la misma red Wi-Fi, no envía vídeo de la habitación del bebé a la nube y no recopila datos personales.",
+        "",
+        "Seguridad: mantén el teléfono, el soporte y el cable de carga fuera de la cuna y fuera del alcance del bebé. Baby Sitter no es un dispositivo médico y no sustituye la supervisión de una persona cuidadora."
+      ]
+    },
+    "es-US": {
+      "title": "Baby Sitter: Monitor Bebé",
+      "short_description": "Convierte tu Android viejo en monitor de bebé para el Wi‑Fi de casa.",
+      "full_description": [
+        "Baby Sitter convierte un teléfono Android viejo en un monitor de bebé para noches más tranquilas con el Wi-Fi de casa.",
+        "",
+        "Deja un teléfono en la habitación del bebé y mira desde otra habitación. La app detecta sonido y movimiento, puede reproducir una canción de cuna con la voz de mamá o papá y permite guardar momentos alrededor de los despertares para revisarlos después.",
+        "",
+        "Funciona en la misma red Wi-Fi, no envía video de la habitación del bebé a la nube y no recopila datos personales.",
+        "",
+        "Seguridad: mantén el teléfono, el soporte y el cable de carga fuera de la cuna y fuera del alcance del bebé. Baby Sitter no es un dispositivo médico y no reemplaza la supervisión de una persona cuidadora."
+      ]
+    },
+    "sw": {
+      "title": "Baby Sitter: Mlezi wa Mtoto",
+      "short_description": "Geuza Android ya zamani iwe monitor ya mtoto kwenye Wi‑Fi ya nyumbani.",
+      "full_description": [
+        "Baby Sitter hugeuza simu ya Android ya zamani kuwa monitor ya mtoto kwa usiku tulivu zaidi kwenye Wi-Fi ya nyumbani.",
+        "",
+        "Weka simu moja kwenye chumba cha mtoto na utazame kutoka chumba kingine. Programu hutambua sauti na mwendo, inaweza kucheza wimbo wa kubembeleza uliorekodiwa kwa sauti ya mzazi, na hukuruhusu kuhifadhi nyakati karibu na kuamka kwa mtoto ili uzipitie baadaye.",
+        "",
+        "Hufanya kazi kwenye Wi-Fi hiyo hiyo, haitumi video ya chumba cha mtoto kwenye cloud na haikusanyi data binafsi.",
+        "",
+        "Usalama: weka simu, stendi na kebo ya kuchaji nje ya kitanda cha mtoto na mbali na mtoto. Baby Sitter si kifaa cha kitabibu na haichukui nafasi ya uangalizi wa mlezi."
+      ]
+    },
+    "sv-SE": {
+      "title": "Baby Sitter: Babyvakt",
+      "short_description": "Gör en gammal Android till babyvakt på hemmets Wi‑Fi.",
+      "full_description": [
+        "Baby Sitter gör en gammal Android-telefon till en babyvakt för lugnare kvällar på hemmets Wi-Fi.",
+        "",
+        "Lägg en telefon i barnets rum och titta från ett annat rum. Appen märker ljud och rörelse, kan spela en vaggvisa med en förälders röst och låter dig spara ögonblick runt uppvaknanden för senare granskning.",
+        "",
+        "Den fungerar på samma Wi-Fi, skickar inte video från barnrummet till molnet och samlar inte in personuppgifter.",
+        "",
+        "Säkerhet: håll telefon, stativ och laddkabel utanför spjälsängen och utom räckhåll. Baby Sitter är inte medicinsk utrustning och ersätter inte tillsyn av en vårdnadshavare."
+      ]
+    },
+    "ta-IN": {
+      "title": "Baby Sitter: பேபி மானிட்டர்",
+      "short_description": "பழைய Android போனை வீட்டு Wi‑Fi பேபி மானிட்டராக மாற்றுங்கள்.",
+      "full_description": [
+        "Baby Sitter பழைய Android போனை வீட்டின் Wi-Fi மூலம் அமைதியான இரவுகளுக்கான பேபி மானிட்டராக மாற்றுகிறது.",
+        "",
+        "ஒரு போனை குழந்தையின் அறையில் வைத்து, மற்றொரு அறையிலிருந்து பாருங்கள். ஆப் ஒலி மற்றும் அசைவைக் கவனிக்கும், பெற்றோரின் குரலில் பதிவு செய்த தாலாட்டைப்播放 செய்யலாம், மேலும் குழந்தை விழிக்கும் நேரத்தைச் சுற்றிய தருணங்களை பின்னர் பார்க்க சேமிக்கலாம்.",
+        "",
+        "இது அதே Wi-Fi-ல் வேலை செய்கிறது, குழந்தை அறை வீடியோவை cloud-க்கு அனுப்பாது, தனிப்பட்ட தரவை சேகரிக்காது.",
+        "",
+        "பாதுகாப்பு: போன், ஸ்டாண்ட், சார்ஜிங் கேபிள் ஆகியவற்றை கட்டிலுக்கு வெளியிலும் குழந்தைக்கு எட்டாத இடத்திலும் வைத்திருங்கள். Baby Sitter ஒரு மருத்துவ சாதனம் அல்ல; பராமரிப்பாளரின் கண்காணிப்பிற்கு மாற்றாகாது."
+      ]
+    },
+    "te-IN": {
+      "title": "Baby Sitter: బేబీ మానిటర్",
+      "short_description": "పాత Android ఫోన్‌ను ఇంటి Wi‑Fi బేబీ మానిటర్‌గా మార్చండి.",
+      "full_description": [
+        "Baby Sitter పాత Android ఫోన్‌ను ఇంటి Wi-Fiలో ప్రశాంతమైన రాత్రుల కోసం బేబీ మానిటర్‌గా మార్చుతుంది.",
+        "",
+        "ఒక ఫోన్‌ను బిడ్డ గదిలో పెట్టి, మరో గదిలోనుంచి చూడండి. యాప్ శబ్దం మరియు కదలికను గమనిస్తుంది, తల్లిదండ్రుల స్వరంలో రికార్డ్ చేసిన లాలిపాటను ప్లే చేయగలదు, మరియు బిడ్డ మేల్కొనే సమయానికి సంబంధించిన క్షణాలను తర్వాత చూడటానికి సేవ్ చేయగలదు.",
+        "",
+        "ఇది అదే Wi-Fiలో పనిచేస్తుంది, బిడ్డ గది వీడియోను క్లౌడ్‌కు పంపదు, వ్యక్తిగత డేటాను సేకరించదు.",
+        "",
+        "భద్రత: ఫోన్, స్టాండ్, ఛార్జింగ్ కేబుల్‌ను పసిబిడ్డ మంచం బయట మరియు బిడ్డకు అందని చోట ఉంచండి. Baby Sitter వైద్య పరికరం కాదు మరియు సంరక్షకుడి పర్యవేక్షణకు ప్రత్యామ్నాయం కాదు."
+      ]
+    },
+    "th": {
+      "title": "Baby Sitter: เบบี้มอนิเตอร์",
+      "short_description": "เปลี่ยน Android เครื่องเก่าเป็นเบบี้มอนิเตอร์ผ่าน Wi‑Fi บ้าน",
+      "full_description": [
+        "Baby Sitter เปลี่ยนโทรศัพท์ Android เครื่องเก่าให้เป็นเบบี้มอนิเตอร์สำหรับคืนที่สบายใจขึ้นผ่าน Wi-Fi ที่บ้าน",
+        "",
+        "วางโทรศัพท์หนึ่งเครื่องไว้ในห้องลูก แล้วดูจากอีกห้องหนึ่ง แอปช่วยสังเกตเสียงและการเคลื่อนไหว เล่นเพลงกล่อมที่บันทึกด้วยเสียงพ่อแม่ได้ และบันทึกช่วงเวลาก่อนหรือหลังลูกตื่นไว้ดูภายหลังได้",
+        "",
+        "ทำงานบน Wi-Fi เดียวกัน ไม่ส่งวิดีโอห้องลูกไปยังคลาวด์ และไม่เก็บข้อมูลส่วนบุคคล",
+        "",
+        "ความปลอดภัย: วางโทรศัพท์ ขาตั้ง และสายชาร์จไว้นอกเปลและให้พ้นมือเด็ก Baby Sitter ไม่ใช่อุปกรณ์ทางการแพทย์ และไม่ทดแทนการดูแลของผู้ปกครองหรือผู้ดูแล"
+      ]
+    },
+    "tr-TR": {
+      "title": "Baby Sitter: Bebek Monitörü",
+      "short_description": "Eski Android telefonu ev Wi‑Fi bebek monitörüne dönüştürün.",
+      "full_description": [
+        "Baby Sitter eski bir Android telefonu ev Wi-Fi ağında daha sakin geceler için bebek monitörüne dönüştürür.",
+        "",
+        "Bir telefonu bebeğin odasına yerleştirin ve başka bir odadan izleyin. Uygulama ses ve hareketi fark eder, ebeveyn sesiyle kaydedilmiş bir ninni çalabilir ve uyanma anlarının çevresindeki görüntüleri daha sonra incelemek için kaydedebilir.",
+        "",
+        "Aynı Wi-Fi üzerinde çalışır, bebek odası videosunu buluta göndermez ve kişisel veri toplamaz.",
+        "",
+        "Güvenlik: telefonu, standı ve şarj kablosunu beşiğin dışında ve bebeğin erişemeyeceği yerde tutun. Baby Sitter tıbbi cihaz değildir ve bakıcı gözetiminin yerini almaz."
+      ]
+    },
+    "uk": {
+      "title": "Baby Sitter: Радіоняня",
+      "short_description": "Перетворіть старий Android на радіоняню для домашнього Wi‑Fi.",
+      "full_description": [
+        "Baby Sitter перетворює старий Android-телефон на радіоняню для спокійніших ночей через домашній Wi-Fi.",
+        "",
+        "Поставте один телефон у кімнаті дитини й дивіться з іншої кімнати. Застосунок помічає звук і рух, може вмикати колискову голосом батьків і зберігати моменти навколо пробудження для перегляду пізніше.",
+        "",
+        "Працює в тій самій мережі Wi-Fi, не надсилає відео з дитячої кімнати в хмару і не збирає персональні дані.",
+        "",
+        "Безпека: тримайте телефон, підставку та зарядний кабель поза ліжечком і поза досяжністю дитини. Baby Sitter не є медичним пристроєм і не замінює нагляд дорослого."
+      ]
+    },
+    "ur": {
+      "title": "Baby Sitter: بیبی مانیٹر",
+      "short_description": "پرانے Android فون کو گھر کے Wi‑Fi بیبی مانیٹر میں بدلیں۔",
+      "full_description": [
+        "Baby Sitter پرانے Android فون کو گھر کے Wi-Fi پر پرسکون راتوں کے لیے بیبی مانیٹر میں بدل دیتا ہے۔",
+        "",
+        "ایک فون بچے کے کمرے میں رکھیں اور دوسرے کمرے سے دیکھیں۔ ایپ آواز اور حرکت کو نوٹ کرتی ہے، والدین کی آواز میں ریکارڈ کی گئی لوری چلا سکتی ہے، اور بچے کے جاگنے کے آس پاس کے لمحات بعد میں دیکھنے کے لیے محفوظ کرنے دیتی ہے۔",
+        "",
+        "یہ اسی Wi-Fi پر کام کرتی ہے، بچے کے کمرے کی ویڈیو کلاؤڈ پر نہیں بھیجتی اور ذاتی ڈیٹا جمع نہیں کرتی۔",
+        "",
+        "حفاظت: فون، اسٹینڈ اور چارجنگ کیبل کو پالنے سے باہر اور بچے کی پہنچ سے دور رکھیں۔ Baby Sitter طبی آلہ نہیں ہے اور نگہداشت کرنے والے کی نگرانی کا بدل نہیں۔"
+      ]
+    },
+    "vi": {
+      "title": "Baby Sitter: Máy báo bé",
+      "short_description": "Biến Android cũ thành máy báo bé qua Wi‑Fi tại nhà.",
+      "full_description": [
+        "Baby Sitter biến điện thoại Android cũ thành máy báo bé cho những đêm yên tâm hơn qua Wi-Fi tại nhà.",
+        "",
+        "Đặt một điện thoại trong phòng bé và theo dõi từ phòng khác. Ứng dụng nhận biết âm thanh và chuyển động, có thể phát bài ru ngủ bằng giọng bố mẹ và cho phép lưu lại các khoảnh khắc quanh lúc bé thức dậy để xem lại sau.",
+        "",
+        "Ứng dụng hoạt động trên cùng Wi-Fi, không gửi video phòng bé lên đám mây và không thu thập dữ liệu cá nhân.",
+        "",
+        "An toàn: giữ điện thoại, giá đỡ và dây sạc ngoài cũi và ngoài tầm với của bé. Baby Sitter không phải thiết bị y tế và không thay thế sự giám sát của người chăm sóc."
       ]
     }
   }
