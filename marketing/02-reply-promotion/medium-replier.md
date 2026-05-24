@@ -5,6 +5,10 @@ medium-tasks.md 파일에 작성되어있는 tasks 들 중 5개를 뽑아서 각
 
 공감, 댓글, 이미지 첨부는 naver-blog-comment-assist skill 을 이용하면돼.
 
+## 5개 뽑는 방법
+
+가능하다면 5개가 각각 다른 언어가 되도록 뽑아줘.
+
 ## 이미지 첨부 처리
 
 티스토리 댓글 UI에서 `homepage-img-1-ko.png` 이미지를 첨부할 수 있는 경우에는 이미지까지 첨부해줘.

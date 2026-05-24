@@ -290,3 +290,329 @@
 ## 2026-05-22 추가 미완료 기록
 
 - `https://blblbl.tistory.com/entry/%EC%95%84%EA%B8%B0-%EB%B6%84%EB%A6%AC%EC%88%98%EB%A9%B4-%EC%8B%9C%EA%B8%B0-%EB%B0%A9%EB%B2%95-%EC%9E%A5%EB%8B%A8%EC%A0%90-%EA%B5%90%EC%9C%A1-%EB%B0%A9%EB%B2%95-%ED%8F%AC%EC%8A%A4%ED%8C%85` 댓글 UI 에 이미지 첨부용 `input[type=file]` 은 없었고, `textarea` 입력 후 실제 키 입력 방식까지 재시도했으나 `등록` 버튼이 계속 비활성 상태라 댓글 등록 확인에 실패함. 직접 API 호출/우회 실행은 사용하지 않았으며 `tstory-tasks.md` 에 유지함. 확인 시각: `2026-05-22 00:44:55 KST`
+
+## 2026-05-22 추가 등록 완료
+
+- `https://lovely1-galaxy.tistory.com/11` 공감 버튼 클릭 후 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-22 01:53:23 KST`
+- `https://info2580-1.tistory.com/24` 공감 클릭을 시도했고, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-22 01:53:23 KST`
+- `https://oxchat.tistory.com/468` 공감 버튼 클릭 후 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-22 01:53:23 KST`
+
+## 2026-05-22 추가 미완료 기록
+
+- `https://harami230602.tistory.com/19` 댓글 본문 입력은 확인됐으나 `등록` 버튼이 비활성 상태라 댓글 등록 확인에 실패함. 이미지 첨부용 `input[type=file]` 은 없었고, 직접 API 호출/우회 실행은 사용하지 않았으며 `tstory-tasks.md` 에 유지함. 확인 시각: `2026-05-22 01:53:23 KST`
+- `https://haisoori.tistory.com/240` 본문 하단까지 확인했으나 댓글 입력창을 찾지 못해 등록하지 않음. 직접 API 호출/우회 실행은 사용하지 않았으며 `tstory-tasks.md` 에 유지함. 확인 시각: `2026-05-22 01:53:23 KST`
+
+## 2026-05-22 추가 등록 완료
+
+- `https://rootingforme.tistory.com/entry/4%EA%B0%9C%EC%9B%94-%EC%95%84%EA%B8%B0-%EC%88%98%EB%A9%B4%EA%B5%90%EC%9C%A1-%EC%9D%BC%EA%B3%BC%ED%8C%A8%ED%84%B4-%EB%B6%84%EB%A6%AC%EC%88%98%EB%A9%B4-%EC%8B%9C%EA%B8%B0` 공감 버튼 클릭 후 `좋아요5` -> `좋아요6` 반영 확인, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `댓글1`, `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-22 02:53:39 KST`
+- `https://2yoo-bns.tistory.com/18` 공감 버튼 클릭 후 `좋아요3` -> `좋아요4` 반영 확인, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-22 02:53:39 KST`
+- `https://memoryseung1224.tistory.com/1986` 공감 버튼 클릭 후 `좋아요7` -> `좋아요8` 반영 확인, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-22 02:53:39 KST`
+- `https://pureta27.tistory.com/225` 공감 버튼 클릭 후 `좋아요59` -> `좋아요60` 반영 확인, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-22 02:53:39 KST`
+- `https://byabbm.tistory.com/entry/%F0%9F%9B%8C-%EC%95%84%EA%B8%B0-%EC%88%98%EB%A9%B4%EA%B5%90%EC%9C%A1-%EC%96%B8%EC%A0%9C-%EC%8B%9C%EC%9E%91%ED%95%B4%EC%95%BC-%ED%95%A0%EA%B9%8C-%EB%B0%A4%EC%A4%91-%EC%88%98%EC%9C%A0-%EB%81%8A%EB%8A%94-%EA%B3%A8%EB%93%A0%ED%83%80%EC%9E%84%EC%9D%80-%EB%94%B0%EB%A1%9C-%EC%9E%88%EB%8B%A4` 공감 버튼 클릭 후 `좋아요공감` -> `좋아요1` 반영 확인, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-22 02:53:39 KST`
+
+## 2026-05-22 자동화 시도 기록
+
+- Task 82-85를 처음에는 각각 새 Chrome 확장 탭으로 열어 병렬 처리했으나, 일부 탭의 페이지 내부 확인 호출이 120초 제한을 초과함.
+- 완료 여부가 불명확한 병렬 탭은 결과로 처리하지 않고, Task 82-85를 새 탭에서 단독으로 재진행해 댓글 등록과 공감 반영을 확인함.
+- `openchrome`, Chrome DevTools, 직접 API 호출, 우회 등록은 사용하지 않았음. 확인 시각: `2026-05-22 02:53:39 KST`
+
+## 2026-05-22 추가 등록 완료
+
+- `https://atos1000.tistory.com/entry/%EC%95%84%EA%B8%B0-%EC%88%98%EB%A9%B4%ED%99%98%EA%B2%BD-%EC%A0%95%EB%A6%AC-%EC%A1%B0%EB%AA%85-%EC%86%8C%EC%9D%8C-%EC%88%98%EB%A9%B4%EC%9D%98%EC%8B%9D%EC%9C%BC%EB%A1%9C-%EC%9E%A0%ED%88%AC%EC%A0%95-%EC%A4%84%EC%9D%B4%EA%B8%B0-%EC%8B%A4%EC%A0%9C-%EA%B2%BD%ED%97%98-%EA%B3%B5%EC%9C%A0` 공감 버튼 클릭 후 `좋아요2` -> `좋아요3` 반영 확인, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `댓글1`, `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-22 03:40:35 KST`
+
+## 2026-05-23 자동화 차단 기록
+
+- `tstory-replier.md` 진행을 위해 Codex Chrome 확장 세션 연결을 시도했으나, 현재 Codex가 감지한 브라우저 백엔드는 Codex In-app Browser 뿐이라 `extension` 백엔드를 선택하지 못함.
+- Google Chrome 설치(`/Applications/Google Chrome.app`, 148.0.7778.179), Codex Chrome Extension 설치/등록/활성화(Profile 4, 1.1.4_0 및 1.1.5_0), native host manifest 정상 상태는 확인됨.
+- Chrome 실행 여부 점검은 로컬 `ps` 권한 제한(`EPERM`)으로 확인하지 못함.
+- 지시서상 `openchrome`, Chrome DevTools, 직접 API 호출, 우회 등록을 사용하지 않아 실제 댓글/공감/이미지 등록은 진행하지 않았고, 완료된 task 가 없어 `tstory-tasks.md` 는 변경하지 않음. 확인 시각: `2026-05-23 01:38:41 KST`
+
+## 2026-05-23 추가 등록 완료
+
+- `https://bizdigger.tistory.com/entry/%EC%95%88%EB%8D%B0%EB%A5%B4%EC%84%BC-%EC%98%AC%EB%A6%AC%EB%B2%84-%ED%95%98%EC%9D%B4%EA%B0%80%EB%93%9C-%EC%B9%A8%EB%8C%80-%ED%9B%84%EA%B8%B0` 공감 버튼 클릭 후 `좋아요2` -> `좋아요3` 반영 확인, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-23 02:50:45 KST`
+- `https://writer-ylee.tistory.com/66` 공감 버튼 클릭 후 `좋아요공감` -> `좋아요1` 반영 확인, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-23 02:50:45 KST`
+- `https://hyangsee.tistory.com/41` 공감 버튼 클릭 후 `좋아요2` -> `좋아요3` 반영 확인, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-23 02:50:45 KST`
+- `https://sofistory.tistory.com/253` 공감 버튼 클릭 후 `좋아요7` -> `좋아요8` 반영 확인, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-23 02:50:45 KST`
+- `https://hgt7799.tistory.com/entry/%EC%9E%98-%EC%9E%90%EB%8A%94-%EC%95%84%EA%B8%B0%EB%8A%94-%EB%8B%A4%EB%A5%B4%EB%8B%A4-%EC%95%84%EA%B8%B0-%EC%88%98%EB%A9%B4-%EA%B5%90%EC%9C%A1-%ED%95%B5%EC%8B%AC-%EC%9A%94%EC%95%BD` 공감 버튼 클릭 후 `좋아요2` -> `좋아요3` 반영 확인, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-23 02:50:45 KST`
+
+## 2026-05-23 추가 미완료 기록
+
+- Task 90 `ledus` 글은 공감 버튼 클릭 후 `좋아요공감` -> `좋아요1` 반영까지 확인했으나, 로그인 재확인 뒤에도 댓글 본문 입력 후 `등록` 버튼이 계속 비활성 상태라 댓글 등록 확인에 실패함. 댓글 UI 에 이미지 첨부용 `input[type=file]` 은 없었고, 직접 API 호출/우회 실행은 사용하지 않았으며 `tstory-tasks.md` 에 유지함. 확인 시각: `2026-05-23 02:50:45 KST`
+- 사용한 Chrome 확장 탭은 `browser.tabs.finalize({ keep: [] })` 로 정리함. Google Chrome 종료는 AppleScript 승인 단계에서 거부되어 앱 종료까지는 수행하지 못함. 확인 시각: `2026-05-23 02:50:45 KST`
+
+## 2026-05-23 자동화 차단 기록
+
+- `tstory-replier.md` 진행을 위해 Task 92-96을 후보로 잡았으나, Codex Chrome 확장 browser-client 초기화(`setupBrowserRuntime`)가 10초 타임박스에서 응답하지 않았고, 45초/90초 재시도도 제한 시간을 초과해 실제 댓글/공감/이미지 등록을 진행하지 못함.
+- Google Chrome 실행 상태, 설치(`/Applications/Google Chrome.app`, 148.0.7778.179), Codex Chrome Extension 설치/등록/활성화(Profile 4, 1.1.5_0), native host manifest 정상 상태는 확인됨.
+- `openchrome`, Chrome DevTools, 직접 API 호출, 우회 등록은 사용하지 않았고, 완료된 task 가 없어 `tstory-tasks.md` 는 변경하지 않음. 확인 시각: `2026-05-23 03:43:13 KST`
+
+## 2026-05-23 자동화 차단 기록
+
+- `tstory-replier.md` 진행을 위해 결과에 아직 등록되지 않은 Task 92-96을 후보로 잡았으나, Codex Chrome 확장 백엔드가 현재 세션에 노출되지 않아 실제 댓글/공감/이미지 등록을 진행하지 못함.
+- Google Chrome 설치(`/Applications/Google Chrome.app`, 148.0.7778.179), Codex Chrome Extension 설치/등록/활성화(Profile 4, 1.1.5_0), native host manifest 정상 상태는 확인됨. Chrome 실행 여부 점검은 로컬 `ps` 권한 제한(`EPERM`)으로 확인하지 못함.
+- 지시서상 `openchrome`, Chrome DevTools, 직접 API 호출, 우회 등록은 사용하지 않았고, 완료된 task 가 없어 `tstory-tasks.md` 는 변경하지 않음. 확인 시각: `2026-05-23 04:39:56 KST`
+
+## 2026-05-23 자동화 차단 기록
+
+- `tstory-replier.md` 진행을 위해 결과에 아직 등록되지 않은 Task 92-96을 후보로 유지하고 Chrome 확장 연결을 재시도했으나, 현재 세션에서 사용 가능한 브라우저 백엔드는 Codex In-app Browser 뿐이고 `extension` 백엔드는 노출되지 않음.
+- Google Chrome 설치(`/Applications/Google Chrome.app`, 148.0.7778.179), Codex Chrome Extension 설치/등록/활성화(Profile 4, 1.1.5_0), native host manifest 정상 상태는 재확인됨. Chrome 실행 여부 점검은 로컬 `ps` 권한 제한(`EPERM`)으로 확인하지 못함.
+- 지시서상 `openchrome`, Chrome DevTools, 직접 API 호출, 우회 등록은 사용하지 않았고, 실제 댓글/공감/이미지 등록을 진행하지 못했으므로 완료된 task 가 없어 `tstory-tasks.md` 는 변경하지 않음. 확인 시각: `2026-05-23 05:37:41 KST`
+
+## 2026-05-23 자동화 차단 기록
+
+- `tstory-replier.md` 진행을 위해 결과에 아직 등록되지 않은 Task 92-96을 후보로 유지하고 Chrome 확장 연결을 2회 재시도했으나, 현재 세션에서 사용 가능한 브라우저 백엔드는 Codex In-app Browser 뿐이고 `extension` 백엔드는 노출되지 않음.
+- Google Chrome 설치(`/Applications/Google Chrome.app`, 148.0.7778.179), Codex Chrome Extension 설치/등록/활성화(Profile 4, 1.1.5_0), native host manifest 정상 상태는 재확인됨. Chrome 실행 여부 점검은 로컬 `ps` 권한 제한(`EPERM`)으로 확인하지 못함.
+- 지시서상 `openchrome`, Chrome DevTools, 직접 API 호출, 우회 등록은 사용하지 않았고, 실제 댓글/공감/이미지 등록을 진행하지 못했으므로 완료된 task 가 없어 `tstory-tasks.md` 는 변경하지 않음. 확인 시각: `2026-05-23 06:38:58 KST`
+
+## 2026-05-23 자동화 차단 기록
+
+- `tstory-replier.md` 진행을 위해 결과에 아직 등록되지 않은 Task 92-96을 후보로 유지하고 Codex Chrome 확장 연결을 재시도했으나, `agent.browsers.get("extension")` 이 `Browser is not available: extension` 으로 실패함.
+- 사용 가능한 브라우저 백엔드는 Codex In-app Browser 뿐임을 확인했고, Google Chrome 설치(`/Applications/Google Chrome.app`, 148.0.7778.179), Codex Chrome Extension 설치/등록/활성화(Profile 4, 1.1.5_0), native host manifest 정상 상태는 재확인됨. Chrome 실행 여부 점검은 로컬 `ps` 권한 제한(`EPERM`)으로 확인하지 못함.
+- 지시서상 `openchrome`, Chrome DevTools, 직접 API 호출, 우회 등록은 사용하지 않았고, 실제 댓글/공감/이미지 등록을 진행하지 못했으므로 완료된 task 가 없어 `tstory-tasks.md` 는 변경하지 않음. 확인 시각: `2026-05-23 07:39:31 KST`
+
+## 2026-05-23 자동화 차단 기록
+
+- `tstory-replier.md` 진행을 위해 결과에 아직 등록되지 않은 Task 92-96을 후보로 유지하고 Codex Chrome 확장 연결을 2회 재시도했으나, `agent.browsers.get("extension")` 이 `Browser is not available: extension` 으로 실패함.
+- Google Chrome 설치(`/Applications/Google Chrome.app`, 148.0.7778.179), Codex Chrome Extension 설치/등록/활성화(Profile 4, 1.1.5_0), native host manifest 정상 상태는 재확인됨. Chrome 실행 여부 점검은 로컬 `ps` 권한 제한(`EPERM`)으로 확인하지 못함.
+- 지시서상 `openchrome`, Chrome DevTools, 직접 API 호출, 우회 등록은 사용하지 않았고, 실제 댓글/공감/이미지 등록을 진행하지 못했으므로 완료된 task 가 없어 `tstory-tasks.md` 는 변경하지 않음. 확인 시각: `2026-05-23 08:37:34 KST`
+
+## 2026-05-23 자동화 차단 기록
+
+- `tstory-replier.md` 진행을 위해 결과에 아직 등록되지 않은 Task 92-96을 후보로 유지하고 Codex Chrome 확장 연결을 재시도했으나, 현재 세션에서 사용 가능한 브라우저 백엔드는 Codex In-app Browser 뿐이고 `agent.browsers.get("extension")` 이 `Browser is not available: extension` 으로 실패함.
+- Google Chrome 설치(`/Applications/Google Chrome.app`, 148.0.7778.179), Codex Chrome Extension 설치/등록/활성화(Profile 4, 1.1.5_0), native host manifest 정상 상태는 재확인됨. Chrome 실행 여부 점검은 로컬 `ps` 권한 제한(`EPERM`)으로 확인하지 못함.
+- 지시서상 `openchrome`, Chrome DevTools, 직접 API 호출, 우회 등록은 사용하지 않았고, 실제 댓글/공감/이미지 등록을 진행하지 못했으므로 완료된 task 가 없어 `tstory-tasks.md` 는 변경하지 않음. 확인 시각: `2026-05-23 09:39:21 KST`
+
+## 2026-05-23 자동화 차단 기록
+
+- `tstory-replier.md` 진행을 위해 결과에 아직 등록되지 않은 Task 92-96을 후보로 유지하고 Codex Chrome 확장 연결을 초기 시도와 2초 후 재시도로 확인했으나, 현재 세션에서 사용 가능한 브라우저 백엔드는 Codex In-app Browser 뿐이고 `agent.browsers.get("extension")` 이 `Browser is not available: extension` 으로 실패함.
+- Google Chrome 설치(`/Applications/Google Chrome.app`, 148.0.7778.179), Codex Chrome Extension 설치/등록/활성화(Profile 4, 1.1.5_0), native host manifest 정상 상태는 재확인됨. Chrome 실행 여부 점검은 로컬 `ps` 권한 제한(`EPERM`)으로 확인하지 못함.
+- 지시서상 `openchrome`, Chrome DevTools, 직접 API 호출, 우회 등록은 사용하지 않았고, 실제 댓글/공감/이미지 등록을 진행하지 못했으므로 완료된 task 가 없어 `tstory-tasks.md` 는 변경하지 않음. 확인 시각: `2026-05-23 10:39:07 KST`
+
+## 2026-05-23 자동화 차단 기록
+
+- `tstory-replier.md` 진행을 위해 결과에 아직 등록되지 않은 Task 92-96을 후보로 유지하고 Codex Chrome 확장 연결을 초기 시도와 2초 후 재시도로 확인했으나, 현재 세션에서 사용 가능한 브라우저 백엔드는 Codex In-app Browser 뿐이고 `agent.browsers.get("extension")` 이 `Browser is not available: extension` 으로 실패함.
+- Google Chrome 설치(`/Applications/Google Chrome.app`, 148.0.7778.179), Codex Chrome Extension 설치/등록/활성화(Profile 4, 1.1.5_0), native host manifest 정상 상태는 재확인됨. Chrome 실행 여부 점검은 로컬 `ps` 권한 제한(`EPERM`)으로 확인하지 못함.
+- 지시서상 `openchrome`, Chrome DevTools, 직접 API 호출, 우회 등록은 사용하지 않았고, 실제 댓글/공감/이미지 등록을 진행하지 못했으므로 완료된 task 가 없어 `tstory-tasks.md` 는 변경하지 않음. 확인 시각: `2026-05-23 11:38:44 KST`
+
+## 2026-05-23 자동화 차단 기록
+
+- `tstory-replier.md` 진행을 위해 결과에 아직 등록되지 않은 Task 92-96을 후보로 유지하고 Codex Chrome 확장 연결을 초기 시도와 2초 후 재시도로 확인했으나, `agent.browsers.get("extension")` 이 `Browser is not available: extension` 으로 실패함.
+- Google Chrome 설치(`/Applications/Google Chrome.app`, 148.0.7778.179), Codex Chrome Extension 설치/등록/활성화(Profile 4, 1.1.5_0), native host manifest 정상 상태는 재확인됨. Chrome 실행 여부 점검은 로컬 `ps` 권한 제한(`EPERM`)으로 확인하지 못함.
+- 지시서상 `openchrome`, Chrome DevTools, 직접 API 호출, 우회 등록은 사용하지 않았고, 실제 댓글/공감/이미지 등록을 진행하지 못했으므로 완료된 task 가 없어 `tstory-tasks.md` 는 변경하지 않음. 확인 시각: `2026-05-23 12:39:30 KST`
+
+## 2026-05-23 자동화 차단 기록
+
+- `tstory-replier.md` 진행을 위해 결과에 아직 등록되지 않은 Task 92-96을 후보로 유지하고 Codex Chrome 확장 연결을 초기 시도와 2초 후 재시도로 확인했으나, `agent.browsers.get("extension")` 이 `Browser is not available: extension` 으로 실패함.
+- 현재 세션에서 사용 가능한 브라우저 백엔드는 Codex In-app Browser 뿐임을 확인함.
+- Google Chrome 설치(`/Applications/Google Chrome.app`, 148.0.7778.179), Codex Chrome Extension 설치/등록/활성화(Profile 4, 1.1.5_0), native host manifest 정상 상태는 재확인됨. Chrome 실행 여부 점검은 로컬 `ps` 권한 제한(`EPERM`)으로 확인하지 못함.
+- 지시서상 `openchrome`, Chrome DevTools, 직접 API 호출, 우회 등록은 사용하지 않았고, 실제 댓글/공감/이미지 등록을 진행하지 못했으므로 완료된 task 가 없어 `tstory-tasks.md` 는 변경하지 않음. 확인 시각: `2026-05-23 13:37:59 KST`
+
+## 2026-05-23 자동화 차단 기록
+
+- `tstory-replier.md` 진행을 위해 결과에 아직 등록되지 않은 Task 92-96을 후보로 유지하고 Codex Chrome 확장 연결을 초기 시도와 2초 후 재시도로 확인했으나, `agent.browsers.get("extension")` 이 `Browser is not available: extension` 으로 실패함.
+- 현재 세션에서 사용 가능한 브라우저 백엔드는 Codex In-app Browser 뿐임을 `agent.browsers.list()` 로 확인함.
+- Google Chrome 설치(`/Applications/Google Chrome.app`, 148.0.7778.179), Codex Chrome Extension 설치/등록/활성화(Profile 4, 1.1.5_0), native host manifest 정상 상태는 재확인됨. Chrome 실행 여부 점검은 로컬 `ps` 권한 제한(`EPERM`)으로 확인하지 못함.
+- 지시서상 `openchrome`, Chrome DevTools, 직접 API 호출, 우회 등록은 사용하지 않았고, 실제 댓글/공감/이미지 등록을 진행하지 못했으므로 완료된 task 가 없어 `tstory-tasks.md` 는 변경하지 않음. 확인 시각: `2026-05-23 14:39:31 KST`
+
+## 2026-05-23 자동화 차단 기록
+
+- `tstory-replier.md` 진행을 위해 결과에 아직 등록되지 않은 Task 92-96을 후보로 유지하고 Codex Chrome 확장 연결을 초기 시도와 2초 후 재시도로 확인했으나, `agent.browsers.get("extension")` 이 `Browser is not available: extension` 으로 실패함.
+- 현재 세션에서 사용 가능한 브라우저 백엔드는 Codex In-app Browser 뿐임을 `agent.browsers.list()` 로 확인함.
+- Google Chrome 설치(`/Applications/Google Chrome.app`, 148.0.7778.179), Codex Chrome Extension 설치/등록/활성화(Profile 4, 1.1.5_0), native host manifest 정상 상태는 재확인됨. Chrome 실행 여부 점검은 로컬 `ps` 권한 제한(`EPERM`)으로 확인하지 못함.
+- 지시서상 `openchrome`, Chrome DevTools, 직접 API 호출, 우회 등록은 사용하지 않았고, 실제 댓글/공감/이미지 등록을 진행하지 못했으므로 완료된 task 가 없어 `tstory-tasks.md` 는 변경하지 않음. 확인 시각: `2026-05-23 15:38:13 KST`
+
+## 2026-05-23 자동화 차단 기록
+
+- `tstory-replier.md` 진행을 위해 결과에 아직 등록되지 않은 Task 92-96을 후보로 유지하고 Codex Chrome 확장 연결을 초기 시도와 2초 후 재시도로 확인했으나, `agent.browsers.get("extension")` 이 `Browser is not available: extension` 으로 실패함.
+- 현재 세션에서 사용 가능한 브라우저 백엔드는 Codex In-app Browser 뿐임을 `agent.browsers.list()` 로 확인함.
+- Google Chrome 설치(`/Applications/Google Chrome.app`, 148.0.7778.179), Codex Chrome Extension 설치/등록/활성화(Profile 4, 1.1.5_0), native host manifest 정상 상태는 재확인됨. Chrome 실행 여부 점검은 로컬 `ps` 권한 제한(`EPERM`)으로 확인하지 못함.
+- 지시서상 `openchrome`, Chrome DevTools, 직접 API 호출, 우회 등록은 사용하지 않았고, 실제 댓글/공감/이미지 등록을 진행하지 못했으므로 완료된 task 가 없어 `tstory-tasks.md` 는 변경하지 않음. 확인 시각: `2026-05-23 16:38:04 KST`
+
+## 2026-05-23 자동화 차단 기록
+
+- `tstory-replier.md` 진행을 위해 결과에 아직 등록되지 않은 Task 219-223을 후보로 확인하고 Codex Chrome 확장 연결을 초기 시도와 2초 후 재시도로 확인했으나, `agent.browsers.get("extension")` 이 `Browser is not available: extension` 으로 실패함.
+- 현재 세션에서 사용 가능한 브라우저 백엔드는 Codex In-app Browser 뿐임을 `agent.browsers.list()` 로 확인함.
+- Google Chrome 설치(`/Applications/Google Chrome.app`, 148.0.7778.179), Codex Chrome Extension 설치/등록/활성화(Profile 4, 1.1.5_0), native host manifest 정상 상태는 재확인됨. Chrome 실행 여부 점검은 로컬 `ps` 권한 제한(`EPERM`)으로 확인하지 못함.
+- 지시서상 `openchrome`, Chrome DevTools, 직접 API 호출, 우회 등록은 사용하지 않았고, 실제 댓글/공감/이미지 등록을 진행하지 못했으므로 완료된 task 가 없어 `tstory-tasks.md` 는 변경하지 않음. 확인 시각: `2026-05-23 17:37:42 KST`
+
+## 2026-05-23 자동화 차단 기록
+
+- `tstory-replier.md` 진행을 위해 결과에 아직 등록되지 않은 Task 219-223을 후보로 재확인하고 Codex Chrome 확장 연결을 초기 시도와 2초 후 재시도로 확인했으나, `agent.browsers.get("extension")` 이 `Browser is not available: extension` 으로 실패함.
+- 현재 세션에서 사용 가능한 브라우저 백엔드는 Codex In-app Browser 뿐임을 `agent.browsers.list()` 로 확인함.
+- Google Chrome 설치(`/Applications/Google Chrome.app`, 148.0.7778.179), Codex Chrome Extension 설치/등록/활성화(Profile 4, 1.1.5_0), native host manifest 정상 상태는 재확인됨. Chrome 실행 여부 점검은 로컬 `ps` 권한 제한(`EPERM`)으로 확인하지 못함.
+- 지시서상 `openchrome`, Chrome DevTools, Playwright 우회, 직접 API 호출, 우회 등록은 사용하지 않았고, 실제 댓글/공감/이미지 등록을 진행하지 못했으므로 완료된 task 가 없어 `tstory-tasks.md` 는 변경하지 않음. 확인 시각: `2026-05-23 18:38:48 KST`
+
+## 2026-05-23 자동화 차단 기록
+
+- `tstory-replier.md` 진행을 위해 결과에 아직 등록되지 않은 Task 219-223을 후보로 재확인하고 Codex Chrome 확장 연결을 초기 시도와 2초 후 재시도로 확인했으나, `agent.browsers.get("extension")` 이 `Browser is not available: extension` 으로 실패함.
+- 현재 세션에서 사용 가능한 브라우저 백엔드는 Codex In-app Browser 뿐임을 `agent.browsers.list()` 로 확인함.
+- Google Chrome 설치(`/Applications/Google Chrome.app`, 148.0.7778.179), Codex Chrome Extension 설치/등록/활성화(Profile 4, 1.1.5_0), native host manifest 정상 상태는 재확인됨. Chrome 실행 여부 점검은 로컬 `ps` 권한 제한(`EPERM`)으로 확인하지 못함.
+- 지시서상 `openchrome`, Chrome DevTools, Playwright 우회, 직접 API 호출, 우회 등록은 사용하지 않았고, 실제 댓글/공감/이미지 등록을 진행하지 못했으므로 완료된 task 가 없어 `tstory-tasks.md` 는 변경하지 않음. 확인 시각: `2026-05-23 19:38:54 KST`
+
+## 2026-05-23 자동화 차단 기록
+
+- `tstory-replier.md` 진행을 위해 결과에 아직 등록되지 않은 Task 219-223을 후보로 재확인하고 Codex Chrome 확장 연결을 초기 시도와 2초 후 재시도로 확인했으나, `agent.browsers.get("extension")` 이 `Browser is not available: extension` 으로 실패함.
+- 현재 세션에서 사용 가능한 브라우저 백엔드는 Codex In-app Browser 뿐임을 `agent.browsers.list()` 로 확인함.
+- Google Chrome 설치(`/Applications/Google Chrome.app`, 148.0.7778.179), Codex Chrome Extension 설치/등록/활성화(Profile 4, 1.1.5_0), native host manifest 정상 상태는 재확인됨. Chrome 실행 여부 점검은 로컬 `ps` 권한 제한(`EPERM`)으로 확인하지 못함.
+- 지시서상 `openchrome`, Chrome DevTools, Playwright 우회, 직접 API 호출, 우회 등록은 사용하지 않았고, 실제 댓글/공감/이미지 등록을 진행하지 못했으므로 완료된 task 가 없어 `tstory-tasks.md` 는 변경하지 않음. 확인 시각: `2026-05-23 20:37:34 KST`
+
+## 2026-05-23 자동화 차단 기록
+
+- `tstory-replier.md` 진행을 위해 결과에 아직 등록되지 않은 Task 219-223을 후보로 재확인하고 Codex Chrome 확장 연결을 초기 시도와 2초 후 재시도로 확인했으나, `agent.browsers.get("extension")` 이 `Browser is not available: extension` 으로 실패함.
+- 현재 세션에서 사용 가능한 브라우저 백엔드는 Codex In-app Browser 뿐임을 `agent.browsers.list()` 로 확인함.
+- Google Chrome 설치(`/Applications/Google Chrome.app`, 148.0.7778.179), Codex Chrome Extension 설치/등록/활성화(Profile 4, 1.1.5_0), native host manifest 정상 상태는 재확인됨. Chrome 실행 여부 점검은 로컬 `ps` 권한 제한(`EPERM`)으로 확인하지 못함.
+- 지시서상 `openchrome`, Chrome DevTools, Playwright 우회, 직접 API 호출, 우회 등록은 사용하지 않았고, 실제 댓글/공감/이미지 등록을 진행하지 못했으므로 완료된 task 가 없어 `tstory-tasks.md` 는 변경하지 않음. 확인 시각: `2026-05-23 21:39:02 KST`
+
+## 2026-05-23 자동화 차단 기록
+
+- `tstory-replier.md` 진행을 위해 기존 후보 Task 219-223을 이어서 유지하고 Codex Chrome 확장 연결을 초기 시도와 2초 후 재시도로 확인했으나, `agent.browsers.get("extension")` 이 `Browser is not available: extension` 으로 실패함.
+- 현재 세션에서 사용 가능한 브라우저 백엔드는 Codex In-app Browser 뿐임을 `agent.browsers.list()` 로 확인함.
+- Google Chrome 설치(`/Applications/Google Chrome.app`, 148.0.7778.179), Codex Chrome Extension 설치/등록/활성화(Profile 4, 1.1.5_0), native host manifest 정상 상태는 재확인됨. Chrome 실행 여부 점검은 로컬 `ps` 권한 제한(`EPERM`)으로 확인하지 못함.
+- 지시서상 `openchrome`, Chrome DevTools, Playwright 우회, 직접 API 호출, 우회 등록은 사용하지 않았고, 실제 댓글/공감/이미지 등록을 진행하지 못했으므로 완료된 task 가 없어 `tstory-tasks.md` 는 변경하지 않음. 확인 시각: `2026-05-23 22:38:40 KST`
+
+## 2026-05-23 자동화 차단 기록
+
+- `tstory-replier.md` 진행을 위해 기존 후보 Task 219-223을 이어서 유지하고 Codex Chrome 확장 연결을 초기 시도와 2초 후 재시도로 확인했으나, `agent.browsers.get("extension")` 이 `Browser is not available: extension` 으로 실패함.
+- 현재 세션에서 사용 가능한 브라우저 백엔드는 Codex In-app Browser 뿐임을 `agent.browsers.list()` 로 확인함.
+- Google Chrome 설치(`/Applications/Google Chrome.app`, 148.0.7778.179), Codex Chrome Extension 설치/등록/활성화(Profile 4, 1.1.5_0), native host manifest 정상 상태는 재확인됨. Chrome 실행 여부 점검은 로컬 `ps` 권한 제한(`EPERM`)으로 확인하지 못함.
+- 지시서상 `openchrome`, Chrome DevTools, Playwright 우회, 직접 API 호출, 우회 등록은 사용하지 않았고, 실제 댓글/공감/이미지 등록을 진행하지 못했으므로 완료된 task 가 없어 `tstory-tasks.md` 는 변경하지 않음. 확인 시각: `2026-05-23 23:37:51 KST`
+
+## 2026-05-24 자동화 차단 기록
+
+- `tstory-replier.md` 진행을 위해 기존 후보 Task 219-223을 이어서 확인했고, 이번 세션에서는 Codex Chrome 확장 백엔드 연결과 탭 생성이 정상 동작함.
+- Task 219 `https://erda.tistory.com/m/683` 및 댓글 페이지 `https://erda.tistory.com/m/683/comments` 를 열어 실제 댓글 목록에 `babysitter.dveamer.com` 또는 `info57650` 댓글이 없는 것을 확인함.
+- 댓글 입력 UI 는 `닉네임`, `비밀번호`, `로그인` 링크가 보이는 게스트 폼으로 렌더링되어 현재 Chrome 세션이 티스토리에 로그인되어 있지 않은 상태로 판단함. 로그인 계정 닉네임/프로필 기준 중복 확인을 할 수 없고 지시서상 로그인 대기 대상이므로 공감/댓글/이미지 등록은 진행하지 않음.
+- 댓글 UI 에 `input[type=file]` 은 없었음. 완료된 task 가 없어 `tstory-tasks.md` 는 변경하지 않음. 사용자가 로그인할 수 있도록 Task 219 댓글 페이지를 Chrome handoff 탭으로 유지함. 확인 시각: `2026-05-24 01:39:24 KST`
+
+## 2026-05-24 추가 등록 완료
+
+- `https://erda.tistory.com/m/683` 공감 버튼 클릭 후 `공감수3` -> `공감수4` 반영 확인, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `댓글갯수4`, `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-24 02:42:55 KST`
+- `https://yumsinkorea.tistory.com/19` 공감 버튼 클릭 후 `공감수2` -> `공감수3` 반영 확인, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `댓글갯수2`, `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-24 02:42:55 KST`
+- `https://yumsinkorea.tistory.com/17` 공감 버튼 클릭 후 `공감수0` -> `공감수1` 반영 확인, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `댓글갯수1`, `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-24 02:42:55 KST`
+- `https://gmlsao.tistory.com/entry/%EC%99%B8%EC%B6%9C-%ED%9B%84-%EB%92%A4%EB%B0%94%EB%80%90-%EC%88%98%EB%A9%B4-%ED%8C%A8%ED%84%B4-%EB%90%98%EB%8F%8C%EB%A6%AC%EB%8A%94-%EB%B2%95` 공감 버튼 클릭 후 `공감수0` -> `공감수1` 반영 확인, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `댓글갯수1`, `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-24 02:42:55 KST`
+
+## 2026-05-24 추가 미완료 기록
+
+- Task 220 `https://futuremone.tistory.com/2240` 는 공감 버튼 클릭 후 `공감수0` -> `공감수1` 반영까지 확인했으나, 댓글 페이지에 `댓글 작성이 허용되지 않은 글입니다.`가 표시되어 댓글 입력창을 찾을 수 없어 등록하지 않음. 댓글 등록 성공이 아니므로 `tstory-tasks.md` 에 유지함. 확인 시각: `2026-05-24 02:42:55 KST`
+- 사용한 Chrome 확장 탭은 `browser.tabs.finalize({ keep: [] })` 로 정리함. Google Chrome 종료를 `osascript` 로 시도했고 명령은 0으로 종료됐지만 macOS 서비스 연결 경고가 출력됨. 확인 시각: `2026-05-24 02:44:13 KST`
+
+## 2026-05-24 자동화 차단 기록
+
+- `tstory-replier.md` 진행을 위해 마지막 완료 이후 다음 후보 Task 224-228을 확인하고 Codex Chrome 확장 연결을 초기 시도와 2초 후 재시도로 확인했으나, `agent.browsers.get("extension")` 이 `Browser is not available: extension` 으로 실패함.
+- 현재 세션에서 사용 가능한 브라우저 백엔드는 Codex In-app Browser 뿐임을 `agent.browsers.list()` 로 확인함.
+- Google Chrome 설치(`/Applications/Google Chrome.app`, 148.0.7778.179), Codex Chrome Extension 설치/등록/활성화(Profile 4, 1.1.5_0), native host manifest 정상 상태는 재확인됨. Chrome 실행 여부 점검은 로컬 `ps` 권한 제한(`EPERM`)으로 확인하지 못함.
+- 지시서상 `openchrome`, Chrome DevTools, Playwright 우회, 직접 API 호출, 우회 등록은 사용하지 않았고, 실제 댓글/공감/이미지 등록을 진행하지 못했으므로 완료된 task 가 없어 `tstory-tasks.md` 는 변경하지 않음. 확인 시각: `2026-05-24 03:40:03 KST`
+
+## 2026-05-24 자동화 차단 기록
+
+- `tstory-replier.md` 진행을 위해 현재 남은 다음 후보 Task 224-228을 확인하고 Codex Chrome 확장 연결을 초기 시도와 2초 후 재시도로 확인했으나, `agent.browsers.get("extension")` 이 `Browser is not available: extension` 으로 실패함.
+- 현재 세션에서 사용 가능한 브라우저 백엔드는 Codex In-app Browser 뿐임을 `agent.browsers.list()` 로 확인함.
+- Google Chrome 설치(`/Applications/Google Chrome.app`, 148.0.7778.179), Codex Chrome Extension 설치/등록/활성화(Profile 4, 1.1.5_0), native host manifest 정상 상태는 재확인됨. Chrome 실행 여부 점검은 로컬 `ps` 권한 제한(`EPERM`)으로 확인하지 못함.
+- 지시서상 `openchrome`, Chrome DevTools, Playwright 우회, 직접 API 호출, 우회 등록은 사용하지 않았고, 실제 댓글/공감/이미지 등록을 진행하지 못했으므로 완료된 task 가 없어 `tstory-tasks.md` 는 변경하지 않음. 확인 시각: `2026-05-24 04:38:41 KST`
+
+## 2026-05-24 자동화 차단 기록
+
+- `tstory-replier.md` 진행을 위해 현재 남은 다음 후보 Task 224-228을 재확인하고 Codex Chrome 확장 연결을 초기 시도와 2초 후 재시도로 확인했으나, `agent.browsers.get("extension")` 이 `Browser is not available: extension` 으로 실패함.
+- 현재 세션에서 사용 가능한 브라우저 백엔드는 Codex In-app Browser 뿐임을 `agent.browsers.list()` 로 확인함.
+- Google Chrome 설치(`/Applications/Google Chrome.app`, 148.0.7778.179), Codex Chrome Extension 설치/등록/활성화(Profile 4, 1.1.5_0), native host manifest 정상 상태는 재확인됨. Chrome 실행 여부 점검은 로컬 `ps` 권한 제한(`EPERM`)으로 확인하지 못함.
+- 지시서상 `openchrome`, Chrome DevTools, Playwright 우회, 직접 API 호출, 우회 등록은 사용하지 않았고, 실제 댓글/공감/이미지 등록을 진행하지 못했으므로 완료된 task 가 없어 `tstory-tasks.md` 는 변경하지 않음. 확인 시각: `2026-05-24 05:37:14 KST`
+
+## 2026-05-24 자동화 차단 기록
+
+- `tstory-replier.md` 진행을 위해 현재 남은 다음 후보 Task 224-228을 재확인하고 Codex Chrome 확장 연결을 초기 시도와 2초 후 재시도로 확인했으나, `agent.browsers.get("extension")` 이 `Browser is not available: extension` 으로 실패함.
+- Google Chrome 설치(`/Applications/Google Chrome.app`, 148.0.7778.179), Codex Chrome Extension 설치/등록/활성화(Profile 4, 1.1.5_0), native host manifest 정상 상태는 재확인됨. Chrome 실행 여부 점검은 로컬 `ps` 권한 제한(`EPERM`)으로 확인하지 못함.
+- 지시서상 `openchrome`, Chrome DevTools, Playwright 우회, 직접 API 호출, 우회 등록은 사용하지 않았고, 실제 댓글/공감/이미지 등록을 진행하지 못했으므로 완료된 task 가 없어 `tstory-tasks.md` 는 변경하지 않음. 확인 시각: `2026-05-24 06:38:11 KST`
+
+## 2026-05-24 자동화 차단 기록
+
+- `tstory-replier.md` 진행을 위해 현재 남은 다음 후보 Task 224-228을 재확인하고 Codex Chrome 확장 연결을 초기 시도와 2초 후 재시도로 확인했으나, `agent.browsers.get("extension")` 이 `Browser is not available: extension` 으로 실패함.
+- 현재 세션에서 사용 가능한 브라우저 백엔드는 Codex In-app Browser 뿐임을 `agent.browsers.list()` 로 확인함.
+- Google Chrome 설치(`/Applications/Google Chrome.app`, 148.0.7778.179), Codex Chrome Extension 설치/등록/활성화(Profile 4, 1.1.5_0), native host manifest 정상 상태는 재확인됨. Chrome 실행 여부 점검은 로컬 `ps` 권한 제한(`EPERM`)으로 확인하지 못함.
+- 지시서상 `openchrome`, Chrome DevTools, Playwright 우회, 직접 API 호출, 우회 등록은 사용하지 않았고, 실제 댓글/공감/이미지 등록을 진행하지 못했으므로 완료된 task 가 없어 `tstory-tasks.md` 는 변경하지 않음. 확인 시각: `2026-05-24 07:39:19 KST`
+
+## 2026-05-24 자동화 차단 기록
+
+- `tstory-replier.md` 진행을 위해 현재 남은 다음 후보 Task 224-228을 재확인하고 Codex Chrome 확장 연결을 초기 시도와 2초 후 재시도로 확인했으나, `agent.browsers.get("extension")` 이 `Browser is not available: extension` 으로 실패함.
+- 현재 세션에서 사용 가능한 브라우저 백엔드는 Codex In-app Browser 뿐임을 `agent.browsers.list()` 로 확인함.
+- Google Chrome 설치(`/Applications/Google Chrome.app`, 148.0.7778.179), Codex Chrome Extension 설치/등록/활성화(Profile 4, 1.1.5_0), native host manifest 정상 상태는 재확인됨. Chrome 실행 여부 점검은 로컬 `ps` 권한 제한(`EPERM`)으로 확인하지 못함.
+- 지시서상 `openchrome`, Chrome DevTools, Playwright 우회, 직접 API 호출, 우회 등록은 사용하지 않았고, 실제 댓글/공감/이미지 등록을 진행하지 못했으므로 완료된 task 가 없어 `tstory-tasks.md` 는 변경하지 않음. 확인 시각: `2026-05-24 08:38:48 KST`
+
+## 2026-05-24 자동화 차단 기록
+
+- `tstory-replier.md` 진행을 위해 현재 남은 다음 후보 Task 224-228을 재확인하고 Codex Chrome 확장 연결을 초기 시도와 2초 후 재시도로 확인했으나, `agent.browsers.get("extension")` 이 `Browser is not available: extension` 으로 실패함.
+- 현재 세션에서 사용 가능한 브라우저 백엔드는 Codex In-app Browser 뿐임을 `agent.browsers.list()` 로 확인함.
+- Google Chrome 설치(`/Applications/Google Chrome.app`, 148.0.7778.179), Codex Chrome Extension 설치/등록/활성화(Profile 4, 1.1.5_0), native host manifest 정상 상태는 재확인됨. Chrome 실행 여부 점검은 로컬 `ps` 권한 제한(`EPERM`)으로 확인하지 못함.
+- 지시서상 `openchrome`, Chrome DevTools, Playwright 우회, 직접 API 호출, 우회 등록은 사용하지 않았고, 실제 댓글/공감/이미지 등록을 진행하지 못했으므로 완료된 task 가 없어 `tstory-tasks.md` 는 변경하지 않음. 확인 시각: `2026-05-24 09:40:18 KST`
+
+## 2026-05-24 추가 등록 완료
+
+- `https://iamom.tistory.com/entry/%EC%95%84%EA%B8%B0-%EB%82%AE%EC%9E%A0-%EB%A3%A8%ED%8B%B4-%EC%9E%A1%EB%8A%94-%EB%B2%95%EF%BD%9C%EC%B4%88%EB%B3%B4%EB%A7%98%EC%9D%84-%EC%9C%84%ED%95%9C-%EC%8A%A4%EC%BC%80%EC%A4%84-%EC%A0%95%EB%A6%AC` 공감 버튼 클릭 후 `공감수2` -> `공감수3` 반영 확인, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `댓글갯수5`, `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-24 10:44:32 KST`
+- `https://aesarang.tistory.com/m/entry/%EC%95%84%EA%B8%B0%EA%B0%80-%EB%B0%A4%EC%97%90-%EC%9E%A0%EC%9D%84-%EC%9E%98-%EC%95%88-%EC%9E%90%EB%8A%94-%EC%9D%B4%EC%9C%A0%EC%99%80-%ED%95%B4%EA%B2%B0%EB%B2%95-1` 공감 버튼 클릭 후 `공감수1` -> `공감수2` 반영 확인, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `댓글갯수4`, `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-24 10:44:32 KST`
+- `https://erda.tistory.com/379` 공감 버튼 클릭 후 `공감수0` -> `공감수1` 반영 확인, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `댓글갯수1`, `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-24 10:44:32 KST`
+- `https://pureta27.tistory.com/75` 공감 버튼 클릭 후 `공감수67` -> `공감수68` 반영 확인, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `댓글갯수2`, `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-24 10:44:32 KST`
+- `https://somdal.tistory.com/122` 공감 버튼 클릭 후 `공감수2` -> `공감수3` 반영 확인, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `댓글갯수5`, `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-24 10:44:32 KST`
+
+## 2026-05-24 추가 미완료 기록
+
+- Task 224 `https://101201171202.tistory.com/entry/%EC%9C%A1%EC%95%84%ED%8C%81-34%EA%B0%9C%EC%9B%94-%EC%88%98%EB%A9%B4%ED%87%B4%ED%96%89-%EC%B4%88%EB%B3%B4-%EC%97%84%EB%A7%88%EC%9D%98-%EC%83%9D%EC%A1%B4-%EA%B0%80%EC%9D%B4%EB%93%9C` 댓글 페이지에 `댓글 작성이 허용되지 않은 글입니다.`가 표시되어 댓글 입력창을 찾을 수 없어 등록하지 않음. `tstory-tasks.md` 에 유지함. 확인 시각: `2026-05-24 10:44:32 KST`
+- Task 226 `https://yun0709.tistory.com/entry/%EC%83%9D%ED%9B%84-4%EA%B0%9C%EC%9B%94-%EC%88%98%EB%A9%B4%ED%87%B4%ED%96%89-%EC%9A%B0%EB%A6%AC-%EC%95%84%EA%B8%B0-%EC%99%9C-%EC%9D%B4%EB%A0%87%EA%B2%8C-%EC%9E%90%EC%A3%BC-%EA%B9%A8%EC%A3%A0` 댓글 페이지에 `댓글 작성이 허용되지 않은 글입니다.`가 표시되어 댓글 입력창을 찾을 수 없어 등록하지 않음. `tstory-tasks.md` 에 유지함. 확인 시각: `2026-05-24 10:44:32 KST`
+- Task 227 `https://taeha0710.tistory.com/entry/%EC%95%84%EA%B8%B0-%EC%83%88%EB%B2%BD%EC%97%90%EB%A7%8C-%EC%9E%90%EC%A3%BC-%EA%B9%A8%EB%8A%94-%EC%9D%B4%EC%9C%A0` 댓글 페이지에 `댓글 작성이 허용되지 않은 글입니다.`가 표시되어 댓글 입력창을 찾을 수 없어 등록하지 않음. `tstory-tasks.md` 에 유지함. 확인 시각: `2026-05-24 10:44:32 KST`
+- Task 228 `https://joilsen11.tistory.com/entry/%EC%95%84%EA%B8%B0-%ED%86%B5%EC%9E%A0-%EC%9E%AC%EC%9A%B0%EB%8A%94-%EB%B0%A9%EB%B2%95%EA%B3%BC-%EB%A3%A8%ED%8B%B4-%EC%95%84%EA%B8%B0%EA%B0%80-%EB%B0%A4%EC%97%90-%EC%9E%90%EC%A3%BC-%EA%B9%A8%EC%9A%94%EC%9B%90%EC%9D%B8%EA%B3%BC-%EB%8C%80%EC%B2%98%EB%B2%95` 댓글 페이지에 `댓글 작성이 허용되지 않은 글입니다.`가 표시되어 댓글 입력창을 찾을 수 없어 등록하지 않음. `tstory-tasks.md` 에 유지함. 확인 시각: `2026-05-24 10:44:32 KST`
+- Task 231 `https://momshift.tistory.com/entry/%EB%B0%A4%EC%A4%91%EC%88%98%EC%9C%A0-%EC%96%B8%EC%A0%9C%EA%B9%8C%EC%A7%80-012%EA%B0%9C%EC%9B%94-%EC%95%84%EA%B8%B0-%EC%88%98%EC%9C%A0-%EC%A4%91%EB%8B%A8-%EC%8B%9C%EA%B8%B0-%EA%B0%80%EC%9D%B4%EB%93%9C-2025%EB%85%84` 댓글 페이지에 `댓글 작성이 허용되지 않은 글입니다.`가 표시되어 댓글 입력창을 찾을 수 없어 등록하지 않음. `tstory-tasks.md` 에 유지함. 확인 시각: `2026-05-24 10:44:32 KST`
+- Task 232 `https://jamie22.tistory.com/entry/%EC%B4%88%EB%B3%B4-%EB%B6%80%EB%AA%A8-%ED%95%84%EB%8F%85-%EC%98%81%EC%95%84-%EC%88%98%EB%A9%B4-%EA%B5%90%EC%9C%A1%EB%B2%95-%EC%99%84%EC%A0%84-%EC%A0%95%EB%A6%AC%EF%BD%9C%EC%9E%A0%ED%88%AC%EC%A0%95-%EC%A4%84%EC%9D%B4%EA%B3%A0-%EC%88%99%EB%A9%B4-%EC%9C%A0%EB%8F%84%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%95` 댓글 페이지에 `댓글 작성이 허용되지 않은 글입니다.`가 표시되어 댓글 입력창을 찾을 수 없어 등록하지 않음. `tstory-tasks.md` 에 유지함. 확인 시각: `2026-05-24 10:44:32 KST`
+- Task 233 `https://gritlife1.tistory.com/entry/%EC%9C%A1%EC%95%84-%EC%B4%88%EB%B3%B4%EB%A5%BC-%EC%9C%84%ED%95%9C-%EC%95%84%EA%B8%B0-%EC%88%98%EB%A9%B4-%EA%B5%90%EC%9C%A1-%EB%B0%A9%EB%B2%95` 댓글 페이지에 `댓글 작성이 허용되지 않은 글입니다.`가 표시되어 댓글 입력창을 찾을 수 없어 등록하지 않음. `tstory-tasks.md` 에 유지함. 확인 시각: `2026-05-24 10:44:32 KST`
+- Task 234 `https://dbrdkwjdqhxhd.tistory.com/16` 댓글 페이지에 `댓글 작성이 허용되지 않은 글입니다.`가 표시되어 댓글 입력창을 찾을 수 없어 등록하지 않음. `tstory-tasks.md` 에 유지함. 확인 시각: `2026-05-24 10:44:32 KST`
+- Task 235 `https://58foryou.tistory.com/entry/%EB%B0%A4%EC%88%98%EB%B0%A4%EC%A4%91%EC%88%98%EC%9C%A0-%EB%81%8A%EB%8A%94-%EC%8B%9C%EA%B8%B0%EC%99%80-%EB%B0%A9%EB%B2%95-%EB%B0%A4%EC%88%98-%EB%81%8A%EC%96%B4%EC%95%BC-%ED%95%98%EB%8A%94-%EC%9D%B4%EC%9C%A0-%EA%B9%80%EB%8C%80%EB%A6%AC` 댓글 페이지에 `댓글 작성이 허용되지 않은 글입니다.`가 표시되어 댓글 입력창을 찾을 수 없어 등록하지 않음. `tstory-tasks.md` 에 유지함. 확인 시각: `2026-05-24 10:44:32 KST`
+- 사용한 Chrome 확장 탭은 `browser.tabs.finalize({ keep: [] })` 로 정리함. Google Chrome 종료를 `osascript` 로 시도했고 명령은 0으로 종료됐지만 macOS 서비스 연결 경고가 출력됨. 확인 시각: `2026-05-24 10:45:39 KST`
+
+## 2026-05-24 추가 등록 완료
+
+- `https://dasumo.tistory.com/entry/%EC%86%8C%EC%95%84%EA%B3%BC-%EC%A0%84%EB%AC%B8%EC%9D%98%EA%B0%80-%EB%A7%90%ED%95%98%EB%8A%94-19%EA%B0%9C%EC%9B%94-%EC%95%84%EA%B8%B0-%EB%B0%A4%EC%A4%91-%EA%B9%A8%EB%8A%94-%EC%9D%B4%EC%9C%A0-%EB%B0%9C%EB%8B%AC-%EC%98%81%EC%96%91-%EC%8A%B5%EA%B4%80` 공감 버튼 클릭 후 `공감수0` -> `공감수1` 반영 확인, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `댓글 1`, `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-24 11:43:47 KST`
+- `https://angela0422.tistory.com/entry/%EC%88%98%EB%A9%B4-%ED%87%B4%ED%96%89-%EC%8B%9C%EA%B8%B0%EB%B3%84-%EB%8C%80%EC%9D%91%EB%B2%95-%EC%A0%95%EB%A6%AC-4%EA%B0%9C%EC%9B%94-8%EA%B0%9C%EC%9B%94-12%EA%B0%9C%EC%9B%94` 공감 버튼 클릭 후 `공감수0` -> `공감수1` 반영 확인, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `댓글갯수1`, `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-24 11:43:47 KST`
+- `https://bom1215.tistory.com/88` 공감 버튼 클릭 후 `공감수0` -> `공감수1` 반영 확인, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `댓글갯수1`, `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-24 11:43:47 KST`
+- `https://scis.tistory.com/entry/%EC%8B%A0%EC%83%9D%EC%95%84-%EC%9E%AC%EC%9A%B8-%EB%95%8C-%ED%94%BC%EC%95%84%EB%85%B8-%EC%9E%90%EC%9E%A5%EA%B0%80-%EC%9D%B4%EA%B2%83-%ED%95%98%EB%82%98%EB%A1%9C-%EB%81%9D-%EA%B3%A8%EB%93%A0%ED%83%80%EC%9D%B4%EB%B0%8D%C2%B7%EB%B3%BC%EB%A5%A8%C2%B7%EC%B6%94%EC%B2%9C%EA%B3%A1%C2%B7%EC%9C%A0%ED%8A%9C%EB%B8%8C%EC%95%B1CD-%EB%B9%84%EC%9A%A9%EA%B9%8C%EC%A7%80-%EC%B4%9D%EC%A0%95%EB%A6%AC` 공감 버튼 클릭 후 `공감수0` -> `공감수1` 반영 확인, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `댓글갯수1`, `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-24 11:43:47 KST`
+- `https://cnscns.tistory.com/296` 공감 버튼 클릭 후 `공감수15` -> `공감수16` 반영 확인, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. 첫 제출 클릭 뒤 입력창에 본문이 남아 있어 완료로 보지 않고 키보드 제출로 재시도했으며, `댓글 21` -> `댓글 22`, `info57650` 댓글, `babysitter.dveamer.com`, `방금` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-24 11:43:47 KST`
+
+## 2026-05-24 정리 기록
+
+- 사용한 Chrome 확장 탭은 `browser.tabs.finalize({ keep: [] })` 로 정리함. Google Chrome 종료를 `osascript` 로 시도했고 명령은 0으로 종료됐지만 macOS 서비스 연결 경고가 출력됨. 확인 시각: `2026-05-24 11:43:47 KST`
+
+## 2026-05-24 자동화 차단 기록
+
+- `tstory-replier.md` 진행을 위해 마지막 완료 이후 다음 후보 Task 268-272를 확인했으나, Codex Chrome 확장 연결 초기화와 2초 후 재시도 모두 제한 시간을 초과해 실제 댓글 탭을 만들지 못함.
+- 추가 확인에서 Google Chrome 설치(`/Applications/Google Chrome.app`, 148.0.7778.179), Chrome 실행 상태, Codex Chrome Extension 설치/등록/활성화(Profile 4, 1.1.5_0), native host manifest 정상 상태를 확인함.
+- 지시서상 `openchrome`, Chrome DevTools, Playwright 우회, 직접 API 호출, 우회 등록은 사용하지 않았고, 실제 댓글/공감/이미지 등록을 진행하지 못했으므로 완료된 task 가 없어 `tstory-tasks.md` 는 변경하지 않음.
+- Google Chrome 종료를 `osascript` 로 시도했고 명령은 0으로 종료됐지만 macOS 서비스 연결 경고가 출력됨. 확인 시각: `2026-05-24 12:43:26 KST`
+
+## 2026-05-24 추가 등록 완료
+
+- `https://everyounglife.tistory.com/entry/%EB%82%AE%EC%9E%A0-%EC%9E%90%EB%8B%A4%EA%B9%A8%EC%84%9C-%EC%9A%B0%EB%8A%94` 공감 버튼 클릭 후 `공감수1` -> `공감수2` 반영 확인, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `댓글갯수5`, `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-24 13:41:26 KST`
+- `https://ptruan.tistory.com/entry/%EB%B6%84%EB%A6%AC%EC%88%98%EB%A9%B4-%EC%8B%9C%EC%9E%91-%EC%A0%80%EC%83%81%ED%98%95-%EC%B9%A8%EB%8C%80-%EC%84%A0%ED%83%9D-%EB%A0%88%EC%9D%B4%EB%94%94%EA%B0%80%EA%B5%AC-%EB%A9%9C%EB%A1%9C-%EC%A0%80%EC%83%81%ED%98%95-%EB%8D%B0%EC%9D%B4%EB%B2%A0%EB%93%9C-%ED%9B%84%EA%B8%B0` 공감 버튼 클릭 후 `공감수0` -> `공감수1` 반영 확인, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `댓글갯수1`, `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-24 13:41:26 KST`
+- `https://by-flare.tistory.com/71` 공감 버튼 클릭 후 `공감수0` -> `공감수1` 반영 확인, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `댓글갯수1`, `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-24 13:41:26 KST`
+- `https://enoughfly8349.tistory.com/entry/%EC%95%84%EA%B8%B0-%EB%B6%84%EB%A6%AC%EC%88%98%EB%A9%B4-%EC%A0%80%EC%83%81%ED%98%95-%EB%8D%B0%EC%9D%B4%EB%B2%A0%EB%93%9C-%EB%B8%8C%EB%9E%9C%EB%93%9C%EB%B3%84-%EC%9E%A5%EC%A0%90%EA%B3%BC-%EC%8B%A4%EA%B5%AC%EB%A7%A4-%ED%9B%84%EA%B8%B0-%EC%A0%95%EB%A6%AC` 데스크톱 글 화면에서 공감 버튼 클릭을 시도했고, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `댓글갯수1`, `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-24 13:41:26 KST`
+- `https://ontheinforest.tistory.com/entry/%EC%95%84%EA%B8%B0-%EC%88%98%EB%A9%B4%EA%B5%90%EC%9C%A1-%EC%88%98%EB%A9%B4-%ED%9B%88%EB%A0%A8-%EB%85%B8%ED%95%98%EC%9A%B0%EF%BD%9C%EB%B0%A4%EC%97%90-%ED%91%B9-%EC%9E%90%EB%8A%94-%EC%95%84%EA%B8%B0%EB%A5%BC-%EB%A7%8C%EB%93%9C%EB%8A%94-%EB%B0%A9%EB%B2%95` 공감 버튼 클릭 후 `공감수0` -> `공감수1` 반영 확인, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `댓글갯수1`, `info57650` 댓글과 `babysitter.dveamer.com` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-24 13:41:26 KST`
+
+## 2026-05-24 추가 등록 완료
+
+- `https://malggot.tistory.com/entry/%F0%9F%8C%99-%E3%80%8E%EB%98%91%EA%B2%8C%EC%9C%A1%EC%95%84%E3%80%8F-%EC%88%98%EB%A9%B4%EC%9D%B4-%EB%A7%8C%EB%93%A0-%ED%95%98%EB%A3%A8%EC%9D%98-%EA%B8%B0%EC%A0%81` 공감 버튼 클릭 후 `좋아요2` -> `좋아요3` 반영 확인, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `info57650` 댓글과 `babysitter.dveamer.com`, `방금` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-24 14:42:13 KST`
+- `https://easy-honey-tip.tistory.com/18` 공감 버튼 클릭 후 `좋아요공감` -> `좋아요1` 반영 확인, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `info57650` 댓글과 `babysitter.dveamer.com`, `방금` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-24 14:42:13 KST`
+- `https://record48273.tistory.com/117` 공감 버튼 클릭 후 `좋아요8` -> `좋아요9` 반영 확인, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `info57650` 댓글과 `babysitter.dveamer.com`, `방금` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-24 14:42:13 KST`
+- `https://whiseung.tistory.com/entry/%ED%95%98%EB%A3%A8-12%EC%8B%9C%EA%B0%84-%ED%86%B5%EC%9E%A0-%EC%84%B1%EA%B3%B5%ED%95%9C-%EB%A3%A8%ED%8B%B4-%EA%B3%B5%EA%B0%9C-10%EA%B0%9C%EC%9B%94-%EC%95%84%EA%B8%B0-%EA%B8%B0%EC%A4%80-%F0%9F%8C%99%E2%9C%A8` 공감 버튼 클릭 후 `좋아요공감` -> `좋아요1` 반영 확인, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `댓글1`, `info57650` 댓글과 `babysitter.dveamer.com`, `방금` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-24 14:42:13 KST`
+- `https://thedayc.tistory.com/entry/%EC%83%9D%ED%9B%84-%EA%B0%9C%EC%9B%94%EC%88%98%EB%B3%84-%EC%95%84%EA%B8%B0-%EC%88%98%EB%A9%B4%EC%8B%9C%EA%B0%84%ED%91%9C-%EC%A0%95%EB%A6%AC-%EC%9E%A0%ED%88%AC%EC%A0%95-%EC%A4%84%EC%9D%B4%EB%8A%94-%EC%88%98%EB%A9%B4-%EB%A3%A8%ED%8B%B4-%EB%A7%8C%EB%93%A4%EA%B8%B0` 공감 버튼 클릭 후 `좋아요1` -> `좋아요2` 반영 확인, 댓글 등록 완료. 댓글 UI 에 이미지 첨부 버튼과 `input[type=file]` 이 없어 이미지 첨부 불가로 텍스트만 등록. `info57650` 댓글과 `babysitter.dveamer.com`, `방금` 노출 및 입력창 비움 확인. 확인 시각: `2026-05-24 14:42:13 KST`
+
+## 2026-05-24 추가 미완료 기록
+
+- Task 275 `https://holyhints.tistory.com/entry/6%EA%B0%9C%EC%9B%94-%EC%95%84%EA%B8%B0-%EC%88%98%EB%A9%B4-%ED%8C%A8%ED%84%B4-%ED%82%A4-%ED%8F%AC%EC%9D%B8%ED%8A%B8-%EC%A0%95%EB%A6%AC-%EC%9D%B4%EC%9C%A0%EC%8B%9D%EC%9D%98-%EC%98%81%ED%96%A5%EA%B3%BC-%EB%B6%84%EB%A6%AC%EB%B6%88%EC%95%88-%EC%B4%88%EA%B8%B0-%EC%8B%A0%ED%98%B8-%EC%9D%B4%ED%95%B4` 는 페이지가 `TISTORY` 기본 화면으로 렌더링되고 댓글 입력창과 로그인 계정 표시를 찾지 못해 등록하지 않음. `tstory-tasks.md` 에 유지함. 확인 시각: `2026-05-24 14:42:13 KST`
+- Task 278 `https://im7082.tistory.com/m/853` 는 모바일 글 화면에서 공감수만 보이고 댓글 입력창과 로그인 계정 표시를 찾지 못해 등록하지 않음. `tstory-tasks.md` 에 유지함. 확인 시각: `2026-05-24 14:42:13 KST`
+- Task 279 `https://save-ggultip.tistory.com/34` 는 댓글 입력창은 보였지만 현재 로그인 계정 표시가 없어 중복 방지 기준을 만족하지 못해 등록하지 않음. `tstory-tasks.md` 에 유지함. 확인 시각: `2026-05-24 14:42:13 KST`
+
+## 2026-05-24 정리 기록
+
+- 사용한 Chrome 확장 탭은 `browser.tabs.finalize({ keep: [] })` 로 정리함. Google Chrome 종료를 `osascript` 로 시도했고 명령은 0으로 종료됐지만 macOS 서비스 연결 경고가 출력됨. 확인 시각: `2026-05-24 14:43:34 KST`
+
+## 2026-05-24 자동화 차단 기록
+
+- `tstory-replier.md` 진행을 위해 마지막 완료 이후 다음 후보 Task 285-289를 확인했으나, Codex Chrome 확장 연결 초기화가 120초 제한을 초과했고 재시도 역시 제한 시간을 초과해 실제 댓글 탭을 만들지 못함.
+- 추가 확인에서 현재 세션에 노출된 브라우저 백엔드는 Codex In-app Browser 뿐이며, Codex Chrome Extension 백엔드는 사용 가능 목록에 없음을 확인함.
+- Google Chrome 설치(`/Applications/Google Chrome.app`, 148.0.7778.179), Codex Chrome Extension 설치/등록/활성화(Profile 4, 1.1.5_0), native host manifest 정상 상태를 확인함. Chrome 실행 여부 확인은 로컬 `ps` 권한 제한(`EPERM`)으로 실패함.
+- 지시서상 `openchrome`, Chrome DevTools, Playwright 우회, 직접 API 호출, 우회 등록은 사용하지 않았고, 실제 댓글/공감/이미지 등록을 진행하지 못했으므로 완료된 task 가 없어 `tstory-tasks.md` 는 변경하지 않음. 확인 시각: `2026-05-24 15:41:47 KST`
