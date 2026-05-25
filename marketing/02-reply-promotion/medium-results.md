@@ -268,3 +268,185 @@
   - 브라우저 백엔드 목록에는 Codex In-app Browser만 보이고 Chrome extension 백엔드는 노출되지 않음.
   - Google Chrome 148.0.7778.179 실행 중, Codex Chrome Extension 설치/활성화(Profile 4), native host manifest 정상은 확인됨.
   - DevTools, openchrome, 직접 API 호출, 일반 Playwright 우회는 `medium-replier.md` 지시와 맞지 않아 사용하지 않았고, 등록 확인된 작업이 없어 `medium-tasks.md`는 변경하지 않음.
+- 2026-05-24 16:46 KST - Completed 5 Medium reply tasks.
+  - https://medium.com/a-parent-is-born/i-thought-my-child-was-a-bad-sleeper-turns-out-hes-normal-9bce15a92733 - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/licen%C3%A7a-paternidade/cara-cad%C3%AA-meu-ber%C3%A7o-6efd3e932714 - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/%40arianav.varela/pensamientos-de-una-mam%C3%A1-mientras-pasa-por-mil%C3%A9sima-vez-la-escoba-en-la-casa-dec6664c5652 - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/@contact_89629/quest-ce-que-le-traumatisme-anniversaire-et-ses-troubles-dc4e1a7c31cc - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/%40zouhairagougil/%D8%AE%D8%B1%D9%8A%D9%81-2015-1ed4eda5d5a8 - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+- 2026-05-24 16:46 KST - Checked 1 Medium reply task without completion.
+  - https://medium.com/@zouhairagougil/%D8%AE%D8%B1%D9%8A%D9%81-2015-32578ae62ce6 - Medium 410 Deleted by author로 등록 불가. 완료 처리하지 않고 medium-tasks.md에 유지.
+  - 사용한 Chrome 확장 탭은 `browser.tabs.finalize({ keep: [] })` 로 정리했고, Google Chrome 종료를 요청했으나 macOS 서비스 연결 경고가 출력됨. 확인 시각: `2026-05-24 16:47:36 KST`
+- 2026-05-24 17:44 KST - Completed 5 Medium reply tasks.
+  - https://medium.com/%40Tanshi2a/%D9%83%D9%8A%D9%81-%D9%86%D8%B9%D8%B2%D8%B2-%D8%A7%D9%84%D8%B0%D9%83%D8%A7%D8%A1-%D8%A7%D9%84%D8%B9%D8%A7%D8%B7%D9%81%D9%8A-%D9%84%D8%AF%D9%89-%D8%A7%D9%84%D8%A3%D8%B7%D9%81%D8%A7%D9%84-9ab9adc6f121 - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/futuro-da-medicina/trocador-inteligente-monitora-o-desenvolvimento-do-beb%C3%AA-8998ebd640b0 - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/%40busraasarkirayoglu/%C3%A7ocu%C4%9Fumla-ayn%C4%B1-yatakta-uyursam-ne-olur-4b3b898e7365 - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/%40rizkyamaulina10/dini-hari-pukul-01-23-wib-82db990e560f - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/%40profe.javi.castro/post-natal-de-un-a%C3%B1o-chile-una-necesidad-coherente-con-el-desarrollo-integral-del-beb%C3%A9-y-salud-8026d81e9a38 - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - 사용한 Chrome 확장 탭은 `browser.tabs.finalize({ keep: [] })` 로 정리했고, Google Chrome 종료를 요청했으나 macOS 서비스 연결 경고가 출력됨. `pgrep` 프로세스 목록 확인은 `sysmond service not found`로 실패해 실제 종료 여부는 추가 검증하지 못함. 확인 시각: `2026-05-24 17:45:01 KST`
+- 2026-05-24 18:43 KST - Completed 5 Medium reply tasks.
+  - https://medium.com/the-parenting-portal/my-daughter-slept-in-my-bed-heres-what-happened-827ef4f5a482 - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/@cheiladbarros/efeito-vulc%C3%A3o-f842757fe9aa - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/%40anafernandafierro/tambi%C3%A9n-soy-yo-adem%C3%A1s-de-mam%C3%A1-b6822f82be09 - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/@JulietteLrd/arr%C3%AAtons-de-dire-aux-enfants-tes-pas-gentil-440a3b60b44 - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/%40am6208260/tips-menjadikan-hubungan-akrab-ibu-dan-anak-saat-bayi-276dc301b068 - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - 사용한 Chrome 확장 탭은 `browser.tabs.finalize({ keep: [] })` 재시도로 정리했고, Google Chrome 종료를 요청했으나 macOS 서비스 연결 경고가 출력됨. 확인 시각: `2026-05-24 18:44:20 KST`
+- 2026-05-24 19:45 KST - Completed 5 Medium reply tasks.
+  - https://medium.com/%402kindwelt/zwischen-nervenkollaps-und-augenringen-oder-wie-unser-kleines-monster-schlafen-geht-99648df93bcc - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/%40melekomak/bebe%C4%9Fi%CC%87n-gece-lambasi-yanar-anneni%CC%87n-ben-mesai%CC%87si%CC%87-ba%C5%9Flar-8335702d10a7 - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/%40pittmanparents/how-to-get-infants-to-sleep-through-the-night-c5cae43c5eac - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/%40hiranthi/slaaptraining-een-filmpje-fe3425061f55 - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/%40mamme.it/migliora-la-nanna-del-tuo-bambino-scegliendo-questi-alimenti-3c4b93efad83 - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - 사용한 Chrome 확장 탭은 `browser.tabs.finalize({ keep: [] })` 로 정리하고, Google Chrome 종료를 요청함. 확인 시각: `2026-05-24 19:45:39 KST`
+- 2026-05-24 20:00 KST - Completed 5 Medium reply tasks.
+  - https://medium.com/%40kathi_7550/es-war-einmal-gutes-storytelling-funktioniert-einst-und-heute-60b294fe37f2 - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/%40happyspacewellbeing/uyku-%C3%B6ncesi-zihni-yava%C5%9Flatman%C4%B1n-5-nazik-yolu-22ed42cdbf2a - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/%40alicefutter03/sleep-success-with-two-boys-the-routine-that-changed-everything-e1fb3de4c13a - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/%40stukjesovermensen/ik-slaap-allang-niet-meer-7b2f8859baef - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - https://myriamsabolla.medium.com/spuntininotturni-la-teoria-della-relativit%C3%A0-del-tempo-secondo-il-neonato-c1463fd3b4e9 - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - 사용한 Chrome 확장 탭은 `browser.tabs.finalize({ keep: [] })` 로 정리했고, Google Chrome 종료를 요청했으나 macOS 서비스 연결 경고가 출력됨. 확인 시각: `2026-05-24 20:00:17 KST`
+- 2026-05-24 20:39 KST - Paused Medium reply work before any confirmed registration.
+  - 자동화 메모, `medium-replier.md`, `medium-tasks.md`, `medium-results.md`를 확인했지만 Chrome extension 브라우저 연결이 두 번 모두 `Browser is not available: extension`으로 실패함.
+  - 브라우저 백엔드 목록에는 Codex In-app Browser만 보이고 Chrome extension 백엔드는 노출되지 않음.
+  - Google Chrome 148.0.7778.179 설치, Codex Chrome Extension 설치/활성화(Profile 4), native host manifest 정상은 확인됨. Chrome 실행 여부 확인은 macOS `ps` 권한 제한(`EPERM`)으로 판별하지 못함.
+  - DevTools, openchrome, 직접 API 호출, 일반 Playwright 우회는 `medium-replier.md` 지시와 맞지 않아 사용하지 않았고, 등록 확인된 작업이 없어 `medium-tasks.md`는 변경하지 않음.
+  - 다음 실행 리소스 정리를 위해 Google Chrome 종료를 요청했으며 macOS 서비스 연결 경고가 출력됨. 확인 시각: `2026-05-24 20:40:28 KST`
+- 2026-05-24 21:38 KST - Paused Medium reply work before any confirmed registration.
+  - 자동화 메모, `medium-replier.md`, `medium-tasks.md`, `medium-results.md`를 확인한 뒤 Chrome extension 브라우저 연결을 재시도했지만 `chrome` 백엔드가 `Browser is not available: chrome`으로 실패함.
+  - 브라우저 백엔드 목록에는 Codex In-app Browser만 보이고 Chrome extension 백엔드는 노출되지 않음.
+  - Google Chrome 148.0.7778.179 설치, Codex Chrome Extension 설치/활성화(Profile 4), native host manifest 정상은 확인됨. `chrome-is-running.js`와 `pgrep`은 macOS 프로세스 조회 권한 문제로 실패했고, `osascript` 기준 Google Chrome은 실행 중이 아님(`false`).
+  - DevTools, openchrome, 직접 API 호출, 일반 Playwright 우회는 `medium-replier.md` 지시와 맞지 않아 사용하지 않았고, 등록 확인된 작업이 없어 `medium-tasks.md`는 변경하지 않음.
+- 2026-05-24 22:38 KST - Paused Medium reply work before any confirmed registration.
+  - 자동화 메모, `medium-replier.md`, `medium-tasks.md`, `medium-results.md`를 확인하고 Chrome extension 브라우저 연결을 두 번 시도했지만 모두 `Browser is not available: extension`으로 실패함.
+  - 브라우저 백엔드 목록에는 Codex In-app Browser만 보이고 Chrome extension/Chrome 백엔드는 노출되지 않음. `agent.browsers.get("chrome")`도 `Browser is not available: chrome`으로 실패함.
+  - Google Chrome 148.0.7778.179 설치, Codex Chrome Extension 설치/활성화(Profile 4), native host manifest 정상은 확인됨. `chrome-is-running.js`는 macOS `ps` 권한 제한(`EPERM`)으로 실행 여부를 판별하지 못함.
+  - DevTools, openchrome, 직접 API 호출, 일반 Playwright 우회는 `medium-replier.md` 지시와 맞지 않아 사용하지 않았고, 실제 Medium 페이지 확인/박수/응답 등록을 진행하지 못함.
+  - 등록 확인된 작업이 없어 `medium-tasks.md`는 변경하지 않음.
+- 2026-05-24 23:38 KST - Paused Medium reply work before any confirmed registration.
+  - 자동화 메모가 없어 새 실행 기록으로 시작했고, `medium-replier.md`, `medium-tasks.md`, `medium-results.md`를 확인함.
+  - Chrome extension 브라우저 연결을 두 번 시도했지만 모두 `Browser is not available: extension`으로 실패해 실제 Medium 페이지 확인, 박수, 응답 등록을 진행하지 못함.
+  - 브라우저 백엔드 목록에는 Codex In-app Browser만 보이고 Chrome extension 백엔드는 노출되지 않음.
+  - Google Chrome 148.0.7778.179 설치, Codex Chrome Extension 설치/활성화(Profile 4), native host manifest 정상은 확인됨. `chrome-is-running.js`는 macOS `ps` 권한 제한(`EPERM`)으로 실행 여부를 판별하지 못함.
+  - DevTools, openchrome, 직접 API 호출, 일반 Playwright 우회는 `medium-replier.md` 지시와 맞지 않아 사용하지 않았고, 등록 확인된 작업이 없어 `medium-tasks.md`는 변경하지 않음.
+- 2026. 5. 25. 00:31 KST - Completed 5 Medium reply tasks.
+  - https://medium.com/%40anakatycom/%D9%85%D8%B1%D8%A7%D8%AC%D8%B9%D8%A9-%D8%B9%D8%B1%D8%A8%D8%A9-%D8%A7%D8%B7%D9%81%D8%A7%D9%84-%D8%AA%D9%88%D8%A7%D9%85-%D9%83%D8%B1%D9%88%D8%B2-%D9%85%D8%A7%D9%85%D8%A7%D8%B2-%D9%88-%D8%A8%D8%A7%D8%A8%D8%A7%D8%B2-caf541233dd2 - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/frazzled/why-i-fear-the-wrath-of-my-daughters-pediatrician-5d5658f6a99d - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/%40kuningbee_/i-love-you-i-miss-you-im-sorry-3e85042afd96 - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/%40chuycepeda/de-aquel-baby-project-775e3c1bde36 - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/%40DaniellePinheiro/quem-%C3%A9-o-heitor-b8b8acab92b - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - 사용한 Chrome 확장 탭은 `browser.tabs.finalize({ keep: [] })` 로 정리했고, Google Chrome 종료를 요청했으나 macOS 서비스 연결 경고가 출력됨. 확인 시각: `2026. 5. 25. 00:31 KST`
+- 2026-05-25 00:45 KST - Completed 5 Medium reply tasks.
+  - https://medium.com/@niligupta/why-kids-love-sleeping-with-you-but-heres-why-you-shouldn-t-69993fd4c5f7 - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/@ju.ribeiro/consultora-de-amamenta%C3%A7%C3%A3o-351d28b8ecda - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/@cathpoiss/mahale-et-moi-e7d7cb286e8e - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/%40Tanshi2a/%D9%82%D9%8A%D9%85%D9%86%D8%A7-d14d12c55ba4 - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/%40miletodarello/de-t%C3%ADa-y-sobrina-8a378341e198 - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - 사용한 Chrome 확장 탭은 `browser.tabs.finalize({ keep: [] })` 로 정리했고, Google Chrome 종료를 요청했으나 macOS 서비스 연결 경고가 출력됨. 확인 시각: `2026-05-25 00:45 KST`
+- 2026-05-25 01:44 KST - Completed 5 Medium reply tasks.
+  - https://medium.com/the-parenting-portal/the-great-bed-sharing-debate-8304b2001cf2 - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/@sobreamamentar/qual-a-posi%C3%A7%C3%A3o-certa-para-o-beb%C3%AA-dormir-6c2e7feb0183 - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/%40galleediaz/an%C3%A1lisis-final-caso-s-o-los-limpiadores-asesinos-b42529bbd501?responsesOpen=true&sortBy=REVERSE_CHRON - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/scribe/5-choses-apprises-en-2-mois-de-cong%C3%A9-paternit%C3%A9-2eb60b780bcf - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/%40arsitag/perlengkapan-kamar-bayi-apa-saja-yang-diperlukan-a52e47ac6d1 - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - 사용한 Chrome 확장 탭은 `browser.tabs.finalize({ keep: [] })` 로 정리했고, Google Chrome 종료 요청 후 `osascript` 기준 실행 상태가 `false`임을 확인함. macOS 서비스 연결 경고는 출력됨. 확인 시각: `2026-05-25 01:47 KST`
+- 2026-05-25 02:45 KST - Completed 5 Medium reply tasks.
+  - https://medium.com/%40paul.joshua.y/6-ways-to-ensure-you-fail-sleep-training-9ce8889c10e5 - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/%40claracwejaemin/aku-tumbuh-tanpa-di-peluk-e3e99bf960ad - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/%40padres_novatos/y-duerme-toda-la-noche-67ddf3c5960a - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/%40lina_corah/das-pequenas-coisas-que-nos-salvam-736391f18da0 - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/smart-minds/emotional-starvation-833434777bb5 - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - 사용한 Chrome 확장 탭은 `browser.tabs.finalize({ keep: [] })` 로 정리했고, Google Chrome 종료를 요청했으나 macOS 서비스 연결 경고가 출력됨. 확인 시각: `2026-05-25 02:45 KST`
+- 2026-05-25 03:38 KST - Paused Medium reply work before any confirmed registration.
+  - 자동화 메모, `medium-replier.md`, `medium-tasks.md`, `medium-results.md`를 확인한 뒤 Chrome extension 브라우저 연결을 두 번 시도했지만 모두 `Browser is not available: extension`으로 실패함.
+  - 브라우저 백엔드 목록에는 Codex In-app Browser만 보이고 Chrome extension 백엔드는 노출되지 않음.
+  - Google Chrome 148.0.7778.179 설치, Codex Chrome Extension 설치/활성화(Profile 4), native host manifest 정상은 확인됨. Chrome 실행 여부 확인은 macOS `ps` 권한 제한(`EPERM`)으로 판별하지 못함.
+  - DevTools, openchrome, 직접 API 호출, 일반 Playwright 우회는 `medium-replier.md` 지시와 맞지 않아 사용하지 않았고, 실제 Medium 페이지 확인/박수/응답 등록을 진행하지 못함.
+  - 등록 확인된 작업이 없어 `medium-tasks.md`는 변경하지 않음. Chrome 확장 탭도 만들지 못해 `browser.tabs.finalize({ keep: [] })` 호출 대상이 없었음.
+- 2026-05-25 04:38 KST - Paused Medium reply work before any confirmed registration.
+  - 자동화 메모가 없어 새로 시작했고, `medium-replier.md`, `medium-tasks.md`, `medium-results.md`를 확인함.
+  - Chrome extension 브라우저 연결을 두 번 시도했지만 모두 `Browser is not available: extension`으로 실패해 실제 Medium 페이지 확인, 박수, 응답 등록을 진행하지 못함.
+  - 브라우저 백엔드 목록에는 Codex In-app Browser만 보이고 Chrome extension 백엔드는 노출되지 않음.
+  - Google Chrome 148.0.7778.179 설치, Codex Chrome Extension 설치/활성화(Profile 4), native host manifest 정상은 확인됨. Chrome 실행 여부 확인은 macOS `ps` 권한 제한(`EPERM`)으로 판별하지 못함.
+  - DevTools, openchrome, 직접 API 호출, 일반 Playwright 우회는 `medium-replier.md` 지시와 맞지 않아 사용하지 않았고, 등록 확인된 작업이 없어 `medium-tasks.md`는 변경하지 않음.
+- 2026-05-25 05:38 KST - Paused Medium reply work before any confirmed registration.
+  - 자동화 메모와 `medium-replier.md`, `medium-tasks.md`, `medium-results.md`를 확인한 뒤 최근 후보 5개(English `sleep-training-tips-for-helping-your-baby-sleep-better`, Indonesian `if-i-could-make-a-wish`, Spanish `la-madrugada`, Portuguese `puerperio-um`, Arabic `al-atfal-wal-mansat-alraqmiya`)를 처리 대상으로 확인함.
+  - Chrome extension 브라우저 연결을 두 번 시도했지만 모두 `Browser is not available: extension`으로 실패했고, `chrome` 백엔드 별칭도 `Browser is not available: chrome`으로 실패함.
+  - 브라우저 백엔드 목록에는 Codex In-app Browser만 보이고 Chrome extension/Chrome 백엔드는 노출되지 않음.
+  - Google Chrome 148.0.7778.179 설치, Codex Chrome Extension 설치/활성화(Profile 4), native host manifest 정상은 확인됨. Chrome 실행 여부 확인은 macOS `ps` 권한 제한(`EPERM`)으로 판별하지 못함.
+  - DevTools, openchrome, 직접 API 호출, 일반 Playwright 우회는 `medium-replier.md` 지시와 맞지 않아 사용하지 않았고, 실제 Medium 페이지 확인/박수/응답 등록을 진행하지 못함.
+  - 등록 확인된 작업이 없어 `medium-tasks.md`는 변경하지 않음. Chrome 확장 탭도 만들지 못해 `browser.tabs.finalize({ keep: [] })` 호출 대상이 없었음.
+- 2026-05-25 06:44 KST - Completed 5 Medium reply tasks.
+  - https://medium.com/%40littleoneadvice/sleep-training-tips-for-helping-your-baby-sleep-better-c26542717390 - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/%40sewarnacita/if-i-could-make-a-wish-56c2b2a226c0 - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/%40agustinalopezsaav/la-madrugada-f66c5b91c18c - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/%40gabibonet/puerp%C3%A9rio-um-4ac164904932 - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/%40mohameddosou/%D8%A7%D9%84%D8%A3%D8%B7%D9%81%D8%A7%D9%84-%D9%88%D8%A7%D9%84%D9%85%D9%86%D8%B5%D8%A7%D8%AA-%D8%A7%D9%84%D8%B1%D9%82%D9%85%D9%8A%D8%A9-e14661b64134 - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - 사용한 Chrome 확장 탭은 `browser.tabs.finalize({ keep: [] })` 로 정리했고, Google Chrome 종료를 요청했으나 macOS 서비스 연결 경고가 출력됨. 확인 시각: `2026-05-25 06:44 KST`
+- 2026-05-25 07:42 KST - Completed 5 Medium reply tasks.
+  - https://medium.com/%40lauhall/sleep-training-your-baby-is-not-mandatory-5f87b2c27960 - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/%40arega9008/rumah-kecil-kecilan-56f562de5eb4 - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/%40isakoda/la-existencia-en-femenino-86911c0cd15c - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/%40carla.bueno/o-meu-quem-sou-eu-m%C3%A3e-autista-engenheira-e-vivendo-entre-fraldas-e-conversas-de-adolescente-1396549c07ce - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/%40zeidanseyidi/%D8%B9%D9%86%D9%88%D8%A7%D9%86-%D8%A7%D9%84%D9%82%D8%B5%D8%A9-%D9%84%D8%B9%D9%86%D8%A9-%D8%A7%D9%84%D8%A5%D8%AF%D8%B1%D8%A7%D9%83-552888d326d9 - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - 사용한 Chrome 확장 탭은 `browser.tabs.finalize({ keep: [] })` 로 정리했고, Google Chrome 종료를 요청했으나 macOS 서비스 연결 경고가 출력됨. 확인 시각: `2026-05-25 07:43 KST`
+- 2026-05-25 08:47 KST - Completed 5 Medium reply tasks.
+  - https://medium.com/@babyzcorner/dealing-with-baby-sleep-issues-babyz-corner-25012fab76d5 - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - https://carolbtr.medium.com/eu-n%C3%A3o-quero-antecipar-a-saudade-cea402ec27e6 - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/%40mariumuller11/faty-14ca14826327 - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/saluran-keluarga/menjadi-ibu-728ae0b8c3a6 - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - https://medium.com/%40anakatycom/%D9%85%D8%B1%D8%A7%D8%AC%D8%B9%D8%A9-%D9%83%D8%B1%D8%B3%D9%8A-%D8%A7%D8%B7%D9%81%D8%A7%D9%84-%D9%84%D9%84%D8%B3%D9%8A%D8%A7%D8%B1%D8%A9-%D8%B3%D8%A7%D9%8A%D8%A8%D9%83%D8%B3-%D9%83%D9%84%D8%A7%D9%88%D8%AF-%D9%83%D9%8A%D9%88-ec206a4ca314 - 박수 및 응답 등록 확인. Medium 응답 UI에 이미지 첨부 input이 없어 이미지 첨부 불가로 텍스트만 등록.
+  - 사용한 Chrome 확장 탭은 `browser.tabs.finalize({ keep: [] })` 로 정리했고, Google Chrome 종료를 요청했으나 macOS 서비스 연결 경고가 출력됨. 확인 시각: `2026-05-25 08:47 KST`
+- 2026-05-25 09:42 KST - Paused Medium reply work before any confirmed registration.
+  - 자동화 메모, `medium-replier.md`, `medium-tasks.md`, `medium-results.md`를 확인하고 결과 로그 story ID 기준으로 중복을 제외한 뒤 다음 5개 언어 후보를 처리 대상으로 골랐음: English `nested-bean/your-3-month-olds-sleep-schedule...`, Portuguese `farinanathalia/caramba-eu-tenho-uma-filha`, Spanish `keidarasakuana/el-puerperio-otra-forma-de-despertar`, Indonesian `rumahfrasa/ibu-pelu`, Arabic `lolololo787330/العنوان`.
+  - Chrome extension 브라우저 연결 확인을 두 번 시도했지만 각각 45초, 70초 제한 시간 동안 응답하지 않아 커널이 재시작됨. 이후 단계 진단에서 `browser-client` import는 성공했으나 `setupBrowserRuntime`이 5초 제한 시간 안에 완료되지 않아 실제 Medium 페이지를 열지 못함.
+  - Google Chrome 148.0.7778.179 실행 중, Codex Chrome Extension 설치/활성화(Profile 4), native host manifest 정상은 확인됨.
+  - DevTools, openchrome, 직접 API 호출, 일반 Playwright 우회는 `medium-replier.md` 지시와 맞지 않아 사용하지 않았고, 실제 Medium 페이지 확인/박수/응답 등록을 진행하지 못함.
+  - 등록 확인된 작업이 없어 `medium-tasks.md`는 변경하지 않음. Chrome 확장 탭도 만들지 못해 `browser.tabs.finalize({ keep: [] })` 호출 대상이 없었음.
+  - 다음 실행 리소스 정리를 위해 Google Chrome 종료를 요청했고, `osascript` 기준 실행 상태가 `false`임을 확인함. macOS 서비스 연결 경고는 출력됨. 확인 시각: `2026-05-25 09:44 KST`
+- 2026-05-25 10:42 KST - Paused Medium reply work before any confirmed registration.
+  - 자동화 메모 경로를 절대 경로로 다시 확인하고, 직전 실행의 5개 후보(English `nested-bean/your-3-month-olds-sleep-schedule...`, Portuguese `farinanathalia/caramba-eu-tenho-uma-filha`, Spanish `keidarasakuana/el-puerperio-otra-forma-de-despertar`, Indonesian `rumahfrasa/ibu-pelu`, Arabic `lolololo787330/العنوان`)가 아직 `medium-tasks.md`에 남아 있음을 확인함.
+  - Chrome extension 브라우저 연결 확인을 시도했지만 90초 동안 응답하지 않아 커널이 재시작됨. 이후 짧은 제한 시간으로 재확인했을 때 `browser-client` import는 성공했으나 `setupBrowserRuntime`이 8초 안에 완료되지 않아 `agent`가 노출되지 않음.
+  - Google Chrome 148.0.7778.179 설치, 실행 중 확인, Codex Chrome Extension 설치/활성화(Profile 4), native host manifest 정상 확인.
+  - DevTools, openchrome, 직접 API 호출, 일반 Playwright 우회는 `medium-replier.md` 지시와 맞지 않아 사용하지 않았고, 실제 Medium 페이지 확인/박수/응답 등록을 진행하지 못함.
+  - 등록 확인된 작업이 없어 `medium-tasks.md`는 변경하지 않음. Chrome 확장 탭도 만들지 못해 `browser.tabs.finalize({ keep: [] })` 호출 대상이 없었음.
+  - 다음 실행 리소스 정리를 위해 Google Chrome 종료를 요청함. `osascript` 기준 실행 상태는 `false`였지만 `chrome-is-running.js --check`는 기존 Chrome PID 43592를 계속 보고함. 확인 시각: `2026-05-25 10:42 KST`
+- 2026-05-25 11:41 KST - Paused Medium reply work before any confirmed registration.
+  - 자동화 메모가 비어 있음을 확인했고, 직전 실행의 5개 후보(English `nested-bean/your-3-month-olds-sleep-schedule...`, Portuguese `farinanathalia/caramba-eu-tenho-uma-filha`, Spanish `keidarasakuana/el-puerperio-otra-forma-de-despertar`, Indonesian `rumahfrasa/ibu-pelu`, Arabic `lolololo787330/العنوان`)가 아직 `medium-tasks.md`에 남아 있음을 확인함.
+  - Chrome extension 브라우저 연결 확인을 두 번 시도했지만 각각 45초, 70초 제한 시간 동안 응답하지 않아 커널이 재시작됨. 이후 단계 진단에서도 `setupBrowserRuntime`이 10초 제한 시간 안에 완료되지 않아 실제 Medium 페이지를 열지 못함.
+  - Google Chrome 148.0.7778.179 설치, 실행 중 확인, Codex Chrome Extension 설치/활성화(Profile 4), native host manifest 정상 확인.
+  - DevTools, openchrome, 직접 API 호출, 일반 Playwright 우회는 `medium-replier.md` 지시와 맞지 않아 사용하지 않았고, 실제 Medium 페이지 확인/박수/응답 등록을 진행하지 못함.
+  - 등록 확인된 작업이 없어 `medium-tasks.md`는 변경하지 않음. Chrome 확장 탭도 만들지 못해 `browser.tabs.finalize({ keep: [] })` 호출 대상이 없었음.
+  - 다음 실행 리소스 정리를 위해 Google Chrome 종료를 요청함. `osascript` 기준 실행 상태는 `false`였지만 `chrome-is-running.js --check`는 기존 Chrome PID 43592를 계속 보고함. 확인 시각: `2026-05-25 11:41 KST`
+- 2026-05-25 12:38 KST - Paused Medium reply work before any confirmed registration.
+  - 자동화 메모, `medium-replier.md`, `medium-tasks.md`, `medium-results.md`를 확인했고, 직전 실행의 5개 후보(English `nested-bean/your-3-month-olds-sleep-schedule...`, Portuguese `farinanathalia/caramba-eu-tenho-uma-filha`, Spanish `keidarasakuana/el-puerperio-otra-forma-de-despertar`, Indonesian `rumahfrasa/ibu-pelu`, Arabic `lolololo787330/العنوان`)가 아직 `medium-tasks.md`에 남아 있음을 확인함.
+  - Chrome extension 브라우저 연결 확인을 두 번 시도했지만 모두 `Browser is not available: extension`으로 실패해 실제 Medium 페이지 확인, 박수, 응답 등록을 진행하지 못함.
+  - Google Chrome 148.0.7778.179 설치, Codex Chrome Extension 설치/활성화(Profile 4), native host manifest 정상 확인. `chrome-is-running.js --check`는 macOS `ps` 권한 제한(`EPERM`)으로 실행 여부를 판별하지 못했고, `osascript` 기준 Google Chrome은 실행 중이 아님(`false`).
+  - DevTools, openchrome, 직접 API 호출, 일반 Playwright 우회는 `medium-replier.md` 지시와 맞지 않아 사용하지 않았고, 등록 확인된 작업이 없어 `medium-tasks.md`는 변경하지 않음.
+  - Chrome 확장 탭을 만들지 못해 `browser.tabs.finalize({ keep: [] })` 호출 대상이 없었음. 확인 시각: `2026-05-25 12:38 KST`
+- 2026-05-25 13:38 KST - Paused Medium reply work before any confirmed registration.
+  - 자동화 메모와 `medium-replier.md`, `medium-tasks.md`, `medium-results.md`를 확인했고, 직전 실행의 5개 후보(English `nested-bean/your-3-month-olds-sleep-schedule...`, Portuguese `farinanathalia/caramba-eu-tenho-uma-filha`, Spanish `keidarasakuana/el-puerperio-otra-forma-de-despertar`, Indonesian `rumahfrasa/ibu-pelu`, Arabic `lolololo787330/العنوان`)가 아직 `medium-tasks.md`에 남아 있음을 확인함.
+  - Chrome extension 브라우저 연결 확인을 두 번 시도했지만 모두 `Browser is not available: extension`으로 실패해 실제 Medium 페이지 확인, 박수, 응답 등록을 진행하지 못함.
+  - 브라우저 백엔드 목록에는 Codex In-app Browser만 보이고 Chrome extension 백엔드는 노출되지 않음.
+  - Google Chrome 148.0.7778.179 설치, Codex Chrome Extension 설치/활성화(Profile 4), native host manifest 정상 확인. `chrome-is-running.js --check`는 macOS `ps` 권한 제한(`EPERM`)으로 실행 여부를 판별하지 못했고, `osascript` 기준 Google Chrome은 실행 중이 아님(`false`).
+  - DevTools, openchrome, 직접 API 호출, 일반 Playwright 우회는 `medium-replier.md` 지시와 맞지 않아 사용하지 않았고, 등록 확인된 작업이 없어 `medium-tasks.md`는 변경하지 않음.
+  - Chrome 확장 탭을 만들지 못해 `browser.tabs.finalize({ keep: [] })` 호출 대상이 없었음. 확인 시각: `2026-05-25 13:38 KST`
+- 2026-05-25 14:39 KST - Paused Medium reply work before any confirmed registration.
+  - 자동화 메모 파일이 없어 이번 실행 기준으로 새로 생성했고, `medium-replier.md`, `medium-tasks.md`, `medium-results.md`를 확인함.
+  - Chrome extension 브라우저 연결을 두 번 시도했지만 모두 `Browser is not available: extension`으로 실패해 실제 Medium 페이지 확인, 박수, 응답 등록을 진행하지 못함.
+  - 브라우저 백엔드 목록에는 Codex In-app Browser만 보이고 Chrome extension 백엔드는 노출되지 않음.
+  - Google Chrome 148.0.7778.179 설치, Codex Chrome Extension 설치/활성화(Profile 4), native host manifest 정상 확인. `chrome-is-running.js --json`은 macOS `ps` 권한 제한(`EPERM`)으로 실행 여부를 판별하지 못했고, `osascript` 기준 Google Chrome은 실행 중이 아님(`false`).
+  - DevTools, openchrome, 직접 API 호출, 일반 Playwright 우회는 `medium-replier.md` 지시와 맞지 않아 사용하지 않았고, 등록 확인된 작업이 없어 `medium-tasks.md`는 변경하지 않음.
+  - Chrome 확장 탭을 만들지 못해 `browser.tabs.finalize({ keep: [] })` 호출 대상이 없었음. 확인 시각: `2026-05-25 14:39 KST`
+- 2026-05-25 15:39 KST - Paused Medium reply work before any confirmed registration.
+  - 자동화 메모와 `medium-replier.md`, `medium-tasks.md`, `medium-results.md`를 확인했고, 직전 실행의 5개 후보(English `nested-bean/your-3-month-olds-sleep-schedule...`, Portuguese `farinanathalia/caramba-eu-tenho-uma-filha`, Spanish `keidarasakuana/el-puerperio-otra-forma-de-despertar`, Indonesian `rumahfrasa/ibu-pelu`, Arabic `lolololo787330/العنوان`)가 아직 `medium-tasks.md`에 남아 있음을 확인함.
+  - Chrome extension 브라우저 연결 확인을 두 번 시도했지만 모두 `Browser is not available: extension`으로 실패해 실제 Medium 페이지 확인, 박수, 응답 등록을 진행하지 못함.
+  - Google Chrome 148.0.7778.179 설치 확인, Codex Chrome Extension 설치/활성화(Profile 4), native host manifest 정상 확인. `chrome-is-running.js --check`는 macOS `ps` 권한 제한(`EPERM`)으로 실행 여부를 판별하지 못했고, `osascript` 기준 Google Chrome은 실행 중이 아님(`false`).
+  - DevTools, openchrome, 직접 API 호출, 일반 Playwright 우회는 `medium-replier.md` 지시와 맞지 않아 사용하지 않았고, 등록 확인된 작업이 없어 `medium-tasks.md`는 변경하지 않음.
+  - Chrome 확장 탭을 만들지 못해 `browser.tabs.finalize({ keep: [] })` 호출 대상이 없었음. 확인 시각: `2026-05-25 15:39 KST`
+- 2026-05-25 16:38 KST - Paused Medium reply work before any confirmed registration.
+  - 자동화 메모가 없어 새 실행으로 시작했고, `medium-replier.md`, `medium-tasks.md`, `medium-results.md`를 확인함.
+  - Chrome extension 브라우저 연결 확인을 두 번 시도했지만 모두 `Browser is not available: extension`으로 실패해 실제 Medium 페이지 확인, 박수, 응답 등록을 진행하지 못함.
+  - 브라우저 백엔드 목록에는 Codex In-app Browser만 보이고 Chrome extension 백엔드는 노출되지 않음.
+  - Google Chrome 148.0.7778.179 설치 확인, Codex Chrome Extension 설치/활성화(Profile 4), native host manifest 정상 확인. `chrome-is-running.js --check`는 macOS `ps` 권한 제한(`EPERM`)으로 실행 여부를 판별하지 못했고, `osascript`/`pgrep` 실행 상태 확인도 현재 macOS 서비스/권한 오류로 판별하지 못함.
+  - DevTools, openchrome, 직접 API 호출, 일반 Playwright 우회는 `medium-replier.md` 지시와 맞지 않아 사용하지 않았고, 등록 확인된 작업이 없어 `medium-tasks.md`는 변경하지 않음.
+  - Chrome 확장 탭을 만들지 못해 `browser.tabs.finalize({ keep: [] })` 호출 대상이 없었음. 확인 시각: `2026-05-25 16:38 KST`

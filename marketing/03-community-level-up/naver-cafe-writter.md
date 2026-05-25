@@ -94,6 +94,10 @@ https://babysitter.dveamer.com </br></br>
 ```
 
 
+## 카페 선택시 주의 사항
+
+아래 중복 등록 방지 관련해서 중복 발생 가능성을 줄이기 위해서는 카페 선택할 때 당일 등록했던 카페보다는 아예 등록한 적이 없거나 당일 등록한적 없는 카페들 중에서 선택해줘.
+
 ## 중복 등록 방지
 
 게시판 첫 페이지에 이전에 등록한 게시물이 있다면 다른 게시판에 등록하는 것으로 작업을 변경해줘. 
@@ -171,8 +175,7 @@ console.log(babysitterLinks);
  
 ### 리소스 해제
 
-작업이 모두 완료되었다면 사용했던 chrome-devtools(openchrome) 은 종료시켜줘.
-브라우저 탭만 종료하지 말고 브라우저를 종료시켜줘.
+작업이 모두 완료되었다면 chrome 브라우저 탭들 종료해줘. 브라우저는 끄진 말아줘. 
 
 ### 시간 엄수
 
@@ -509,3 +512,30 @@ chrome-devtools(openchrome) 사용에 문제가 있다면 아래 같은 문제 �
 | 2026-05-24T13:19:00+0900 | 울산맘 - 맘앤파파 보물섬 | ● 30대이상수다방 | https://cafe.naver.com/ArticleRead.nhn?menuid=1560&boardtype=L&clubid=21712077&articleid=845987 |
 | 2026-05-24T14:15:00+0900 | 안시맘 | 자유게시판 | https://cafe.naver.com/ArticleRead.nhn?menuid=25&boardtype=L&clubid=23090201&articleid=581641 |
 | 2026-05-24T14:24:00+0900 | 투데이맘스 | 자유로운수다 | https://cafe.naver.com/ArticleRead.nhn?menuid=6&boardtype=L&clubid=29602531&articleid=27684 |
+| 2026-05-24T17:25:00+0900 | 아이조아 공식온라인 카페 | 자유 수다방 | https://cafe.naver.com/ArticleRead.nhn?menuid=115&boardtype=L&clubid=16324748&articleid=325629 |
+| 2026-05-24T19:12:00+0900 | 맘스홀릭 사과나무 | 자유수다방 | https://cafe.naver.com/ArticleRead.nhn?menuid=484&boardtype=L&clubid=11578095&articleid=5435956 |
+| 2026-05-24T19:14:00+0900 | 강서송♥강남맘 서초맘 송파맘 육아맘카페 | 불타는 수다방 | https://cafe.naver.com/ArticleRead.nhn?menuid=44&boardtype=L&clubid=21467904&articleid=7345202 |
+| 2026-05-24T19:17:00+0900 | 송파맘♥강동맘 | 다함께 수다 | https://cafe.naver.com/ArticleRead.nhn?menuid=636&boardtype=L&clubid=22620029&articleid=494618 |
+| 2026-05-24T21:22:00+0900 | 맘살림회관 | 밥안먹는 아이 자유수다 | https://cafe.naver.com/ArticleRead.nhn?clubid=10278718&articleid=636832&menuid=351&boardtype=L |
+| 2026-05-24T23:11:00+0900 | 베이비템 | ♡아이용품 & 장난감♡ | https://cafe.naver.com/ArticleRead.nhn?menuid=184&boardtype=L&clubid=18851490&articleid=609552 |
+| 2026-05-24T23:21:00+0900 | 세클맘 | 육아/ 의료 고민 | https://cafe.naver.com/ArticleRead.nhn?menuid=201&boardtype=L&clubid=26639549&articleid=1544771 |
+| 2026-05-25T00:12:00+0900 | 베베라운지 | 오늘 토크라운지 | https://cafe.naver.com/ArticleRead.nhn?menuid=159&boardtype=L&clubid=24081850&articleid=1295899 |
+| 2026-05-25T00:13:00+0900 | 모비맘카페 | 자유게시판 | https://cafe.naver.com/ArticleRead.nhn?menuid=1&boardtype=L&clubid=28140611&articleid=174027 |
+| 2026-05-25T01:25:00+0900 | 육아친구인천 | ♡자유로운수다 | https://cafe.naver.com/ArticleRead.nhn?clubid=18177992&articleid=706924&menuid=442&boardtype=L |
+| 2026-05-25T01:27:00+0900 | 엄마는 마법사 | [워킹맘]수다공간 | https://cafe.naver.com/ArticleRead.nhn?clubid=20981877&articleid=931142&menuid=427&boardtype=L |
+| 2026-05-25T01:27:00+0900 | 아가방앤컴퍼니 공식카페 아가베베 | 공식카페 Q&A | https://cafe.naver.com/ArticleRead.nhn?clubid=20170537&articleid=604561&menuid=677&boardtype=L |
+| 2026-05-25T03:14:00+0900 | 아이조아 공식온라인 카페 | 육아템 추천 | https://cafe.naver.com/ArticleRead.nhn?menuid=244&boardtype=L&clubid=16324748&articleid=325632 |
+| 2026-05-25T03:20:00+0900 | 세클맘 | 😉 아들맘 이야기 | https://cafe.naver.com/ArticleRead.nhn?menuid=346&boardtype=L&clubid=26639549&articleid=1544778 |
+| 2026-05-25T03:34:00+0900 | 안시맘 | ▷ 능곡/하상/연성동 | https://cafe.naver.com/ArticleRead.nhn?menuid=218&boardtype=L&clubid=23090201&articleid=581662 |
+| 2026-05-25T07:12:00+0900 | 육아친구 대구경북 | 우리들의 일상 | https://cafe.naver.com/ArticleRead.nhn?menuid=4&boardtype=L&clubid=19972973&articleid=845420 |
+| 2026-05-25T07:20:00+0900 | 베이비템 | ♡친 목 수 다 방♡ | https://cafe.naver.com/ArticleRead.nhn?menuid=141&boardtype=L&clubid=18851490&articleid=609567 |
+| 2026-05-25T08:16:00+0900 | 맘스스토리 | 임신&출산용품 후기 | https://cafe.naver.com/ArticleRead.nhn?menuid=418&boardtype=L&clubid=12876544&articleid=600457 |
+| 2026-05-25T09:20:00+0900 | 사과나무맘스홀릭 | ●육아관련 질문답변 | https://cafe.naver.com/ArticleRead.nhn?menuid=66&boardtype=L&clubid=21451316&articleid=803969 |
+| 2026-05-25T09:21:00+0900 | 서울맘스러브 | 기타정보 | https://cafe.naver.com/ArticleRead.nhn?menuid=960&boardtype=L&clubid=10862482&articleid=2609438 |
+| 2026-05-25T09:22:00+0900 | 맘살림회관 | 키작은 아이 자유 수다 | https://cafe.naver.com/ArticleRead.nhn?menuid=379&boardtype=L&clubid=10278718&articleid=636842 |
+| 2026-05-25T11:15:00+0900 | 강서송♥강남맘 서초맘 송파맘 육아맘카페 | 불타는 수다방 | https://cafe.naver.com/ArticleRead.nhn?menuid=44&boardtype=L&clubid=21467904&articleid=7345233 |
+| 2026-05-25T11:19:00+0900 | 송파맘♥강동맘 | 예비맘 수다 | https://cafe.naver.com/ArticleRead.nhn?menuid=309&boardtype=L&clubid=22620029&articleid=494648 |
+| 2026-05-25T11:22:00+0900 | 육아친구부산 | 오늘의 한마디 | https://cafe.naver.com/ArticleRead.nhn?menuid=324&boardtype=L&clubid=18599406&articleid=1197498 |
+| 2026-05-25T12:15:00+0900 | 맘스홀릭 | ●자 유 로 운 수다방 | https://cafe.naver.com/ArticleRead.nhn?menuid=2&boardtype=L&clubid=15240589&articleid=1465204 |
+| 2026-05-25T14:12:00+0900 | 인천 아띠아모 | 질문있어요~ | https://cafe.naver.com/ArticleRead.nhn?menuid=584&boardtype=L&clubid=22897837&articleid=6578385 |
+| 2026-05-25T16:18:00+0900 | 매터니티스쿨 | 모유수유 성공하기 | https://cafe.naver.com/ArticleRead.nhn?menuid=238&boardtype=L&clubid=17523807&articleid=396934 |

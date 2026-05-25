@@ -170,88 +170,13 @@ No pending Medium reply tasks. Task 1 was completed on 2026-05-24 01:43 KST, Tas
 - English was selected for this collector run.
 - Articles were kept when fetched/search snapshots showed relevant baby sleep, bed-sharing, separate-room sleep, sleep training, or night-waking context with `No responses yet`, an existing response count, or a normal response-enabled Medium story surface.
 
-Task 1 was completed on 2026-05-24 14:43 KST. Remaining tasks start below.
-
-### Task 2
-
-URL: https://medium.com/a-parent-is-born/i-thought-my-child-was-a-bad-sleeper-turns-out-hes-normal-9bce15a92733
-
-Comment:
-
-```text
-The phrase "sleep like a baby i.e. unpredictably" made me smile, and your point that "Expectations were a big one" feels like a very real lesson for tired new parents.
-
-Do you think Babysitter could help parents keep expectations more realistic while still practicing independent sleep gradually?
-https://babysitter.dveamer.com
-
-I was thinking that seeing the baby from another room and trying a familiar parent-voice lullaby first might help parents pause without feeling like they are ignoring the baby.
-```
-
-### Task 3
-
-URL: https://medium.com/the-parenting-portal/my-daughter-slept-in-my-bed-heres-what-happened-827ef4f5a482
-
-Comment:
-
-```text
-Your line that "Our once-per-night wake-up turned into two wake-ups" felt so familiar, especially with the honest admission that as "the nighttime parent, I'm drained." That kind of tired decision-making is hard.
-
-Do you think an app like Babysitter could support parents who are torn between co-sleeping and trying the crib again?
-https://babysitter.dveamer.com
-
-Maybe being able to check from another room and play a parent-recorded lullaby could offer a softer step before bringing the baby fully into bed.
-```
-
-### Task 4
-
-URL: https://medium.com/@niligupta/why-kids-love-sleeping-with-you-but-heres-why-you-shouldn-t-69993fd4c5f7
-
-Comment:
-
-```text
-I liked your reminder that "Mom and Dad are just a room away," and I also related to the need for both "me time" and "sleep time" after bedtime. That balance is difficult but important.
-
-Do you think Babysitter could help parents give children that sense of security while keeping sleep a little more independent?
-https://babysitter.dveamer.com
-
-With a monitor view and a familiar lullaby in a parent's voice, maybe parents can reassure first without turning every wake-up into a full bedtime reset.
-```
-
-### Task 5
-
-URL: https://medium.com/the-parenting-portal/the-great-bed-sharing-debate-8304b2001cf2
-
-Comment:
-
-```text
-Your example of "frequent night wakings" leading to "bed-sharing and nursing to sleep" felt very real, and I appreciated how you made room for different family circumstances around sleep.
-
-Do you think an app like Babysitter could help families who want to move gradually from bed-sharing toward a separate sleep space?
-https://babysitter.dveamer.com
-
-I wondered whether checking from another room and playing a parent-recorded lullaby could preserve some sense of closeness before parents decide they need to go in.
-```
+No pending Medium reply tasks. Task 1 was completed on 2026-05-24 14:43 KST, Task 2 was completed on 2026-05-24 16:46 KST, Task 3 was completed on 2026-05-24 18:43 KST, Task 4 was completed on 2026-05-25 00:45 KST, and Task 5 was completed on 2026-05-25 01:44 KST.
 
 ## 2026-05-22 collected tasks (English, thirteenth batch)
 
 - Existing `medium-results.md` and current `medium-tasks.md` URLs were excluded.
 - English was selected for this collector run.
 - Articles were kept when search/page snapshots showed relevant baby sleep, sleep routine, night waking, sleep regression, or parent night-care context with `No responses yet` or a normal Medium story surface.
-
-### Task 1
-
-URL: https://medium.com/@babyzcorner/dealing-with-baby-sleep-issues-babyz-corner-25012fab76d5
-
-Comment:
-
-```text
-Your reminder that "consistency is key" and that bedtime predictability helps babies feel "safe and comfortable" really stood out. That is the hard part for parents when everyone is already tired.
-
-Do you think Babysitter could help families keep that same calm routine during night wakings?
-https://babysitter.dveamer.com
-
-I was imagining a quick monitor check and a lullaby recorded in a parent's own voice as one gentle step before turning on lights, going in, or restarting the whole bedtime routine.
-```
 
 ### Task 2
 
@@ -335,67 +260,7 @@ No pending Medium reply tasks. Task 1 was completed on 2026-05-24 01:43 KST, Tas
 - Portuguese was selected randomly for this collector run.
 - Articles were kept when RSS/search snapshots showed relevant baby sleep, crib safety, bedtime routine, night waking, or first-night parent-care context with `No responses yet` or a normal Medium story surface.
 
-Task 1 was completed on 2026-05-24 14:43 KST. Remaining tasks start below.
-
-### Task 2
-
-URL: https://medium.com/licen%C3%A7a-paternidade/cara-cad%C3%AA-meu-ber%C3%A7o-6efd3e932714
-
-Comment:
-
-```text
-Achei interessante a forma como você fala do berço como "o local do sono" e do "cantinho de sono dos nossos nenéns". Também fez sentido a observação de que o ritual do sono é muito próprio de cada família.
-
-Você acha que o Babysitter poderia ajudar quando os pais estão tentando manter esse ritual do berço mais previsível?
-https://babysitter.dveamer.com
-
-Talvez uma visualização rápida do bebê e uma canção de ninar gravada pela família ajudem a preservar o ambiente de sono sem acender luzes ou entrar imediatamente a cada pequeno movimento.
-```
-
-### Task 3
-
-URL: https://medium.com/@cheiladbarros/efeito-vulc%C3%A3o-f842757fe9aa
-
-Comment:
-
-```text
-Me identifiquei com a frase "Ele sempre teve dificuldades de relaxar e pegar no sono" e com a imagem de que, depois, "O resultado são pais e filho zumbis". Quando a rotina quebra, todo mundo sente no corpo.
-
-Você acha que um app como Babysitter poderia ajudar os pais a manterem uma resposta mais calma nesses dias difíceis?
-https://babysitter.dveamer.com
-
-Imaginei que acompanhar de outro cômodo e tentar primeiro uma canção de ninar com a voz dos pais poderia dar uma pausa baixa em estímulos antes de entrar no quarto e reiniciar tudo.
-```
-
-### Task 4
-
-URL: https://medium.com/@ju.ribeiro/consultora-de-amamenta%C3%A7%C3%A3o-351d28b8ecda
-
-Comment:
-
-```text
-A parte em que você diz que "A primeira noite em casa com o bebê parecia um pesadelo" é muito real, e gostei de como a consultora ajudou a fazer um "ninho para meu filho dormir no berço". Esse acolhimento muda a confiança dos pais.
-
-Você acha que o Babysitter poderia ser útil depois dessas orientações iniciais, quando a família começa a praticar o sono no berço em casa?
-https://babysitter.dveamer.com
-
-Talvez ver o bebê sem entrar no quarto e usar uma canção de ninar com a voz dos pais dê um apoio suave antes de pegar no colo, sem substituir a presença quando o bebê realmente precisa.
-```
-
-### Task 5
-
-URL: https://medium.com/@sobreamamentar/qual-a-posi%C3%A7%C3%A3o-certa-para-o-beb%C3%AA-dormir-6c2e7feb0183
-
-Comment:
-
-```text
-Gostei do jeito direto de tratar a dúvida "qual a melhor posição para o bebê dormir" e da frase "Onde quer que seja, no berço, ou mesmo na cama compartilhada". Essas decisões dão muita insegurança nos primeiros meses.
-
-Você acha que um app como Babysitter poderia complementar a orientação de sono seguro, ajudando os pais a observar sem mexer no bebê desnecessariamente?
-https://babysitter.dveamer.com
-
-Pensei que uma checagem por vídeo e uma canção de ninar com voz familiar poderiam manter o ambiente tranquilo, enquanto os pais continuam seguindo as recomendações de posição e entram quando houver necessidade real.
-```
+No pending Medium reply tasks. Task 1 was completed on 2026-05-24 14:43 KST, Task 2 was completed on 2026-05-24 16:46 KST, Task 3 was completed on 2026-05-24 18:43 KST, Task 4 was completed on 2026-05-25 00:45 KST, and Task 5 was completed on 2026-05-25 01:44 KST.
 
 ## 2026-05-22 collected tasks (English, fourteenth batch)
 
@@ -596,67 +461,7 @@ https://babysitter.dveamer.com
 - Spanish was selected randomly for this collector run.
 - Articles were kept when Medium search/Reader snapshots showed relevant baby sleep, bedtime routine, night waking, independent sleep, parent exhaustion, or separation anxiety context with `No responses yet` or a normal Medium story surface. Deleted/410 candidates were excluded.
 
-Task 1 was completed on 2026-05-24 14:43 KST. Remaining tasks start below.
-
-### Task 2
-
-URL: https://medium.com/%40arianav.varela/pensamientos-de-una-mam%C3%A1-mientras-pasa-por-mil%C3%A9sima-vez-la-escoba-en-la-casa-dec6664c5652
-
-Comment:
-
-```text
-Me tocó mucho la parte en la que cuentas que el bebé logra "dormir un tiempo solito" y que eso "nunca sucede", junto con la mención al "mal dormir". Esa mezcla de amor, cansancio y falta de espacio propio se siente muy real.
-
-¿Piensas que una app como Babysitter podría dar a las mamás una pequeña pausa cuando intentan que el bebé duerma un poco más independiente?
-https://babysitter.dveamer.com
-
-Tal vez poder mirar al bebé desde cerca y probar primero una nana con la voz de sus padres ayude a no romper todo el descanso de inmediato, manteniendo la posibilidad de entrar si necesita teta, brazos o consuelo.
-```
-
-### Task 3
-
-URL: https://medium.com/%40anafernandafierro/tambi%C3%A9n-soy-yo-adem%C3%A1s-de-mam%C3%A1-b6822f82be09
-
-Comment:
-
-```text
-Me gustó mucho cómo conectas "la preparamos para dormir" con la idea de que "mamá también necesita un espacio solo suyo". A veces la rutina de sueño del bebé también es parte de cuidar el vínculo de pareja y la identidad de la mamá.
-
-¿Crees que Babysitter podría ayudar a los padres a sentirse cerca del bebé mientras recuperan pequeños espacios de descanso?
-https://babysitter.dveamer.com
-
-Se me ocurre que usar un teléfono viejo como monitor y reproducir una nana grabada por los padres podría dar tranquilidad sin convertir cada movimiento del bebé en una entrada inmediata al cuarto.
-```
-
-### Task 4
-
-URL: https://medium.com/%40miletodarello/de-t%C3%ADa-y-sobrina-8a378341e198
-
-Comment:
-
-```text
-Me pareció muy tierna la frase "Intento adivinar cómo es su rutina" y también ese momento en que "Dona tiene sueño" y hay que apurar suavemente baño, cena y cuento. Las rutinas de dormir parecen simples, pero requieren mucha lectura emocional.
-
-¿Crees que una herramienta como Babysitter podría apoyar esas transiciones de sueño en familias con bebés más pequeños?
-https://babysitter.dveamer.com
-
-Quizá ver al bebé desde otra habitación y poner una nana con una voz familiar podría sostener una señal tranquila antes de entrar, igual que un cuento o una caricia sostienen la rutina cuando el niño ya es más grande.
-```
-
-### Task 5
-
-URL: https://medium.com/%40galleediaz/an%C3%A1lisis-final-caso-s-o-los-limpiadores-asesinos-b42529bbd501?responsesOpen=true&sortBy=REVERSE_CHRON
-
-Comment:
-
-```text
-Me llamó la atención el punto de que el niño "no puede dormir solo" y la relación que planteas con la "angustia de separación". Es un recordatorio importante de que dormir solo no es solo una conducta, sino también una experiencia emocional.
-
-¿Crees que Babysitter podría servir como apoyo de observación y calma para padres que trabajan el sueño independiente, sin sustituir el acompañamiento emocional ni profesional cuando hace falta?
-https://babysitter.dveamer.com
-
-Tal vez una cámara cercana y una nana grabada por los padres ayuden a distinguir si el bebé necesita intervención inmediata o si puede recibir primero una señal familiar y tranquila.
-```
+No pending Medium reply tasks. Task 1 was completed on 2026-05-24 14:43 KST, Task 2 was completed on 2026-05-24 16:46 KST, Task 3 was completed on 2026-05-24 18:43 KST, Task 4 was completed on 2026-05-25 00:45 KST, and Task 5 was completed on 2026-05-25 01:44 KST.
 
 ## 2026-05-22 collected tasks (English, sixteenth batch)
 
@@ -745,88 +550,13 @@ Being able to see the baby first and play a lullaby in a parent's voice might ma
 - French was selected randomly for this collector run.
 - Articles were kept when Medium search/RSS snapshots showed relevant baby sleep, co-sleeping, crying, night care, parental exhaustion, or independent-sleep context with a normal Medium story surface.
 
-Task 1 was completed on 2026-05-24 14:43 KST. Remaining tasks start below.
-
-### Task 2
-
-URL: https://medium.com/@contact_89629/quest-ce-que-le-traumatisme-anniversaire-et-ses-troubles-dc4e1a7c31cc
-
-Comment:
-
-```text
-J'ai été touché par votre exemple des parents qui laissent leur "bébé dormir seul", surtout quand vous rappelez qu'"un bébé qui pleure a besoin de quelque chose". Cela pose bien la question de la limite entre apprendre à dormir et rester attentif au besoin réel.
-
-À votre avis, une app comme Babysitter pourrait-elle aider les parents à observer avant d'agir, sans banaliser les pleurs ?
-https://babysitter.dveamer.com
-
-L'idée d'une caméra et d'une berceuse avec la voix des parents me semble intéressante si elle sert à mieux comprendre la situation, pas à remplacer le contact quand le bébé a besoin d'être pris.
-```
-
-### Task 3
-
-URL: https://medium.com/@JulietteLrd/arr%C3%AAtons-de-dire-aux-enfants-tes-pas-gentil-440a3b60b44
-
-Comment:
-
-```text
-La phrase "tu peux le laisser pleurer un peu" et votre exemple du "co-dodo" montrent bien combien les conseils autour des pleurs et du sommeil peuvent être culpabilisants. J'ai aimé que vous rameniez la discussion vers le fait de rassurer l'enfant.
-
-Pensez-vous que Babysitter pourrait être utile pour des parents qui veulent accompagner le sommeil tout en gardant une présence rassurante ?
-https://babysitter.dveamer.com
-
-Je me demande si voir le bébé à distance et lancer une berceuse avec une voix familière pourrait aider à attendre quelques instants sans couper le lien, avant d'entrer si le bébé continue d'avoir besoin de réconfort.
-```
-
-### Task 4
-
-URL: https://medium.com/@cathpoiss/mahale-et-moi-e7d7cb286e8e
-
-Comment:
-
-```text
-Votre début, "Tu t'endors sur moi", m'a beaucoup parlé, tout comme le moment où vous dites vous lever "plusieurs fois pour vérifier que tu vas bien". On ressent très fort ce mélange de tendresse, de vigilance et d'inquiétude des premiers mois.
-
-Pensez-vous qu'une app comme Babysitter pourrait aider les jeunes parents à garder cette proximité émotionnelle quand le bébé commence à dormir un peu plus séparément ?
-https://babysitter.dveamer.com
-
-Peut-être qu'une caméra sur un ancien téléphone et une berceuse enregistrée par la voix d'un parent offriraient un premier geste rassurant avant de se lever complètement, sans enlever la possibilité d'aller prendre le bébé quand c'est nécessaire.
-```
-
-### Task 5
-
-URL: https://medium.com/scribe/5-choses-apprises-en-2-mois-de-cong%C3%A9-paternit%C3%A9-2eb60b780bcf
-
-Comment:
-
-```text
-Votre exemple de "garder sa main sur le torse d'un bébé en pleine nuit" et celui d'un "bébé endormi 20 minutes" m'ont semblé très justes. Ce sont de petits gestes, mais ils prennent beaucoup d'énergie quand ils se répètent nuit après nuit.
-
-Pensez-vous que Babysitter pourrait aider les parents à partager ces moments de nuit avec un peu plus de calme ?
-https://babysitter.dveamer.com
-
-Avec une vue de monitoring et une berceuse enregistrée par maman ou papa, l'autre parent pourrait peut-être vérifier d'abord, tenter une réponse douce, puis entrer seulement si le bébé a besoin d'une présence physique.
-```
+No pending Medium reply tasks. Task 1 was completed on 2026-05-24 14:43 KST, Task 2 was completed on 2026-05-24 16:46 KST, Task 3 was completed on 2026-05-24 18:43 KST, Task 4 was completed on 2026-05-25 00:45 KST, and Task 5 was completed on 2026-05-25 01:44 KST.
 
 ## 2026-05-22 collected tasks (Portuguese, seventh batch)
 
 - Existing `medium-results.md` and current `medium-tasks.md` URLs were excluded.
 - Portuguese was selected randomly for this collector run.
 - Articles were kept when Medium search/Reader snapshots showed relevant newborn sleep, night waking, crying, routine, or postpartum exhaustion context with `No responses yet` or a normal Medium story surface.
-
-### Task 1
-
-URL: https://carolbtr.medium.com/eu-n%C3%A3o-quero-antecipar-a-saudade-cea402ec27e6
-
-Comment:
-
-```text
-A frase "Bebês nascem sem saber dormir" e a imagem das "longas madrugadas em claro" ficaram comigo. É uma forma muito honesta de mostrar que o sono do bebê também vira uma escola de paciência para quem cuida.
-
-Você acha que o Babysitter poderia ajudar mais adiante, quando a família começa a testar pequenos momentos de sono em outro espaço?
-https://babysitter.dveamer.com
-
-Imagino que poder ver o bebê de perto por um celular antigo e tocar uma canção de ninar com a voz dos pais talvez dê um passo suave antes de entrar no quarto, sem substituir colo, peito ou cuidado quando ele precisa.
-```
 
 ### Task 2
 
@@ -975,21 +705,6 @@ A monitor view and a lullaby in the parent's voice might make the crib feel less
 - Spanish was selected randomly for this collector run.
 - Articles were kept when Medium search snapshots showed relevant baby sleep, night care, parent exhaustion, separation anxiety, crib/sleep preparation, or a normal response-enabled Medium story surface. Pages with visible `No responses yet` were preferred.
 
-### Task 1
-
-URL: https://medium.com/%40mariumuller11/faty-14ca14826327
-
-Comment:
-
-```text
-Me tocó mucho cuando cuentas que ella "dormía pegada a mí" y que tú "no podía conciliar el sueño" con alguien tan cerca. Ese equilibrio entre cuidar, acompañar y también necesitar descansar se siente muy real.
-
-¿Crees que una app como Babysitter podría ayudar a familias que están intentando una separación nocturna gradual con bebés o niños pequeños?
-https://babysitter.dveamer.com
-
-Tal vez poder mirar desde otra habitación y poner una nana con la voz de mamá o papá dé un primer gesto de presencia antes de entrar, sin cortar del todo esa sensación de cercanía.
-```
-
 ### Task 2
 
 URL: https://medium.com/%40keidarasakuana/el-puerperio-otra-forma-de-despertar-fdfefcafa675
@@ -1137,50 +852,7 @@ Maybe a quick monitor check and a parent-recorded lullaby could be a low-stimula
 - Arabic was selected first by random draw, but search snapshots mostly returned already-collected Arabic URLs or weakly related candidates. Indonesian was selected on retry.
 - Articles were kept when Medium search/page snapshots showed relevant baby sleep, co-sleeping, nursery sleep environment, night waking, parent exhaustion, or a normal response-enabled Medium story surface. Pages with visible `No responses yet` or existing responses were preferred.
 
-### Task 1
-
-URL: https://medium.com/%40am6208260/tips-menjadikan-hubungan-akrab-ibu-dan-anak-saat-bayi-276dc301b068
-
-Comment:
-
-```text
-Bagian tentang "tidur bersama sang buah hati" dan manfaatnya untuk "mengurangi rasa takut atau kecemasan" terasa dekat dengan banyak orang tua baru. Kedekatan memang penting, tapi kadang keluarga juga mulai perlu belajar tidur di ruang yang sedikit terpisah.
-
-Menurut Anda, apakah Babysitter bisa membantu menjaga rasa dekat itu saat orang tua mencoba transisi tidur yang lebih mandiri?
-https://babysitter.dveamer.com
-
-Mungkin dengan melihat bayi dari kamar sebelah dan memutar lagu pengantar tidur suara orang tua, bayi tetap merasa ditemani sebelum ayah atau ibu harus langsung masuk dan menggendongnya.
-```
-
-### Task 2
-
-URL: https://medium.com/%40arsitag/perlengkapan-kamar-bayi-apa-saja-yang-diperlukan-a52e47ac6d1
-
-Comment:
-
-```text
-Saya suka bagian tentang "tirai jendela gelap" yang membantu waktu tidur siang, juga catatan bahwa "cahaya redup" bisa menciptakan lingkungan yang menenangkan. Ternyata desain kamar bayi sangat berpengaruh pada rutinitas tidur.
-
-Menurut Anda, apakah Babysitter bisa melengkapi kamar bayi yang sudah dibuat tenang seperti ini?
-https://babysitter.dveamer.com
-
-Kalau orang tua bisa memantau dari ruangan lain dan memutar nina bobo rekaman sendiri, mungkin kamar tetap gelap dan tenang tanpa harus sering membuka pintu atau menyalakan lampu.
-```
-
-### Task 3
-
-URL: https://medium.com/saluran-keluarga/menjadi-ibu-728ae0b8c3a6
-
-Comment:
-
-```text
-Kalimat bahwa menjadi ibu "menguras waktu dan tenaga" terasa sangat jujur, apalagi bagian bahwa ibu sering kurang tidur karena harus menyusui atau menggendong anak di malam hari. Malam pertama sebagai orang tua memang sering terasa paling berat.
-
-Menurut Anda, apakah Babysitter bisa membantu sedikit mengurangi beban saat orang tua mulai mengatur respons malam hari?
-https://babysitter.dveamer.com
-
-Saya membayangkan monitor dari ponsel lama dan nina bobo suara orang tua bisa memberi satu langkah tenang dulu sebelum bangun sepenuhnya, terutama ketika bayi hanya butuh ditenangkan sebentar.
-```
+Task 1 was completed on 2026-05-24 18:43 KST, and Task 2 was completed on 2026-05-25 01:44 KST. Remaining tasks start below.
 
 ### Task 4
 
@@ -1461,65 +1133,7 @@ Mungkin monitor jarak dekat dan nina bobo suara orang tua bisa membuat respons m
 - Arabic was selected randomly for this collector run.
 - Articles were kept when search/page snapshots showed relevant child sleep, bedtime emotion regulation, parent exhaustion, night crying, or baby soothing context with a normal Medium story surface and no comment-disabled marker.
 
-### Task 1
-
-URL: https://medium.com/%40Tanshi2a/%D9%83%D9%8A%D9%81-%D9%86%D8%B9%D8%B2%D8%B2-%D8%A7%D9%84%D8%B0%D9%83%D8%A7%D8%A1-%D8%A7%D9%84%D8%B9%D8%A7%D8%B7%D9%81%D9%8A-%D9%84%D8%AF%D9%89-%D8%A7%D9%84%D8%A3%D8%B7%D9%81%D8%A7%D9%84-9ab9adc6f121
-
-Comment:
-
-```text
-لفتني قولكم إن "مشاعر الأطفال قوية وعارمة طوال الوقت"، وكذلك أن "الصبر هو الأساس" عند مساعدة الطفل على التعامل مع مشاعره. هذا قريب جدًا من تحدي النوم، لأن البكاء ليلًا يحتاج من الأهل هدوءًا قبل أي رد فعل سريع.
-
-هل تعتقدون أن تطبيقًا مثل Babysitter يمكن أن يساعد الوالدين على أخذ لحظة هادئة قبل الدخول مباشرة؟
-https://babysitter.dveamer.com
-
-ربما تساعد مراقبة الطفل من غرفة قريبة وتشغيل تهويدة مسجلة بصوت الأم أو الأب على تهدئة الموقف أولًا، مع بقاء القرار النهائي بيد الوالدين إذا كان الطفل يحتاج حضورًا مباشرًا.
-```
-
-### Task 2
-
-URL: https://medium.com/%40Tanshi2a/%D9%82%D9%8A%D9%85%D9%86%D8%A7-d14d12c55ba4
-
-Comment:
-
-```text
-أعجبتني جدًا عبارة أن الطفل يحتاج إلى "الدفء العاطفي والتقارب الجسدي والدعم النفسي"، وكذلك حديثكم عن دعم الآباء للحد من "العزلة والتوتر الشديد". هذا يصف بدقة ما يشعر به كثير من الأهل في ليالي النوم المتقطعة.
-
-هل يمكن أن يكون Babysitter أداة مساعدة تحافظ على هذا الدفء، لا بديلًا عنه، أثناء تدريب الطفل تدريجيًا على النوم في مساحة منفصلة؟
-https://babysitter.dveamer.com
-
-أتخيل أن رؤية الطفل من غرفة أخرى وسماع تهويدة بصوت الوالدين قد تمنح شعورًا بالاقتراب قبل فتح الباب فورًا، خصوصًا عندما يحتاج الأهل إلى لحظة قصيرة لفهم ما يحدث.
-```
-
-### Task 3
-
-URL: https://medium.com/%40anakatycom/%D9%85%D8%B1%D8%A7%D8%AC%D8%B9%D8%A9-%D9%83%D8%B1%D8%B3%D9%8A-%D8%A7%D8%B7%D9%81%D8%A7%D9%84-%D9%84%D9%84%D8%B3%D9%8A%D8%A7%D8%B1%D8%A9-%D8%B3%D8%A7%D9%8A%D8%A8%D9%83%D8%B3-%D9%83%D9%84%D8%A7%D9%88%D8%AF-%D9%83%D9%8A%D9%88-ec206a4ca314
-
-Comment:
-
-```text
-شدتني العبارة أن وضعية الاستلقاء تساعد الطفل "لتحافظ على نومه لفترة أطول"، وكذلك تجربتكم حين قلتم إن الطفل "أصبح ينام و لم أسمع له أي بكاء". يبدو أن الراحة الصغيرة في البيئة قد تغير نوم الطفل كثيرًا.
-
-هل تعتقدون أن Babysitter يمكن أن يساعد بالطريقة نفسها داخل البيت، خصوصًا عند محاولة جعل النوم أهدأ وأكثر استقلالًا؟
-https://babysitter.dveamer.com
-
-ربما تمنح المراقبة من غرفة أخرى وتهويدة بصوت مألوف خطوة ناعمة قبل حمل الطفل مباشرة، فيبقى نومه مستمرًا إن كان يحتاج فقط إلى طمأنة خفيفة.
-```
-
-### Task 4
-
-URL: https://medium.com/%40zouhairagougil/%D8%AE%D8%B1%D9%8A%D9%81-2015-1ed4eda5d5a8
-
-Comment:
-
-```text
-توقفت عند وصفكم أنكم سمعتم "صوت بكاء طفل صغير" في سكون الليل، ثم أن أمه "حملته وأعادته إلى السرير". هذه اللقطة القصيرة تلخص كثيرًا من ليالي الأهل، بين التعب والرغبة في أن يعود الطفل للنوم بهدوء.
-
-هل ترون أن تطبيقًا مثل Babysitter قد يساعد الأهل في هذه اللحظة الفاصلة بين الانتظار والدخول؟
-https://babysitter.dveamer.com
-
-إذا استطاع الوالدان رؤية الطفل أولًا وتشغيل تهويدة بصوتهما من دون إضاءة الغرفة أو حمله مباشرة، فقد يساعد ذلك على بقاء الليل أهدأ عندما لا تكون هناك حاجة لتدخل كامل.
-```
+Task 4 was completed on 2026-05-24 16:46 KST, Task 1 was completed on 2026-05-24 17:44 KST, and Task 2 was completed on 2026-05-25 00:45 KST. Remaining tasks start below.
 
 ### Task 5
 
@@ -1542,20 +1156,7 @@ https://babysitter.dveamer.com
 - Portuguese was selected randomly for this collector run.
 - Articles were kept when search/page snapshots showed relevant baby sleep, night care, parent exhaustion, baby-monitor technology, newborn comfort, or a normal Medium story surface with `No responses yet` or existing responses.
 
-### Task 1
-
-URL: https://medium.com/futuro-da-medicina/trocador-inteligente-monitora-o-desenvolvimento-do-beb%C3%AA-8998ebd640b0
-
-Comment:
-
-```text
-Achei interessante a ideia de que o aparelho "rastreia e registra informações" do bebê e também ajuda a "monitorar os períodos de sono". Para pais cansados, entender o padrão do sono sem precisar acordar totalmente o bebê parece muito valioso.
-
-Você acha que um app como o Babysitter poderia complementar esse tipo de cuidado mais cotidiano?
-https://babysitter.dveamer.com
-
-Como ele permite ver o bebê de outro quarto e tocar uma canção de ninar gravada pelos pais, talvez ajude a fazer uma checagem mais calma antes de entrar no quarto ou pegar o bebê no colo.
-```
+Task 1 was completed on 2026-05-24 17:44 KST. Remaining tasks start below.
 
 ### Task 2
 
@@ -1623,20 +1224,7 @@ Imagino que ver o bebê de outro cômodo e tentar uma canção de ninar gravada 
 - Turkish was selected randomly for this collector run.
 - Articles were kept when search/page snapshots showed relevant co-sleeping, baby sleep routines, parent night-care exhaustion, sleep-training context, or a normal Medium story surface with a share/response area.
 
-### Task 1
-
-URL: https://medium.com/%40busraasarkirayoglu/%C3%A7ocu%C4%9Fumla-ayn%C4%B1-yatakta-uyursam-ne-olur-4b3b898e7365
-
-Comment:
-
-```text
-Yazınızdaki "mesele çocuğun nerede uyuduğu değil, nerede durduğudur" ve ebeveynle mesafenin yaşla birlikte artması gerektiği kısmı çok düşündürücüydü. Çocuğun güvenini korurken ayrışma sürecini desteklemek gerçekten ince bir denge gibi.
-
-Sizce Babysitter gibi bir uygulama bu geçişi daha yumuşak yönetmeye yardımcı olabilir mi?
-https://babysitter.dveamer.com
-
-Çocuğu başka odadan görebilmek ve hemen yatağa almak yerine önce anne-baba sesiyle kaydedilmiş bir ninni denemek, hem yakınlığı hissettirip hem de uyku alanını korumaya yardımcı olabilir mi diye merak ettim.
-```
+Task 1 was completed on 2026-05-24 17:44 KST. Remaining tasks start below.
 
 ### Task 2
 
@@ -1704,20 +1292,7 @@ Bebeği başka odadan görüp, hemen içeri girmeden önce anne-baba sesiyle kı
 - Indonesian was selected randomly for this collector run.
 - Articles were kept when Reader/search snapshots showed relevant baby night waking, newborn-care exhaustion, parent presence during sleep, bedtime soothing, or a normal Medium story surface without a comment-disabled marker. Reader/CAPTCHA-protected candidates were kept only when the search snapshot exposed enough relevant body text.
 
-### Task 1
-
-URL: https://medium.com/%40rizkyamaulina10/dini-hari-pukul-01-23-wib-82db990e560f
-
-Comment:
-
-```text
-Bagian "Suara tangis bayi memenuhi kamar" dan ucapan "Mommy kamu capek banget loh" terasa sangat dekat dengan realitas malam pertama menjadi orang tua. Kadang tantangannya bukan cuma menenangkan bayi, tapi juga menjaga agar orang tua tidak ikut kehabisan tenaga.
-
-Menurut Anda, apakah aplikasi seperti Babysitter bisa membantu di momen bayi terbangun tengah malam seperti ini?
-https://babysitter.dveamer.com
-
-Dengan melihat bayi dari kamar lain dan mencoba memutar nina bobo rekaman suara orang tua lebih dulu, mungkin ayah atau ibu bisa mengecek situasi dengan lebih tenang sebelum langsung masuk dan mengubah seluruh ritme malam.
-```
+Task 1 was completed on 2026-05-24 17:44 KST. Remaining tasks start below.
 
 ### Task 2
 
@@ -1866,20 +1441,7 @@ Dengan melihat anak dari kamar lain dan memutar suara nina bobo keluarga, mungki
 - Spanish was selected randomly for this collector run.
 - Articles were kept when search/page snapshots showed relevant baby sleep, crib/daycare transition, night waking, early-parent exhaustion, breastfeeding-night stress, or a normal Medium story surface. One selected page showed `No responses yet`; the others had no visible comment-disabled marker in the available snapshots.
 
-### Task 1
-
-URL: https://medium.com/%40profe.javi.castro/post-natal-de-un-a%C3%B1o-chile-una-necesidad-coherente-con-el-desarrollo-integral-del-beb%C3%A9-y-salud-8026d81e9a38
-
-Comment:
-
-```text
-Me quedé pensando en la frase "cuando nazca solo va a dormir contigo" y en la presión de adaptar a tu guagua a una "sala cuna" tan pronto. Esa transición entre apego, rutinas y separación suena enorme para una mamá y para el bebé.
-
-¿Crees que una app como Babysitter podría ayudar un poco cuando la familia empieza a practicar pequeños momentos de sueño en un espacio separado?
-https://babysitter.dveamer.com
-
-Tal vez poder mirar al bebé desde otra habitación y poner una nana grabada con la voz de mamá o papá dé una presencia suave antes de entrar, sin reemplazar el contacto directo cuando realmente lo necesita.
-```
+Task 1 was completed on 2026-05-24 17:44 KST. Remaining tasks start below.
 
 ### Task 2
 
@@ -2495,36 +2057,6 @@ Dengan monitor dari ponsel lama dan nina bobo suara orang tua, mungkin keduanya 
 - German Medium search results were sparse after duplicate filtering, so sleep-adjacent bedtime routine, night-waking, and parent-support app stories were included.
 - Articles were kept when search/page snapshots showed `No responses yet` or a normal Medium story surface without a visible comment-disabled marker.
 
-### Task 1
-
-URL: https://medium.com/%402kindwelt/zwischen-nervenkollaps-und-augenringen-oder-wie-unser-kleines-monster-schlafen-geht-99648df93bcc
-
-Comment:
-
-```text
-Die Stelle "wird er nie alleine schlafen?" und Ihre Suche nach einem eigenen "Einschlafritual" haben mich sehr angesprochen. Genau dieser Moment zwischen Geduld, Sorge und Müdigkeit ist für Eltern schwer.
-
-Glauben Sie, dass Babysitter Familien bei so einem ruhigen Übergang zum eigenen Schlafplatz unterstützen könnte?
-https://babysitter.dveamer.com
-
-Wenn man das Kind aus dem Nebenzimmer sehen und zuerst ein mit Mama- oder Papa-Stimme aufgenommenes Schlaflied abspielen kann, fällt das kurze Abwarten vielleicht leichter, ohne die Nähe ganz zu verlieren.
-```
-
-### Task 2
-
-URL: https://medium.com/%40kathi_7550/es-war-einmal-gutes-storytelling-funktioniert-einst-und-heute-60b294fe37f2
-
-Comment:
-
-```text
-Ihr "festes Abendritual" mit der "Gute-Nacht-Geschichte" fand ich sehr schön, besonders weil Geschichten für Kinder zu einem verlässlichen Fixpunkt werden. So ein wiederkehrendes Signal kann beim Einschlafen viel Ruhe geben.
-
-Meinen Sie, dass Babysitter so eine vertraute Abendroutine für junge Familien ergänzen könnte?
-https://babysitter.dveamer.com
-
-Ich stelle mir vor, dass eine kurze Geschichte oder ein Schlaflied mit der eigenen Elternstimme, aus dem Nebenzimmer abgespielt und mit ruhigem Blick auf das Baby begleitet, den Übergang zum Schlafen sanfter machen könnte.
-```
-
 ### Task 3
 
 URL: https://medium.com/%40srohmann056/ab-wann-kann-ich-mit-meinem-baby-schwimmen-gehen-e7c2feac054e
@@ -2576,36 +2108,6 @@ Ein ruhiger Blick auf das Baby und ein Schlaflied mit vertrauter Elternstimme k�
 - Turkish was selected randomly for this collector run.
 - Direct Turkish Medium results for sleep training and independent baby sleep were sparse after duplicate filtering, so baby night sleep, parent night vigilance, bedtime routine, and soothing-audio adjacent stories were included.
 - Articles were kept when search/page snapshots showed a normal Medium story surface, existing responses, `No responses yet`, or no visible comment-disabled marker.
-
-### Task 1
-
-URL: https://medium.com/%40melekomak/bebe%C4%9Fi%CC%87n-gece-lambasi-yanar-anneni%CC%87n-ben-mesai%CC%87si%CC%87-ba%C5%9Flar-8335702d10a7
-
-Comment:
-
-```text
-"Ne zaman biteceği belli değil" ve "10 dakika sonra da bir ağlama sesi gelebilir" cümleleri gece ebeveynliğinin o tetikte bekleme halini çok iyi anlatıyor. Bebeğin uykusundan sonra bile anne için tam bir kapanış olmaması çok tanıdık.
-
-Sizce Babysitter böyle belirsiz gece molalarında ebeveynlere daha sakin bekleme alanı açabilir mi?
-https://babysitter.dveamer.com
-
-Bebeği başka odadan izleyip önce anne-baba sesiyle kısa bir ninni çalabilmek, kapıyı hemen açmadan önce daha yumuşak bir ara adım olabilir mi diye merak ettim.
-```
-
-### Task 2
-
-URL: https://medium.com/%40happyspacewellbeing/uyku-%C3%B6ncesi-zihni-yava%C5%9Flatman%C4%B1n-5-nazik-yolu-22ed42cdbf2a
-
-Comment:
-
-```text
-"Gece moduna" geçmek için "küçük ve düzenli sinyallere" ihtiyaç olduğundan bahsetmeniz çok hoşuma gitti. Uyku öncesi ritüellerin bedene ve zihne sakin bir geçiş işareti vermesi, bebeklerde uyku rutini için de çok anlamlı görünüyor.
-
-Sizce Babysitter ailelerin böyle nazik ve tekrar eden uyku sinyalleri kurmasına yardımcı olabilir mi?
-https://babysitter.dveamer.com
-
-Bebeği başka odadan izleyip anne-baba sesiyle kaydedilmiş kısa bir ninniyi aynı şekilde tekrar etmek, odaya hemen girmeden de güvenli bir uyku ritüeli hissi verebilir mi diye merak ettim.
-```
 
 ### Task 3
 
@@ -2659,36 +2161,6 @@ Bebeğin gece uyanıp uyanmadığını uzaktan görmek, kısa bir ninniyle sakin
 - Articles were kept when search/page snapshots showed a normal Medium story surface, existing responses, `No responses yet`, or no visible comment-disabled marker.
 - Direct baby sleep-training results were sparse after duplicate filtering, so baby sleep routine, parent voice/lullaby, and baby-monitor adjacent stories were included.
 
-### Task 1
-
-URL: https://medium.com/%40pittmanparents/how-to-get-infants-to-sleep-through-the-night-c5cae43c5eac
-
-Comment:
-
-```text
-Your suggestion to "wait 5-10 min" before assuming the baby needs intervention stood out, especially with the idea that sleep teaching gives babies "the opportunity to learn." That pause sounds simple, but it can be emotionally hard for tired parents.
-
-Do you think Babysitter could help parents practice that pause without feeling like they are ignoring the baby?
-https://babysitter.dveamer.com
-
-Being able to check the baby from another room and try a familiar recorded lullaby first might make it easier to observe whether it is a sleep-cycle change or a real need for hands-on comfort.
-```
-
-### Task 2
-
-URL: https://medium.com/%40alicefutter03/sleep-success-with-two-boys-the-routine-that-changed-everything-e1fb3de4c13a
-
-Comment:
-
-```text
-I really liked your phrase "consistency, calm, and connection," and the simple routine ending with "lights off and white noise." It makes sleep feel less like a trick and more like a predictable signal the child can trust.
-
-Do you think Babysitter could support that kind of calm bedtime routine for younger babies?
-https://babysitter.dveamer.com
-
-If parents can keep an eye on the baby from the next room and play a short lullaby in their own voice, it might help preserve the routine without turning every small wake-up into a full reset.
-```
-
 ### Task 3
 
 URL: https://medium.com/%40RecipesforBusyWomen/what-do-babies-dream-about-the-answer-will-wreck-you-d8a740f5a42a
@@ -2741,36 +2213,6 @@ The combination of a spare phone as a monitor and a parent-recorded lullaby seem
 - Direct Dutch Medium results for separation sleep were sparse after duplicate filtering, so baby sleep training, night waking, parent exhaustion, and baby-monitor adjacent stories were included.
 - Articles were kept when search/page snapshots showed `No responses yet` or a normal Medium story surface without a visible comment-disabled marker.
 
-### Task 1
-
-URL: https://medium.com/%40hiranthi/slaaptraining-een-filmpje-fe3425061f55
-
-Comment:
-
-```text
-Uw korte beschrijving van een filmpje over "slaaptraining" viel me op, vooral de geruststelling dat er "geen babies of kleine kinderen" in gebruikt zijn. Het laat zien hoe gevoelig dit onderwerp is voor ouders die willen oefenen met wachten zonder hard te worden.
-
-Denkt u dat Babysitter ouders kan helpen om slaaptraining of zelfstandig slapen op een zachtere manier te benaderen?
-https://babysitter.dveamer.com
-
-Met een oude telefoon als monitor en een wiegeliedje met de stem van mama of papa kunnen ouders misschien eerst rustig kijken en troosten, voordat ze meteen de kamer binnengaan.
-```
-
-### Task 2
-
-URL: https://medium.com/%40stukjesovermensen/ik-slaap-allang-niet-meer-7b2f8859baef
-
-Comment:
-
-```text
-De zin over een kind dat "zeker 4 jaar lang niet doorsliep" en uw opmerking "dat doet iets met een mens" kwamen heel echt binnen. Langdurige gebroken nachten veranderen niet alleen de slaap van een kind, maar ook de draagkracht van de ouder.
-
-Zou Babysitter volgens u kunnen helpen in die nachtelijke momenten waarop ouders willen weten of ze nog even kunnen wachten of echt moeten ingrijpen?
-https://babysitter.dveamer.com
-
-Als ouders vanuit een andere kamer kunnen meekijken en eerst een vertrouwd opgenomen wiegeliedje kunnen afspelen, geeft dat misschien net genoeg rust om niet bij ieder geluid direct volledig wakker te moeten reageren.
-```
-
 ### Task 3
 
 URL: https://medium.com/%40violent.snail.wvss/gevoelig-28f53ea72da2
@@ -2822,36 +2264,6 @@ Met een monitor op een oude telefoon en een wiegeliedje dat met de stem van de o
 - Italian was selected randomly for this collector run.
 - Direct Italian Medium results for separation sleep were sparse after duplicate filtering, so baby sleep, bedtime/nanna routines, night waking, and parent-voice soothing stories were included.
 - Articles were kept when search/page snapshots showed a normal Medium story surface, existing responses, `No responses yet`, or no visible comment-disabled marker.
-
-### Task 1
-
-URL: https://medium.com/%40mamme.it/migliora-la-nanna-del-tuo-bambino-scegliendo-questi-alimenti-3c4b93efad83
-
-Comment:
-
-```text
-Mi ha colpito il contrasto tra i bambini che "dormono tranquillamente tutta la notte" e quelli che tendono a "svegliarsi più volte". Per molti genitori la nanna sembra proprio un equilibrio delicato tra routine, calma e piccoli segnali.
-
-Secondo voi Babysitter potrebbe aiutare i genitori a capire meglio quei risvegli senza intervenire subito ogni volta?
-https://babysitter.dveamer.com
-
-Con un vecchio telefono come monitor e una ninna nanna registrata con la voce di mamma o papà, forse si potrebbe prima osservare e provare un conforto leggero prima di entrare nella stanza.
-```
-
-### Task 2
-
-URL: https://myriamsabolla.medium.com/spuntininotturni-la-teoria-della-relativit%C3%A0-del-tempo-secondo-il-neonato-c1463fd3b4e9
-
-Comment:
-
-```text
-La frase "Dormi adesso, ché dopo non potrai dormire più" e il mito che "i neonati fino a tre mesi dormono tutto il giorno" raccontano benissimo lo shock del tempo quando arriva un neonato. Anche i piccoli momenti in cui lei dorme diventano preziosi.
-
-Pensi che Babysitter possa aiutare i genitori a vivere con un po' più di calma questi tempi spezzati?
-https://babysitter.dveamer.com
-
-Vedere il neonato da un'altra stanza e provare prima una ninna nanna con una voce familiare potrebbe dare un margine in più per capire se serve davvero prenderlo subito in braccio.
-```
 
 ### Task 3
 
@@ -3229,51 +2641,6 @@ A ideia de reaproveitar um celular como monitor e tocar uma canção de ninar gr
 - English was selected randomly for this collector run.
 - Articles were kept when search/page/tag snapshots showed sleep training, independent sleep, night waking, bedtime routine, or parent exhaustion context with `Responses`, `No responses yet`, a response icon, or no visible comment-disabled marker.
 
-### Task 1
-
-URL: https://medium.com/%40paul.joshua.y/6-ways-to-ensure-you-fail-sleep-training-9ce8889c10e5
-
-Comment:
-
-```text
-Your warning about creating a "healthy sleeping habit" stood out, especially the point that parents can set themselves up to fail when they "don't do any research" and only rely on instinct. That captures how hard consistency is when everyone is tired.
-
-Do you think Babysitter could help parents stay informed and steady during the first nights of sleep training?
-https://babysitter.dveamer.com
-
-A simple monitor view plus a parent-recorded lullaby might give parents one calmer first step before going in, so the response feels intentional rather than purely exhausted.
-```
-
-### Task 2
-
-URL: https://medium.com/%40littleoneadvice/sleep-training-tips-for-helping-your-baby-sleep-better-c26542717390
-
-Comment:
-
-```text
-I liked the practical focus on a "consistent bedtime routine" and the reminder to "offer comfort" during night wakings without immediately restarting feeding or pickup habits. That is often the small gap parents struggle to hold.
-
-Could Babysitter support that gentle pause for families trying to reduce nighttime awakenings?
-https://babysitter.dveamer.com
-
-Being able to check the baby from another room and play a familiar recorded lullaby first might help parents stay responsive without turning every wake-up into a full reset.
-```
-
-### Task 3
-
-URL: https://medium.com/%40lauhall/sleep-training-your-baby-is-not-mandatory-5f87b2c27960
-
-Comment:
-
-```text
-The story about your mother who "gradually stopped rushing in" and how you learned to "fall asleep on our own" felt like a very human middle ground: responsive, but not ruled by every sound.
-
-Do you think Babysitter could help parents find that middle ground when they are not following a rigid method?
-https://babysitter.dveamer.com
-
-Seeing the baby from another room and trying a parent-voice lullaby first could make a short wait feel less like ignoring the baby and more like observing before deciding what comfort is needed.
-```
-
 ### Task 4
 
 URL: https://medium.com/%40jessica_67910/how-to-stop-your-kid-from-coming-into-parents-bed-c6c490276071
@@ -3289,71 +2656,11 @@ https://babysitter.dveamer.com
 With a monitor view and a familiar lullaby recorded by the parents, it might offer a softer first step before entering the room or bringing the child back into the old routine.
 ```
 
-### Task 5
-
-URL: https://medium.com/frazzled/why-i-fear-the-wrath-of-my-daughters-pediatrician-5d5658f6a99d
-
-Comment:
-
-```text
-The anxiety around being asked whether she is "sleeping through the night" and the phrase "drowsy-but-awake" felt painfully familiar. Parents get a lot of advice, but applying it at 2 a.m. is different.
-
-Do you think Babysitter could help turn that advice into a gentler first response at night?
-https://babysitter.dveamer.com
-
-With a monitor view and a recorded lullaby, parents might check what is happening and try a familiar sound before deciding whether to pick up the baby.
-```
-
 ## 2026-05-23 collected tasks (Indonesian, eleventh batch)
 
 - Existing `medium-results.md` and current `medium-tasks.md` URLs were excluded with normalized `@` / `%40` checks.
 - Indonesian was selected randomly for this collector run.
 - Articles were kept when search/page snapshots showed baby or child sleep, sleep-alone transitions, bedtime stories, night waking, family-bed transitions, baby-box monitoring, or no visible comment-disabled marker.
-
-### Task 1
-
-URL: https://medium.com/%40claracwejaemin/aku-tumbuh-tanpa-di-peluk-e3e99bf960ad
-
-Comment:
-
-```text
-Bagian ketika Chelsea "tidur sambil memeluk bantal" dan mengira semua anak "belajar tidur sendiri" terasa sedih sekali. Tidur sendiri memang seharusnya bukan berarti merasa ditinggalkan.
-
-Menurut Anda, apakah Babysitter bisa membantu orang tua menjaga rasa hadir ketika anak mulai belajar tidur lebih mandiri?
-https://babysitter.dveamer.com
-
-Kalau orang tua bisa memantau dari kamar lain dan memutar nina bobo dengan suara sendiri, mungkin transisi tidur sendiri bisa terasa lebih hangat, bukan sekadar anak harus menunggu sendirian.
-```
-
-### Task 2
-
-URL: https://medium.com/%40sewarnacita/if-i-could-make-a-wish-56c2b2a226c0
-
-Comment:
-
-```text
-Saya suka bagian bahwa kamar Yeosang jadi hadiah karena ia "sudah bisa tidur sendiri tanpa menangis lagi", lalu Mama tetap menemani dengan cerita sebelum tidur. Itu terasa seperti transisi yang hangat, bukan pemaksaan jarak.
-
-Menurut Anda, apakah Babysitter bisa menjadi bantuan kecil untuk fase anak mulai tidur sendiri seperti itu?
-https://babysitter.dveamer.com
-
-Dengan monitor dari ruangan lain dan rekaman nina bobo atau cerita pendek suara orang tua, anak mungkin tetap mendapat isyarat familiar saat orang tua tidak terus berada di samping kasur.
-```
-
-### Task 3
-
-URL: https://medium.com/%40arega9008/rumah-kecil-kecilan-56f562de5eb4
-
-Comment:
-
-```text
-Kalimat "Juan emang ga bisa tidur sendiri kalau hujan" dan bagian ketika ia "takut petir" terasa dekat dengan banyak anak. Kadang tidur sendiri gagal bukan karena manja, tapi karena rasa aman sedang runtuh.
-
-Menurut Anda, apakah Babysitter bisa membantu orang tua memberi respons lembut saat anak terbangun karena takut?
-https://babysitter.dveamer.com
-
-Mungkin orang tua bisa melihat dulu dari kamar lain, lalu memutar suara atau nina bobo yang familiar sebelum masuk, sambil tetap siap menemani langsung kalau anak memang butuh pelukan.
-```
 
 ### Task 4
 
@@ -3370,71 +2677,11 @@ https://babysitter.dveamer.com
 Dengan memantau dari ruangan lain dan memutar suara nina bobo orang tua, mungkin keluarga punya cara untuk tetap hadir tanpa harus selalu kembali ke pola tidur bersama setiap kali anak terbangun.
 ```
 
-### Task 5
-
-URL: https://medium.com/%40kuningbee_/i-love-you-i-miss-you-im-sorry-3e85042afd96
-
-Comment:
-
-```text
-Adegan "Tangisan bayi itu mereda" dan Megumi yang berdiri dekat "baby box" karena takut terjadi apa-apa terasa sangat nyata. Setelah bayi sakit atau rewel, orang tua sering tetap berjaga bahkan ketika bayi sudah tidur.
-
-Menurut Anda, apakah Babysitter bisa membantu orang tua memantau bayi dengan lebih tenang setelah kebutuhan langsungnya ditangani?
-https://babysitter.dveamer.com
-
-Saya membayangkan monitor dari ponsel lama dan nina bobo rekaman suara orang tua bisa memberi respons awal yang lembut, sambil tetap membuat ayah atau ibu siap masuk kalau bayi benar-benar butuh digendong atau dicek lagi.
-```
-
 ## 2026-05-23 collected tasks (Spanish, seventh batch)
 
 - Existing `medium-results.md` and current `medium-tasks.md` URLs were excluded with normalized `@` / `%40` checks.
 - Spanish was selected for this collector run after duplicate filtering left too few strongly relevant Arabic candidates.
 - Articles were kept when search/page snapshots showed newborn night waking, parent exhaustion, crib/bed transitions, bedtime routines, parent voice soothing, or a normal Medium story surface with `No responses yet`, existing responses, or no visible comment-disabled marker.
-
-### Task 1
-
-URL: https://medium.com/%40padres_novatos/y-duerme-toda-la-noche-67ddf3c5960a
-
-Comment:
-
-```text
-Me gustó cómo explican que los recién nacidos "no saben qué es una noche" y cómo esa pregunta, sumada a "la falta de sueño", retumba en la cabeza de los padres. Es una forma muy honesta de describir esas primeras semanas.
-
-¿Creen que Babysitter podría ayudar un poco a padres primerizos cuando intentan entender esos despertares sin levantarse con pánico cada vez?
-https://babysitter.dveamer.com
-
-Poder mirar al bebé desde otra habitación y probar primero una nana grabada con la voz de mamá o papá quizá daría una pausa más tranquila antes de decidir si hace falta entrar, cargarlo o alimentarlo.
-```
-
-### Task 2
-
-URL: https://medium.com/%40agustinalopezsaav/la-madrugada-f66c5b91c18c
-
-Comment:
-
-```text
-La frase "Es una batalla perdida" y esa escena de decir "Hoy a la noche se duerme bien" me parecieron muy reales. También se siente mucho el cansancio cuando cuentas que tu hija "no me deja ir".
-
-¿Crees que Babysitter podría servir como una ayuda pequeña para esas madrugadas en las que una madre necesita responder sin agotarse todavía más?
-https://babysitter.dveamer.com
-
-Imagino que ver desde el cuarto de al lado y poner una nana con voz familiar podría dar un primer intento suave antes de volver a entrar, sobre todo cuando el niño solo necesita una señal de presencia.
-```
-
-### Task 3
-
-URL: https://medium.com/%40isakoda/la-existencia-en-femenino-86911c0cd15c
-
-Comment:
-
-```text
-Me tocó la parte donde dices que el bebé llega a conocer "el hambre, el frío, el sueño y el miedo", y también cuando cuentas que no creíste poder sobrevivir "tantas noches sin dormir". Esa mezcla de amor, miedo y cansancio se siente enorme.
-
-¿Crees que Babysitter podría ayudar a que esas noches sean un poco menos solitarias para padres que todavía están aprendiendo a leer cada señal del bebé?
-https://babysitter.dveamer.com
-
-Con un monitor desde otro cuarto y una nana grabada por la familia, quizá habría una forma de acompañar primero con presencia suave, sin reemplazar el abrazo cuando el bebé realmente lo necesita.
-```
 
 ### Task 4
 
@@ -3451,71 +2698,11 @@ https://babysitter.dveamer.com
 Tal vez una vista de monitor y una nana con la voz de los padres permitan mantener una presencia reconocible, sin convertir la cuna o el cuarto propio en una separación brusca.
 ```
 
-### Task 5
-
-URL: https://medium.com/%40chuycepeda/de-aquel-baby-project-775e3c1bde36
-
-Comment:
-
-```text
-Me encantó la explicación del "shhh, shhh, shhh..." como un sonido instintivo que lleva al bebé a "su momento de mayor tranquilidad y seguridad". También me pareció muy útil la idea de reconocer señales como "sueño — owh".
-
-¿Crees que Babysitter podría aprovechar justamente esa familiaridad de la voz de mamá o papá para acompañar el sueño del bebé?
-https://babysitter.dveamer.com
-
-Si los padres pueden observar desde otro cuarto y reproducir una nana o un sonido grabado por ellos, quizá el bebé reciba una primera señal de calma antes de que los padres tengan que entrar y cargarlo de inmediato.
-```
-
 ## 2026-05-23 collected tasks (Portuguese, tenth batch)
 
 - Existing `medium-results.md` and current `medium-tasks.md` URLs were excluded with normalized `@` / `%40` checks.
 - Portuguese was selected randomly for this collector run.
 - Articles were kept when search/page snapshots showed newborn night waking, difficult naps, parent exhaustion, baby app sleep/white-noise context, or a normal Medium story surface with `No responses yet`, existing responses, or no visible comment-disabled marker.
-
-### Task 1
-
-URL: https://medium.com/%40lina_corah/das-pequenas-coisas-que-nos-salvam-736391f18da0
-
-Comment:
-
-```text
-A frase "mais uma madrugada por aqui, sem sono" e a ideia de que o bebê decidiu que "dormir não é uma opção" resumem muito bem esse cansaço meio solitário de quem tenta atravessar a noite com calma.
-
-Você acha que o Babysitter poderia ajudar pais e mães nessas madrugadas em que primeiro precisamos entender se o bebê realmente precisa de colo ou só de uma presença suave?
-https://babysitter.dveamer.com
-
-Imagino que ver o bebê de outro cômodo e tocar uma canção de ninar gravada com a voz dos pais talvez dê um primeiro passo mais tranquilo antes de levantar e recomeçar todo o ritual.
-```
-
-### Task 2
-
-URL: https://medium.com/%40gabibonet/puerp%C3%A9rio-um-4ac164904932
-
-Comment:
-
-```text
-Me tocou a forma como você começa com "Após uma madrugada difícil" e depois encontra algum respiro na "soneca da bebê" do lado de fora. O puerpério parece muito feito desses pequenos ajustes para sobreviver ao dia.
-
-Você acha que o Babysitter poderia ajudar um pouco nessa fase de madrugadas e sonecas imprevisíveis?
-https://babysitter.dveamer.com
-
-Talvez acompanhar o bebê por um celular reaproveitado e testar primeiro uma canção de ninar com voz familiar ajude a transformar alguns despertares em uma resposta mais leve, sem substituir o colo quando ele for necessário.
-```
-
-### Task 3
-
-URL: https://medium.com/%40carla.bueno/o-meu-quem-sou-eu-m%C3%A3e-autista-engenheira-e-vivendo-entre-fraldas-e-conversas-de-adolescente-1396549c07ce
-
-Comment:
-
-```text
-Achei muito forte quando você diz que abraça seu "bebê chorando no colo" mesmo quando o mundo parece gritar, e também quando fala do "silêncio da madrugada" como um momento para se regular. Isso mostra como cuidado e sobrecarga podem existir juntos.
-
-Você acha que o Babysitter poderia ajudar mães e pais que precisam responder ao bebê sem aumentar ainda mais o excesso de estímulos?
-https://babysitter.dveamer.com
-
-Poder observar de outro cômodo e tocar uma gravação calma com a própria voz talvez dê uma primeira resposta mais previsível, deixando a entrada no quarto para quando o bebê realmente precisar de contato direto.
-```
 
 ### Task 4
 
@@ -3532,72 +2719,12 @@ https://babysitter.dveamer.com
 Como ele reaproveita um celular como monitor e permite tocar uma canção de ninar gravada pelos pais, talvez seja uma solução simples para testar uma resposta calma antes de uma intervenção completa.
 ```
 
-### Task 5
-
-URL: https://medium.com/%40DaniellePinheiro/quem-%C3%A9-o-heitor-b8b8acab92b
-
-Comment:
-
-```text
-A parte sobre "Cólicas de madrugada" e os "chorinhos sofridos de nenem" deixou muito clara aquela mistura de cuidado, susto e amor de quem está lidando com um bebê tão pequeno. Também me marcou a imagem de ele só parar no colo.
-
-Você acha que o Babysitter poderia ajudar cuidadores nesses momentos em que é preciso decidir entre esperar um pouco, acalmar à distância ou pegar no colo?
-https://babysitter.dveamer.com
-
-Talvez ver o bebê por outro celular e tocar uma canção de ninar com uma voz conhecida ajude em alguns despertares, mantendo o colo e a checagem direta para quando forem realmente necessários.
-```
-
 ## 2026-05-24 collected tasks (Arabic, sixth batch)
 
 - Existing `medium-results.md` and current `medium-tasks.md` URLs were excluded.
 - Arabic was selected randomly for this collector run.
 - Articles were kept when search/reader snapshots showed relevant infant night waking, child sleep security, screen-free bedtime boundaries, separate-room anxiety, child sleep comfort, or a normal Medium story surface with no visible comment-disabled marker.
 - Direct Jina/Medium reads were blocked by Medium security verification for several candidates; those were kept only when search snapshots showed enough relevant context and no duplicate URL/story ID.
-
-### Task 1
-
-URL: https://medium.com/smart-minds/emotional-starvation-833434777bb5
-
-Comment:
-
-```text
-توقفت عند قولك إن "عندما يستيقظ الرضيع من النوم يبكي" قد يكون مرتبطًا بـ"عدم شعوره بالأمان". هذا يضع الأهل أمام توازن صعب: كيف نطمئن الطفل من دون أن نتحول إلى رد فعل مرهق مع كل استيقاظ؟
-
-برأيك، هل يمكن لتطبيق مثل Babysitter أن يساعد الأهل على قراءة هذه اللحظة بهدوء أكبر؟
-https://babysitter.dveamer.com
-
-أتخيل أن رؤية الطفل أولًا وتشغيل تهويدة بصوت الأم أو الأب قد يعطيان طمأنة أولية لطيفة، مع بقاء الحضن والدخول المباشر موجودين عندما يحتاج الطفل فعلًا إلى قرب جسدي أو رعاية كاملة.
-```
-
-### Task 2
-
-URL: https://medium.com/%40mohameddosou/%D8%A7%D9%84%D8%A3%D8%B7%D9%81%D8%A7%D9%84-%D9%88%D8%A7%D9%84%D9%85%D9%86%D8%B5%D8%A7%D8%AA-%D8%A7%D9%84%D8%B1%D9%82%D9%85%D9%8A%D8%A9-e14661b64134
-
-Comment:
-
-```text
-لفتني تحذيرك من "اضطرابات في تنظيم النوم" بسبب الضوء الأزرق و"التفاعل الرقمي قبل النوم". هذا مهم جدًا لأن وقت النوم يحتاج تقليل التحفيز، لا إضافة شاشة أخرى للطفل.
-
-هل ترى أن Babysitter يمكن أن يكون مفيدًا إذا استُخدم كأداة هادئة لا كشاشة ترفيهية؟
-https://babysitter.dveamer.com
-
-الفكرة التي خطرت لي أن الهاتف القديم يبقى في غرفة الطفل كمراقبة وتشغيل تهويدة بصوت الأهل فقط، بينما يشاهد الوالدان من الخارج، فيحافظ الروتين على الهدوء بدل إدخال محتوى رقمي جديد قبل النوم.
-```
-
-### Task 3
-
-URL: https://medium.com/%40zeidanseyidi/%D8%B9%D9%86%D9%88%D8%A7%D9%86-%D8%A7%D9%84%D9%82%D8%B5%D8%A9-%D9%84%D8%B9%D9%86%D8%A9-%D8%A7%D9%84%D8%A5%D8%AF%D8%B1%D8%A7%D9%83-552888d326d9
-
-Comment:
-
-```text
-شدني وصف الطفل الذي صار "روتينه اليومي هو الأكل والنوم والتلفاز"، ثم وجدتموه "نائمًا في آخر غرفة". القصة تجعل خوف الأم وحاجة الطفل لاكتشاف مساحة خاصة يظهران معًا بشكل مؤلم.
-
-برأيك، هل يمكن لتطبيق مثل Babysitter أن يساعد الأهل القلقين عندما يبدأ الطفل النوم في غرفة أبعد قليلًا؟
-https://babysitter.dveamer.com
-
-ربما تمنح المراقبة الهادئة وتهويدة بصوت مألوف طريقة أقل خوفًا من التخويف أو المراقبة اللصيقة، بحيث يشعر الطفل بمساحة آمنة ويشعر الوالدان أنهما ما زالا قريبين إذا احتاج إليهما.
-```
 
 ### Task 4
 
@@ -3612,19 +2739,4 @@ Comment:
 https://babysitter.dveamer.com
 
 أتخيل أن رؤية الطفل من غرفة أخرى وتشغيل تهويدة أو صوت مسجل من الأب أو الأم قد يعطي إحساسًا أوليًا بالقرب، مع بقاء الدخول والحضن خيارًا مباشرًا عندما يكون الخوف أكبر من أن تكفيه الطمأنة عن بعد.
-```
-
-### Task 5
-
-URL: https://medium.com/%40anakatycom/%D9%85%D8%B1%D8%A7%D8%AC%D8%B9%D8%A9-%D8%B9%D8%B1%D8%A8%D8%A9-%D8%A7%D8%B7%D9%81%D8%A7%D9%84-%D8%AA%D9%88%D8%A7%D9%85-%D9%83%D8%B1%D9%88%D8%B2-%D9%85%D8%A7%D9%85%D8%A7%D8%B2-%D9%88-%D8%A8%D8%A7%D8%A8%D8%A7%D8%B2-caf541233dd2
-
-Comment:
-
-```text
-أعجبتني ملاحظتك عن "وضعية الإستلقاء لينعم طفلك براحة تامة أثناء النوم"، وكذلك أنها "مثالية لو أراد أحد الطفلين أن ينام". مع التوائم أو طفلين صغيرين، يبدو أن الحفاظ على نوم أحدهما بينما الآخر مستيقظ تحدٍّ يومي.
-
-هل تعتقدون أن Babysitter يمكن أن يساعد داخل البيت في مثل هذه اللحظات؟
-https://babysitter.dveamer.com
-
-ربما تساعد المراقبة من غرفة أخرى مع تهويدة بصوت الأهل على تهدئة الطفل الذي بدأ يتحرك، من دون إيقاظ أخيه أو الدخول فورًا إلى الغرفة، مع بقاء التدخل المباشر موجودًا عند الحاجة.
 ```

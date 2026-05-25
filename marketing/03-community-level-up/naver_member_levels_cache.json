@@ -1,5 +1,112 @@
 [
   {
+    "cafeId": "10050146",
+    "url": "https://cafe.naver.com/ca-fe/cafes/10050146/member-level",
+    "levels": [
+      {
+        "level": "중고나라 회원",
+        "description": "중고나라 카페 회원가입 완료",
+        "condition": "",
+        "raw": {
+          "clubid": 10050146,
+          "memberlevel": 1,
+          "memberlevelname": "중고나라 회원",
+          "memberleveldesc": "중고나라 카페 회원가입 완료",
+          "leveliconid": 1,
+          "leveluptype": 1,
+          "articlecount": 0,
+          "commentcount": 0,
+          "visitcount": 0,
+          "joindtcondition": 0,
+          "likecount": 0,
+          "useyn": "Y",
+          "existmember": "N"
+        }
+      },
+      {
+        "level": "본인인증 회원",
+        "description": "'중고나라 회원' + 중고나라 앱(웹) 본인인증 완료+ 앱-카페 연결 완료 ",
+        "condition": "",
+        "raw": {
+          "clubid": 10050146,
+          "memberlevel": 110,
+          "memberlevelname": "본인인증 회원",
+          "memberleveldesc": "'중고나라 회원' + 중고나라 앱(웹) 본인인증 완료+ 앱-카페 연결 완료 ",
+          "leveliconid": 1,
+          "leveluptype": 1,
+          "articlecount": 0,
+          "commentcount": 0,
+          "visitcount": 30,
+          "joindtcondition": 30,
+          "likecount": 0,
+          "useyn": "Y",
+          "existmember": "N"
+        }
+      },
+      {
+        "level": "인증+안심결제 회원",
+        "description": "'본인인증 회원' + 중고나라 앱 안심결제 2회 완료",
+        "condition": "",
+        "raw": {
+          "clubid": 10050146,
+          "memberlevel": 120,
+          "memberlevelname": "인증+안심결제 회원",
+          "memberleveldesc": "'본인인증 회원' + 중고나라 앱 안심결제 2회 완료",
+          "leveliconid": 1,
+          "leveluptype": 1,
+          "articlecount": 0,
+          "commentcount": 0,
+          "visitcount": 0,
+          "joindtcondition": 0,
+          "likecount": 0,
+          "useyn": "Y",
+          "existmember": "N"
+        }
+      },
+      {
+        "level": "◆셀러회원◆",
+        "description": "중고나라 셀러지원센터 회원가입 완료 + 유료 홍보상품 구매완료",
+        "condition": "",
+        "raw": {
+          "clubid": 10050146,
+          "memberlevel": 150,
+          "memberlevelname": "◆셀러회원◆",
+          "memberleveldesc": "중고나라 셀러지원센터 회원가입 완료 + 유료 홍보상품 구매완료",
+          "leveliconid": 1,
+          "leveluptype": 1,
+          "articlecount": 0,
+          "commentcount": 0,
+          "visitcount": 0,
+          "joindtcondition": 0,
+          "likecount": 0,
+          "useyn": "Y",
+          "existmember": "N"
+        }
+      }
+    ],
+    "second": {
+      "level": "본인인증 회원",
+      "description": "'중고나라 회원' + 중고나라 앱(웹) 본인인증 완료+ 앱-카페 연결 완료 ",
+      "condition": "",
+      "raw": {
+        "clubid": 10050146,
+        "memberlevel": 110,
+        "memberlevelname": "본인인증 회원",
+        "memberleveldesc": "'중고나라 회원' + 중고나라 앱(웹) 본인인증 완료+ 앱-카페 연결 완료 ",
+        "leveliconid": 1,
+        "leveluptype": 1,
+        "articlecount": 0,
+        "commentcount": 0,
+        "visitcount": 30,
+        "joindtcondition": 30,
+        "likecount": 0,
+        "useyn": "Y",
+        "existmember": "N"
+      }
+    },
+    "sourceFile": "/Users/dveamer/.cache/chrome-devtools-mcp/chrome-profile/Default/Cache/Cache_Data/61d75d52a0a50381_0"
+  },
+  {
     "cafeId": "10094499",
     "url": "https://cafe.naver.com/ca-fe/cafes/10094499/member-level",
     "levels": [
@@ -568,153 +675,6 @@
     "sourceFile": "/Users/dveamer/.cache/chrome-devtools-mcp/chrome-profile/Default/Cache/Cache_Data/6cb804a0b7e9dd54_0"
   },
   {
-    "cafeId": "10250319",
-    "url": "https://cafe.naver.com/ca-fe/cafes/10250319/member-level",
-    "levels": [
-      {
-        "level": "새싹",
-        "description": "가입 후 막 활동을 시작하는 멤버",
-        "condition": "",
-        "raw": {
-          "clubid": 10250319,
-          "memberlevel": 1,
-          "memberlevelname": "새싹",
-          "memberleveldesc": "가입 후 막 활동을 시작하는 멤버",
-          "leveliconid": 8,
-          "leveluptype": 1,
-          "articlecount": 0,
-          "commentcount": 0,
-          "visitcount": 0,
-          "joindtcondition": 0,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "일반",
-        "description": "카페 일반 멤버",
-        "condition": "가입 1주 후 · 게시글 3개 · 댓글 10개 · 좋아요 0개 · 방문 수 10회를 만족하면 자동으로 등업 합니다.",
-        "raw": {
-          "clubid": 10250319,
-          "memberlevel": 110,
-          "memberlevelname": "일반",
-          "memberleveldesc": "카페 일반 멤버",
-          "leveliconid": 8,
-          "leveluptype": 2,
-          "articlecount": 3,
-          "commentcount": 10,
-          "visitcount": 10,
-          "joindtcondition": 1,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "성실",
-        "description": "카페활동을 성실히 하는 멤버",
-        "condition": "가입 2주 후 · 게시글 100개 · 댓글 500개 · 좋아요 0개 · 방문 수 50회를 만족하면 자동으로 등업 합니다.",
-        "raw": {
-          "clubid": 10250319,
-          "memberlevel": 120,
-          "memberlevelname": "성실",
-          "memberleveldesc": "카페활동을 성실히 하는 멤버",
-          "leveliconid": 8,
-          "leveluptype": 2,
-          "articlecount": 100,
-          "commentcount": 500,
-          "visitcount": 50,
-          "joindtcondition": 2,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "프로",
-        "description": "카페 열심 멤버",
-        "condition": "가입 4주 후 · 게시글 200개 · 댓글 1000개 · 좋아요 0개 · 방문 수 200회를 만족하면 등업 게시판에 등업 신청 이 가능합니다.",
-        "raw": {
-          "clubid": 10250319,
-          "memberlevel": 130,
-          "memberlevelname": "프로",
-          "memberleveldesc": "카페 열심 멤버",
-          "leveliconid": 8,
-          "leveluptype": 3,
-          "articlecount": 200,
-          "commentcount": 1000,
-          "visitcount": 200,
-          "joindtcondition": 4,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "우수",
-        "description": "카페 우수 멤버",
-        "condition": "가입 52주 후 · 게시글 5000개 · 댓글 50000개 · 좋아요 0개 · 방문 수 2000회를 만족하면 등업 게시판에 등업 신청 이 가능합니다.",
-        "raw": {
-          "clubid": 10250319,
-          "memberlevel": 140,
-          "memberlevelname": "우수",
-          "memberleveldesc": "카페 우수 멤버",
-          "leveliconid": 8,
-          "leveluptype": 3,
-          "articlecount": 5000,
-          "commentcount": 50000,
-          "visitcount": 2000,
-          "joindtcondition": 52,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "제휴",
-        "description": "고수다에 혜택주시는 제휴업체",
-        "condition": "",
-        "raw": {
-          "clubid": 10250319,
-          "memberlevel": 150,
-          "memberlevelname": "제휴",
-          "memberleveldesc": "고수다에 혜택주시는 제휴업체",
-          "leveliconid": 8,
-          "leveluptype": 1,
-          "articlecount": 0,
-          "commentcount": 0,
-          "visitcount": 0,
-          "joindtcondition": 0,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      }
-    ],
-    "second": {
-      "level": "일반",
-      "description": "카페 일반 멤버",
-      "condition": "가입 1주 후 · 게시글 3개 · 댓글 10개 · 좋아요 0개 · 방문 수 10회를 만족하면 자동으로 등업 합니다.",
-      "raw": {
-        "clubid": 10250319,
-        "memberlevel": 110,
-        "memberlevelname": "일반",
-        "memberleveldesc": "카페 일반 멤버",
-        "leveliconid": 8,
-        "leveluptype": 2,
-        "articlecount": 3,
-        "commentcount": 10,
-        "visitcount": 10,
-        "joindtcondition": 1,
-        "likecount": 0,
-        "useyn": "Y",
-        "existmember": "N"
-      }
-    },
-    "sourceFile": "/private/tmp/codex-naver-openchrome/Default/Cache/Cache_Data/8dae2929f9fb86b8_0"
-  },
-  {
     "cafeId": "10278718",
     "url": "https://cafe.naver.com/ca-fe/cafes/10278718/member-level",
     "levels": [
@@ -860,133 +820,6 @@
       }
     },
     "sourceFile": "/Users/dveamer/.cache/chrome-devtools-mcp/chrome-profile/Default/Cache/Cache_Data/cfd142a4503d947d_0"
-  },
-  {
-    "cafeId": "10298136",
-    "url": "https://cafe.naver.com/ca-fe/cafes/10298136/member-level",
-    "levels": [
-      {
-        "level": "새싹",
-        "description": "글쓰기조건 방문2회,덧글2회 ",
-        "condition": "",
-        "raw": {
-          "clubid": 10298136,
-          "memberlevel": 1,
-          "memberlevelname": "새싹",
-          "memberleveldesc": "글쓰기조건 방문2회,덧글2회 ",
-          "leveliconid": 1,
-          "leveluptype": 1,
-          "articlecount": 0,
-          "commentcount": 0,
-          "visitcount": 0,
-          "joindtcondition": 0,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "귀족",
-        "description": "게시물 5개, 덧글 10개 ,방문 10회, 가입기간1주 이상",
-        "condition": "가입 1주 후 · 게시글 5개 · 댓글 10개 · 좋아요 0개 · 방문 수 10회를 만족하면 자동으로 등업 합니다.",
-        "raw": {
-          "clubid": 10298136,
-          "memberlevel": 120,
-          "memberlevelname": "귀족",
-          "memberleveldesc": "게시물 5개, 덧글 10개 ,방문 10회, 가입기간1주 이상",
-          "leveliconid": 1,
-          "leveluptype": 2,
-          "articlecount": 5,
-          "commentcount": 10,
-          "visitcount": 10,
-          "joindtcondition": 1,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "여왕",
-        "description": "게시물 10개, 덧글 30개 ,방문 20회, 가입기간4주 이상",
-        "condition": "가입 4주 후 · 게시글 10개 · 댓글 30개 · 좋아요 0개 · 방문 수 20회를 만족하면 자동으로 등업 합니다.",
-        "raw": {
-          "clubid": 10298136,
-          "memberlevel": 130,
-          "memberlevelname": "여왕",
-          "memberleveldesc": "게시물 10개, 덧글 30개 ,방문 20회, 가입기간4주 이상",
-          "leveliconid": 1,
-          "leveluptype": 2,
-          "articlecount": 10,
-          "commentcount": 30,
-          "visitcount": 20,
-          "joindtcondition": 4,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "여신",
-        "description": "게시물 30개, 덧글 100개 ,방문 50회, 가입기간8주 이상",
-        "condition": "가입 8주 후 · 게시글 30개 · 댓글 100개 · 좋아요 0개 · 방문 수 50회를 만족하면 자동으로 등업 합니다.",
-        "raw": {
-          "clubid": 10298136,
-          "memberlevel": 140,
-          "memberlevelname": "여신",
-          "memberleveldesc": "게시물 30개, 덧글 100개 ,방문 50회, 가입기간8주 이상",
-          "leveliconid": 1,
-          "leveluptype": 2,
-          "articlecount": 30,
-          "commentcount": 100,
-          "visitcount": 50,
-          "joindtcondition": 8,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "레테스타",
-        "description": "레테스타",
-        "condition": "",
-        "raw": {
-          "clubid": 10298136,
-          "memberlevel": 150,
-          "memberlevelname": "레테스타",
-          "memberleveldesc": "레테스타",
-          "leveliconid": 1,
-          "leveluptype": 1,
-          "articlecount": 0,
-          "commentcount": 0,
-          "visitcount": 0,
-          "joindtcondition": 0,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      }
-    ],
-    "second": {
-      "level": "귀족",
-      "description": "게시물 5개, 덧글 10개 ,방문 10회, 가입기간1주 이상",
-      "condition": "가입 1주 후 · 게시글 5개 · 댓글 10개 · 좋아요 0개 · 방문 수 10회를 만족하면 자동으로 등업 합니다.",
-      "raw": {
-        "clubid": 10298136,
-        "memberlevel": 120,
-        "memberlevelname": "귀족",
-        "memberleveldesc": "게시물 5개, 덧글 10개 ,방문 10회, 가입기간1주 이상",
-        "leveliconid": 1,
-        "leveluptype": 2,
-        "articlecount": 5,
-        "commentcount": 10,
-        "visitcount": 10,
-        "joindtcondition": 1,
-        "likecount": 0,
-        "useyn": "Y",
-        "existmember": "N"
-      }
-    },
-    "sourceFile": "/private/tmp/codex-naver-openchrome/Default/Cache/Cache_Data/e100d877a1e2a57c_0"
   },
   {
     "cafeId": "10588606",
@@ -1430,6 +1263,13 @@
     "sourceFile": "/Users/dveamer/.cache/chrome-devtools-mcp/chrome-profile/Default/Cache/Cache_Data/b91b9ad35b188bb3_0"
   },
   {
+    "cafeId": "10985855",
+    "url": "https://cafe.naver.com/ca-fe/cafes/10985855/member-level",
+    "levels": [],
+    "second": null,
+    "sourceFile": "/Users/dveamer/.cache/chrome-devtools-mcp/chrome-profile/Default/Cache/Cache_Data/3375bd0a456397d2_0"
+  },
+  {
     "cafeId": "11013430",
     "url": "https://cafe.naver.com/ca-fe/cafes/11013430/member-level",
     "levels": [
@@ -1722,153 +1562,6 @@
       }
     },
     "sourceFile": "/Users/dveamer/.cache/chrome-devtools-mcp/chrome-profile/Default/Cache/Cache_Data/2918e3a2817b4884_0"
-  },
-  {
-    "cafeId": "11306253",
-    "url": "https://cafe.naver.com/ca-fe/cafes/11306253/member-level",
-    "levels": [
-      {
-        "level": "희망",
-        "description": "신규회원",
-        "condition": "",
-        "raw": {
-          "clubid": 11306253,
-          "memberlevel": 1,
-          "memberlevelname": "희망",
-          "memberleveldesc": "신규회원",
-          "leveliconid": 1,
-          "leveluptype": 1,
-          "articlecount": 0,
-          "commentcount": 0,
-          "visitcount": 0,
-          "joindtcondition": 0,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "행복",
-        "description": "가입인사 필수 작성",
-        "condition": "가입 1주 후 · 게시글 1개 · 댓글 5개 · 좋아요 0개 · 방문 수 0회를 만족하면 자동으로 등업 합니다.",
-        "raw": {
-          "clubid": 11306253,
-          "memberlevel": 110,
-          "memberlevelname": "행복",
-          "memberleveldesc": "가입인사 필수 작성",
-          "leveliconid": 1,
-          "leveluptype": 2,
-          "articlecount": 1,
-          "commentcount": 5,
-          "visitcount": 0,
-          "joindtcondition": 1,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "사랑",
-        "description": "게시글 5개, 댓글 50개 / 등업요청 게시판에 등업요청",
-        "condition": "",
-        "raw": {
-          "clubid": 11306253,
-          "memberlevel": 120,
-          "memberlevelname": "사랑",
-          "memberleveldesc": "게시글 5개, 댓글 50개 / 등업요청 게시판에 등업요청",
-          "leveliconid": 1,
-          "leveluptype": 1,
-          "articlecount": 5,
-          "commentcount": 50,
-          "visitcount": 10,
-          "joindtcondition": 1,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "감사",
-        "description": "게시글 50개, 댓글 500개",
-        "condition": "가입 4주 후 · 게시글 50개 · 댓글 500개 · 좋아요 0개 · 방문 수 10회를 만족하면 자동으로 등업 합니다.",
-        "raw": {
-          "clubid": 11306253,
-          "memberlevel": 130,
-          "memberlevelname": "감사",
-          "memberleveldesc": "게시글 50개, 댓글 500개",
-          "leveliconid": 1,
-          "leveluptype": 2,
-          "articlecount": 50,
-          "commentcount": 500,
-          "visitcount": 10,
-          "joindtcondition": 4,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "업체",
-        "description": "제휴/홍보 업체",
-        "condition": "",
-        "raw": {
-          "clubid": 11306253,
-          "memberlevel": 140,
-          "memberlevelname": "업체",
-          "memberleveldesc": "제휴/홍보 업체",
-          "leveliconid": 1,
-          "leveluptype": 1,
-          "articlecount": 50,
-          "commentcount": 500,
-          "visitcount": 10,
-          "joindtcondition": 4,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "최고",
-        "description": "게시글 200개, 댓글 2000개, 방문횟수 2000회 이상",
-        "condition": "가입 4주 후 · 게시글 200개 · 댓글 2000개 · 좋아요 0개 · 방문 수 2000회를 만족하면 자동으로 등업 합니다.",
-        "raw": {
-          "clubid": 11306253,
-          "memberlevel": 150,
-          "memberlevelname": "최고",
-          "memberleveldesc": "게시글 200개, 댓글 2000개, 방문횟수 2000회 이상",
-          "leveliconid": 1,
-          "leveluptype": 2,
-          "articlecount": 200,
-          "commentcount": 2000,
-          "visitcount": 2000,
-          "joindtcondition": 4,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      }
-    ],
-    "second": {
-      "level": "행복",
-      "description": "가입인사 필수 작성",
-      "condition": "가입 1주 후 · 게시글 1개 · 댓글 5개 · 좋아요 0개 · 방문 수 0회를 만족하면 자동으로 등업 합니다.",
-      "raw": {
-        "clubid": 11306253,
-        "memberlevel": 110,
-        "memberlevelname": "행복",
-        "memberleveldesc": "가입인사 필수 작성",
-        "leveliconid": 1,
-        "leveluptype": 2,
-        "articlecount": 1,
-        "commentcount": 5,
-        "visitcount": 0,
-        "joindtcondition": 1,
-        "likecount": 0,
-        "useyn": "Y",
-        "existmember": "N"
-      }
-    },
-    "sourceFile": "/private/tmp/codex-naver-openchrome/Default/Cache/Cache_Data/376a7199450e7f40_0"
   },
   {
     "cafeId": "11451612",
@@ -2603,7 +2296,7 @@
         "existmember": "N"
       }
     },
-    "sourceFile": "/private/tmp/codex-naver-openchrome/Default/Cache/Cache_Data/7ae5390ca76c46bd_0"
+    "sourceFile": "/Users/dveamer/.cache/chrome-devtools-mcp/chrome-profile/Default/Cache/Cache_Data/7ae5390ca76c46bd_0"
   },
   {
     "cafeId": "11793176",
@@ -3575,153 +3268,6 @@
     "sourceFile": "/Users/dveamer/.cache/chrome-devtools-mcp/chrome-profile/Default/Cache/Cache_Data/e3104588e9a034a0_0"
   },
   {
-    "cafeId": "12305691",
-    "url": "https://cafe.naver.com/ca-fe/cafes/12305691/member-level",
-    "levels": [
-      {
-        "level": "Hello 맘톡",
-        "description": "반가워요! 새로운 맘톡의 시작 _ 방문 2회 후 가입인사 게시판에만 글 작성 가능",
-        "condition": "",
-        "raw": {
-          "clubid": 12305691,
-          "memberlevel": 1,
-          "memberlevelname": "Hello 맘톡",
-          "memberleveldesc": "반가워요! 새로운 맘톡의 시작 _ 방문 2회 후 가입인사 게시판에만 글 작성 가능",
-          "leveliconid": 1,
-          "leveluptype": 1,
-          "articlecount": 0,
-          "commentcount": 0,
-          "visitcount": 0,
-          "joindtcondition": 0,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "Sweet 맘톡",
-        "description": "반가워요! 새로운 맘톡의 시작",
-        "condition": "가입 1주 후 · 게시글 1개 · 댓글 5개 · 좋아요 0개 · 방문 수 0회를 만족하면 자동으로 등업 합니다.",
-        "raw": {
-          "clubid": 12305691,
-          "memberlevel": 110,
-          "memberlevelname": "Sweet 맘톡",
-          "memberleveldesc": "반가워요! 새로운 맘톡의 시작",
-          "leveliconid": 1,
-          "leveluptype": 2,
-          "articlecount": 1,
-          "commentcount": 5,
-          "visitcount": 0,
-          "joindtcondition": 1,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "Warm 맘톡",
-        "description": "더 깊은 공감과 따뜻한 나눔",
-        "condition": "가입 1주 후 · 게시글 5개 · 댓글 50개 · 좋아요 0개 · 방문 수 0회를 만족하면 자동으로 등업 합니다.",
-        "raw": {
-          "clubid": 12305691,
-          "memberlevel": 120,
-          "memberlevelname": "Warm 맘톡",
-          "memberleveldesc": "더 깊은 공감과 따뜻한 나눔",
-          "leveliconid": 1,
-          "leveluptype": 2,
-          "articlecount": 5,
-          "commentcount": 50,
-          "visitcount": 0,
-          "joindtcondition": 1,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "Great 맘톡",
-        "description": "카페를 빛내는 빛나는 존재",
-        "condition": "가입 4주 후 · 게시글 50개 · 댓글 500개 · 좋아요 0개 · 방문 수 0회를 만족하면 자동으로 등업 합니다.",
-        "raw": {
-          "clubid": 12305691,
-          "memberlevel": 130,
-          "memberlevelname": "Great 맘톡",
-          "memberleveldesc": "카페를 빛내는 빛나는 존재",
-          "leveliconid": 1,
-          "leveluptype": 2,
-          "articlecount": 50,
-          "commentcount": 500,
-          "visitcount": 0,
-          "joindtcondition": 4,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "The 맘톡",
-        "description": "최고의 품격, 가장 특별한 분 V.I.P",
-        "condition": "가입 52주 후 · 게시글 200개 · 댓글 2000개 · 좋아요 0개 · 방문 수 2000회를 만족하면 자동으로 등업 합니다.",
-        "raw": {
-          "clubid": 12305691,
-          "memberlevel": 140,
-          "memberlevelname": "The 맘톡",
-          "memberleveldesc": "최고의 품격, 가장 특별한 분 V.I.P",
-          "leveliconid": 1,
-          "leveluptype": 2,
-          "articlecount": 200,
-          "commentcount": 2000,
-          "visitcount": 2000,
-          "joindtcondition": 52,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "Partner 맘톡",
-        "description": "비즈니스 파트너로서의 상생 _ 홍보 / 제휴 업체 (카페 스탭 확인 후, 개별 등업)",
-        "condition": "",
-        "raw": {
-          "clubid": 12305691,
-          "memberlevel": 150,
-          "memberlevelname": "Partner 맘톡",
-          "memberleveldesc": "비즈니스 파트너로서의 상생 _ 홍보 / 제휴 업체 (카페 스탭 확인 후, 개별 등업)",
-          "leveliconid": 1,
-          "leveluptype": 1,
-          "articlecount": 0,
-          "commentcount": 0,
-          "visitcount": 0,
-          "joindtcondition": 0,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      }
-    ],
-    "second": {
-      "level": "Sweet 맘톡",
-      "description": "반가워요! 새로운 맘톡의 시작",
-      "condition": "가입 1주 후 · 게시글 1개 · 댓글 5개 · 좋아요 0개 · 방문 수 0회를 만족하면 자동으로 등업 합니다.",
-      "raw": {
-        "clubid": 12305691,
-        "memberlevel": 110,
-        "memberlevelname": "Sweet 맘톡",
-        "memberleveldesc": "반가워요! 새로운 맘톡의 시작",
-        "leveliconid": 1,
-        "leveluptype": 2,
-        "articlecount": 1,
-        "commentcount": 5,
-        "visitcount": 0,
-        "joindtcondition": 1,
-        "likecount": 0,
-        "useyn": "Y",
-        "existmember": "N"
-      }
-    },
-    "sourceFile": "/private/tmp/codex-naver-openchrome/Default/Cache/Cache_Data/7bd8f93d30f88383_0"
-  },
-  {
     "cafeId": "12383130",
     "url": "https://cafe.naver.com/ca-fe/cafes/12383130/member-level",
     "levels": [
@@ -3867,300 +3413,6 @@
       }
     },
     "sourceFile": "/Users/dveamer/.cache/chrome-devtools-mcp/chrome-profile/Default/Cache/Cache_Data/0379a00d539c9453_0"
-  },
-  {
-    "cafeId": "12448054",
-    "url": "https://cafe.naver.com/ca-fe/cafes/12448054/member-level",
-    "levels": [
-      {
-        "level": "나랑",
-        "description": "가입 후 막 활동을 시작하는 멤버",
-        "condition": "",
-        "raw": {
-          "clubid": 12448054,
-          "memberlevel": 1,
-          "memberlevelname": "나랑",
-          "memberleveldesc": "가입 후 막 활동을 시작하는 멤버",
-          "leveliconid": 1,
-          "leveluptype": 1,
-          "articlecount": 0,
-          "commentcount": 0,
-          "visitcount": 0,
-          "joindtcondition": 0,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "너랑",
-        "description": "게시글 작성 2회, 덧글 작성 10회 시 자동등업",
-        "condition": "가입 0주 후 · 게시글 2개 · 댓글 10개 · 좋아요 0개 · 방문 수 10회를 만족하면 자동으로 등업 합니다.",
-        "raw": {
-          "clubid": 12448054,
-          "memberlevel": 110,
-          "memberlevelname": "너랑",
-          "memberleveldesc": "게시글 작성 2회, 덧글 작성 10회 시 자동등업",
-          "leveliconid": 1,
-          "leveluptype": 2,
-          "articlecount": 2,
-          "commentcount": 10,
-          "visitcount": 10,
-          "joindtcondition": 0,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "우리",
-        "description": "게시글 작성 20회, 덧글 작성 50회 이상 가입 4주 후 자동등업",
-        "condition": "가입 4주 후 · 게시글 20개 · 댓글 50개 · 좋아요 0개 · 방문 수 20회를 만족하면 자동으로 등업 합니다.",
-        "raw": {
-          "clubid": 12448054,
-          "memberlevel": 120,
-          "memberlevelname": "우리",
-          "memberleveldesc": "게시글 작성 20회, 덧글 작성 50회 이상 가입 4주 후 자동등업",
-          "leveliconid": 1,
-          "leveluptype": 2,
-          "articlecount": 20,
-          "commentcount": 50,
-          "visitcount": 20,
-          "joindtcondition": 4,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "모두",
-        "description": "게시글 작성 50회, 덧글 작성 100회 이상 가입 26주 후 등업요청",
-        "condition": "가입 26주 후 · 게시글 50개 · 댓글 100개 · 좋아요 0개 · 방문 수 50회를 만족하면 등업 게시판에 등업 신청 이 가능합니다.",
-        "raw": {
-          "clubid": 12448054,
-          "memberlevel": 130,
-          "memberlevelname": "모두",
-          "memberleveldesc": "게시글 작성 50회, 덧글 작성 100회 이상 가입 26주 후 등업요청",
-          "leveliconid": 1,
-          "leveluptype": 3,
-          "articlecount": 50,
-          "commentcount": 100,
-          "visitcount": 50,
-          "joindtcondition": 26,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "함께",
-        "description": "카페 오프모임에 참여하여 카페운영발전에 일조한 경험 있어야 합니다.(모두이상 신청가능)",
-        "condition": "가입 52주 후 · 게시글 100개 · 댓글 200개 · 좋아요 0개 · 방문 수 100회를 만족하면 등업 게시판에 등업 신청 이 가능합니다.",
-        "raw": {
-          "clubid": 12448054,
-          "memberlevel": 140,
-          "memberlevelname": "함께",
-          "memberleveldesc": "카페 오프모임에 참여하여 카페운영발전에 일조한 경험 있어야 합니다.(모두이상 신청가능)",
-          "leveliconid": 1,
-          "leveluptype": 3,
-          "articlecount": 100,
-          "commentcount": 200,
-          "visitcount": 100,
-          "joindtcondition": 52,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "제휴아지매",
-        "description": "제휴업체 관리자 활동을 위한 등급입니다..",
-        "condition": "",
-        "raw": {
-          "clubid": 12448054,
-          "memberlevel": 150,
-          "memberlevelname": "제휴아지매",
-          "memberleveldesc": "제휴업체 관리자 활동을 위한 등급입니다..",
-          "leveliconid": 1,
-          "leveluptype": 1,
-          "articlecount": 0,
-          "commentcount": 0,
-          "visitcount": 0,
-          "joindtcondition": 0,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      }
-    ],
-    "second": {
-      "level": "너랑",
-      "description": "게시글 작성 2회, 덧글 작성 10회 시 자동등업",
-      "condition": "가입 0주 후 · 게시글 2개 · 댓글 10개 · 좋아요 0개 · 방문 수 10회를 만족하면 자동으로 등업 합니다.",
-      "raw": {
-        "clubid": 12448054,
-        "memberlevel": 110,
-        "memberlevelname": "너랑",
-        "memberleveldesc": "게시글 작성 2회, 덧글 작성 10회 시 자동등업",
-        "leveliconid": 1,
-        "leveluptype": 2,
-        "articlecount": 2,
-        "commentcount": 10,
-        "visitcount": 10,
-        "joindtcondition": 0,
-        "likecount": 0,
-        "useyn": "Y",
-        "existmember": "N"
-      }
-    },
-    "sourceFile": "/private/tmp/codex-naver-openchrome/Default/Cache/Cache_Data/8ccdc99a9e8d54de_0"
-  },
-  {
-    "cafeId": "12843510",
-    "url": "https://cafe.naver.com/ca-fe/cafes/12843510/member-level",
-    "levels": [
-      {
-        "level": "새싹멤버",
-        "description": "가입 후 막 활동을 시작하는 멤버 별명 아이나이기재 ",
-        "condition": "",
-        "raw": {
-          "clubid": 12843510,
-          "memberlevel": 1,
-          "memberlevelname": "새싹멤버",
-          "memberleveldesc": "가입 후 막 활동을 시작하는 멤버 별명 아이나이기재 ",
-          "leveliconid": 1,
-          "leveluptype": 1,
-          "articlecount": 0,
-          "commentcount": 0,
-          "visitcount": 0,
-          "joindtcondition": 0,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "도치맘",
-        "description": "도치맘을 위해서 게시글 및 자료를 성실히 작성해 주신 분들 광고글은 삭제 후 강등 ",
-        "condition": "가입 0주 후 · 게시글 1개 · 댓글 3개 · 좋아요 0개 · 방문 수 0회를 만족하면 자동으로 등업 합니다.",
-        "raw": {
-          "clubid": 12843510,
-          "memberlevel": 110,
-          "memberlevelname": "도치맘",
-          "memberleveldesc": "도치맘을 위해서 게시글 및 자료를 성실히 작성해 주신 분들 광고글은 삭제 후 강등 ",
-          "leveliconid": 1,
-          "leveluptype": 2,
-          "articlecount": 1,
-          "commentcount": 3,
-          "visitcount": 0,
-          "joindtcondition": 0,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "도치맘성실 ",
-        "description": "도치맘을위해서 게시글 및 자료를 성실히 작성해 주신 분들 광고글은 새싹으로 강등 ",
-        "condition": "가입 0주 후 · 게시글 10개 · 댓글 30개 · 좋아요 0개 · 방문 수 10회를 만족하면 자동으로 등업 합니다.",
-        "raw": {
-          "clubid": 12843510,
-          "memberlevel": 120,
-          "memberlevelname": "도치맘성실 ",
-          "memberleveldesc": "도치맘을위해서 게시글 및 자료를 성실히 작성해 주신 분들 광고글은 새싹으로 강등 ",
-          "leveliconid": 1,
-          "leveluptype": 2,
-          "articlecount": 10,
-          "commentcount": 30,
-          "visitcount": 10,
-          "joindtcondition": 0,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "도치맘우수",
-        "description": "도치맘을위해서 게시글 및 자료를 성실히 작성해 주신 분들 광고글은 새싹으로 강등 ",
-        "condition": "가입 0주 후 · 게시글 50개 · 댓글 50개 · 좋아요 0개 · 방문 수 30회를 만족하면 자동으로 등업 합니다.",
-        "raw": {
-          "clubid": 12843510,
-          "memberlevel": 130,
-          "memberlevelname": "도치맘우수",
-          "memberleveldesc": "도치맘을위해서 게시글 및 자료를 성실히 작성해 주신 분들 광고글은 새싹으로 강등 ",
-          "leveliconid": 1,
-          "leveluptype": 2,
-          "articlecount": 50,
-          "commentcount": 50,
-          "visitcount": 30,
-          "joindtcondition": 0,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "도치맘최고 ",
-        "description": "도치맘을위해서 게시글 및 자료를 성실히 작성해 주신 분들 광고글은 새싹으로 강등 ",
-        "condition": "가입 0주 후 · 게시글 100개 · 댓글 100개 · 좋아요 0개 · 방문 수 50회를 만족하면 자동으로 등업 합니다.",
-        "raw": {
-          "clubid": 12843510,
-          "memberlevel": 140,
-          "memberlevelname": "도치맘최고 ",
-          "memberleveldesc": "도치맘을위해서 게시글 및 자료를 성실히 작성해 주신 분들 광고글은 새싹으로 강등 ",
-          "leveliconid": 1,
-          "leveluptype": 2,
-          "articlecount": 100,
-          "commentcount": 100,
-          "visitcount": 50,
-          "joindtcondition": 0,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "선생님 ",
-        "description": "도치맘을위해서 게시글 및 자료를 성실히 작성해 주신 분들 광고글은 새싹으로 강등 ",
-        "condition": "가입 1주 후 · 게시글 10000개 · 댓글 10000개 · 좋아요 0개 · 방문 수 100회를 만족하면 등업 게시판에 등업 신청 이 가능합니다.",
-        "raw": {
-          "clubid": 12843510,
-          "memberlevel": 150,
-          "memberlevelname": "선생님 ",
-          "memberleveldesc": "도치맘을위해서 게시글 및 자료를 성실히 작성해 주신 분들 광고글은 새싹으로 강등 ",
-          "leveliconid": 1,
-          "leveluptype": 3,
-          "articlecount": 10000,
-          "commentcount": 10000,
-          "visitcount": 100,
-          "joindtcondition": 1,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      }
-    ],
-    "second": {
-      "level": "도치맘",
-      "description": "도치맘을 위해서 게시글 및 자료를 성실히 작성해 주신 분들 광고글은 삭제 후 강등 ",
-      "condition": "가입 0주 후 · 게시글 1개 · 댓글 3개 · 좋아요 0개 · 방문 수 0회를 만족하면 자동으로 등업 합니다.",
-      "raw": {
-        "clubid": 12843510,
-        "memberlevel": 110,
-        "memberlevelname": "도치맘",
-        "memberleveldesc": "도치맘을 위해서 게시글 및 자료를 성실히 작성해 주신 분들 광고글은 삭제 후 강등 ",
-        "leveliconid": 1,
-        "leveluptype": 2,
-        "articlecount": 1,
-        "commentcount": 3,
-        "visitcount": 0,
-        "joindtcondition": 0,
-        "likecount": 0,
-        "useyn": "Y",
-        "existmember": "N"
-      }
-    },
-    "sourceFile": "/private/tmp/codex-naver-openchrome/Default/Cache/Cache_Data/a87e4d7b80998935_0"
   },
   {
     "cafeId": "12876544",
@@ -4457,19 +3709,19 @@
     "sourceFile": "/Users/dveamer/.cache/chrome-devtools-mcp/chrome-profile/Default/Cache/Cache_Data/56422219d9141ffd_0"
   },
   {
-    "cafeId": "13047793",
-    "url": "https://cafe.naver.com/ca-fe/cafes/13047793/member-level",
+    "cafeId": "12905973",
+    "url": "https://cafe.naver.com/ca-fe/cafes/12905973/member-level",
     "levels": [
       {
-        "level": "새싹멤버",
-        "description": "가입시 등급",
+        "level": "새싹회원",
+        "description": "가입 후 막 활동을 시작하는 회원",
         "condition": "",
         "raw": {
-          "clubid": 13047793,
+          "clubid": 12905973,
           "memberlevel": 1,
-          "memberlevelname": "새싹멤버",
-          "memberleveldesc": "가입시 등급",
-          "leveliconid": 1,
+          "memberlevelname": "새싹회원",
+          "memberleveldesc": "가입 후 막 활동을 시작하는 회원",
+          "leveliconid": 6,
           "leveluptype": 1,
           "articlecount": 0,
           "commentcount": 0,
@@ -4481,100 +3733,80 @@
         }
       },
       {
-        "level": "소녀",
-        "description": "소녀 등급",
-        "condition": "가입 0주 후 · 게시글 3개 · 댓글 10개 · 좋아요 0개 · 방문 수 0회를 만족하면 자동으로 등업 합니다.",
+        "level": "업체회원",
+        "description": "무료홍보방 이용 가능",
+        "condition": "",
         "raw": {
-          "clubid": 13047793,
+          "clubid": 12905973,
           "memberlevel": 110,
-          "memberlevelname": "소녀",
-          "memberleveldesc": "소녀 등급",
-          "leveliconid": 1,
+          "memberlevelname": "업체회원",
+          "memberleveldesc": "무료홍보방 이용 가능",
+          "leveliconid": 6,
+          "leveluptype": 1,
+          "articlecount": 0,
+          "commentcount": 0,
+          "visitcount": 0,
+          "joindtcondition": 0,
+          "likecount": 0,
+          "useyn": "Y",
+          "existmember": "N"
+        }
+      },
+      {
+        "level": "준회원",
+        "description": "자기소개를 한 회원",
+        "condition": "",
+        "raw": {
+          "clubid": 12905973,
+          "memberlevel": 120,
+          "memberlevelname": "준회원",
+          "memberleveldesc": "자기소개를 한 회원",
+          "leveliconid": 6,
+          "leveluptype": 1,
+          "articlecount": 0,
+          "commentcount": 0,
+          "visitcount": 0,
+          "joindtcondition": 0,
+          "likecount": 0,
+          "useyn": "Y",
+          "existmember": "N"
+        }
+      },
+      {
+        "level": "일반회원",
+        "description": "자유게시판 이용 가능",
+        "condition": "가입 2주 후 · 게시글 3개 · 댓글 10개 · 좋아요 0개 · 방문 수 20회를 만족하면 자동으로 등업 합니다.",
+        "raw": {
+          "clubid": 12905973,
+          "memberlevel": 130,
+          "memberlevelname": "일반회원",
+          "memberleveldesc": "자유게시판 이용 가능",
+          "leveliconid": 6,
           "leveluptype": 2,
           "articlecount": 3,
           "commentcount": 10,
-          "visitcount": 0,
-          "joindtcondition": 0,
+          "visitcount": 20,
+          "joindtcondition": 2,
           "likecount": 0,
           "useyn": "Y",
           "existmember": "N"
         }
       },
       {
-        "level": "공주",
-        "description": "공주 등급",
-        "condition": "가입 1주 후 · 게시글 100개 · 댓글 1000개 · 좋아요 0개 · 방문 수 10회를 만족하면 자동으로 등업 합니다.",
+        "level": "정회원",
+        "description": "벼룩시장 부동산거래",
+        "condition": "가입 5주 후 · 게시글 30개 · 댓글 100개 · 좋아요 0개 · 방문 수 200회를 만족하면 자동으로 등업 합니다.",
         "raw": {
-          "clubid": 13047793,
-          "memberlevel": 120,
-          "memberlevelname": "공주",
-          "memberleveldesc": "공주 등급",
-          "leveliconid": 1,
-          "leveluptype": 2,
-          "articlecount": 100,
-          "commentcount": 1000,
-          "visitcount": 10,
-          "joindtcondition": 1,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "여왕",
-        "description": "여왕 등급",
-        "condition": "가입 1주 후 · 게시글 500개 · 댓글 3000개 · 좋아요 0개 · 방문 수 50회를 만족하면 자동으로 등업 합니다.",
-        "raw": {
-          "clubid": 13047793,
-          "memberlevel": 130,
-          "memberlevelname": "여왕",
-          "memberleveldesc": "여왕 등급",
-          "leveliconid": 1,
-          "leveluptype": 2,
-          "articlecount": 500,
-          "commentcount": 3000,
-          "visitcount": 50,
-          "joindtcondition": 1,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "여신",
-        "description": "여신 등급",
-        "condition": "가입 1주 후 · 게시글 1000개 · 댓글 5000개 · 좋아요 0개 · 방문 수 50회를 만족하면 자동으로 등업 합니다.",
-        "raw": {
-          "clubid": 13047793,
+          "clubid": 12905973,
           "memberlevel": 140,
-          "memberlevelname": "여신",
-          "memberleveldesc": "여신 등급",
-          "leveliconid": 1,
+          "memberlevelname": "정회원",
+          "memberleveldesc": "벼룩시장 부동산거래",
+          "leveliconid": 6,
           "leveluptype": 2,
-          "articlecount": 1000,
-          "commentcount": 5000,
-          "visitcount": 50,
-          "joindtcondition": 1,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "제휴업체",
-        "description": "제휴업체",
-        "condition": "",
-        "raw": {
-          "clubid": 13047793,
-          "memberlevel": 150,
-          "memberlevelname": "제휴업체",
-          "memberleveldesc": "제휴업체",
-          "leveliconid": 1,
-          "leveluptype": 1,
-          "articlecount": 0,
-          "commentcount": 0,
-          "visitcount": 0,
-          "joindtcondition": 0,
+          "articlecount": 30,
+          "commentcount": 100,
+          "visitcount": 200,
+          "joindtcondition": 5,
           "likecount": 0,
           "useyn": "Y",
           "existmember": "N"
@@ -4582,18 +3814,18 @@
       }
     ],
     "second": {
-      "level": "소녀",
-      "description": "소녀 등급",
-      "condition": "가입 0주 후 · 게시글 3개 · 댓글 10개 · 좋아요 0개 · 방문 수 0회를 만족하면 자동으로 등업 합니다.",
+      "level": "업체회원",
+      "description": "무료홍보방 이용 가능",
+      "condition": "",
       "raw": {
-        "clubid": 13047793,
+        "clubid": 12905973,
         "memberlevel": 110,
-        "memberlevelname": "소녀",
-        "memberleveldesc": "소녀 등급",
-        "leveliconid": 1,
-        "leveluptype": 2,
-        "articlecount": 3,
-        "commentcount": 10,
+        "memberlevelname": "업체회원",
+        "memberleveldesc": "무료홍보방 이용 가능",
+        "leveliconid": 6,
+        "leveluptype": 1,
+        "articlecount": 0,
+        "commentcount": 0,
         "visitcount": 0,
         "joindtcondition": 0,
         "likecount": 0,
@@ -4601,7 +3833,7 @@
         "existmember": "N"
       }
     },
-    "sourceFile": "/private/tmp/codex-naver-openchrome/Default/Cache/Cache_Data/d5763300e1e0b678_0"
+    "sourceFile": "/Users/dveamer/.cache/chrome-devtools-mcp/chrome-profile/Default/Cache/Cache_Data/9030d5c2feb9cee1_0"
   },
   {
     "cafeId": "13098790",
@@ -4898,153 +4130,6 @@
     "sourceFile": "/Users/dveamer/.cache/chrome-devtools-mcp/chrome-profile/Default/Cache/Cache_Data/7382461beb155379_0"
   },
   {
-    "cafeId": "13276223",
-    "url": "https://cafe.naver.com/ca-fe/cafes/13276223/member-level",
-    "levels": [
-      {
-        "level": "씨앗맘",
-        "description": "가입 후 막 활동을 시작한 맘",
-        "condition": "",
-        "raw": {
-          "clubid": 13276223,
-          "memberlevel": 1,
-          "memberlevelname": "씨앗맘",
-          "memberleveldesc": "가입 후 막 활동을 시작한 맘",
-          "leveliconid": 1,
-          "leveluptype": 1,
-          "articlecount": 0,
-          "commentcount": 0,
-          "visitcount": 0,
-          "joindtcondition": 0,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "새싹맘",
-        "description": "게시물 1개이상 , 덧글 3개이상, 한글닉네임",
-        "condition": "가입 0주 후 · 게시글 1개 · 댓글 3개 · 좋아요 0개 · 방문 수 1회를 만족하면 자동으로 등업 합니다.",
-        "raw": {
-          "clubid": 13276223,
-          "memberlevel": 110,
-          "memberlevelname": "새싹맘",
-          "memberleveldesc": "게시물 1개이상 , 덧글 3개이상, 한글닉네임",
-          "leveliconid": 1,
-          "leveluptype": 2,
-          "articlecount": 1,
-          "commentcount": 3,
-          "visitcount": 1,
-          "joindtcondition": 0,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "업체회원",
-        "description": "무료 업체회원",
-        "condition": "",
-        "raw": {
-          "clubid": 13276223,
-          "memberlevel": 120,
-          "memberlevelname": "업체회원",
-          "memberleveldesc": "무료 업체회원",
-          "leveliconid": 1,
-          "leveluptype": 1,
-          "articlecount": 0,
-          "commentcount": 0,
-          "visitcount": 0,
-          "joindtcondition": 0,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "꽃핀맘",
-        "description": "게시물 10개이상, 덧글 30개이상",
-        "condition": "가입 1주 후 · 게시글 10개 · 댓글 30개 · 좋아요 0개 · 방문 수 5회를 만족하면 자동으로 등업 합니다.",
-        "raw": {
-          "clubid": 13276223,
-          "memberlevel": 130,
-          "memberlevelname": "꽃핀맘",
-          "memberleveldesc": "게시물 10개이상, 덧글 30개이상",
-          "leveliconid": 1,
-          "leveluptype": 2,
-          "articlecount": 10,
-          "commentcount": 30,
-          "visitcount": 5,
-          "joindtcondition": 1,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "열매맘",
-        "description": "게시물 150개 이상, 덧글 500개 이상",
-        "condition": "가입 2주 후 · 게시글 150개 · 댓글 500개 · 좋아요 0개 · 방문 수 100회를 만족하면 자동으로 등업 합니다.",
-        "raw": {
-          "clubid": 13276223,
-          "memberlevel": 140,
-          "memberlevelname": "열매맘",
-          "memberleveldesc": "게시물 150개 이상, 덧글 500개 이상",
-          "leveliconid": 1,
-          "leveluptype": 2,
-          "articlecount": 150,
-          "commentcount": 500,
-          "visitcount": 100,
-          "joindtcondition": 2,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "제휴업체",
-        "description": "♬~수원맘모여라 제휴업체",
-        "condition": "",
-        "raw": {
-          "clubid": 13276223,
-          "memberlevel": 150,
-          "memberlevelname": "제휴업체",
-          "memberleveldesc": "♬~수원맘모여라 제휴업체",
-          "leveliconid": 1,
-          "leveluptype": 1,
-          "articlecount": 0,
-          "commentcount": 0,
-          "visitcount": 0,
-          "joindtcondition": 0,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      }
-    ],
-    "second": {
-      "level": "새싹맘",
-      "description": "게시물 1개이상 , 덧글 3개이상, 한글닉네임",
-      "condition": "가입 0주 후 · 게시글 1개 · 댓글 3개 · 좋아요 0개 · 방문 수 1회를 만족하면 자동으로 등업 합니다.",
-      "raw": {
-        "clubid": 13276223,
-        "memberlevel": 110,
-        "memberlevelname": "새싹맘",
-        "memberleveldesc": "게시물 1개이상 , 덧글 3개이상, 한글닉네임",
-        "leveliconid": 1,
-        "leveluptype": 2,
-        "articlecount": 1,
-        "commentcount": 3,
-        "visitcount": 1,
-        "joindtcondition": 0,
-        "likecount": 0,
-        "useyn": "Y",
-        "existmember": "N"
-      }
-    },
-    "sourceFile": "/private/tmp/codex-naver-openchrome/Default/Cache/Cache_Data/c94a94f9bf67f01e_0"
-  },
-  {
     "cafeId": "13365688",
     "url": "https://cafe.naver.com/ca-fe/cafes/13365688/member-level",
     "levels": [
@@ -5189,7 +4274,7 @@
         "existmember": "N"
       }
     },
-    "sourceFile": "/private/tmp/codex-naver-openchrome/Default/Cache/Cache_Data/03f20d4e80938227_0"
+    "sourceFile": "/Users/dveamer/.cache/chrome-devtools-mcp/chrome-profile/Default/Cache/Cache_Data/03f20d4e80938227_0"
   },
   {
     "cafeId": "13536365",
@@ -5760,6 +4845,13 @@
     "sourceFile": "/Users/dveamer/.cache/chrome-devtools-mcp/chrome-profile/Default/Cache/Cache_Data/f0dc022f9e17d984_0"
   },
   {
+    "cafeId": "14253834",
+    "url": "https://cafe.naver.com/ca-fe/cafes/14253834/member-level",
+    "levels": [],
+    "second": null,
+    "sourceFile": "/Users/dveamer/.cache/chrome-devtools-mcp/chrome-profile/Default/Cache/Cache_Data/9110ab7071904734_0"
+  },
+  {
     "cafeId": "14300742",
     "url": "https://cafe.naver.com/ca-fe/cafes/14300742/member-level",
     "levels": [
@@ -6052,153 +5144,6 @@
       }
     },
     "sourceFile": "/Users/dveamer/.cache/chrome-devtools-mcp/chrome-profile/Default/Cache/Cache_Data/3355d5bfbf251540_0"
-  },
-  {
-    "cafeId": "14793916",
-    "url": "https://cafe.naver.com/ca-fe/cafes/14793916/member-level",
-    "levels": [
-      {
-        "level": "소녀렐라",
-        "description": "가입 후 막 활동을 시작하는 멤버",
-        "condition": "",
-        "raw": {
-          "clubid": 14793916,
-          "memberlevel": 1,
-          "memberlevelname": "소녀렐라",
-          "memberleveldesc": "가입 후 막 활동을 시작하는 멤버",
-          "leveliconid": 1,
-          "leveluptype": 1,
-          "articlecount": 0,
-          "commentcount": 0,
-          "visitcount": 0,
-          "joindtcondition": 0,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "공주렐라",
-        "description": "게시글 1개, 댓글 5개, 출석 1회를 한 모든 멤버",
-        "condition": "가입 0주 후 · 게시글 1개 · 댓글 5개 · 좋아요 0개 · 방문 수 1회를 만족하면 등업 게시판에 등업 신청 이 가능합니다.",
-        "raw": {
-          "clubid": 14793916,
-          "memberlevel": 110,
-          "memberlevelname": "공주렐라",
-          "memberleveldesc": "게시글 1개, 댓글 5개, 출석 1회를 한 모든 멤버",
-          "leveliconid": 1,
-          "leveluptype": 3,
-          "articlecount": 1,
-          "commentcount": 5,
-          "visitcount": 1,
-          "joindtcondition": 0,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "여왕렐라",
-        "description": "게시글 50개, 댓글 100개, 출석 10회, 좋아요 100회를 한 모든 멤버",
-        "condition": "가입 1주 후 · 게시글 50개 · 댓글 100개 · 좋아요 100개 · 방문 수 10회를 만족하면 자동으로 등업 합니다.",
-        "raw": {
-          "clubid": 14793916,
-          "memberlevel": 120,
-          "memberlevelname": "여왕렐라",
-          "memberleveldesc": "게시글 50개, 댓글 100개, 출석 10회, 좋아요 100회를 한 모든 멤버",
-          "leveliconid": 1,
-          "leveluptype": 2,
-          "articlecount": 50,
-          "commentcount": 100,
-          "visitcount": 10,
-          "joindtcondition": 1,
-          "likecount": 100,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "여신렐라",
-        "description": "게시글 300개, 댓글 5000개, 출석 200회, 좋아요 500회를 한 모든 멤버",
-        "condition": "가입 1주 후 · 게시글 300개 · 댓글 5000개 · 좋아요 500개 · 방문 수 200회를 만족하면 자동으로 등업 합니다.",
-        "raw": {
-          "clubid": 14793916,
-          "memberlevel": 130,
-          "memberlevelname": "여신렐라",
-          "memberleveldesc": "게시글 300개, 댓글 5000개, 출석 200회, 좋아요 500회를 한 모든 멤버",
-          "leveliconid": 1,
-          "leveluptype": 2,
-          "articlecount": 300,
-          "commentcount": 5000,
-          "visitcount": 200,
-          "joindtcondition": 1,
-          "likecount": 500,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "명예렐라",
-        "description": "게시글 800개, 댓글 10000개, 출석 500회, 좋아요 1000회를 한 모든 멤버",
-        "condition": "가입 1주 후 · 게시글 800개 · 댓글 10000개 · 좋아요 1000개 · 방문 수 500회를 만족하면 자동으로 등업 합니다.",
-        "raw": {
-          "clubid": 14793916,
-          "memberlevel": 140,
-          "memberlevelname": "명예렐라",
-          "memberleveldesc": "게시글 800개, 댓글 10000개, 출석 500회, 좋아요 1000회를 한 모든 멤버",
-          "leveliconid": 1,
-          "leveluptype": 2,
-          "articlecount": 800,
-          "commentcount": 10000,
-          "visitcount": 500,
-          "joindtcondition": 1,
-          "likecount": 1000,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "상생업체/기관",
-        "description": "상생업체 & 기관",
-        "condition": "",
-        "raw": {
-          "clubid": 14793916,
-          "memberlevel": 150,
-          "memberlevelname": "상생업체/기관",
-          "memberleveldesc": "상생업체 & 기관",
-          "leveliconid": 1,
-          "leveluptype": 1,
-          "articlecount": 0,
-          "commentcount": 0,
-          "visitcount": 0,
-          "joindtcondition": 0,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      }
-    ],
-    "second": {
-      "level": "공주렐라",
-      "description": "게시글 1개, 댓글 5개, 출석 1회를 한 모든 멤버",
-      "condition": "가입 0주 후 · 게시글 1개 · 댓글 5개 · 좋아요 0개 · 방문 수 1회를 만족하면 등업 게시판에 등업 신청 이 가능합니다.",
-      "raw": {
-        "clubid": 14793916,
-        "memberlevel": 110,
-        "memberlevelname": "공주렐라",
-        "memberleveldesc": "게시글 1개, 댓글 5개, 출석 1회를 한 모든 멤버",
-        "leveliconid": 1,
-        "leveluptype": 3,
-        "articlecount": 1,
-        "commentcount": 5,
-        "visitcount": 1,
-        "joindtcondition": 0,
-        "likecount": 0,
-        "useyn": "Y",
-        "existmember": "N"
-      }
-    },
-    "sourceFile": "/private/tmp/codex-naver-openchrome/Default/Cache/Cache_Data/fef277024c9ae875_0"
   },
   {
     "cafeId": "15079735",
@@ -6936,153 +5881,6 @@
     "sourceFile": "/Users/dveamer/.cache/chrome-devtools-mcp/chrome-profile/Default/Cache/Cache_Data/fac485eff3fa2995_0"
   },
   {
-    "cafeId": "15724392",
-    "url": "https://cafe.naver.com/ca-fe/cafes/15724392/member-level",
-    "levels": [
-      {
-        "level": "새싹멤버",
-        "description": "가입 후 막 활동을 시작하는 멤버",
-        "condition": "",
-        "raw": {
-          "clubid": 15724392,
-          "memberlevel": 1,
-          "memberlevelname": "새싹멤버",
-          "memberleveldesc": "가입 후 막 활동을 시작하는 멤버",
-          "leveliconid": 1,
-          "leveluptype": 1,
-          "articlecount": 0,
-          "commentcount": 0,
-          "visitcount": 0,
-          "joindtcondition": 0,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "일반멤버",
-        "description": "카페 일반 멤버",
-        "condition": "가입 0주 후 · 게시글 5개 · 댓글 10개 · 좋아요 0개 · 방문 수 0회를 만족하면 자동으로 등업 합니다.",
-        "raw": {
-          "clubid": 15724392,
-          "memberlevel": 110,
-          "memberlevelname": "일반멤버",
-          "memberleveldesc": "카페 일반 멤버",
-          "leveliconid": 1,
-          "leveluptype": 2,
-          "articlecount": 5,
-          "commentcount": 10,
-          "visitcount": 0,
-          "joindtcondition": 0,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "일반멤버2",
-        "description": "카페 일반멤버2",
-        "condition": "",
-        "raw": {
-          "clubid": 15724392,
-          "memberlevel": 120,
-          "memberlevelname": "일반멤버2",
-          "memberleveldesc": "카페 일반멤버2",
-          "leveliconid": 1,
-          "leveluptype": 1,
-          "articlecount": 100,
-          "commentcount": 300,
-          "visitcount": 10,
-          "joindtcondition": 10,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "성실멤버",
-        "description": "카페 성실 멤버",
-        "condition": "가입 20주 후 · 게시글 200개 · 댓글 500개 · 좋아요 0개 · 방문 수 50회를 만족하면 자동으로 등업 합니다.",
-        "raw": {
-          "clubid": 15724392,
-          "memberlevel": 130,
-          "memberlevelname": "성실멤버",
-          "memberleveldesc": "카페 성실 멤버",
-          "leveliconid": 1,
-          "leveluptype": 2,
-          "articlecount": 200,
-          "commentcount": 500,
-          "visitcount": 50,
-          "joindtcondition": 20,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "우수멤버",
-        "description": "카페 우수 멤버",
-        "condition": "가입 40주 후 · 게시글 1000개 · 댓글 3000개 · 좋아요 0개 · 방문 수 200회를 만족하면 자동으로 등업 합니다.",
-        "raw": {
-          "clubid": 15724392,
-          "memberlevel": 140,
-          "memberlevelname": "우수멤버",
-          "memberleveldesc": "카페 우수 멤버",
-          "leveliconid": 1,
-          "leveluptype": 2,
-          "articlecount": 1000,
-          "commentcount": 3000,
-          "visitcount": 200,
-          "joindtcondition": 40,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "감사멤버",
-        "description": "최고 고마운 VIP 멤버",
-        "condition": "가입 60주 후 · 게시글 3000개 · 댓글 7000개 · 좋아요 0개 · 방문 수 500회를 만족하면 자동으로 등업 합니다.",
-        "raw": {
-          "clubid": 15724392,
-          "memberlevel": 150,
-          "memberlevelname": "감사멤버",
-          "memberleveldesc": "최고 고마운 VIP 멤버",
-          "leveliconid": 1,
-          "leveluptype": 2,
-          "articlecount": 3000,
-          "commentcount": 7000,
-          "visitcount": 500,
-          "joindtcondition": 60,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      }
-    ],
-    "second": {
-      "level": "일반멤버",
-      "description": "카페 일반 멤버",
-      "condition": "가입 0주 후 · 게시글 5개 · 댓글 10개 · 좋아요 0개 · 방문 수 0회를 만족하면 자동으로 등업 합니다.",
-      "raw": {
-        "clubid": 15724392,
-        "memberlevel": 110,
-        "memberlevelname": "일반멤버",
-        "memberleveldesc": "카페 일반 멤버",
-        "leveliconid": 1,
-        "leveluptype": 2,
-        "articlecount": 5,
-        "commentcount": 10,
-        "visitcount": 0,
-        "joindtcondition": 0,
-        "likecount": 0,
-        "useyn": "Y",
-        "existmember": "N"
-      }
-    },
-    "sourceFile": "/private/tmp/codex-naver-openchrome/Default/Cache/Cache_Data/30010d9a49b733f2_0"
-  },
-  {
     "cafeId": "15862278",
     "url": "https://cafe.naver.com/ca-fe/cafes/15862278/member-level",
     "levels": [
@@ -7668,7 +6466,7 @@
         "existmember": "N"
       }
     },
-    "sourceFile": "/private/tmp/codex-naver-openchrome/Default/Cache/Cache_Data/d2415c131e081f58_0"
+    "sourceFile": "/Users/dveamer/.cache/chrome-devtools-mcp/chrome-profile/Default/Cache/Cache_Data/d2415c131e081f58_0"
   },
   {
     "cafeId": "16848608",
@@ -8932,153 +7730,6 @@
       }
     },
     "sourceFile": "/Users/dveamer/.cache/chrome-devtools-mcp/chrome-profile/Default/Cache/Cache_Data/57e5a3aab76a82ca_0"
-  },
-  {
-    "cafeId": "18571788",
-    "url": "https://cafe.naver.com/ca-fe/cafes/18571788/member-level",
-    "levels": [
-      {
-        "level": "어린이",
-        "description": "가입 후 막 활동을 시작하는 멤버",
-        "condition": "",
-        "raw": {
-          "clubid": 18571788,
-          "memberlevel": 1,
-          "memberlevelname": "어린이",
-          "memberleveldesc": "가입 후 막 활동을 시작하는 멤버",
-          "leveliconid": 1,
-          "leveluptype": 1,
-          "articlecount": 0,
-          "commentcount": 0,
-          "visitcount": 0,
-          "joindtcondition": 0,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "소녀",
-        "description": "카페 일반 멤버",
-        "condition": "가입 1주 후 · 게시글 5개 · 댓글 50개 · 좋아요 50개 · 방문 수 5회를 만족하면 자동으로 등업 합니다.",
-        "raw": {
-          "clubid": 18571788,
-          "memberlevel": 110,
-          "memberlevelname": "소녀",
-          "memberleveldesc": "카페 일반 멤버",
-          "leveliconid": 1,
-          "leveluptype": 2,
-          "articlecount": 5,
-          "commentcount": 50,
-          "visitcount": 5,
-          "joindtcondition": 1,
-          "likecount": 50,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "아가씨",
-        "description": "카페활동을 성실히 하는 멤버",
-        "condition": "가입 2주 후 · 게시글 50개 · 댓글 100개 · 좋아요 100개 · 방문 수 50회를 만족하면 자동으로 등업 합니다.",
-        "raw": {
-          "clubid": 18571788,
-          "memberlevel": 120,
-          "memberlevelname": "아가씨",
-          "memberleveldesc": "카페활동을 성실히 하는 멤버",
-          "leveliconid": 1,
-          "leveluptype": 2,
-          "articlecount": 50,
-          "commentcount": 100,
-          "visitcount": 50,
-          "joindtcondition": 2,
-          "likecount": 100,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "엄마",
-        "description": "카페 열심 멤버",
-        "condition": "가입 4주 후 · 게시글 500개 · 댓글 500개 · 좋아요 500개 · 방문 수 500회를 만족하면 자동으로 등업 합니다.",
-        "raw": {
-          "clubid": 18571788,
-          "memberlevel": 130,
-          "memberlevelname": "엄마",
-          "memberleveldesc": "카페 열심 멤버",
-          "leveliconid": 1,
-          "leveluptype": 2,
-          "articlecount": 500,
-          "commentcount": 500,
-          "visitcount": 500,
-          "joindtcondition": 4,
-          "likecount": 500,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "뷰티맘",
-        "description": "카페 최고 멤버",
-        "condition": "가입 52주 후 · 게시글 10000개 · 댓글 10000개 · 좋아요 10000개 · 방문 수 10000회를 만족하면 자동으로 등업 합니다.",
-        "raw": {
-          "clubid": 18571788,
-          "memberlevel": 140,
-          "memberlevelname": "뷰티맘",
-          "memberleveldesc": "카페 최고 멤버",
-          "leveliconid": 1,
-          "leveluptype": 2,
-          "articlecount": 10000,
-          "commentcount": 10000,
-          "visitcount": 10000,
-          "joindtcondition": 52,
-          "likecount": 10000,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "협력업체",
-        "description": "카페 제휴 협력업체",
-        "condition": "",
-        "raw": {
-          "clubid": 18571788,
-          "memberlevel": 150,
-          "memberlevelname": "협력업체",
-          "memberleveldesc": "카페 제휴 협력업체",
-          "leveliconid": 1,
-          "leveluptype": 1,
-          "articlecount": 0,
-          "commentcount": 0,
-          "visitcount": 0,
-          "joindtcondition": 0,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      }
-    ],
-    "second": {
-      "level": "소녀",
-      "description": "카페 일반 멤버",
-      "condition": "가입 1주 후 · 게시글 5개 · 댓글 50개 · 좋아요 50개 · 방문 수 5회를 만족하면 자동으로 등업 합니다.",
-      "raw": {
-        "clubid": 18571788,
-        "memberlevel": 110,
-        "memberlevelname": "소녀",
-        "memberleveldesc": "카페 일반 멤버",
-        "leveliconid": 1,
-        "leveluptype": 2,
-        "articlecount": 5,
-        "commentcount": 50,
-        "visitcount": 5,
-        "joindtcondition": 1,
-        "likecount": 50,
-        "useyn": "Y",
-        "existmember": "N"
-      }
-    },
-    "sourceFile": "/private/tmp/codex-naver-openchrome/Default/Cache/Cache_Data/b22464d493a10915_0"
   },
   {
     "cafeId": "18599406",
@@ -10658,153 +9309,6 @@
     "sourceFile": "/Users/dveamer/.cache/chrome-devtools-mcp/chrome-profile/Default/Cache/Cache_Data/7cfc93b8b803d2ef_0"
   },
   {
-    "cafeId": "20289827",
-    "url": "https://cafe.naver.com/ca-fe/cafes/20289827/member-level",
-    "levels": [
-      {
-        "level": "신입퀸즈맘",
-        "description": "강남정보를 얻기위해 가입한 신입회원",
-        "condition": "",
-        "raw": {
-          "clubid": 20289827,
-          "memberlevel": 1,
-          "memberlevelname": "신입퀸즈맘",
-          "memberleveldesc": "강남정보를 얻기위해 가입한 신입회원",
-          "leveliconid": 1,
-          "leveluptype": 1,
-          "articlecount": 0,
-          "commentcount": 0,
-          "visitcount": 0,
-          "joindtcondition": 0,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "초보퀸즈맘",
-        "description": "퀸즈맘에 가입하고, 정보를 쌓아가는 초보회원",
-        "condition": "가입 0주 후 · 게시글 2개 · 댓글 3개 · 좋아요 0개 · 방문 수 1회를 만족하면 자동으로 등업 합니다.",
-        "raw": {
-          "clubid": 20289827,
-          "memberlevel": 110,
-          "memberlevelname": "초보퀸즈맘",
-          "memberleveldesc": "퀸즈맘에 가입하고, 정보를 쌓아가는 초보회원",
-          "leveliconid": 1,
-          "leveluptype": 2,
-          "articlecount": 2,
-          "commentcount": 3,
-          "visitcount": 1,
-          "joindtcondition": 0,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "성실퀸즈맘",
-        "description": "퀸즈맘에 가입하여, 정보를 나누며 활동하는  정회원",
-        "condition": "가입 1주 후 · 게시글 10개 · 댓글 20개 · 좋아요 0개 · 방문 수 5회를 만족하면 자동으로 등업 합니다.",
-        "raw": {
-          "clubid": 20289827,
-          "memberlevel": 120,
-          "memberlevelname": "성실퀸즈맘",
-          "memberleveldesc": "퀸즈맘에 가입하여, 정보를 나누며 활동하는  정회원",
-          "leveliconid": 1,
-          "leveluptype": 2,
-          "articlecount": 10,
-          "commentcount": 20,
-          "visitcount": 5,
-          "joindtcondition": 1,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "우수퀸즈맘",
-        "description": "퀸즈맘에 활동하며, 새로운 회원들을 위해 정보를 알려주는  성숙한 회원",
-        "condition": "가입 2주 후 · 게시글 20개 · 댓글 30개 · 좋아요 0개 · 방문 수 10회를 만족하면 자동으로 등업 합니다.",
-        "raw": {
-          "clubid": 20289827,
-          "memberlevel": 130,
-          "memberlevelname": "우수퀸즈맘",
-          "memberleveldesc": "퀸즈맘에 활동하며, 새로운 회원들을 위해 정보를 알려주는  성숙한 회원",
-          "leveliconid": 1,
-          "leveluptype": 2,
-          "articlecount": 20,
-          "commentcount": 30,
-          "visitcount": 10,
-          "joindtcondition": 2,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "특별퀸즈맘",
-        "description": "퀸즈맘에 활동하며, 다양한 회원들을 이끌어 나가는 특별회원",
-        "condition": "가입 4주 후 · 게시글 30개 · 댓글 200개 · 좋아요 0개 · 방문 수 100회를 만족하면 자동으로 등업 합니다.",
-        "raw": {
-          "clubid": 20289827,
-          "memberlevel": 140,
-          "memberlevelname": "특별퀸즈맘",
-          "memberleveldesc": "퀸즈맘에 활동하며, 다양한 회원들을 이끌어 나가는 특별회원",
-          "leveliconid": 1,
-          "leveluptype": 2,
-          "articlecount": 30,
-          "commentcount": 200,
-          "visitcount": 100,
-          "joindtcondition": 4,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "퀸즈맘vip",
-        "description": "퀸즈맘 운영진 및 최고 고마운 VIP 멤버",
-        "condition": "",
-        "raw": {
-          "clubid": 20289827,
-          "memberlevel": 150,
-          "memberlevelname": "퀸즈맘vip",
-          "memberleveldesc": "퀸즈맘 운영진 및 최고 고마운 VIP 멤버",
-          "leveliconid": 1,
-          "leveluptype": 1,
-          "articlecount": 0,
-          "commentcount": 0,
-          "visitcount": 0,
-          "joindtcondition": 0,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      }
-    ],
-    "second": {
-      "level": "초보퀸즈맘",
-      "description": "퀸즈맘에 가입하고, 정보를 쌓아가는 초보회원",
-      "condition": "가입 0주 후 · 게시글 2개 · 댓글 3개 · 좋아요 0개 · 방문 수 1회를 만족하면 자동으로 등업 합니다.",
-      "raw": {
-        "clubid": 20289827,
-        "memberlevel": 110,
-        "memberlevelname": "초보퀸즈맘",
-        "memberleveldesc": "퀸즈맘에 가입하고, 정보를 쌓아가는 초보회원",
-        "leveliconid": 1,
-        "leveluptype": 2,
-        "articlecount": 2,
-        "commentcount": 3,
-        "visitcount": 1,
-        "joindtcondition": 0,
-        "likecount": 0,
-        "useyn": "Y",
-        "existmember": "N"
-      }
-    },
-    "sourceFile": "/private/tmp/codex-naver-openchrome/Default/Cache/Cache_Data/ee568337fcea8f2a_0"
-  },
-  {
     "cafeId": "20981877",
     "url": "https://cafe.naver.com/ca-fe/cafes/20981877/member-level",
     "levels": [
@@ -11097,153 +9601,6 @@
       }
     },
     "sourceFile": "/Users/dveamer/.cache/chrome-devtools-mcp/chrome-profile/Default/Cache/Cache_Data/990741e6b9d1fdd3_0"
-  },
-  {
-    "cafeId": "21410422",
-    "url": "https://cafe.naver.com/ca-fe/cafes/21410422/member-level",
-    "levels": [
-      {
-        "level": "새싹맘",
-        "description": "가입 후 등업신청서를 작성하지 않은 회원",
-        "condition": "",
-        "raw": {
-          "clubid": 21410422,
-          "memberlevel": 1,
-          "memberlevelname": "새싹맘",
-          "memberleveldesc": "가입 후 등업신청서를 작성하지 않은 회원",
-          "leveliconid": 1,
-          "leveluptype": 1,
-          "articlecount": 0,
-          "commentcount": 0,
-          "visitcount": 0,
-          "joindtcondition": 0,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "업체멤버",
-        "description": "카페허가에 의해 협력업체 등록을 마친 멤버 또는 공공기관 회원",
-        "condition": "",
-        "raw": {
-          "clubid": 21410422,
-          "memberlevel": 110,
-          "memberlevelname": "업체멤버",
-          "memberleveldesc": "카페허가에 의해 협력업체 등록을 마친 멤버 또는 공공기관 회원",
-          "leveliconid": 1,
-          "leveluptype": 1,
-          "articlecount": 1000,
-          "commentcount": 1000,
-          "visitcount": 1000,
-          "joindtcondition": 1000,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "초보맘",
-        "description": "가입인사를 작성하고 이제 막 활동 시작한 회원",
-        "condition": "가입 0주 후 · 게시글 1개 · 댓글 5개 · 좋아요 0개 · 방문 수 2회를 만족하면 등업 게시판에 등업 신청 이 가능합니다.",
-        "raw": {
-          "clubid": 21410422,
-          "memberlevel": 120,
-          "memberlevelname": "초보맘",
-          "memberleveldesc": "가입인사를 작성하고 이제 막 활동 시작한 회원",
-          "leveliconid": 1,
-          "leveluptype": 3,
-          "articlecount": 1,
-          "commentcount": 5,
-          "visitcount": 2,
-          "joindtcondition": 0,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "열심맘",
-        "description": "열심히 활동하여 판매활동이 가능해지는 회원으로 게시글, 댓글 달성시 자동등업",
-        "condition": "가입 8주 후 · 게시글 50개 · 댓글 200개 · 좋아요 0개 · 방문 수 100회를 만족하면 자동으로 등업 합니다.",
-        "raw": {
-          "clubid": 21410422,
-          "memberlevel": 130,
-          "memberlevelname": "열심맘",
-          "memberleveldesc": "열심히 활동하여 판매활동이 가능해지는 회원으로 게시글, 댓글 달성시 자동등업",
-          "leveliconid": 1,
-          "leveluptype": 2,
-          "articlecount": 50,
-          "commentcount": 200,
-          "visitcount": 100,
-          "joindtcondition": 8,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "VIP맘",
-        "description": "규정을 준수하여 활정경력이 없는 자 매년12월에 VIP등업 게시판에 작성 후 등업",
-        "condition": "가입 24주 후 · 게시글 200개 · 댓글 1000개 · 좋아요 10개 · 방문 수 200회를 만족하면 등업 게시판에 등업 신청 이 가능합니다.",
-        "raw": {
-          "clubid": 21410422,
-          "memberlevel": 140,
-          "memberlevelname": "VIP맘",
-          "memberleveldesc": "규정을 준수하여 활정경력이 없는 자 매년12월에 VIP등업 게시판에 작성 후 등업",
-          "leveliconid": 1,
-          "leveluptype": 3,
-          "articlecount": 200,
-          "commentcount": 1000,
-          "visitcount": 200,
-          "joindtcondition": 24,
-          "likecount": 10,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "감사멤버",
-        "description": "VIP 등급 이상 회원 중 카페발전에 기여한 자로 스텝이 선정",
-        "condition": "",
-        "raw": {
-          "clubid": 21410422,
-          "memberlevel": 150,
-          "memberlevelname": "감사멤버",
-          "memberleveldesc": "VIP 등급 이상 회원 중 카페발전에 기여한 자로 스텝이 선정",
-          "leveliconid": 1,
-          "leveluptype": 1,
-          "articlecount": 100,
-          "commentcount": 100,
-          "visitcount": 100,
-          "joindtcondition": 300,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      }
-    ],
-    "second": {
-      "level": "업체멤버",
-      "description": "카페허가에 의해 협력업체 등록을 마친 멤버 또는 공공기관 회원",
-      "condition": "",
-      "raw": {
-        "clubid": 21410422,
-        "memberlevel": 110,
-        "memberlevelname": "업체멤버",
-        "memberleveldesc": "카페허가에 의해 협력업체 등록을 마친 멤버 또는 공공기관 회원",
-        "leveliconid": 1,
-        "leveluptype": 1,
-        "articlecount": 1000,
-        "commentcount": 1000,
-        "visitcount": 1000,
-        "joindtcondition": 1000,
-        "likecount": 0,
-        "useyn": "Y",
-        "existmember": "N"
-      }
-    },
-    "sourceFile": "/private/tmp/codex-naver-openchrome/Default/Cache/Cache_Data/7baaeffe7055f7c3_0"
   },
   {
     "cafeId": "21451316",
@@ -12128,153 +10485,6 @@
     "sourceFile": "/Users/dveamer/.cache/chrome-devtools-mcp/chrome-profile/Default/Cache/Cache_Data/051d74247ca96755_0"
   },
   {
-    "cafeId": "22126441",
-    "url": "https://cafe.naver.com/ca-fe/cafes/22126441/member-level",
-    "levels": [
-      {
-        "level": "새싹맘",
-        "description": "가입 후 막 활동을 시작하는 멤버",
-        "condition": "",
-        "raw": {
-          "clubid": 22126441,
-          "memberlevel": 1,
-          "memberlevelname": "새싹맘",
-          "memberleveldesc": "가입 후 막 활동을 시작하는 멤버",
-          "leveliconid": 1,
-          "leveluptype": 1,
-          "articlecount": 0,
-          "commentcount": 0,
-          "visitcount": 0,
-          "joindtcondition": 0,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "요정맘",
-        "description": "방문 7회, 가입 1주 만족시 자동등업됩니다.",
-        "condition": "가입 1주 후 · 게시글 0개 · 댓글 0개 · 좋아요 0개 · 방문 수 7회를 만족하면 자동으로 등업 합니다.",
-        "raw": {
-          "clubid": 22126441,
-          "memberlevel": 110,
-          "memberlevelname": "요정맘",
-          "memberleveldesc": "방문 7회, 가입 1주 만족시 자동등업됩니다.",
-          "leveliconid": 1,
-          "leveluptype": 2,
-          "articlecount": 0,
-          "commentcount": 0,
-          "visitcount": 7,
-          "joindtcondition": 1,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "프린세스",
-        "description": "게시글 30회, 덧글 200회, 가입 8주이상 자동등업",
-        "condition": "가입 8주 후 · 게시글 30개 · 댓글 200개 · 좋아요 0개 · 방문 수 50회를 만족하면 자동으로 등업 합니다.",
-        "raw": {
-          "clubid": 22126441,
-          "memberlevel": 120,
-          "memberlevelname": "프린세스",
-          "memberleveldesc": "게시글 30회, 덧글 200회, 가입 8주이상 자동등업",
-          "leveliconid": 1,
-          "leveluptype": 2,
-          "articlecount": 30,
-          "commentcount": 200,
-          "visitcount": 50,
-          "joindtcondition": 8,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "청라여왕",
-        "description": "게시글 200회, 덧글 500회, 가입 16주이상 자동등업",
-        "condition": "가입 16주 후 · 게시글 50개 · 댓글 200개 · 좋아요 0개 · 방문 수 100회를 만족하면 자동으로 등업 합니다.",
-        "raw": {
-          "clubid": 22126441,
-          "memberlevel": 130,
-          "memberlevelname": "청라여왕",
-          "memberleveldesc": "게시글 200회, 덧글 500회, 가입 16주이상 자동등업",
-          "leveliconid": 1,
-          "leveluptype": 2,
-          "articlecount": 50,
-          "commentcount": 200,
-          "visitcount": 100,
-          "joindtcondition": 16,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "청라여신",
-        "description": "게시글 400회, 덧글 2000회, 가입 25주 이상 자동등업",
-        "condition": "가입 25주 후 · 게시글 400개 · 댓글 2000개 · 좋아요 0개 · 방문 수 500회를 만족하면 자동으로 등업 합니다.",
-        "raw": {
-          "clubid": 22126441,
-          "memberlevel": 140,
-          "memberlevelname": "청라여신",
-          "memberleveldesc": "게시글 400회, 덧글 2000회, 가입 25주 이상 자동등업",
-          "leveliconid": 1,
-          "leveluptype": 2,
-          "articlecount": 400,
-          "commentcount": 2000,
-          "visitcount": 500,
-          "joindtcondition": 25,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "청라의별",
-        "description": "게시글1000회, 덧글5000회, 가입50주 이상 자동등업",
-        "condition": "가입 50주 후 · 게시글 1000개 · 댓글 5000개 · 좋아요 0개 · 방문 수 3000회를 만족하면 자동으로 등업 합니다.",
-        "raw": {
-          "clubid": 22126441,
-          "memberlevel": 150,
-          "memberlevelname": "청라의별",
-          "memberleveldesc": "게시글1000회, 덧글5000회, 가입50주 이상 자동등업",
-          "leveliconid": 1,
-          "leveluptype": 2,
-          "articlecount": 1000,
-          "commentcount": 5000,
-          "visitcount": 3000,
-          "joindtcondition": 50,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      }
-    ],
-    "second": {
-      "level": "요정맘",
-      "description": "방문 7회, 가입 1주 만족시 자동등업됩니다.",
-      "condition": "가입 1주 후 · 게시글 0개 · 댓글 0개 · 좋아요 0개 · 방문 수 7회를 만족하면 자동으로 등업 합니다.",
-      "raw": {
-        "clubid": 22126441,
-        "memberlevel": 110,
-        "memberlevelname": "요정맘",
-        "memberleveldesc": "방문 7회, 가입 1주 만족시 자동등업됩니다.",
-        "leveliconid": 1,
-        "leveluptype": 2,
-        "articlecount": 0,
-        "commentcount": 0,
-        "visitcount": 7,
-        "joindtcondition": 1,
-        "likecount": 0,
-        "useyn": "Y",
-        "existmember": "N"
-      }
-    },
-    "sourceFile": "/private/tmp/codex-naver-openchrome/Default/Cache/Cache_Data/3f201bbec0fc728c_0"
-  },
-  {
     "cafeId": "22277982",
     "url": "https://cafe.naver.com/ca-fe/cafes/22277982/member-level",
     "levels": [
@@ -12843,93 +11053,6 @@
     "sourceFile": "/Users/dveamer/.cache/chrome-devtools-mcp/chrome-profile/Default/Cache/Cache_Data/d210372153a2e9d4_0"
   },
   {
-    "cafeId": "22626702",
-    "url": "https://cafe.naver.com/ca-fe/cafes/22626702/member-level",
-    "levels": [
-      {
-        "level": "새싹멤버",
-        "description": "가입 후 막 활동을 시작하는 멤버",
-        "condition": "",
-        "raw": {
-          "clubid": 22626702,
-          "memberlevel": 1,
-          "memberlevelname": "새싹멤버",
-          "memberleveldesc": "가입 후 막 활동을 시작하는 멤버",
-          "leveliconid": 9,
-          "leveluptype": 1,
-          "articlecount": 0,
-          "commentcount": 0,
-          "visitcount": 0,
-          "joindtcondition": 0,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "친구",
-        "description": "가입인사글 1회, 댓글 3회, 방문1회 시 자동등업",
-        "condition": "가입 0주 후 · 게시글 1개 · 댓글 3개 · 좋아요 0개 · 방문 수 1회를 만족하면 자동으로 등업 합니다.",
-        "raw": {
-          "clubid": 22626702,
-          "memberlevel": 110,
-          "memberlevelname": "친구",
-          "memberleveldesc": "가입인사글 1회, 댓글 3회, 방문1회 시 자동등업",
-          "leveliconid": 9,
-          "leveluptype": 2,
-          "articlecount": 1,
-          "commentcount": 3,
-          "visitcount": 1,
-          "joindtcondition": 0,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "친한친구",
-        "description": "일상소통+정보글 5개, 댓글 30회, 방문 10회",
-        "condition": "가입 0주 후 · 게시글 5개 · 댓글 30개 · 좋아요 0개 · 방문 수 10회를 만족하면 자동으로 등업 합니다.",
-        "raw": {
-          "clubid": 22626702,
-          "memberlevel": 120,
-          "memberlevelname": "친한친구",
-          "memberleveldesc": "일상소통+정보글 5개, 댓글 30회, 방문 10회",
-          "leveliconid": 9,
-          "leveluptype": 2,
-          "articlecount": 5,
-          "commentcount": 30,
-          "visitcount": 10,
-          "joindtcondition": 0,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      }
-    ],
-    "second": {
-      "level": "친구",
-      "description": "가입인사글 1회, 댓글 3회, 방문1회 시 자동등업",
-      "condition": "가입 0주 후 · 게시글 1개 · 댓글 3개 · 좋아요 0개 · 방문 수 1회를 만족하면 자동으로 등업 합니다.",
-      "raw": {
-        "clubid": 22626702,
-        "memberlevel": 110,
-        "memberlevelname": "친구",
-        "memberleveldesc": "가입인사글 1회, 댓글 3회, 방문1회 시 자동등업",
-        "leveliconid": 9,
-        "leveluptype": 2,
-        "articlecount": 1,
-        "commentcount": 3,
-        "visitcount": 1,
-        "joindtcondition": 0,
-        "likecount": 0,
-        "useyn": "Y",
-        "existmember": "N"
-      }
-    },
-    "sourceFile": "/private/tmp/codex-naver-openchrome/Default/Cache/Cache_Data/359367b6808a2e8f_0"
-  },
-  {
     "cafeId": "22741115",
     "url": "https://cafe.naver.com/ca-fe/cafes/22741115/member-level",
     "levels": [
@@ -13074,7 +11197,7 @@
         "existmember": "N"
       }
     },
-    "sourceFile": "/private/tmp/codex-naver-openchrome/Default/Cache/Cache_Data/cc1102abbb0a3599_0"
+    "sourceFile": "/Users/dveamer/.cache/chrome-devtools-mcp/chrome-profile/Default/Cache/Cache_Data/cc1102abbb0a3599_0"
   },
   {
     "cafeId": "22897837",
@@ -13221,7 +11344,7 @@
         "existmember": "N"
       }
     },
-    "sourceFile": "/private/tmp/codex-naver-openchrome/Default/Cache/Cache_Data/0073ea2900cee72e_0"
+    "sourceFile": "/Users/dveamer/.cache/chrome-devtools-mcp/chrome-profile/Default/Cache/Cache_Data/0073ea2900cee72e_0"
   },
   {
     "cafeId": "23008459",
@@ -13812,153 +11935,6 @@
     "sourceFile": "/Users/dveamer/.cache/chrome-devtools-mcp/chrome-profile/Default/Cache/Cache_Data/5d4519a2e03cf21c_0"
   },
   {
-    "cafeId": "23267139",
-    "url": "https://cafe.naver.com/ca-fe/cafes/23267139/member-level",
-    "levels": [
-      {
-        "level": "플로렌스팸",
-        "description": "카페에 가입하시면 모두다 플로렌스패밀리!",
-        "condition": "",
-        "raw": {
-          "clubid": 23267139,
-          "memberlevel": 1,
-          "memberlevelname": "플로렌스팸",
-          "memberleveldesc": "카페에 가입하시면 모두다 플로렌스패밀리!",
-          "leveliconid": 1,
-          "leveluptype": 1,
-          "articlecount": 0,
-          "commentcount": 0,
-          "visitcount": 0,
-          "joindtcondition": 0,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "협력업체",
-        "description": "협력업체",
-        "condition": "가입 0주 후 · 게시글 1개 · 댓글 0개 · 좋아요 0개 · 방문 수 0회를 만족하면 등업 게시판에 등업 신청 이 가능합니다.",
-        "raw": {
-          "clubid": 23267139,
-          "memberlevel": 110,
-          "memberlevelname": "협력업체",
-          "memberleveldesc": "협력업체",
-          "leveliconid": 1,
-          "leveluptype": 3,
-          "articlecount": 1,
-          "commentcount": 0,
-          "visitcount": 0,
-          "joindtcondition": 0,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "파티팸",
-        "description": "플로렌스에서 파티를 예약하신 파티패밀리",
-        "condition": "가입 0주 후 · 게시글 1개 · 댓글 1개 · 좋아요 0개 · 방문 수 1회를 만족하면 등업 게시판에 등업 신청 이 가능합니다.",
-        "raw": {
-          "clubid": 23267139,
-          "memberlevel": 120,
-          "memberlevelname": "파티팸",
-          "memberleveldesc": "플로렌스에서 파티를 예약하신 파티패밀리",
-          "leveliconid": 1,
-          "leveluptype": 3,
-          "articlecount": 1,
-          "commentcount": 1,
-          "visitcount": 1,
-          "joindtcondition": 0,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "로얄팸",
-        "description": "플로렌스에서 파티를 끝낸 로얄패밀리",
-        "condition": "가입 1주 후 · 게시글 2개 · 댓글 2개 · 좋아요 0개 · 방문 수 1회를 만족하면 등업 게시판에 등업 신청 이 가능합니다.",
-        "raw": {
-          "clubid": 23267139,
-          "memberlevel": 130,
-          "memberlevelname": "로얄팸",
-          "memberleveldesc": "플로렌스에서 파티를 끝낸 로얄패밀리",
-          "leveliconid": 1,
-          "leveluptype": 3,
-          "articlecount": 2,
-          "commentcount": 2,
-          "visitcount": 1,
-          "joindtcondition": 1,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "여왕팸",
-        "description": "플로렌스에서 파티를 끝낸 여왕패밀리",
-        "condition": "가입 2주 후 · 게시글 3개 · 댓글 3개 · 좋아요 0개 · 방문 수 3회를 만족하면 등업 게시판에 등업 신청 이 가능합니다.",
-        "raw": {
-          "clubid": 23267139,
-          "memberlevel": 140,
-          "memberlevelname": "여왕팸",
-          "memberleveldesc": "플로렌스에서 파티를 끝낸 여왕패밀리",
-          "leveliconid": 1,
-          "leveluptype": 3,
-          "articlecount": 3,
-          "commentcount": 3,
-          "visitcount": 3,
-          "joindtcondition": 2,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "스타팸",
-        "description": "플로렌스에서 파티 끝내고 애기까지 다 키운 최고 등급 패밀리",
-        "condition": "가입 4주 후 · 게시글 4개 · 댓글 4개 · 좋아요 0개 · 방문 수 4회를 만족하면 등업 게시판에 등업 신청 이 가능합니다.",
-        "raw": {
-          "clubid": 23267139,
-          "memberlevel": 150,
-          "memberlevelname": "스타팸",
-          "memberleveldesc": "플로렌스에서 파티 끝내고 애기까지 다 키운 최고 등급 패밀리",
-          "leveliconid": 1,
-          "leveluptype": 3,
-          "articlecount": 4,
-          "commentcount": 4,
-          "visitcount": 4,
-          "joindtcondition": 4,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      }
-    ],
-    "second": {
-      "level": "협력업체",
-      "description": "협력업체",
-      "condition": "가입 0주 후 · 게시글 1개 · 댓글 0개 · 좋아요 0개 · 방문 수 0회를 만족하면 등업 게시판에 등업 신청 이 가능합니다.",
-      "raw": {
-        "clubid": 23267139,
-        "memberlevel": 110,
-        "memberlevelname": "협력업체",
-        "memberleveldesc": "협력업체",
-        "leveliconid": 1,
-        "leveluptype": 3,
-        "articlecount": 1,
-        "commentcount": 0,
-        "visitcount": 0,
-        "joindtcondition": 0,
-        "likecount": 0,
-        "useyn": "Y",
-        "existmember": "N"
-      }
-    },
-    "sourceFile": "/private/tmp/codex-naver-openchrome/Default/Cache/Cache_Data/e1a9da694f0e54b1_0"
-  },
-  {
     "cafeId": "23593632",
     "url": "https://cafe.naver.com/ca-fe/cafes/23593632/member-level",
     "levels": [
@@ -14251,153 +12227,6 @@
       }
     },
     "sourceFile": "/Users/dveamer/.cache/chrome-devtools-mcp/chrome-profile/Default/Cache/Cache_Data/f720badc61b77287_0"
-  },
-  {
-    "cafeId": "24000254",
-    "url": "https://cafe.naver.com/ca-fe/cafes/24000254/member-level",
-    "levels": [
-      {
-        "level": "새싹멤버",
-        "description": "가입 후 막 활동을 시작하는 멤버",
-        "condition": "",
-        "raw": {
-          "clubid": 24000254,
-          "memberlevel": 1,
-          "memberlevelname": "새싹멤버",
-          "memberleveldesc": "가입 후 막 활동을 시작하는 멤버",
-          "leveliconid": 1,
-          "leveluptype": 1,
-          "articlecount": 0,
-          "commentcount": 0,
-          "visitcount": 0,
-          "joindtcondition": 0,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "정회원",
-        "description": "카페 일반 멤버",
-        "condition": "가입 0주 후 · 게시글 0개 · 댓글 5개 · 좋아요 0개 · 방문 수 5회를 만족하면 자동으로 등업 합니다.",
-        "raw": {
-          "clubid": 24000254,
-          "memberlevel": 110,
-          "memberlevelname": "정회원",
-          "memberleveldesc": "카페 일반 멤버",
-          "leveliconid": 1,
-          "leveluptype": 2,
-          "articlecount": 0,
-          "commentcount": 5,
-          "visitcount": 5,
-          "joindtcondition": 0,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "우수회원",
-        "description": "365카페를 사랑하는 멤버",
-        "condition": "가입 2주 후 · 게시글 20개 · 댓글 1000개 · 좋아요 0개 · 방문 수 100회를 만족하면 자동으로 등업 합니다.",
-        "raw": {
-          "clubid": 24000254,
-          "memberlevel": 120,
-          "memberlevelname": "우수회원",
-          "memberleveldesc": "365카페를 사랑하는 멤버",
-          "leveliconid": 1,
-          "leveluptype": 2,
-          "articlecount": 20,
-          "commentcount": 1000,
-          "visitcount": 100,
-          "joindtcondition": 2,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "최우수회원",
-        "description": "대구맘365 찐하게 사랑하는 멤버",
-        "condition": "가입 10주 후 · 게시글 300개 · 댓글 10000개 · 좋아요 0개 · 방문 수 1000회를 만족하면 자동으로 등업 합니다.",
-        "raw": {
-          "clubid": 24000254,
-          "memberlevel": 130,
-          "memberlevelname": "최우수회원",
-          "memberleveldesc": "대구맘365 찐하게 사랑하는 멤버",
-          "leveliconid": 1,
-          "leveluptype": 2,
-          "articlecount": 300,
-          "commentcount": 10000,
-          "visitcount": 1000,
-          "joindtcondition": 10,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "V I P",
-        "description": "대구맘365 VIP 멤버",
-        "condition": "가입 50주 후 · 게시글 1500개 · 댓글 60000개 · 좋아요 0개 · 방문 수 10000회를 만족하면 자동으로 등업 합니다.",
-        "raw": {
-          "clubid": 24000254,
-          "memberlevel": 140,
-          "memberlevelname": "V I P",
-          "memberleveldesc": "대구맘365 VIP 멤버",
-          "leveliconid": 1,
-          "leveluptype": 2,
-          "articlecount": 1500,
-          "commentcount": 60000,
-          "visitcount": 10000,
-          "joindtcondition": 50,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "협력업체",
-        "description": "협력업체",
-        "condition": "",
-        "raw": {
-          "clubid": 24000254,
-          "memberlevel": 150,
-          "memberlevelname": "협력업체",
-          "memberleveldesc": "협력업체",
-          "leveliconid": 1,
-          "leveluptype": 1,
-          "articlecount": 0,
-          "commentcount": 0,
-          "visitcount": 0,
-          "joindtcondition": 0,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      }
-    ],
-    "second": {
-      "level": "정회원",
-      "description": "카페 일반 멤버",
-      "condition": "가입 0주 후 · 게시글 0개 · 댓글 5개 · 좋아요 0개 · 방문 수 5회를 만족하면 자동으로 등업 합니다.",
-      "raw": {
-        "clubid": 24000254,
-        "memberlevel": 110,
-        "memberlevelname": "정회원",
-        "memberleveldesc": "카페 일반 멤버",
-        "leveliconid": 1,
-        "leveluptype": 2,
-        "articlecount": 0,
-        "commentcount": 5,
-        "visitcount": 5,
-        "joindtcondition": 0,
-        "likecount": 0,
-        "useyn": "Y",
-        "existmember": "N"
-      }
-    },
-    "sourceFile": "/private/tmp/codex-naver-openchrome/Default/Cache/Cache_Data/aa551107a40f435a_0"
   },
   {
     "cafeId": "24081850",
@@ -15556,153 +13385,6 @@
     "sourceFile": "/Users/dveamer/.cache/chrome-devtools-mcp/chrome-profile/Default/Cache/Cache_Data/4fce0fd530acef4b_0"
   },
   {
-    "cafeId": "25474288",
-    "url": "https://cafe.naver.com/ca-fe/cafes/25474288/member-level",
-    "levels": [
-      {
-        "level": "새싹멤버",
-        "description": "가입 후 막 활동을 시작하는 멤버",
-        "condition": "",
-        "raw": {
-          "clubid": 25474288,
-          "memberlevel": 1,
-          "memberlevelname": "새싹멤버",
-          "memberleveldesc": "가입 후 막 활동을 시작하는 멤버",
-          "leveliconid": 1,
-          "leveluptype": 1,
-          "articlecount": 0,
-          "commentcount": 0,
-          "visitcount": 0,
-          "joindtcondition": 0,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "일반멤버",
-        "description": "출석 2회, 게시글 3건, 덧글 5건을 작성해 주시면 자동등업",
-        "condition": "가입 0주 후 · 게시글 3개 · 댓글 5개 · 좋아요 0개 · 방문 수 2회를 만족하면 자동으로 등업 합니다.",
-        "raw": {
-          "clubid": 25474288,
-          "memberlevel": 110,
-          "memberlevelname": "일반멤버",
-          "memberleveldesc": "출석 2회, 게시글 3건, 덧글 5건을 작성해 주시면 자동등업",
-          "leveliconid": 1,
-          "leveluptype": 2,
-          "articlecount": 3,
-          "commentcount": 5,
-          "visitcount": 2,
-          "joindtcondition": 0,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "성실멤버",
-        "description": "출석10회, 게시글 20회, 덧글 20건을 작성해 주시면 자동등업",
-        "condition": "가입 0주 후 · 게시글 20개 · 댓글 20개 · 좋아요 0개 · 방문 수 10회를 만족하면 자동으로 등업 합니다.",
-        "raw": {
-          "clubid": 25474288,
-          "memberlevel": 120,
-          "memberlevelname": "성실멤버",
-          "memberleveldesc": "출석10회, 게시글 20회, 덧글 20건을 작성해 주시면 자동등업",
-          "leveliconid": 1,
-          "leveluptype": 2,
-          "articlecount": 20,
-          "commentcount": 20,
-          "visitcount": 10,
-          "joindtcondition": 0,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "열심멤버",
-        "description": "출석 20회, 게시글 50건, 덧글 50건을 작성해 주시면 자동등업",
-        "condition": "가입 0주 후 · 게시글 50개 · 댓글 50개 · 좋아요 0개 · 방문 수 20회를 만족하면 자동으로 등업 합니다.",
-        "raw": {
-          "clubid": 25474288,
-          "memberlevel": 130,
-          "memberlevelname": "열심멤버",
-          "memberleveldesc": "출석 20회, 게시글 50건, 덧글 50건을 작성해 주시면 자동등업",
-          "leveliconid": 1,
-          "leveluptype": 2,
-          "articlecount": 50,
-          "commentcount": 50,
-          "visitcount": 20,
-          "joindtcondition": 0,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "우수멤버",
-        "description": "카페 우수 멤버",
-        "condition": "가입 0주 후 · 게시글 500개 · 댓글 500개 · 좋아요 0개 · 방문 수 500회를 만족하면 자동으로 등업 합니다.",
-        "raw": {
-          "clubid": 25474288,
-          "memberlevel": 140,
-          "memberlevelname": "우수멤버",
-          "memberleveldesc": "카페 우수 멤버",
-          "leveliconid": 1,
-          "leveluptype": 2,
-          "articlecount": 500,
-          "commentcount": 500,
-          "visitcount": 500,
-          "joindtcondition": 0,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "감사멤버",
-        "description": "최고 고마운 VIP 멤버",
-        "condition": "",
-        "raw": {
-          "clubid": 25474288,
-          "memberlevel": 150,
-          "memberlevelname": "감사멤버",
-          "memberleveldesc": "최고 고마운 VIP 멤버",
-          "leveliconid": 1,
-          "leveluptype": 1,
-          "articlecount": 0,
-          "commentcount": 0,
-          "visitcount": 0,
-          "joindtcondition": 0,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      }
-    ],
-    "second": {
-      "level": "일반멤버",
-      "description": "출석 2회, 게시글 3건, 덧글 5건을 작성해 주시면 자동등업",
-      "condition": "가입 0주 후 · 게시글 3개 · 댓글 5개 · 좋아요 0개 · 방문 수 2회를 만족하면 자동으로 등업 합니다.",
-      "raw": {
-        "clubid": 25474288,
-        "memberlevel": 110,
-        "memberlevelname": "일반멤버",
-        "memberleveldesc": "출석 2회, 게시글 3건, 덧글 5건을 작성해 주시면 자동등업",
-        "leveliconid": 1,
-        "leveluptype": 2,
-        "articlecount": 3,
-        "commentcount": 5,
-        "visitcount": 2,
-        "joindtcondition": 0,
-        "likecount": 0,
-        "useyn": "Y",
-        "existmember": "N"
-      }
-    },
-    "sourceFile": "/private/tmp/codex-naver-openchrome/Default/Cache/Cache_Data/01170222c3ffa833_0"
-  },
-  {
     "cafeId": "25720439",
     "url": "https://cafe.naver.com/ca-fe/cafes/25720439/member-level",
     "levels": [
@@ -16395,7 +14077,7 @@
         "existmember": "N"
       }
     },
-    "sourceFile": "/private/tmp/codex-naver-openchrome/Default/Cache/Cache_Data/42637aed9615caa4_0"
+    "sourceFile": "/Users/dveamer/.cache/chrome-devtools-mcp/chrome-profile/Default/Cache/Cache_Data/42637aed9615caa4_0"
   },
   {
     "cafeId": "26586890",
@@ -17133,153 +14815,6 @@
     "sourceFile": "/Users/dveamer/.cache/chrome-devtools-mcp/chrome-profile/Default/Cache/Cache_Data/21c519b525591f01_0"
   },
   {
-    "cafeId": "27109089",
-    "url": "https://cafe.naver.com/ca-fe/cafes/27109089/member-level",
-    "levels": [
-      {
-        "level": "씨앗",
-        "description": "가입 후 막 활동을 시작하는 멤버",
-        "condition": "",
-        "raw": {
-          "clubid": 27109089,
-          "memberlevel": 1,
-          "memberlevelname": "씨앗",
-          "memberleveldesc": "가입 후 막 활동을 시작하는 멤버",
-          "leveliconid": 1,
-          "leveluptype": 1,
-          "articlecount": 0,
-          "commentcount": 0,
-          "visitcount": 0,
-          "joindtcondition": 0,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "새싹",
-        "description": "카페 일반 멤버(30자 이상 댓글30개)",
-        "condition": "가입 2주 후 · 게시글 0개 · 댓글 30개 · 좋아요 0개 · 방문 수 15회를 만족하면 등업 게시판에 등업 신청 이 가능합니다.",
-        "raw": {
-          "clubid": 27109089,
-          "memberlevel": 110,
-          "memberlevelname": "새싹",
-          "memberleveldesc": "카페 일반 멤버(30자 이상 댓글30개)",
-          "leveliconid": 1,
-          "leveluptype": 3,
-          "articlecount": 0,
-          "commentcount": 30,
-          "visitcount": 15,
-          "joindtcondition": 2,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "묘목",
-        "description": "카페 성실 멤버(200자 이상 후기2개)",
-        "condition": "가입 3주 후 · 게시글 2개 · 댓글 60개 · 좋아요 0개 · 방문 수 30회를 만족하면 등업 게시판에 등업 신청 이 가능합니다.",
-        "raw": {
-          "clubid": 27109089,
-          "memberlevel": 120,
-          "memberlevelname": "묘목",
-          "memberleveldesc": "카페 성실 멤버(200자 이상 후기2개)",
-          "leveliconid": 1,
-          "leveluptype": 3,
-          "articlecount": 2,
-          "commentcount": 60,
-          "visitcount": 30,
-          "joindtcondition": 3,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "나무",
-        "description": "카페 열심 멤버",
-        "condition": "가입 6주 후 · 게시글 5개 · 댓글 150개 · 좋아요 0개 · 방문 수 50회를 만족하면 등업 게시판에 등업 신청 이 가능합니다.",
-        "raw": {
-          "clubid": 27109089,
-          "memberlevel": 130,
-          "memberlevelname": "나무",
-          "memberleveldesc": "카페 열심 멤버",
-          "leveliconid": 1,
-          "leveluptype": 3,
-          "articlecount": 5,
-          "commentcount": 150,
-          "visitcount": 50,
-          "joindtcondition": 6,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "꽃",
-        "description": "카페 우수 멤버",
-        "condition": "가입 30주 후 · 게시글 20개 · 댓글 1000개 · 좋아요 0개 · 방문 수 200회를 만족하면 등업 게시판에 등업 신청 이 가능합니다.",
-        "raw": {
-          "clubid": 27109089,
-          "memberlevel": 140,
-          "memberlevelname": "꽃",
-          "memberleveldesc": "카페 우수 멤버",
-          "leveliconid": 1,
-          "leveluptype": 3,
-          "articlecount": 20,
-          "commentcount": 1000,
-          "visitcount": 200,
-          "joindtcondition": 30,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "열매",
-        "description": "최고 고마운 VIP 멤버",
-        "condition": "가입 60주 후 · 게시글 30개 · 댓글 2000개 · 좋아요 0개 · 방문 수 400회를 만족하면 등업 게시판에 등업 신청 이 가능합니다.",
-        "raw": {
-          "clubid": 27109089,
-          "memberlevel": 150,
-          "memberlevelname": "열매",
-          "memberleveldesc": "최고 고마운 VIP 멤버",
-          "leveliconid": 1,
-          "leveluptype": 3,
-          "articlecount": 30,
-          "commentcount": 2000,
-          "visitcount": 400,
-          "joindtcondition": 60,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      }
-    ],
-    "second": {
-      "level": "새싹",
-      "description": "카페 일반 멤버(30자 이상 댓글30개)",
-      "condition": "가입 2주 후 · 게시글 0개 · 댓글 30개 · 좋아요 0개 · 방문 수 15회를 만족하면 등업 게시판에 등업 신청 이 가능합니다.",
-      "raw": {
-        "clubid": 27109089,
-        "memberlevel": 110,
-        "memberlevelname": "새싹",
-        "memberleveldesc": "카페 일반 멤버(30자 이상 댓글30개)",
-        "leveliconid": 1,
-        "leveluptype": 3,
-        "articlecount": 0,
-        "commentcount": 30,
-        "visitcount": 15,
-        "joindtcondition": 2,
-        "likecount": 0,
-        "useyn": "Y",
-        "existmember": "N"
-      }
-    },
-    "sourceFile": "/private/tmp/codex-naver-openchrome/Default/Cache/Cache_Data/d4d22ffa5a5cb7ef_0"
-  },
-  {
     "cafeId": "27388620",
     "url": "https://cafe.naver.com/ca-fe/cafes/27388620/member-level",
     "levels": [
@@ -17571,7 +15106,7 @@
         "existmember": "N"
       }
     },
-    "sourceFile": "/private/tmp/codex-naver-openchrome/Default/Cache/Cache_Data/e48ed39a69f14f4e_0"
+    "sourceFile": "/Users/dveamer/.cache/chrome-devtools-mcp/chrome-profile/Default/Cache/Cache_Data/e48ed39a69f14f4e_0"
   },
   {
     "cafeId": "27711691",
@@ -17848,6 +15383,13 @@
     "sourceFile": "/Users/dveamer/.cache/chrome-devtools-mcp/chrome-profile/Default/Cache/Cache_Data/1635e2d97e568987_0"
   },
   {
+    "cafeId": "27830124",
+    "url": "https://cafe.naver.com/ca-fe/cafes/27830124/member-level",
+    "levels": [],
+    "second": null,
+    "sourceFile": "/Users/dveamer/.cache/chrome-devtools-mcp/chrome-profile/Default/Cache/Cache_Data/c7f31d1a94bac577_0"
+  },
+  {
     "cafeId": "28140611",
     "url": "https://cafe.naver.com/ca-fe/cafes/28140611/member-level",
     "levels": [
@@ -17992,7 +15534,7 @@
         "existmember": "N"
       }
     },
-    "sourceFile": "/private/tmp/codex-naver-openchrome/Default/Cache/Cache_Data/6ef093a627fb063b_0"
+    "sourceFile": "/Users/dveamer/.cache/chrome-devtools-mcp/chrome-profile/Default/Cache/Cache_Data/6ef093a627fb063b_0"
   },
   {
     "cafeId": "28443114",
@@ -18436,153 +15978,6 @@
     "sourceFile": "/Users/dveamer/.cache/chrome-devtools-mcp/chrome-profile/Default/Cache/Cache_Data/0bce5b2c4a4e5156_0"
   },
   {
-    "cafeId": "28817493",
-    "url": "https://cafe.naver.com/ca-fe/cafes/28817493/member-level",
-    "levels": [
-      {
-        "level": "아기별",
-        "description": "가입 후 막 활동을 시작하는 멤버",
-        "condition": "",
-        "raw": {
-          "clubid": 28817493,
-          "memberlevel": 1,
-          "memberlevelname": "아기별",
-          "memberleveldesc": "가입 후 막 활동을 시작하는 멤버",
-          "leveliconid": 1,
-          "leveluptype": 1,
-          "articlecount": 0,
-          "commentcount": 0,
-          "visitcount": 0,
-          "joindtcondition": 0,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "꼬마별",
-        "description": "카페 일반 멤버",
-        "condition": "가입 0주 후 · 게시글 1개 · 댓글 5개 · 좋아요 0개 · 방문 수 0회를 만족하면 자동으로 등업 합니다.",
-        "raw": {
-          "clubid": 28817493,
-          "memberlevel": 110,
-          "memberlevelname": "꼬마별",
-          "memberleveldesc": "카페 일반 멤버",
-          "leveliconid": 1,
-          "leveluptype": 2,
-          "articlecount": 1,
-          "commentcount": 5,
-          "visitcount": 0,
-          "joindtcondition": 0,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "작은별",
-        "description": "카페활동을 성실히 하는 멤버",
-        "condition": "가입 1주 후 · 게시글 8개 · 댓글 20개 · 좋아요 0개 · 방문 수 5회를 만족하면 자동으로 등업 합니다.",
-        "raw": {
-          "clubid": 28817493,
-          "memberlevel": 120,
-          "memberlevelname": "작은별",
-          "memberleveldesc": "카페활동을 성실히 하는 멤버",
-          "leveliconid": 1,
-          "leveluptype": 2,
-          "articlecount": 8,
-          "commentcount": 20,
-          "visitcount": 5,
-          "joindtcondition": 1,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "큰별",
-        "description": "카페 열심 멤버",
-        "condition": "가입 3주 후 · 게시글 25개 · 댓글 60개 · 좋아요 0개 · 방문 수 30회를 만족하면 자동으로 등업 합니다.",
-        "raw": {
-          "clubid": 28817493,
-          "memberlevel": 130,
-          "memberlevelname": "큰별",
-          "memberleveldesc": "카페 열심 멤버",
-          "leveliconid": 1,
-          "leveluptype": 2,
-          "articlecount": 25,
-          "commentcount": 60,
-          "visitcount": 30,
-          "joindtcondition": 3,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "은하수",
-        "description": "카페 우수 멤버",
-        "condition": "가입 8주 후 · 게시글 100개 · 댓글 200개 · 좋아요 0개 · 방문 수 300회를 만족하면 자동으로 등업 합니다.",
-        "raw": {
-          "clubid": 28817493,
-          "memberlevel": 140,
-          "memberlevelname": "은하수",
-          "memberleveldesc": "카페 우수 멤버",
-          "leveliconid": 1,
-          "leveluptype": 2,
-          "articlecount": 100,
-          "commentcount": 200,
-          "visitcount": 300,
-          "joindtcondition": 8,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "멘토맘",
-        "description": "최고 고마운 VIP 멤버",
-        "condition": "",
-        "raw": {
-          "clubid": 28817493,
-          "memberlevel": 150,
-          "memberlevelname": "멘토맘",
-          "memberleveldesc": "최고 고마운 VIP 멤버",
-          "leveliconid": 1,
-          "leveluptype": 1,
-          "articlecount": 0,
-          "commentcount": 0,
-          "visitcount": 0,
-          "joindtcondition": 0,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      }
-    ],
-    "second": {
-      "level": "꼬마별",
-      "description": "카페 일반 멤버",
-      "condition": "가입 0주 후 · 게시글 1개 · 댓글 5개 · 좋아요 0개 · 방문 수 0회를 만족하면 자동으로 등업 합니다.",
-      "raw": {
-        "clubid": 28817493,
-        "memberlevel": 110,
-        "memberlevelname": "꼬마별",
-        "memberleveldesc": "카페 일반 멤버",
-        "leveliconid": 1,
-        "leveluptype": 2,
-        "articlecount": 1,
-        "commentcount": 5,
-        "visitcount": 0,
-        "joindtcondition": 0,
-        "likecount": 0,
-        "useyn": "Y",
-        "existmember": "N"
-      }
-    },
-    "sourceFile": "/private/tmp/codex-naver-openchrome/Default/Cache/Cache_Data/9efdd0748a4837b2_0"
-  },
-  {
     "cafeId": "28828870",
     "url": "https://cafe.naver.com/ca-fe/cafes/28828870/member-level",
     "levels": [
@@ -19004,153 +16399,6 @@
     "sourceFile": "/Users/dveamer/.cache/chrome-devtools-mcp/chrome-profile/Default/Cache/Cache_Data/4d5aa252615f84fc_0"
   },
   {
-    "cafeId": "29377898",
-    "url": "https://cafe.naver.com/ca-fe/cafes/29377898/member-level",
-    "levels": [
-      {
-        "level": "손님",
-        "description": "가입 후 막 활동을 시작하는 멤버",
-        "condition": "",
-        "raw": {
-          "clubid": 29377898,
-          "memberlevel": 1,
-          "memberlevelname": "손님",
-          "memberleveldesc": "가입 후 막 활동을 시작하는 멤버",
-          "leveliconid": 7,
-          "leveluptype": 1,
-          "articlecount": 0,
-          "commentcount": 0,
-          "visitcount": 0,
-          "joindtcondition": 0,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "멤버",
-        "description": "카페 일반 멤버",
-        "condition": "가입 0주 후 · 게시글 1개 · 댓글 3개 · 좋아요 0개 · 방문 수 0회를 만족하면 자동으로 등업 합니다.",
-        "raw": {
-          "clubid": 29377898,
-          "memberlevel": 110,
-          "memberlevelname": "멤버",
-          "memberleveldesc": "카페 일반 멤버",
-          "leveliconid": 7,
-          "leveluptype": 2,
-          "articlecount": 1,
-          "commentcount": 3,
-          "visitcount": 0,
-          "joindtcondition": 0,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "등업멤버",
-        "description": "등업신청으로 등업된 멤버",
-        "condition": "가입 0주 후 · 게시글 5개 · 댓글 10개 · 좋아요 0개 · 방문 수 0회를 만족하면 등업 게시판에 등업 신청 이 가능합니다.",
-        "raw": {
-          "clubid": 29377898,
-          "memberlevel": 120,
-          "memberlevelname": "등업멤버",
-          "memberleveldesc": "등업신청으로 등업된 멤버",
-          "leveliconid": 7,
-          "leveluptype": 3,
-          "articlecount": 5,
-          "commentcount": 10,
-          "visitcount": 0,
-          "joindtcondition": 0,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "열심멤버",
-        "description": "활동 많이 하신 멤버",
-        "condition": "가입 10주 후 · 게시글 1000개 · 댓글 1000개 · 좋아요 0개 · 방문 수 365회를 만족하면 자동으로 등업 합니다.",
-        "raw": {
-          "clubid": 29377898,
-          "memberlevel": 130,
-          "memberlevelname": "열심멤버",
-          "memberleveldesc": "활동 많이 하신 멤버",
-          "leveliconid": 7,
-          "leveluptype": 2,
-          "articlecount": 1000,
-          "commentcount": 1000,
-          "visitcount": 365,
-          "joindtcondition": 10,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "VIP멤버",
-        "description": "VIP 멤버세요 ^^",
-        "condition": "가입 20주 후 · 게시글 5000개 · 댓글 50000개 · 좋아요 0개 · 방문 수 1000회를 만족하면 자동으로 등업 합니다.",
-        "raw": {
-          "clubid": 29377898,
-          "memberlevel": 140,
-          "memberlevelname": "VIP멤버",
-          "memberleveldesc": "VIP 멤버세요 ^^",
-          "leveliconid": 7,
-          "leveluptype": 2,
-          "articlecount": 5000,
-          "commentcount": 50000,
-          "visitcount": 1000,
-          "joindtcondition": 20,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "협력업체",
-        "description": "협력업체",
-        "condition": "",
-        "raw": {
-          "clubid": 29377898,
-          "memberlevel": 150,
-          "memberlevelname": "협력업체",
-          "memberleveldesc": "협력업체",
-          "leveliconid": 7,
-          "leveluptype": 1,
-          "articlecount": 0,
-          "commentcount": 0,
-          "visitcount": 0,
-          "joindtcondition": 0,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      }
-    ],
-    "second": {
-      "level": "멤버",
-      "description": "카페 일반 멤버",
-      "condition": "가입 0주 후 · 게시글 1개 · 댓글 3개 · 좋아요 0개 · 방문 수 0회를 만족하면 자동으로 등업 합니다.",
-      "raw": {
-        "clubid": 29377898,
-        "memberlevel": 110,
-        "memberlevelname": "멤버",
-        "memberleveldesc": "카페 일반 멤버",
-        "leveliconid": 7,
-        "leveluptype": 2,
-        "articlecount": 1,
-        "commentcount": 3,
-        "visitcount": 0,
-        "joindtcondition": 0,
-        "likecount": 0,
-        "useyn": "Y",
-        "existmember": "N"
-      }
-    },
-    "sourceFile": "/private/tmp/codex-naver-openchrome/Default/Cache/Cache_Data/8fa0208a9f0218df_0"
-  },
-  {
     "cafeId": "29434212",
     "url": "https://cafe.naver.com/ca-fe/cafes/29434212/member-level",
     "levels": [
@@ -19422,154 +16670,7 @@
         "existmember": "N"
       }
     },
-    "sourceFile": "/private/tmp/codex-naver-openchrome/Default/Cache/Cache_Data/7b3b41ebbd3ea759_0"
-  },
-  {
-    "cafeId": "29533738",
-    "url": "https://cafe.naver.com/ca-fe/cafes/29533738/member-level",
-    "levels": [
-      {
-        "level": "빗방울",
-        "description": "가입 후 막 활동을 시작하는 멤버",
-        "condition": "",
-        "raw": {
-          "clubid": 29533738,
-          "memberlevel": 1,
-          "memberlevelname": "빗방울",
-          "memberleveldesc": "가입 후 막 활동을 시작하는 멤버",
-          "leveliconid": 1,
-          "leveluptype": 1,
-          "articlecount": 0,
-          "commentcount": 0,
-          "visitcount": 0,
-          "joindtcondition": 0,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "시냇가",
-        "description": "카페 일반 멤버",
-        "condition": "가입 0주 후 · 게시글 1개 · 댓글 5개 · 좋아요 0개 · 방문 수 1회를 만족하면 자동으로 등업 합니다.",
-        "raw": {
-          "clubid": 29533738,
-          "memberlevel": 110,
-          "memberlevelname": "시냇가",
-          "memberleveldesc": "카페 일반 멤버",
-          "leveliconid": 1,
-          "leveluptype": 2,
-          "articlecount": 1,
-          "commentcount": 5,
-          "visitcount": 1,
-          "joindtcondition": 0,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "강",
-        "description": "카페활동을 성실히 하는 멤버",
-        "condition": "가입 0주 후 · 게시글 10개 · 댓글 30개 · 좋아요 0개 · 방문 수 5회를 만족하면 자동으로 등업 합니다.",
-        "raw": {
-          "clubid": 29533738,
-          "memberlevel": 120,
-          "memberlevelname": "강",
-          "memberleveldesc": "카페활동을 성실히 하는 멤버",
-          "leveliconid": 1,
-          "leveluptype": 2,
-          "articlecount": 10,
-          "commentcount": 30,
-          "visitcount": 5,
-          "joindtcondition": 0,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "바다",
-        "description": "카페 열심 멤버",
-        "condition": "가입 4주 후 · 게시글 50개 · 댓글 50개 · 좋아요 0개 · 방문 수 50회를 만족하면 자동으로 등업 합니다.",
-        "raw": {
-          "clubid": 29533738,
-          "memberlevel": 130,
-          "memberlevelname": "바다",
-          "memberleveldesc": "카페 열심 멤버",
-          "leveliconid": 1,
-          "leveluptype": 2,
-          "articlecount": 50,
-          "commentcount": 50,
-          "visitcount": 50,
-          "joindtcondition": 4,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "협력업체",
-        "description": "카페 우수 멤버",
-        "condition": "",
-        "raw": {
-          "clubid": 29533738,
-          "memberlevel": 140,
-          "memberlevelname": "협력업체",
-          "memberleveldesc": "카페 우수 멤버",
-          "leveliconid": 1,
-          "leveluptype": 1,
-          "articlecount": 0,
-          "commentcount": 0,
-          "visitcount": 0,
-          "joindtcondition": 0,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "스텝",
-        "description": "최고 고마운 VIP 멤버",
-        "condition": "",
-        "raw": {
-          "clubid": 29533738,
-          "memberlevel": 150,
-          "memberlevelname": "스텝",
-          "memberleveldesc": "최고 고마운 VIP 멤버",
-          "leveliconid": 1,
-          "leveluptype": 1,
-          "articlecount": 0,
-          "commentcount": 0,
-          "visitcount": 0,
-          "joindtcondition": 0,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      }
-    ],
-    "second": {
-      "level": "시냇가",
-      "description": "카페 일반 멤버",
-      "condition": "가입 0주 후 · 게시글 1개 · 댓글 5개 · 좋아요 0개 · 방문 수 1회를 만족하면 자동으로 등업 합니다.",
-      "raw": {
-        "clubid": 29533738,
-        "memberlevel": 110,
-        "memberlevelname": "시냇가",
-        "memberleveldesc": "카페 일반 멤버",
-        "leveliconid": 1,
-        "leveluptype": 2,
-        "articlecount": 1,
-        "commentcount": 5,
-        "visitcount": 1,
-        "joindtcondition": 0,
-        "likecount": 0,
-        "useyn": "Y",
-        "existmember": "N"
-      }
-    },
-    "sourceFile": "/private/tmp/codex-naver-openchrome/Default/Cache/Cache_Data/5122326f521b1b57_0"
+    "sourceFile": "/Users/dveamer/.cache/chrome-devtools-mcp/chrome-profile/Default/Cache/Cache_Data/7b3b41ebbd3ea759_0"
   },
   {
     "cafeId": "29602531",
@@ -19745,7 +16846,7 @@
       {
         "level": "일반맘",
         "description": "카페 일반 멤버",
-        "condition": "가입 0주 후 · 게시글 1개 · 댓글 10개 · 좋아요 5개 · 방문 수 1회를 만족하면 자동으로 등업 합니다.",
+        "condition": "가입 0주 후 · 게시글 1개 · 댓글 10개 · 좋아요 3개 · 방문 수 1회를 만족하면 자동으로 등업 합니다.",
         "raw": {
           "clubid": 29635040,
           "memberlevel": 110,
@@ -19757,7 +16858,7 @@
           "commentcount": 10,
           "visitcount": 1,
           "joindtcondition": 0,
-          "likecount": 5,
+          "likecount": 3,
           "useyn": "Y",
           "existmember": "N"
         }
@@ -19846,7 +16947,7 @@
     "second": {
       "level": "일반맘",
       "description": "카페 일반 멤버",
-      "condition": "가입 0주 후 · 게시글 1개 · 댓글 10개 · 좋아요 5개 · 방문 수 1회를 만족하면 자동으로 등업 합니다.",
+      "condition": "가입 0주 후 · 게시글 1개 · 댓글 10개 · 좋아요 3개 · 방문 수 1회를 만족하면 자동으로 등업 합니다.",
       "raw": {
         "clubid": 29635040,
         "memberlevel": 110,
@@ -19858,159 +16959,12 @@
         "commentcount": 10,
         "visitcount": 1,
         "joindtcondition": 0,
-        "likecount": 5,
+        "likecount": 3,
         "useyn": "Y",
         "existmember": "N"
       }
     },
     "sourceFile": "/Users/dveamer/.cache/chrome-devtools-mcp/chrome-profile/Default/Cache/Cache_Data/10412f3d353c3640_0"
-  },
-  {
-    "cafeId": "29968910",
-    "url": "https://cafe.naver.com/ca-fe/cafes/29968910/member-level",
-    "levels": [
-      {
-        "level": "새싹멤버",
-        "description": "가입 후 막 활동을 시작하는 멤버",
-        "condition": "",
-        "raw": {
-          "clubid": 29968910,
-          "memberlevel": 1,
-          "memberlevelname": "새싹멤버",
-          "memberleveldesc": "가입 후 막 활동을 시작하는 멤버",
-          "leveliconid": 1,
-          "leveluptype": 1,
-          "articlecount": 0,
-          "commentcount": 0,
-          "visitcount": 0,
-          "joindtcondition": 0,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "레벨1",
-        "description": "회원 레벨1 - 정회원",
-        "condition": "가입 0주 후 · 게시글 3개 · 댓글 3개 · 좋아요 0개 · 방문 수 0회를 만족하면 자동으로 등업 합니다.",
-        "raw": {
-          "clubid": 29968910,
-          "memberlevel": 110,
-          "memberlevelname": "레벨1",
-          "memberleveldesc": "회원 레벨1 - 정회원",
-          "leveliconid": 1,
-          "leveluptype": 2,
-          "articlecount": 3,
-          "commentcount": 3,
-          "visitcount": 0,
-          "joindtcondition": 0,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "레벨2",
-        "description": "회원 레벨2 - 우수회원",
-        "condition": "",
-        "raw": {
-          "clubid": 29968910,
-          "memberlevel": 120,
-          "memberlevelname": "레벨2",
-          "memberleveldesc": "회원 레벨2 - 우수회원",
-          "leveliconid": 1,
-          "leveluptype": 1,
-          "articlecount": 0,
-          "commentcount": 0,
-          "visitcount": 0,
-          "joindtcondition": 0,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "레벨3",
-        "description": "회원 레벨3 - 최우수회원",
-        "condition": "",
-        "raw": {
-          "clubid": 29968910,
-          "memberlevel": 130,
-          "memberlevelname": "레벨3",
-          "memberleveldesc": "회원 레벨3 - 최우수회원",
-          "leveliconid": 1,
-          "leveluptype": 1,
-          "articlecount": 0,
-          "commentcount": 0,
-          "visitcount": 0,
-          "joindtcondition": 0,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "레벨4",
-        "description": "회원 레벨4 -  협력업체",
-        "condition": "",
-        "raw": {
-          "clubid": 29968910,
-          "memberlevel": 140,
-          "memberlevelname": "레벨4",
-          "memberleveldesc": "회원 레벨4 -  협력업체",
-          "leveliconid": 1,
-          "leveluptype": 1,
-          "articlecount": 0,
-          "commentcount": 0,
-          "visitcount": 0,
-          "joindtcondition": 0,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      },
-      {
-        "level": "레벨5",
-        "description": "회원 레벨5",
-        "condition": "",
-        "raw": {
-          "clubid": 29968910,
-          "memberlevel": 150,
-          "memberlevelname": "레벨5",
-          "memberleveldesc": "회원 레벨5",
-          "leveliconid": 1,
-          "leveluptype": 1,
-          "articlecount": 0,
-          "commentcount": 0,
-          "visitcount": 0,
-          "joindtcondition": 0,
-          "likecount": 0,
-          "useyn": "Y",
-          "existmember": "N"
-        }
-      }
-    ],
-    "second": {
-      "level": "레벨1",
-      "description": "회원 레벨1 - 정회원",
-      "condition": "가입 0주 후 · 게시글 3개 · 댓글 3개 · 좋아요 0개 · 방문 수 0회를 만족하면 자동으로 등업 합니다.",
-      "raw": {
-        "clubid": 29968910,
-        "memberlevel": 110,
-        "memberlevelname": "레벨1",
-        "memberleveldesc": "회원 레벨1 - 정회원",
-        "leveliconid": 1,
-        "leveluptype": 2,
-        "articlecount": 3,
-        "commentcount": 3,
-        "visitcount": 0,
-        "joindtcondition": 0,
-        "likecount": 0,
-        "useyn": "Y",
-        "existmember": "N"
-      }
-    },
-    "sourceFile": "/private/tmp/codex-naver-openchrome/Default/Cache/Cache_Data/5265405257edd43f_0"
   },
   {
     "cafeId": "30033084",
@@ -20137,7 +17091,14 @@
         "existmember": "N"
       }
     },
-    "sourceFile": "/private/tmp/codex-naver-openchrome/Default/Cache/Cache_Data/b69b20e3015a2e2c_0"
+    "sourceFile": "/Users/dveamer/.cache/chrome-devtools-mcp/chrome-profile/Default/Cache/Cache_Data/b69b20e3015a2e2c_0"
+  },
+  {
+    "cafeId": "30062382",
+    "url": "https://cafe.naver.com/ca-fe/cafes/30062382/member-level",
+    "levels": [],
+    "second": null,
+    "sourceFile": "/Users/dveamer/.cache/chrome-devtools-mcp/chrome-profile/Default/Cache/Cache_Data/d16d49b32d1556fd_0"
   },
   {
     "cafeId": "30614160",

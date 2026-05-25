@@ -1,9 +1,9 @@
 
-# 네이버 블로그 댓글 작성
+# 티스토리 블로그 댓글 작성
 
 tstory-tasks.md 파일에 작성되어있는 tasks 들 중 5개를 뽑아서 각 tasks 에 적힌 블로그 글에 공감을 누르고 댓글을 달아줘. 댓글에 homepage-img-1-ko.png 이미지 파일도 첨부해줘. 
 
-공감, 댓글, 이미지 첨부는 naver-blog-comment-assist skill 을 이용하면돼.
+~공감, 댓글, 이미지 첨부는 naver-blog-comment-assist skill 을 이용하면돼.~
 
 ## 이미지 첨부 처리
 
@@ -60,8 +60,7 @@ tstory-tasks.md 파일에 작성되어있는 tasks 들 중 5개를 뽑아서 각
 
 ### 리소스 해제
 
-작업이 모두 완료되었다면 사용했던 chrome 은 종료시켜줘.
-브라우저 탭만 종료하지 말고 브라우저를 종료시켜줘.
+작업이 모두 완료되었다면 chrome 브라우저 탭들 종료해줘. 브라우저는 끄진 말아줘. 
 
 ## 주의 사항
 
