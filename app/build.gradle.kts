@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "com.dveamer.babysitter"
-    compileSdk = 35
+    compileSdk = 36
 
     signingConfigs {
         create("release") {
@@ -27,7 +27,7 @@ android {
     defaultConfig {
         applicationId = "com.dveamer.babysitter"
         minSdk = 26
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 2026072300
         versionName = "2026072300"
 
