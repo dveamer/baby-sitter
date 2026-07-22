@@ -58,4 +58,29 @@ class SleepForegroundServiceTypeResolverTest {
             types
         )
     }
+
+    @Test
+    fun keepsCameraForegroundTypeReadyForWebPreviewStandby() {
+        val types = SleepForegroundServiceTypeResolver.resolve(
+            collectInputPolicy = CollectInputPolicy(),
+            webCameraStandbyEnabled = true
+        )
+
+        assertEquals(ServiceInfo.FOREGROUND_SERVICE_TYPE_CAMERA, types)
+    }
+
+    @Test
+    fun retainsPreviouslyDeclaredSensitiveTypesWhileServiceStaysAlive() {
+        val retained = SleepForegroundServiceTypeResolver.retainActiveTypes(
+            activeTypes = ServiceInfo.FOREGROUND_SERVICE_TYPE_CAMERA or
+                ServiceInfo.FOREGROUND_SERVICE_TYPE_MICROPHONE,
+            requestedTypes = ServiceInfo.FOREGROUND_SERVICE_TYPE_CAMERA
+        )
+
+        assertEquals(
+            ServiceInfo.FOREGROUND_SERVICE_TYPE_CAMERA or
+                ServiceInfo.FOREGROUND_SERVICE_TYPE_MICROPHONE,
+            retained
+        )
+    }
 }

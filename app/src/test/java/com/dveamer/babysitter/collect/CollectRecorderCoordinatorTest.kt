@@ -53,6 +53,41 @@ class CollectRecorderCoordinatorTest {
     }
 
     @Test
+    fun `active preview remains available across sleep off and on transitions`() {
+        coordinator.updateInputs(
+            sleepEnabled = true,
+            cameraMonitoringEnabled = true,
+            webCameraEnabled = true,
+            soundMonitoringEnabled = true
+        )
+        coordinator.onWebPreviewSubscriberConnected()
+
+        val sleepOffPolicy = coordinator.updateInputs(
+            sleepEnabled = false,
+            cameraMonitoringEnabled = true,
+            webCameraEnabled = true,
+            soundMonitoringEnabled = true
+        )
+
+        assertTrue(sleepOffPolicy.cameraInputEnabled)
+        assertTrue(sleepOffPolicy.webPreviewAllowed)
+        assertFalse(sleepOffPolicy.motionAnalysisEnabled)
+        assertFalse(sleepOffPolicy.audioInputEnabled)
+
+        val sleepOnPolicy = coordinator.updateInputs(
+            sleepEnabled = true,
+            cameraMonitoringEnabled = true,
+            webCameraEnabled = true,
+            soundMonitoringEnabled = true
+        )
+
+        assertTrue(sleepOnPolicy.cameraInputEnabled)
+        assertTrue(sleepOnPolicy.webPreviewAllowed)
+        assertTrue(sleepOnPolicy.motionAnalysisEnabled)
+        assertTrue(sleepOnPolicy.audioInputEnabled)
+    }
+
+    @Test
     fun `preview demand callback fires only on active state changes`() {
         var callbackCount = 0
         val coordinator = CollectRecorderCoordinator(

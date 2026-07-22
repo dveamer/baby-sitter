@@ -26,6 +26,7 @@ import com.dveamer.babysitter.monitor.MicrophoneMonitor
 import com.dveamer.babysitter.monitor.Monitor
 import com.dveamer.babysitter.monitor.MonitorKind
 import com.dveamer.babysitter.settings.MotionSensitivity
+import com.dveamer.babysitter.settings.SettingsState
 import com.dveamer.babysitter.settings.SoundSensitivity
 import com.dveamer.babysitter.soothing.IotSoothingListener
 import com.dveamer.babysitter.soothing.MusicSoothingListener
@@ -63,11 +64,15 @@ class SleepForegroundService : Service() {
     )
     private val fileWorkerDispatcher = Dispatchers.IO.limitedParallelism(1)
     private val startStopLock = Mutex()
+    private val foregroundLock = Any()
 
     private var monitoringJob: Job? = null
     private var wakeMemoryBuildJob: Job? = null
     private var wakeMemoryFollowUpJob: Job? = null
     private var collectInputPolicyJob: Job? = null
+    private var settingsStateJob: Job? = null
+    private var appliedSettingsVersion: Long? = null
+    private var activeForegroundServiceTypes: Int = 0
     private var wakeLock: PowerManager.WakeLock? = null
     private var wakeMemoryManager: WakeMemoryManager = WakeMemoryManager()
     private var collectCameraSource: CollectCameraSource? = null
@@ -91,6 +96,7 @@ class SleepForegroundService : Service() {
     override fun onCreate() {
         super.onCreate()
         createNotificationChannel()
+        observeSettingsState()
         observeCollectInputPolicies()
     }
 
@@ -140,16 +146,31 @@ class SleepForegroundService : Service() {
     }
 
     private fun enterForeground(foregroundServiceTypes: Int): Boolean {
-        return runCatching {
-            ServiceCompat.startForeground(
-                this,
-                NOTIFICATION_ID,
-                buildNotification(foregroundServiceTypes),
-                foregroundServiceTypes
+        if (foregroundServiceTypes == 0) return false
+        return synchronized(foregroundLock) {
+            // Keep sensitive types already granted to this running service so Sleep can
+            // resume from the web without adding camera/microphone types in background.
+            val retainedTypes = SleepForegroundServiceTypeResolver.retainActiveTypes(
+                activeTypes = activeForegroundServiceTypes,
+                requestedTypes = foregroundServiceTypes
             )
-        }.onFailure { e ->
-            Log.w(TAG, "failed to enter foreground mode", e)
-        }.isSuccess
+            if (activeForegroundServiceTypes != 0 && retainedTypes == activeForegroundServiceTypes) {
+                return@synchronized true
+            }
+
+            runCatching {
+                ServiceCompat.startForeground(
+                    this,
+                    NOTIFICATION_ID,
+                    buildNotification(retainedTypes),
+                    retainedTypes
+                )
+            }.onSuccess {
+                activeForegroundServiceTypes = retainedTypes
+            }.onFailure { e ->
+                Log.w(TAG, "failed to enter foreground mode", e)
+            }.isSuccess
+        }
     }
 
     private fun resolveForegroundServiceTypes(): Int {
@@ -160,15 +181,34 @@ class SleepForegroundService : Service() {
             webCameraEnabled = current.webCameraEnabled,
             soundMonitoringEnabled = current.soundMonitoringEnabled
         )
-        return SleepForegroundServiceTypeResolver.resolve(collectInputPolicy)
+        return SleepForegroundServiceTypeResolver.resolve(
+            collectInputPolicy = collectInputPolicy,
+            webCameraStandbyEnabled = current.webServiceEnabled && current.webCameraEnabled
+        )
     }
 
     override fun onDestroy() {
+        settingsStateJob?.cancel()
+        settingsStateJob = null
         collectInputPolicyJob?.cancel()
         collectInputPolicyJob = null
         stopMonitoring()
+        synchronized(foregroundLock) {
+            activeForegroundServiceTypes = 0
+        }
         serviceScope.cancel()
         super.onDestroy()
+    }
+
+    private fun observeSettingsState() {
+        if (settingsStateJob != null) return
+        settingsStateJob = serviceScope.launch {
+            container.settingsRepository.state.collect { settings ->
+                startStopLock.withLock {
+                    restartMonitoringLocked(settings)
+                }
+            }
+        }
     }
 
     private fun observeCollectInputPolicies() {
@@ -185,13 +225,16 @@ class SleepForegroundService : Service() {
     private suspend fun applyCurrentCollectInputPolicy() {
         startStopLock.withLock {
             val collectInputPolicy = container.collectRecorderCoordinator.currentPolicy()
-            val foregroundServiceTypes = SleepForegroundServiceTypeResolver.resolve(collectInputPolicy)
+            val settings = container.settingsRepository.state.value
+            val foregroundServiceTypes = SleepForegroundServiceTypeResolver.resolve(
+                collectInputPolicy = collectInputPolicy,
+                webCameraStandbyEnabled = settings.webServiceEnabled && settings.webCameraEnabled
+            )
             if (foregroundServiceTypes == 0) {
                 ensureCollectSourcesRunning(collectInputPolicy)
-                if (!container.settingsRepository.state.value.sleepEnabled) {
+                if (!settings.sleepEnabled) {
                     transitionOutOfMonitoring(clearSessionOnSuccessfulFlush = true)
-                    stopForeground(STOP_FOREGROUND_REMOVE)
-                    stopSelf()
+                    leaveForegroundAndStopSelf()
                 }
                 return@withLock
             }
@@ -204,27 +247,47 @@ class SleepForegroundService : Service() {
 
     private suspend fun restartMonitoring() {
         startStopLock.withLock {
-            val current = container.settingsRepository.state.value
-            transitionOutOfMonitoring(
-                clearSessionOnSuccessfulFlush = !current.sleepEnabled
-            )
-            container.collectRecorderCoordinator.start()
-            val collectInputPolicy = container.collectRecorderCoordinator.updateInputs(
-                sleepEnabled = current.sleepEnabled,
-                cameraMonitoringEnabled = current.cameraMonitoringEnabled,
-                webCameraEnabled = current.webCameraEnabled,
-                soundMonitoringEnabled = current.soundMonitoringEnabled
-            )
-            ensureCollectSourcesRunning(
-                collectInputPolicy = collectInputPolicy
-            )
+            restartMonitoringLocked(container.settingsRepository.state.value)
+        }
+    }
 
-            val shouldHoldWakeLock = current.sleepEnabled
-            if (shouldHoldWakeLock) {
-                acquireWakeLock()
-            } else {
-                releaseWakeLock()
-            }
+    private suspend fun restartMonitoringLocked(current: SettingsState) {
+        if (appliedSettingsVersion == current.version) return
+
+        val nextCollectInputPolicy = container.collectRecorderCoordinator.resolveInputPolicy(
+            sleepEnabled = current.sleepEnabled,
+            cameraMonitoringEnabled = current.cameraMonitoringEnabled,
+            webCameraEnabled = current.webCameraEnabled,
+            soundMonitoringEnabled = current.soundMonitoringEnabled
+        )
+        val foregroundServiceTypes = SleepForegroundServiceTypeResolver.resolve(
+            collectInputPolicy = nextCollectInputPolicy,
+            webCameraStandbyEnabled = current.webServiceEnabled && current.webCameraEnabled
+        )
+        if (foregroundServiceTypes != 0 && !enterForeground(foregroundServiceTypes)) {
+            return
+        }
+
+        transitionOutOfMonitoring(
+            clearSessionOnSuccessfulFlush = !current.sleepEnabled
+        )
+        container.collectRecorderCoordinator.start()
+        val collectInputPolicy = container.collectRecorderCoordinator.updateInputs(
+            sleepEnabled = current.sleepEnabled,
+            cameraMonitoringEnabled = current.cameraMonitoringEnabled,
+            webCameraEnabled = current.webCameraEnabled,
+            soundMonitoringEnabled = current.soundMonitoringEnabled
+        )
+        ensureCollectSourcesRunning(collectInputPolicy)
+        appliedSettingsVersion = current.version
+
+        if (foregroundServiceTypes == 0) {
+            leaveForegroundAndStopSelf()
+            return
+        }
+
+        if (current.sleepEnabled) {
+            acquireWakeLock()
             maintenanceScheduler.start(serviceScope)
             startWakeMemoryFollowUpLoop()
             monitoringJob = serviceScope.launch {
@@ -252,9 +315,16 @@ class SleepForegroundService : Service() {
     private suspend fun stopMonitoringAndService() {
         startStopLock.withLock {
             transitionOutOfMonitoring(clearSessionOnSuccessfulFlush = true)
-            stopForeground(STOP_FOREGROUND_REMOVE)
-            stopSelf()
+            leaveForegroundAndStopSelf()
         }
+    }
+
+    private fun leaveForegroundAndStopSelf() {
+        stopForeground(STOP_FOREGROUND_REMOVE)
+        synchronized(foregroundLock) {
+            activeForegroundServiceTypes = 0
+        }
+        stopSelf()
     }
 
     private fun stopMonitoring() {
@@ -265,14 +335,19 @@ class SleepForegroundService : Service() {
     private suspend fun transitionOutOfMonitoring(
         clearSessionOnSuccessfulFlush: Boolean
     ) {
-        stopMonitoringCore()
+        val stoppedMonitoringJob = stopMonitoringCore()
+        stoppedMonitoringJob?.let { job ->
+            runCatching { job.join() }
+                .onFailure { Log.w(TAG, "waiting for monitoring shutdown failed", it) }
+        }
         awaitWakeMemoryBuildCompletion()
         flushPendingWakeMemoryBuild(clearSessionOnSuccessfulFlush)
         resetMonitoringState()
     }
 
-    private fun stopMonitoringCore() {
-        monitoringJob?.cancel()
+    private fun stopMonitoringCore(): Job? {
+        val stoppedMonitoringJob = monitoringJob
+        stoppedMonitoringJob?.cancel()
         monitoringJob = null
         wakeMemoryFollowUpJob?.cancel()
         wakeMemoryFollowUpJob = null
@@ -283,6 +358,7 @@ class SleepForegroundService : Service() {
         collectCameraSource = null
         collectAudioSource = null
         releaseWakeLock()
+        return stoppedMonitoringJob
     }
 
     private fun resetMonitoringState() {
@@ -662,14 +738,21 @@ class SleepForegroundService : Service() {
 }
 
 internal object SleepForegroundServiceTypeResolver {
-    fun resolve(collectInputPolicy: CollectInputPolicy): Int {
+    fun resolve(
+        collectInputPolicy: CollectInputPolicy,
+        webCameraStandbyEnabled: Boolean = false
+    ): Int {
         var types = 0
-        if (collectInputPolicy.cameraInputEnabled) {
+        if (collectInputPolicy.cameraInputEnabled || webCameraStandbyEnabled) {
             types = types or ServiceInfo.FOREGROUND_SERVICE_TYPE_CAMERA
         }
         if (collectInputPolicy.audioInputEnabled) {
             types = types or ServiceInfo.FOREGROUND_SERVICE_TYPE_MICROPHONE
         }
         return types
+    }
+
+    fun retainActiveTypes(activeTypes: Int, requestedTypes: Int): Int {
+        return activeTypes or requestedTypes
     }
 }

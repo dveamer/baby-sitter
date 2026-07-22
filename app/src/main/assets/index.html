@@ -1123,7 +1123,10 @@
     function startCameraStream(mode) {
       if (!webCameraEnabled) return;
       const nextMode = mode || desiredCameraStreamMode();
-      if (cameraStreaming && cameraStreamMode === nextMode && cameraFeed.src) return;
+      if (cameraStreaming && cameraFeed.src) {
+        cameraStreamMode = nextMode;
+        return;
+      }
       cameraAttemptToken += 1;
       cameraStreaming = true;
       cameraStreamMode = nextMode;

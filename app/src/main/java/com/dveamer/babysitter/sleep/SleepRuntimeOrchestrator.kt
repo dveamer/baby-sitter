@@ -1,6 +1,7 @@
 package com.dveamer.babysitter.sleep
 
 import com.dveamer.babysitter.settings.SettingsRepository
+import com.dveamer.babysitter.settings.SettingsState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
@@ -16,7 +17,7 @@ class SleepRuntimeOrchestrator(
         if (job != null) return
         job = scope.launch {
             repository.state.collectLatest { state ->
-                val shouldRunForeground = state.sleepEnabled
+                val shouldRunForeground = SleepRuntimePolicy.shouldRunForeground(state)
                 if (shouldRunForeground) {
                     runtime.start()
                 } else {
@@ -35,4 +36,10 @@ class SleepRuntimeOrchestrator(
 interface SleepRuntime {
     suspend fun start()
     suspend fun stop()
+}
+
+internal object SleepRuntimePolicy {
+    fun shouldRunForeground(state: SettingsState): Boolean {
+        return state.sleepEnabled || (state.webServiceEnabled && state.webCameraEnabled)
+    }
 }
