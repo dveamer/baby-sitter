@@ -1,6 +1,9 @@
 package com.dveamer.babysitter.collect
 
 import android.util.Log
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 
 data class WebPreviewDemandSnapshot(
     val subscriberCount: Int,
@@ -34,8 +37,8 @@ class CollectRecorderCoordinator(
 ) {
     private val lock = Any()
 
-    @Volatile
-    private var inputPolicy: CollectInputPolicy = CollectInputPolicy()
+    private val mutableInputPolicies = MutableStateFlow(CollectInputPolicy())
+    val inputPolicies: StateFlow<CollectInputPolicy> = mutableInputPolicies.asStateFlow()
 
     private var inputSettings: CollectInputSettings = CollectInputSettings()
 
@@ -48,7 +51,7 @@ class CollectRecorderCoordinator(
 
     fun stop() {
         synchronized(lock) {
-            inputPolicy = CollectInputPolicy()
+            applyInputPolicyLocked(CollectInputPolicy())
         }
     }
 
@@ -71,7 +74,7 @@ class CollectRecorderCoordinator(
                     previewDemandActive = webPreviewSubscriberCount > 0
                 )
             )
-            return inputPolicy
+            return mutableInputPolicies.value
         }
     }
 
@@ -94,7 +97,7 @@ class CollectRecorderCoordinator(
         }
     }
 
-    fun currentPolicy(): CollectInputPolicy = inputPolicy
+    fun currentPolicy(): CollectInputPolicy = mutableInputPolicies.value
 
     fun onWebPreviewSubscriberConnected(): WebPreviewDemandSnapshot {
         val shouldNotify = synchronized(lock) {
@@ -161,7 +164,7 @@ class CollectRecorderCoordinator(
     }
 
     private fun applyInputPolicyLocked(nextPolicy: CollectInputPolicy) {
-        if (nextPolicy != inputPolicy) {
+        if (nextPolicy != mutableInputPolicies.value) {
             logDebug(
                 "collect inputs updated " +
                     "camera=${nextPolicy.cameraInputEnabled} " +
@@ -169,8 +172,8 @@ class CollectRecorderCoordinator(
                     "motion=${nextPolicy.motionAnalysisEnabled} " +
                     "preview=${nextPolicy.webPreviewAllowed}"
             )
+            mutableInputPolicies.value = nextPolicy
         }
-        inputPolicy = nextPolicy
     }
 
     private fun resolveInputPolicyLocked(

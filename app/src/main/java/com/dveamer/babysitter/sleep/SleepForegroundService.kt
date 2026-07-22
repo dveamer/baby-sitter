@@ -67,6 +67,7 @@ class SleepForegroundService : Service() {
     private var monitoringJob: Job? = null
     private var wakeMemoryBuildJob: Job? = null
     private var wakeMemoryFollowUpJob: Job? = null
+    private var collectInputPolicyJob: Job? = null
     private var wakeLock: PowerManager.WakeLock? = null
     private var wakeMemoryManager: WakeMemoryManager = WakeMemoryManager()
     private var collectCameraSource: CollectCameraSource? = null
@@ -90,6 +91,7 @@ class SleepForegroundService : Service() {
     override fun onCreate() {
         super.onCreate()
         createNotificationChannel()
+        observeCollectInputPolicies()
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -162,9 +164,42 @@ class SleepForegroundService : Service() {
     }
 
     override fun onDestroy() {
+        collectInputPolicyJob?.cancel()
+        collectInputPolicyJob = null
         stopMonitoring()
         serviceScope.cancel()
         super.onDestroy()
+    }
+
+    private fun observeCollectInputPolicies() {
+        if (collectInputPolicyJob != null) return
+        collectInputPolicyJob = serviceScope.launch {
+            container.collectRecorderCoordinator.inputPolicies.collect {
+                // A browser can create preview demand while Android rejects a background
+                // startForegroundService refresh. Update the already-running service directly.
+                applyCurrentCollectInputPolicy()
+            }
+        }
+    }
+
+    private suspend fun applyCurrentCollectInputPolicy() {
+        startStopLock.withLock {
+            val collectInputPolicy = container.collectRecorderCoordinator.currentPolicy()
+            val foregroundServiceTypes = SleepForegroundServiceTypeResolver.resolve(collectInputPolicy)
+            if (foregroundServiceTypes == 0) {
+                ensureCollectSourcesRunning(collectInputPolicy)
+                if (!container.settingsRepository.state.value.sleepEnabled) {
+                    transitionOutOfMonitoring(clearSessionOnSuccessfulFlush = true)
+                    stopForeground(STOP_FOREGROUND_REMOVE)
+                    stopSelf()
+                }
+                return@withLock
+            }
+
+            if (enterForeground(foregroundServiceTypes)) {
+                ensureCollectSourcesRunning(collectInputPolicy)
+            }
+        }
     }
 
     private suspend fun restartMonitoring() {

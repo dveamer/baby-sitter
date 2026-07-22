@@ -76,6 +76,40 @@ class CollectRecorderCoordinatorTest {
     }
 
     @Test
+    fun `input policy state exposes preview demand changes to running service`() {
+        coordinator.updateInputs(
+            sleepEnabled = true,
+            cameraMonitoringEnabled = true,
+            webCameraEnabled = true,
+            soundMonitoringEnabled = true
+        )
+
+        assertFalse(coordinator.inputPolicies.value.webPreviewAllowed)
+
+        coordinator.onWebPreviewSubscriberConnected()
+
+        assertTrue(coordinator.inputPolicies.value.webPreviewAllowed)
+
+        coordinator.onWebPreviewSubscriberDisconnected()
+
+        assertFalse(coordinator.inputPolicies.value.webPreviewAllowed)
+    }
+
+    @Test
+    fun `stop publishes disabled input policy`() {
+        coordinator.updateInputs(
+            sleepEnabled = true,
+            cameraMonitoringEnabled = true,
+            webCameraEnabled = true,
+            soundMonitoringEnabled = true
+        )
+
+        coordinator.stop()
+
+        assertEquals(CollectInputPolicy(), coordinator.inputPolicies.value)
+    }
+
+    @Test
     fun `preview demand stays active until last subscriber disconnects`() {
         val first = coordinator.onWebPreviewSubscriberConnected()
         val second = coordinator.onWebPreviewSubscriberConnected()
