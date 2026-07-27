@@ -2,8 +2,10 @@ package com.dveamer.babysitter.sleep
 
 import java.io.File
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class WakeMemoryManagerTest {
@@ -140,5 +142,128 @@ class WakeMemoryManagerTest {
 
         assertNull(manager.snapshot().awakeStartedAt)
         assertEquals(false, manager.isAwakeSessionActive())
+    }
+
+    @Test
+    fun `새 awake 없이 periodic 연장은 세 번까지만 허용한다`() {
+        var now = 10 * 60_000L
+        val manager = WakeMemoryManager { now }
+        manager.onAwakeSignal(now)
+
+        assertNotNull(buildNextPeriodicRange(manager, ++now))
+        repeat(WakeMemoryManager.MAX_CONSECUTIVE_EXTENSIONS) {
+            now += WakeMemoryManager.PERIODIC_BUILD_INTERVAL_MS
+            assertNotNull(buildNextPeriodicRange(manager, now))
+        }
+
+        assertEquals(
+            WakeMemoryManager.MAX_CONSECUTIVE_EXTENSIONS,
+            manager.snapshot().successfulExtensions
+        )
+
+        now += WakeMemoryManager.PERIODIC_BUILD_INTERVAL_MS
+        assertNull(
+            manager.onPeriodicCheck(
+                latestClosedVideoEndMs = now,
+                nowMs = now
+            )
+        )
+        assertFalse(manager.isAwakeSessionActive())
+
+        manager.onAwakeSignal(now + 1L)
+        assertFalse(manager.isAwakeSessionActive())
+    }
+
+    @Test
+    fun `passive 이후 새 awake가 오면 periodic 연장 횟수를 초기화한다`() {
+        var now = 20 * 60_000L
+        val manager = WakeMemoryManager { now }
+        manager.onAwakeSignal(now)
+
+        assertNotNull(buildNextPeriodicRange(manager, ++now))
+        repeat(2) {
+            now += WakeMemoryManager.PERIODIC_BUILD_INTERVAL_MS
+            assertNotNull(buildNextPeriodicRange(manager, now))
+        }
+        assertEquals(2, manager.snapshot().successfulExtensions)
+
+        now += 1L
+        manager.onPassiveSignal(lullabyActive = true, nowMs = now)
+        now += 1L
+        manager.onAwakeSignal(now)
+
+        assertEquals(0, manager.snapshot().successfulExtensions)
+        assertTrue(manager.isAwakeSessionActive())
+
+        repeat(WakeMemoryManager.MAX_CONSECUTIVE_EXTENSIONS) {
+            now += WakeMemoryManager.PERIODIC_BUILD_INTERVAL_MS
+            assertNotNull(buildNextPeriodicRange(manager, now))
+        }
+
+        now += WakeMemoryManager.PERIODIC_BUILD_INTERVAL_MS
+        assertNull(
+            manager.onPeriodicCheck(
+                latestClosedVideoEndMs = now,
+                nowMs = now
+            )
+        )
+        assertFalse(manager.isAwakeSessionActive())
+    }
+
+    @Test
+    fun `같은 awake의 반복 신호는 periodic 연장 횟수를 초기화하지 않는다`() {
+        var now = 30 * 60_000L
+        val manager = WakeMemoryManager { now }
+        manager.onAwakeSignal(now)
+
+        assertNotNull(buildNextPeriodicRange(manager, ++now))
+        now += WakeMemoryManager.PERIODIC_BUILD_INTERVAL_MS
+        assertNotNull(buildNextPeriodicRange(manager, now))
+        assertEquals(1, manager.snapshot().successfulExtensions)
+
+        manager.onAwakeSignal(now + 1L)
+
+        assertEquals(1, manager.snapshot().successfulExtensions)
+    }
+
+    @Test
+    fun `세 번 연장한 뒤 stable 종료 시점에도 네 번째 저장은 만들지 않는다`() {
+        var now = 40 * 60_000L
+        val manager = WakeMemoryManager { now }
+        manager.onAwakeSignal(now)
+
+        assertNotNull(buildNextPeriodicRange(manager, ++now))
+        repeat(WakeMemoryManager.MAX_CONSECUTIVE_EXTENSIONS) {
+            now += WakeMemoryManager.PERIODIC_BUILD_INTERVAL_MS
+            assertNotNull(buildNextPeriodicRange(manager, now))
+        }
+
+        now += 1L
+        assertNull(manager.onPassiveSignal(lullabyActive = false, nowMs = now))
+        now += WakeMemoryManager.SLEEP_STABLE_REQUIRED_MS
+
+        assertNull(manager.onPassiveSignal(lullabyActive = false, nowMs = now))
+        assertFalse(manager.isAwakeSessionActive())
+    }
+
+    private fun buildNextPeriodicRange(
+        manager: WakeMemoryManager,
+        nowMs: Long
+    ): WakeMemoryTrigger? {
+        val trigger = manager.onPeriodicCheck(
+            latestClosedVideoEndMs = nowMs,
+            nowMs = nowMs
+        ) ?: return null
+        manager.markMemoryBuildFinished(
+            CoordinatedMemoryBuildResult(
+                outputFile = File("/tmp/periodic-${trigger.requestedRangeEndMs}.mp4"),
+                usedVideoFiles = 1,
+                usedAudioFiles = 1,
+                rangeStartMs = trigger.awakeStartedAt - WakeMemoryManager.PRE_ROLL_MS,
+                requestedRangeEndMs = trigger.requestedRangeEndMs,
+                effectiveRangeEndMs = nowMs
+            )
+        )
+        return trigger
     }
 }

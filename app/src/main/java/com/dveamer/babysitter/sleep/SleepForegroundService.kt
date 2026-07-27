@@ -25,9 +25,9 @@ import com.dveamer.babysitter.monitor.CameraMonitor
 import com.dveamer.babysitter.monitor.MicrophoneMonitor
 import com.dveamer.babysitter.monitor.Monitor
 import com.dveamer.babysitter.monitor.MonitorKind
+import com.dveamer.babysitter.monitor.SoundDetectionThresholds
 import com.dveamer.babysitter.settings.MotionSensitivity
 import com.dveamer.babysitter.settings.SettingsState
-import com.dveamer.babysitter.settings.SoundSensitivity
 import com.dveamer.babysitter.soothing.IotSoothingListener
 import com.dveamer.babysitter.soothing.MusicSoothingListener
 import com.dveamer.babysitter.soothing.SequentialSoothingCoordinator
@@ -424,9 +424,15 @@ class SleepForegroundService : Service() {
 
         val monitors = buildList<Monitor> {
             if (settings.soundMonitoringEnabled) {
-                val baseThreshold = settings.cryThresholdSec.coerceIn(50, 8_000)
-                val soundThreshold = (baseThreshold * 0.75).coerceIn(120.0, 2_500.0)
-                add(MicrophoneMonitor(serviceScope, amplitudeThreshold = soundThreshold))
+                val soundThresholds =
+                    SoundDetectionThresholds.fromUserThreshold(settings.cryThresholdSec)
+                add(
+                    MicrophoneMonitor(
+                        scope = serviceScope,
+                        amplitudeThreshold = soundThresholds.amplitude,
+                        yamNetCryConfidenceThreshold = soundThresholds.yamNetCryConfidence
+                    )
+                )
             }
             if (settings.cameraMonitoringEnabled) {
                 val diffThreshold = settings.movementThresholdSec.coerceIn(5, 100)
@@ -599,8 +605,8 @@ class SleepForegroundService : Service() {
         if (collectInputPolicy.audioInputEnabled) {
             if (collectAudioSource == null) {
                 collectAudioSource = CollectAudioSource(
-                    paths = container.collectStoragePaths,
-                    scope = serviceScope
+                    context = this,
+                    paths = container.collectStoragePaths
                 )
             }
             collectAudioSource?.start()

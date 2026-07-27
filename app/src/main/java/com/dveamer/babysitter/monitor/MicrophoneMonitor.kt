@@ -1,8 +1,9 @@
 package com.dveamer.babysitter.monitor
 
+import android.util.Log
 import com.dveamer.babysitter.collect.CollectAudioBus
 import com.dveamer.babysitter.collect.CollectAudioConfig
-import android.util.Log
+import com.dveamer.babysitter.collect.CollectCryBus
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -17,6 +18,7 @@ import kotlin.math.max
 class MicrophoneMonitor(
     private val scope: CoroutineScope,
     private val amplitudeThreshold: Double = AMPLITUDE_THRESHOLD_DEFAULT,
+    private val yamNetCryConfidenceThreshold: Float = YAMNET_CONFIDENCE_THRESHOLD_DEFAULT,
     override val id: String = "microphone"
 ) : Monitor {
 
@@ -29,52 +31,61 @@ class MicrophoneMonitor(
         if (job != null) return
 
         job = scope.launch(Dispatchers.Default) {
+            val activityTracker = CryActivityTracker()
             var noiseFloor = 0.0
-            var activeStreak = 0
-            var inactiveStreak = 0
-            var currentActive = false
             var pollCount = 0L
 
             while (isActive) {
-                val snapshot = CollectAudioBus.latest()
-                val amplitude = snapshot?.averageAmplitude ?: 0.0
-                val fresh = snapshot != null && (System.currentTimeMillis() - snapshot.capturedAtMs) <= STALE_TIMEOUT_MS
-                var dynamicThreshold = amplitudeThreshold
-                var rawActive = false
+                val nowMs = System.currentTimeMillis()
+                val amplitudeSnapshot = CollectAudioBus.latest()
+                val amplitude = amplitudeSnapshot?.averageAmplitude ?: 0.0
+                val amplitudeFresh = amplitudeSnapshot != null &&
+                    (nowMs - amplitudeSnapshot.capturedAtMs) <= AMPLITUDE_STALE_TIMEOUT_MS
+                var dynamicAmplitudeThreshold = amplitudeThreshold
+                var amplitudeActive = false
 
-                if (!fresh) {
-                    activeStreak = 0
-                    inactiveStreak += 1
-                } else {
+                if (amplitudeFresh) {
                     noiseFloor = updateNoiseFloor(noiseFloor, amplitude)
-                    dynamicThreshold = max(
+                    dynamicAmplitudeThreshold = max(
                         amplitudeThreshold,
                         max(noiseFloor * NOISE_MULTIPLIER, noiseFloor + NOISE_OFFSET)
                     )
-                    rawActive = amplitude >= dynamicThreshold
-
-                    if (rawActive) {
-                        activeStreak += 1
-                        inactiveStreak = 0
-                    } else {
-                        inactiveStreak += 1
-                        activeStreak = 0
-                    }
+                    amplitudeActive = amplitude >= dynamicAmplitudeThreshold
                 }
 
-                val previousActive = currentActive
-                currentActive = when {
-                    currentActive && inactiveStreak >= INACTIVE_HOLD_POLLS -> false
-                    !currentActive && activeStreak >= ACTIVE_HOLD_POLLS -> true
-                    else -> currentActive
-                }
-                val activeChanged = previousActive != currentActive
+                val yamNetSnapshot = CollectCryBus.latest()
+                val yamNetScore = yamNetSnapshot?.score ?: 0.0f
+                val yamNetFresh = yamNetSnapshot != null &&
+                    (nowMs - yamNetSnapshot.capturedAtMs) <= YAMNET_STALE_TIMEOUT_MS
+                val yamNetActive = yamNetFresh &&
+                    yamNetScore >= yamNetCryConfidenceThreshold
+                val rawActive = passesCombinedCryGate(
+                    amplitudeFresh = amplitudeFresh,
+                    amplitudeActive = amplitudeActive,
+                    yamNetFresh = yamNetFresh,
+                    yamNetActive = yamNetActive
+                )
+                val transition = activityTracker.update(rawActive)
 
                 pollCount += 1
-                if (shouldLogLevel(pollCount = pollCount, activeChanged = activeChanged)) {
+                if (shouldLogLevel(
+                        pollCount = pollCount,
+                        activeChanged = transition.activeChanged
+                    )
+                ) {
                     Log.d(
                         TAG,
-                        "mic level amplitude=${amplitude.toInt()} noiseFloor=${noiseFloor.toInt()} threshold=${dynamicThreshold.toInt()} rawActive=$rawActive active=$currentActive fresh=$fresh streakA=$activeStreak streakI=$inactiveStreak"
+                        "mic level amplitude=${amplitude.toInt()} " +
+                            "noiseFloor=${noiseFloor.toInt()} " +
+                            "threshold=${dynamicAmplitudeThreshold.toInt()} " +
+                            "amplitudeActive=$amplitudeActive " +
+                            "yamNetScore=$yamNetScore " +
+                            "yamNetThreshold=$yamNetCryConfidenceThreshold " +
+                            "yamNetActive=$yamNetActive rawActive=$rawActive " +
+                            "active=${transition.active} " +
+                            "freshAmplitude=$amplitudeFresh freshYamNet=$yamNetFresh " +
+                            "streakA=${transition.activeStreak} " +
+                            "streakI=${transition.inactiveStreak}"
                     )
                 }
 
@@ -82,7 +93,7 @@ class MicrophoneMonitor(
                     MonitorSignal(
                         monitorId = id,
                         kind = MonitorKind.MICROPHONE,
-                        active = currentActive
+                        active = transition.active
                     )
                 )
 
@@ -113,8 +124,10 @@ class MicrophoneMonitor(
     private companion object {
         const val TAG = "MicrophoneMonitor"
         const val AMPLITUDE_THRESHOLD_DEFAULT = 900.0
+        const val YAMNET_CONFIDENCE_THRESHOLD_DEFAULT = 0.5f
         const val POLL_INTERVAL_MS = 1_000L
-        const val STALE_TIMEOUT_MS = CollectAudioConfig.AMPLITUDE_STALE_TIMEOUT_MS
+        const val AMPLITUDE_STALE_TIMEOUT_MS = CollectAudioConfig.AMPLITUDE_STALE_TIMEOUT_MS
+        const val YAMNET_STALE_TIMEOUT_MS = CollectAudioConfig.CRY_RESULT_STALE_TIMEOUT_MS
         const val ACTIVE_HOLD_POLLS = 2
         const val INACTIVE_HOLD_POLLS = 3
         const val NOISE_MULTIPLIER = 2.0
@@ -125,4 +138,50 @@ class MicrophoneMonitor(
         const val NOISE_MODEST_RISE_ALPHA = 0.08
         const val NOISE_SPIKE_RISE_ALPHA = 0.01
     }
+
+    internal class CryActivityTracker {
+        private var activeStreak = 0
+        private var inactiveStreak = 0
+        private var currentActive = false
+
+        fun update(rawActive: Boolean): CryActivityTransition {
+            if (rawActive) {
+                activeStreak += 1
+                inactiveStreak = 0
+            } else {
+                inactiveStreak += 1
+                activeStreak = 0
+            }
+
+            val previousActive = currentActive
+            currentActive = when {
+                currentActive && inactiveStreak >= INACTIVE_HOLD_POLLS -> false
+                !currentActive && activeStreak >= ACTIVE_HOLD_POLLS -> true
+                else -> currentActive
+            }
+
+            return CryActivityTransition(
+                active = currentActive,
+                activeChanged = previousActive != currentActive,
+                activeStreak = activeStreak,
+                inactiveStreak = inactiveStreak
+            )
+        }
+    }
+
+    internal data class CryActivityTransition(
+        val active: Boolean,
+        val activeChanged: Boolean,
+        val activeStreak: Int,
+        val inactiveStreak: Int
+    )
+}
+
+internal fun passesCombinedCryGate(
+    amplitudeFresh: Boolean,
+    amplitudeActive: Boolean,
+    yamNetFresh: Boolean,
+    yamNetActive: Boolean
+): Boolean {
+    return amplitudeFresh && amplitudeActive && yamNetFresh && yamNetActive
 }

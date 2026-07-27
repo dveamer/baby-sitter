@@ -3,11 +3,13 @@ package com.dveamer.babysitter.sleep
 data class WakeMemoryState(
     val awakeStartedAt: Long? = null,
     val lastAwakeSignalAt: Long? = null,
+    val awakeSignalActive: Boolean = false,
     val sleepStableStartedAt: Long? = null,
     val finalizationTargetEndMs: Long? = null,
     val lastBuiltRangeEndMs: Long? = null,
     val lastBuildRequestedAtMs: Long? = null,
-    val memoryBuildInProgress: Boolean = false
+    val memoryBuildInProgress: Boolean = false,
+    val successfulExtensions: Int = 0
 )
 
 data class WakeMemoryTrigger(
@@ -23,12 +25,23 @@ class WakeMemoryManager(
     fun snapshot(): WakeMemoryState = state
 
     fun onAwakeSignal(nowMs: Long = clock()): WakeMemoryTrigger? {
+        val startsNewAwakeEpisode = !state.awakeSignalActive
+        if (state.awakeStartedAt == null && !startsNewAwakeEpisode) {
+            return null
+        }
+
         val startedAt = state.awakeStartedAt ?: nowMs
         state = state.copy(
             awakeStartedAt = startedAt,
             lastAwakeSignalAt = nowMs,
+            awakeSignalActive = true,
             sleepStableStartedAt = null,
-            finalizationTargetEndMs = null
+            finalizationTargetEndMs = null,
+            successfulExtensions = if (startsNewAwakeEpisode) {
+                0
+            } else {
+                state.successfulExtensions
+            }
         )
         return null
     }
@@ -37,6 +50,7 @@ class WakeMemoryManager(
         lullabyActive: Boolean,
         nowMs: Long = clock()
     ): WakeMemoryTrigger? {
+        state = state.copy(awakeSignalActive = false)
         if (state.memoryBuildInProgress) return null
         if (state.awakeStartedAt == null || state.lastAwakeSignalAt == null) return null
         if (lullabyActive) {
@@ -101,10 +115,19 @@ class WakeMemoryManager(
         clearSessionOnSuccessfulBuild: Boolean = false
     ) {
         val builtRangeEndMs = result.effectiveRangeEndMs?.takeIf { result.outputFile != null }
-        val nextBuiltRangeEndMs = maxOfOrNull(state.lastBuiltRangeEndMs, builtRangeEndMs)
+        val previousBuiltRangeEndMs = state.lastBuiltRangeEndMs
+        val extendedExistingRange = builtRangeEndMs != null &&
+            previousBuiltRangeEndMs != null &&
+            builtRangeEndMs > previousBuiltRangeEndMs
+        val nextBuiltRangeEndMs = maxOfOrNull(previousBuiltRangeEndMs, builtRangeEndMs)
         val nextState = state.copy(
             lastBuiltRangeEndMs = nextBuiltRangeEndMs,
-            memoryBuildInProgress = false
+            memoryBuildInProgress = false,
+            successfulExtensions = if (extendedExistingRange) {
+                state.successfulExtensions + 1
+            } else {
+                state.successfulExtensions
+            }
         )
 
         if (clearSessionOnSuccessfulBuild && result.outputFile != null) {
@@ -133,6 +156,10 @@ class WakeMemoryManager(
     private fun issueBuildTrigger(requestedRangeEndMs: Long): WakeMemoryTrigger? {
         val awakeStartedAt = state.awakeStartedAt ?: return null
         if (state.lastAwakeSignalAt == null || state.memoryBuildInProgress) return null
+        if (state.successfulExtensions >= MAX_CONSECUTIVE_EXTENSIONS) {
+            state = WakeMemoryState(awakeSignalActive = state.awakeSignalActive)
+            return null
+        }
 
         state = state.copy(
             memoryBuildInProgress = true,
@@ -156,5 +183,6 @@ class WakeMemoryManager(
         const val SLEEP_STABLE_REQUIRED_MS = 3 * 60 * 1000L
         const val PRE_ROLL_MS = 3 * 60 * 1000L
         const val PERIODIC_BUILD_INTERVAL_MS = 60 * 1000L
+        const val MAX_CONSECUTIVE_EXTENSIONS = 3
     }
 }
