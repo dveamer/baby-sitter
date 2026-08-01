@@ -84,7 +84,7 @@ class MicrophoneMonitor(
                             "yamNetActive=$yamNetActive rawActive=$rawActive " +
                             "active=${transition.active} " +
                             "freshAmplitude=$amplitudeFresh freshYamNet=$yamNetFresh " +
-                            "streakA=${transition.activeStreak} " +
+                            "evidenceA=${transition.activeEvidenceCount}/${transition.evidenceWindowSize} " +
                             "streakI=${transition.inactiveStreak}"
                     )
                 }
@@ -128,7 +128,8 @@ class MicrophoneMonitor(
         const val POLL_INTERVAL_MS = 1_000L
         const val AMPLITUDE_STALE_TIMEOUT_MS = CollectAudioConfig.AMPLITUDE_STALE_TIMEOUT_MS
         const val YAMNET_STALE_TIMEOUT_MS = CollectAudioConfig.CRY_RESULT_STALE_TIMEOUT_MS
-        const val ACTIVE_HOLD_POLLS = 2
+        const val ACTIVE_EVIDENCE_WINDOW_POLLS = 4
+        const val ACTIVE_REQUIRED_POLLS = 2
         const val INACTIVE_HOLD_POLLS = 3
         const val NOISE_MULTIPLIER = 2.0
         const val NOISE_OFFSET = 140.0
@@ -140,30 +141,35 @@ class MicrophoneMonitor(
     }
 
     internal class CryActivityTracker {
-        private var activeStreak = 0
+        private val recentRawActivity = ArrayDeque<Boolean>(ACTIVE_EVIDENCE_WINDOW_POLLS)
         private var inactiveStreak = 0
         private var currentActive = false
 
         fun update(rawActive: Boolean): CryActivityTransition {
+            recentRawActivity.addLast(rawActive)
+            if (recentRawActivity.size > ACTIVE_EVIDENCE_WINDOW_POLLS) {
+                recentRawActivity.removeFirst()
+            }
+
             if (rawActive) {
-                activeStreak += 1
                 inactiveStreak = 0
             } else {
                 inactiveStreak += 1
-                activeStreak = 0
             }
 
+            val activeEvidenceCount = recentRawActivity.count { it }
             val previousActive = currentActive
             currentActive = when {
                 currentActive && inactiveStreak >= INACTIVE_HOLD_POLLS -> false
-                !currentActive && activeStreak >= ACTIVE_HOLD_POLLS -> true
+                !currentActive && activeEvidenceCount >= ACTIVE_REQUIRED_POLLS -> true
                 else -> currentActive
             }
 
             return CryActivityTransition(
                 active = currentActive,
                 activeChanged = previousActive != currentActive,
-                activeStreak = activeStreak,
+                activeEvidenceCount = activeEvidenceCount,
+                evidenceWindowSize = recentRawActivity.size,
                 inactiveStreak = inactiveStreak
             )
         }
@@ -172,7 +178,8 @@ class MicrophoneMonitor(
     internal data class CryActivityTransition(
         val active: Boolean,
         val activeChanged: Boolean,
-        val activeStreak: Int,
+        val activeEvidenceCount: Int,
+        val evidenceWindowSize: Int,
         val inactiveStreak: Int
     )
 }

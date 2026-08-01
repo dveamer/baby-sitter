@@ -16,8 +16,8 @@ internal class YamNetCryClassifier(context: Context) : AutoCloseable {
                     .build()
             )
             .setRunningMode(RunningMode.AUDIO_CLIPS)
-            .setCategoryAllowlist(listOf(BABY_CRY_CATEGORY_NAME))
-            .setMaxResults(1)
+            .setCategoryAllowlist(YAMNET_DISTRESS_CATEGORIES.map { it.name })
+            .setMaxResults(YAMNET_DISTRESS_CATEGORIES.size)
             .build()
     )
     private val audioData = AudioData.create(
@@ -54,20 +54,22 @@ internal class YamNetCryClassifier(context: Context) : AutoCloseable {
         }
         hasClassified = true
 
-        val cryScore = classifier.classify(audioData)
+        val distressScore = classifier.classify(audioData)
             .classificationResults()
             .asSequence()
             .flatMap { it.classifications().asSequence() }
             .flatMap { it.categories().asSequence() }
             .filter { category ->
-                category.index() == BABY_CRY_CATEGORY_INDEX ||
-                    category.categoryName() == BABY_CRY_CATEGORY_NAME
+                isYamNetDistressCategory(
+                    index = category.index(),
+                    name = category.categoryName()
+                )
             }
             .maxOfOrNull { it.score() }
             ?: 0f
 
         return CollectCrySnapshot(
-            score = cryScore.coerceIn(0f, 1f),
+            score = distressScore.coerceIn(0f, 1f),
             capturedAtMs = capturedAtMs
         )
     }
@@ -81,7 +83,22 @@ internal class YamNetCryClassifier(context: Context) : AutoCloseable {
         const val CHANNEL_COUNT = 1
         const val INPUT_SAMPLE_COUNT = 15_600
         const val HOP_SAMPLE_COUNT = INPUT_SAMPLE_COUNT / 2
-        const val BABY_CRY_CATEGORY_INDEX = 20
-        const val BABY_CRY_CATEGORY_NAME = "Baby cry, infant cry"
+    }
+}
+
+internal data class YamNetDistressCategory(
+    val index: Int,
+    val name: String
+)
+
+internal val YAMNET_DISTRESS_CATEGORIES = listOf(
+    YamNetDistressCategory(index = 19, name = "Crying, sobbing"),
+    YamNetDistressCategory(index = 20, name = "Baby cry, infant cry"),
+    YamNetDistressCategory(index = 21, name = "Whimper")
+)
+
+internal fun isYamNetDistressCategory(index: Int, name: String): Boolean {
+    return YAMNET_DISTRESS_CATEGORIES.any { category ->
+        category.index == index || category.name == name
     }
 }

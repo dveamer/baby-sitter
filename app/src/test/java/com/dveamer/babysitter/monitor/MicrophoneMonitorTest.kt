@@ -113,13 +113,28 @@ class MicrophoneMonitorTest {
     }
 
     @Test
-    fun `중간 inactive 판정은 active 연속 횟수를 초기화한다`() {
+    fun `최근 네 번 중 두 번 울음이면 중간 공백이 있어도 active가 된다`() {
         val tracker = MicrophoneMonitor.CryActivityTracker()
 
         assertFalse(tracker.update(rawActive = true).active)
         assertFalse(tracker.update(rawActive = false).active)
-        assertFalse(tracker.update(rawActive = true).active)
         assertTrue(tracker.update(rawActive = true).active)
+    }
+
+    @Test
+    fun `최근 네 번 중 울음이 한 번뿐이면 active가 되지 않는다`() {
+        val tracker = MicrophoneMonitor.CryActivityTracker()
+
+        assertFalse(tracker.update(rawActive = true).active)
+        repeat(3) {
+            assertFalse(tracker.update(rawActive = false).active)
+        }
+
+        val transition = tracker.update(rawActive = false)
+
+        assertFalse(transition.active)
+        assertEquals(0, transition.activeEvidenceCount)
+        assertEquals(4, transition.evidenceWindowSize)
     }
 
     @Test
