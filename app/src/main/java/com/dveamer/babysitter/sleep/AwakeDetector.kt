@@ -9,12 +9,14 @@ import kotlin.math.max
 
 interface AwakeDetector {
     fun onSignal(signal: MonitorSignal, nowMs: Long = System.currentTimeMillis()): AwakeState
+    fun reset(monitorId: String)
 }
 
 data class AwakeState(
     val isAwake: Boolean,
     val awakeSinceMs: Long? = null,
-    val reason: String = ""
+    val reason: String = "",
+    val triggeredKinds: Set<MonitorKind> = emptySet()
 )
 
 class ContinuousAwakeDetector(
@@ -78,7 +80,23 @@ class ContinuousAwakeDetector(
 
         val awakeSinceMs = triggered.minOf { it.second }
         val reason = triggered.joinToString(",") { it.first }
-        return AwakeState(isAwake = true, awakeSinceMs = awakeSinceMs, reason = reason)
+        val triggeredKinds = triggered.mapNotNull { kindById[it.first] }.toSet()
+        return AwakeState(
+            isAwake = true,
+            awakeSinceMs = awakeSinceMs,
+            reason = reason,
+            triggeredKinds = triggeredKinds
+        )
+    }
+
+    override fun reset(monitorId: String) {
+        activeSince.remove(monitorId)
+        kindById.remove(monitorId)
+        lastActiveTrueAt.remove(monitorId)
+        currentWindowStartMs.remove(monitorId)
+        activeSeenInWindow.remove(monitorId)
+        consecutiveActiveWindows.remove(monitorId)
+        consecutiveSince.remove(monitorId)
     }
 
     private fun ensureWindowInitialized(monitorId: String, timestampMs: Long) {

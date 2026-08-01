@@ -46,6 +46,24 @@ class CameraMonitorTest {
         assertTrue(monitor.isStale(staleFrame))
     }
 
+    @Test
+    fun `화면 전반의 변화는 큰 장면 변화 분석값을 만든다`() {
+        val monitor = CameraMonitor(
+            scope = CoroutineScope(SupervisorJob()),
+            diffThreshold = 20,
+            minChangedRatio = 0.02
+        )
+
+        val previous = frameWithBlockValue()
+        val current = frameWithBlockValue(blockSize = 80, blockValue = 220)
+
+        val observation = monitor.analyzeMovement(previous, current)
+
+        assertTrue(observation.active)
+        assertTrue(observation.changedRatio >= 0.30)
+        assertTrue(observation.activeTileCount >= 6)
+    }
+
     private fun frameWithBlockValue(
         width: Int = 80,
         height: Int = 60,

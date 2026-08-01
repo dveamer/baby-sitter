@@ -10,5 +10,6 @@ data class MonitorSignal(
     val monitorId: String,
     val kind: MonitorKind,
     val active: Boolean,
-    val timestampMs: Long = System.currentTimeMillis()
+    val timestampMs: Long = System.currentTimeMillis(),
+    val resetAwakeAccumulation: Boolean = false
 )

@@ -24,6 +24,7 @@ class CameraMonitor(
     override val signals: Flow<MonitorSignal> = mutableSignals.asSharedFlow()
 
     private var job: Job? = null
+    private var settlingController = CameraMotionSettlingController()
 
     override suspend fun start() {
         if (job != null) return
@@ -32,19 +33,27 @@ class CameraMonitor(
             var previous: CollectFrameSnapshot? = null
             while (isActive) {
                 val current = CollectFrameBus.latest()?.takeIf { !isStale(it) }
+                val nowMs = System.currentTimeMillis()
 
-                val active = when {
-                    current == null -> false
-                    previous == null -> false
-                    current.capturedAtMs == previous.capturedAtMs -> false
-                    else -> detectMovement(previous, current)
+                val observation = when {
+                    current == null -> null
+                    previous == null -> null
+                    current.capturedAtMs == previous.capturedAtMs -> null
+                    else -> analyzeMovement(previous, current)
+                }
+                val decision = if (observation != null) {
+                    settlingController.onObservation(observation, nowMs)
+                } else {
+                    CameraMotionDecision(active = false)
                 }
 
                 mutableSignals.tryEmit(
                     MonitorSignal(
                         monitorId = id,
                         kind = MonitorKind.CAMERA,
-                        active = active
+                        active = decision.active,
+                        timestampMs = nowMs,
+                        resetAwakeAccumulation = decision.resetAwakeAccumulation
                     )
                 )
 
@@ -59,15 +68,25 @@ class CameraMonitor(
     override suspend fun stop() {
         job?.cancel()
         job = null
+        settlingController = CameraMotionSettlingController()
     }
 
     internal fun detectMovement(
         prev: CollectFrameSnapshot,
         current: CollectFrameSnapshot
-    ): Boolean {
-        if (prev.width != current.width || prev.height != current.height) return false
+    ): Boolean = analyzeMovement(prev, current).active
+
+    internal fun analyzeMovement(
+        prev: CollectFrameSnapshot,
+        current: CollectFrameSnapshot
+    ): CameraMotionObservation {
+        if (prev.width != current.width || prev.height != current.height) {
+            return CameraMotionObservation(active = false, changedRatio = 0.0, activeTileCount = 0)
+        }
         val size = current.gray.size
-        if (size == 0) return false
+        if (size == 0) {
+            return CameraMotionObservation(active = false, changedRatio = 0.0, activeTileCount = 0)
+        }
         val threshold = diffThreshold.coerceIn(1, 255)
         val ratioThreshold = minChangedRatio.coerceIn(0.001, 1.0)
 
@@ -83,7 +102,36 @@ class CameraMonitor(
         val changedPixels = cleaned.sum()
         val changedRatio = changedPixels.toDouble() / size.toDouble()
 
-        return changedPixels >= MIN_CHANGED_PIXELS && changedRatio >= ratioThreshold
+        return CameraMotionObservation(
+            active = changedPixels >= MIN_CHANGED_PIXELS && changedRatio >= ratioThreshold,
+            changedRatio = changedRatio,
+            activeTileCount = countActiveTiles(cleaned, current.width, current.height)
+        )
+    }
+
+    private fun countActiveTiles(src: IntArray, width: Int, height: Int): Int {
+        var activeTiles = 0
+        for (tileY in 0 until TILE_ROWS) {
+            val startY = tileY * height / TILE_ROWS
+            val endY = (tileY + 1) * height / TILE_ROWS
+            for (tileX in 0 until TILE_COLUMNS) {
+                val startX = tileX * width / TILE_COLUMNS
+                val endX = (tileX + 1) * width / TILE_COLUMNS
+                val tileSize = (endX - startX) * (endY - startY)
+                if (tileSize <= 0) continue
+
+                var changedPixels = 0
+                for (y in startY until endY) {
+                    for (x in startX until endX) {
+                        changedPixels += src[y * width + x]
+                    }
+                }
+                if (changedPixels.toDouble() / tileSize.toDouble() >= ACTIVE_TILE_CHANGED_RATIO) {
+                    activeTiles += 1
+                }
+            }
+        }
+        return activeTiles
     }
 
     private fun erode(src: IntArray, width: Int, height: Int): IntArray {
@@ -146,5 +194,8 @@ class CameraMonitor(
         const val DEFAULT_MIN_CHANGED_RATIO = 0.03
         const val STALE_TIMEOUT_MS = 2_000L
         const val POLL_INTERVAL_MS = 1_000L
+        const val TILE_COLUMNS = 4
+        const val TILE_ROWS = 3
+        const val ACTIVE_TILE_CHANGED_RATIO = 0.15
     }
 }

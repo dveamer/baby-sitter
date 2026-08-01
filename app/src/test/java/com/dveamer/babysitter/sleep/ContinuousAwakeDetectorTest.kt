@@ -52,6 +52,7 @@ class ContinuousAwakeDetectorTest {
         assertTrue(state.isAwake)
         assertEquals(0L, state.awakeSinceMs)
         assertEquals(monitorId, state.reason)
+        assertEquals(setOf(MonitorKind.MICROPHONE), state.triggeredKinds)
     }
 
     @Test
@@ -119,6 +120,64 @@ class ContinuousAwakeDetectorTest {
         )
 
         assertNull(activeSince(detector)[monitorId])
+    }
+
+    @Test
+    fun `카메라 누적 초기화는 마이크 누적에 영향을 주지 않는다`() {
+        val detector = ContinuousAwakeDetector { SettingsState() }
+        val microphoneId = "microphone"
+
+        listOf(1_000L, 6_000L, 11_000L, 16_000L).forEach { ts ->
+            detector.onSignal(
+                signal = activeSignal(microphoneId, ts),
+                nowMs = ts
+            )
+        }
+
+        detector.reset("camera")
+        val state = detector.onSignal(
+            signal = MonitorSignal(
+                monitorId = "camera",
+                kind = MonitorKind.CAMERA,
+                active = false,
+                timestampMs = 20_000L
+            ),
+            nowMs = 20_000L
+        )
+
+        assertTrue(state.isAwake)
+        assertEquals(setOf(MonitorKind.MICROPHONE), state.triggeredKinds)
+    }
+
+    @Test
+    fun `카메라 누적 초기화는 기존 카메라 active 창을 제거한다`() {
+        val detector = ContinuousAwakeDetector { SettingsState() }
+        val cameraId = "camera"
+
+        listOf(1_000L, 6_000L, 11_000L, 16_000L).forEach { ts ->
+            detector.onSignal(
+                signal = MonitorSignal(
+                    monitorId = cameraId,
+                    kind = MonitorKind.CAMERA,
+                    active = true,
+                    timestampMs = ts
+                ),
+                nowMs = ts
+            )
+        }
+
+        detector.reset(cameraId)
+        val state = detector.onSignal(
+            signal = MonitorSignal(
+                monitorId = cameraId,
+                kind = MonitorKind.CAMERA,
+                active = false,
+                timestampMs = 20_000L
+            ),
+            nowMs = 20_000L
+        )
+
+        assertFalse(state.isAwake)
     }
 
     private fun activeSignal(monitorId: String, timestampMs: Long): MonitorSignal {

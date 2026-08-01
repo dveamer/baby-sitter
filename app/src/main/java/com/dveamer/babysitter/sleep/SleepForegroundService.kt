@@ -469,6 +469,7 @@ class SleepForegroundService : Service() {
         }
 
         val detector = ContinuousAwakeDetector { container.settingsRepository.state.value }
+        val awakeConfirmationController = CameraAwakeConfirmationController()
         val soothingCoordinator = SequentialSoothingCoordinator(soothingListeners)
         val alertController = AwakeAlertController(container.alertSender)
         val awakeMusicStopController = PlaybackInactivityController(AWAKE_MUSIC_STOP_GRACE_MS)
@@ -507,7 +508,12 @@ class SleepForegroundService : Service() {
                 } else {
                     signal
                 }
-                val awake = detector.onSignal(effectiveSignal, now)
+                if (effectiveSignal.resetAwakeAccumulation) {
+                    detector.reset(effectiveSignal.monitorId)
+                }
+                val detectedAwake = detector.onSignal(effectiveSignal, now)
+                val confirmation = awakeConfirmationController.onAwakeState(detectedAwake, now)
+                val awake = confirmation.awake
 
                 if (musicSoothingListener != null && lullabyActive && musicPlaybackOwner == MusicPlaybackOwner.AWAKE) {
                     when (awakeMusicStopController.onConditionChanged(awake.isAwake, now)) {
