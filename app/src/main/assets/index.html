@@ -331,6 +331,11 @@
       position: relative;
       white-space: nowrap;
     }
+    .memory-download-btn.downloaded {
+      border-color: var(--tertiary);
+      background: var(--tertiary-soft);
+      color: var(--on-tertiary-soft);
+    }
     .memory-download-icon {
       width: 18px;
       height: 18px;
@@ -560,6 +565,8 @@
     let memoryDownloadBenefitActive = false;
     let memoryDownloadBenefitExpiresAtMs = null;
     let memoryDownloadInProgress = false;
+    const DOWNLOADED_MEMORY_STORAGE_KEY = "baby-sitter.downloaded-memory-files.v1";
+    let downloadedMemoryFiles = readDownloadedMemoryFiles();
     const SLEEP_STATUS_POLL_INTERVAL_MS = 10000;
     const SOUND_PRESET_VALUES = { HIGH: 250, MEDIUM: 500, LOW: 750 };
     const MOTION_PRESET_VALUES = { HIGH: 14, MEDIUM: 20, LOW: 28 };
@@ -613,6 +620,7 @@
       ? "Sound, Motion 모두 사용되지 않도록 설정되어 아기가 깼는지 감지할 수 없습니다."
       : "Both Sound and Motion are disabled, so the app cannot detect whether the baby has woken up.";
     const downloadButtonLabel = isKoreanUser ? "영상 다운로드" : "Download video";
+    const downloadedButtonLabel = isKoreanUser ? "다운로드한 영상" : "Downloaded video";
     const memoryDownloadDailyLimitExceededMessage = isKoreanUser
       ? "하루동안 허용된 다운로드 횟수를 모두 사용하셨습니다. 내일 다시 사용해주세요~! 혹은 인앱결제를 통해 다운로드 횟수를 늘려보세요!"
       : "You have used all downloads allowed for today. Please try again tomorrow, or increase the download count through in-app purchase.";
@@ -841,6 +849,28 @@
       return "/memory-download/" + encodeURIComponent(fileName);
     }
 
+    function readDownloadedMemoryFiles() {
+      try {
+        const storedFileNames = JSON.parse(window.localStorage.getItem(DOWNLOADED_MEMORY_STORAGE_KEY) || "[]");
+        if (!Array.isArray(storedFileNames)) return new Set();
+        return new Set(storedFileNames.filter((fileName) => typeof fileName === "string" && fileName));
+      } catch (_) {
+        return new Set();
+      }
+    }
+
+    function markMemoryDownloaded(fileName) {
+      downloadedMemoryFiles.add(fileName);
+      try {
+        window.localStorage.setItem(
+          DOWNLOADED_MEMORY_STORAGE_KEY,
+          JSON.stringify(Array.from(downloadedMemoryFiles))
+        );
+      } catch (_) {
+        // Keep the downloaded state for this page even when browser storage is unavailable.
+      }
+    }
+
     function updateMemoryDownloadStatus(download) {
       const hasDailyLimit = download && Object.prototype.hasOwnProperty.call(download, "dailyLimit");
       const hasUsedToday = download && Object.prototype.hasOwnProperty.call(download, "usedToday");
@@ -918,6 +948,8 @@
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
+        markMemoryDownloaded(fileName);
+        renderMemoryList();
         setTimeout(() => URL.revokeObjectURL(objectUrl), 60 * 1000);
       } catch (e) {
         memoryErrorMessage = e && e.message ? e.message : memoryDownloadFailedMessage;
@@ -940,8 +972,12 @@
       }
       memoryEmptyEl.style.display = "none";
       const downloadDisabled = memoryDownloadInProgress;
-      const downloadTitle = !memoryDownloadAvailable ? memoryDownloadDailyLimitExceededMessage : downloadButtonLabel;
       memoryItems.forEach((item) => {
+        const downloaded = downloadedMemoryFiles.has(item.fileName);
+        const downloadTitle = !memoryDownloadAvailable
+          ? memoryDownloadDailyLimitExceededMessage
+          : (downloaded ? downloadedButtonLabel : downloadButtonLabel);
+        const accessibleDownloadLabel = downloaded ? downloadedButtonLabel : downloadButtonLabel;
         const li = document.createElement("li");
         li.className = "memory-item" + (selectedMemoryFile === item.fileName ? " selected" : "");
         li.dataset.fileName = item.fileName;
@@ -954,13 +990,13 @@
             </div>
             <div class="memory-item-actions">
               <button
-                class="btn icon-btn memory-download-btn"
+                class="btn icon-btn memory-download-btn${downloaded ? " downloaded" : ""}"
                 type="button"
                 data-file-name="${item.fileName}"
-                aria-label="${downloadButtonLabel}"
+                aria-label="${accessibleDownloadLabel}"
                 title="${downloadTitle}"
                 ${downloadDisabled ? "disabled" : ""}
-              >${downloadIconSvg()}<span class="sr-only">${downloadButtonLabel}</span></button>
+              >${downloadIconSvg()}<span class="sr-only">${accessibleDownloadLabel}</span></button>
             </div>
           </div>
         `;
@@ -1231,6 +1267,11 @@
     refreshBtn.addEventListener("click", loadSettings);
     cameraMemoryBtn.addEventListener("click", saveCameraMemory);
     memoryRefreshBtn.addEventListener("click", loadMemoryList);
+    window.addEventListener("storage", (event) => {
+      if (event.key !== DOWNLOADED_MEMORY_STORAGE_KEY) return;
+      downloadedMemoryFiles = readDownloadedMemoryFiles();
+      renderMemoryList();
+    });
     memoryListEl.addEventListener("click", (event) => {
       const downloadButton = event.target.closest(".memory-download-btn");
       if (downloadButton) {
