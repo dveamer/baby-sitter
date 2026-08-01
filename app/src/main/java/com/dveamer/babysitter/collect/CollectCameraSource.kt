@@ -46,7 +46,7 @@ class CollectCameraSource(
 
     private var handlerThread: HandlerThread? = null
     private var callbackHandler: Handler? = null
-    private var analysisImageReader: ImageReader? = null
+    private var frameImageReader: ImageReader? = null
     private var cameraDevice: CameraDevice? = null
     private var captureSession: CameraCaptureSession? = null
     private var mediaRecorder: MediaRecorder? = null
@@ -121,18 +121,18 @@ class CollectCameraSource(
         this.callbackHandler = callbackHandler
         stopping = false
 
-        val analysisReader = ImageReader.newInstance(
-            ANALYSIS_SOURCE_WIDTH,
-            ANALYSIS_SOURCE_HEIGHT,
+        val frameReader = ImageReader.newInstance(
+            CollectCameraProfile.PREVIEW_WIDTH,
+            CollectCameraProfile.PREVIEW_HEIGHT,
             ImageFormat.YUV_420_888,
             2
         ).apply {
             setOnImageAvailableListener({ ir ->
                 val image = ir.acquireLatestImage() ?: return@setOnImageAvailableListener
-                onAnalysisImageAvailable(image)
+                onFrameImageAvailable(image)
             }, callbackHandler)
         }
-        analysisImageReader = analysisReader
+        frameImageReader = frameReader
 
         val recorder = createRecorderForCurrentMinute()
         mediaRecorder = recorder
@@ -148,7 +148,7 @@ class CollectCameraSource(
                 val requestBuilder = runCatching {
                     camera.createCaptureRequest(CameraDevice.TEMPLATE_RECORD).apply {
                         addTarget(recordSurface)
-                        addTarget(analysisReader.surface)
+                        addTarget(frameReader.surface)
                         set(CaptureRequest.CONTROL_AF_MODE, CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE)
                     }
                 }.getOrElse { e ->
@@ -158,7 +158,7 @@ class CollectCameraSource(
                 }
 
                 camera.createCaptureSession(
-                    listOf(recordSurface, analysisReader.surface),
+                    listOf(recordSurface, frameReader.surface),
                     object : CameraCaptureSession.StateCallback() {
                         override fun onConfigured(session: CameraCaptureSession) {
                             captureSession = session
@@ -208,7 +208,7 @@ class CollectCameraSource(
 
         val localSession = captureSession
         val localCamera = cameraDevice
-        val localReader = analysisImageReader
+        val localReader = frameImageReader
         val localHandler = callbackHandler
         val localThread = handlerThread
         val localMediaRecorder = mediaRecorder
@@ -252,7 +252,7 @@ class CollectCameraSource(
         captureSession = null
         cameraDevice = null
         callbackHandler = null
-        analysisImageReader = null
+        frameImageReader = null
         recorderSurface = null
         mediaRecorder = null
         currentOutputFile = null
@@ -265,7 +265,7 @@ class CollectCameraSource(
         CameraFrameBus.clear()
     }
 
-    private fun onAnalysisImageAvailable(image: Image) {
+    private fun onFrameImageAvailable(image: Image) {
         try {
             if (stopping) return
             val capturedAtMs = System.currentTimeMillis()
@@ -296,7 +296,7 @@ class CollectCameraSource(
                 }
             }
         } catch (t: Throwable) {
-            Log.w(TAG, "analysis frame read failed", t)
+            Log.w(TAG, "collect frame read failed", t)
         } finally {
             image.close()
         }
@@ -312,23 +312,26 @@ class CollectCameraSource(
         val pixelStride = yPlane.pixelStride
         if (rowStride <= 0 || pixelStride <= 0) return null
 
-        val gray = IntArray(MOTION_FRAME_WIDTH * MOTION_FRAME_HEIGHT)
-        val xScale = image.width.toDouble() / MOTION_FRAME_WIDTH.toDouble()
-        val yScale = image.height.toDouble() / MOTION_FRAME_HEIGHT.toDouble()
+        val gray = IntArray(
+            CollectCameraProfile.MOTION_FRAME_WIDTH * CollectCameraProfile.MOTION_FRAME_HEIGHT
+        )
+        val xScale = image.width.toDouble() / CollectCameraProfile.MOTION_FRAME_WIDTH.toDouble()
+        val yScale = image.height.toDouble() / CollectCameraProfile.MOTION_FRAME_HEIGHT.toDouble()
 
-        for (targetY in 0 until MOTION_FRAME_HEIGHT) {
+        for (targetY in 0 until CollectCameraProfile.MOTION_FRAME_HEIGHT) {
             val sourceY = ((targetY + 0.5) * yScale).toInt().coerceIn(0, image.height - 1)
-            for (targetX in 0 until MOTION_FRAME_WIDTH) {
+            for (targetX in 0 until CollectCameraProfile.MOTION_FRAME_WIDTH) {
                 val sourceX = ((targetX + 0.5) * xScale).toInt().coerceIn(0, image.width - 1)
                 val index = sourceY * rowStride + sourceX * pixelStride
-                gray[targetY * MOTION_FRAME_WIDTH + targetX] = buffer.get(index).toInt() and 0xFF
+                gray[targetY * CollectCameraProfile.MOTION_FRAME_WIDTH + targetX] =
+                    buffer.get(index).toInt() and 0xFF
             }
         }
 
         return CollectFrameSnapshot(
             gray = gray,
-            width = MOTION_FRAME_WIDTH,
-            height = MOTION_FRAME_HEIGHT,
+            width = CollectCameraProfile.MOTION_FRAME_WIDTH,
+            height = CollectCameraProfile.MOTION_FRAME_HEIGHT,
             capturedAtMs = capturedAtMs
         )
     }
@@ -339,7 +342,7 @@ class CollectCameraSource(
         val output = ByteArrayOutputStream()
         val encoded = yuvImage.compressToJpeg(
             Rect(0, 0, image.width, image.height),
-            WEB_PREVIEW_JPEG_QUALITY,
+            CollectCameraProfile.PREVIEW_JPEG_QUALITY,
             output
         )
         if (!encoded) return null
@@ -433,9 +436,9 @@ class CollectCameraSource(
             setVideoSource(MediaRecorder.VideoSource.SURFACE)
             setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
             setVideoEncoder(MediaRecorder.VideoEncoder.H264)
-            setVideoEncodingBitRate(3_000_000)
-            setVideoFrameRate(20)
-            setVideoSize(CAPTURE_WIDTH, CAPTURE_HEIGHT)
+            setVideoEncodingBitRate(CollectCameraProfile.VIDEO_BIT_RATE)
+            setVideoFrameRate(CollectCameraProfile.VIDEO_FRAME_RATE)
+            setVideoSize(CollectCameraProfile.VIDEO_WIDTH, CollectCameraProfile.VIDEO_HEIGHT)
             setOrientationHint(90)
             setOutputFile(file.absolutePath)
             prepare()
@@ -456,15 +459,8 @@ class CollectCameraSource(
 
     private companion object {
         const val TAG = "CollectCameraSource"
-        const val CAPTURE_WIDTH = 640
-        const val CAPTURE_HEIGHT = 480
-        const val ANALYSIS_SOURCE_WIDTH = 320
-        const val ANALYSIS_SOURCE_HEIGHT = 240
-        const val MOTION_FRAME_WIDTH = 80
-        const val MOTION_FRAME_HEIGHT = 60
         const val ANALYSIS_FRAME_MIN_INTERVAL_MS = 250L
         const val WEB_PREVIEW_FRAME_MIN_INTERVAL_MS = 200L
-        const val WEB_PREVIEW_JPEG_QUALITY = 75
         const val CALLBACK_DRAIN_TIMEOUT_MS = 1_000L
     }
 }

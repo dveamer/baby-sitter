@@ -5,6 +5,7 @@ import android.media.MediaExtractor
 import android.media.MediaFormat
 import android.media.MediaMuxer
 import android.util.Log
+import com.dveamer.babysitter.collect.CollectCameraProfile
 import com.dveamer.babysitter.collect.CollectCatalog
 import com.dveamer.babysitter.collect.CollectFileNaming
 import com.dveamer.babysitter.collect.CollectStoragePaths
@@ -105,12 +106,14 @@ class MemoryAssembler(
             muxer.start()
             started = true
 
+            // Copy the encoded collect samples directly so memory keeps the original
+            // resolution, frame rate, bitrate, and image quality without transcoding.
             val videoWritten = appendTrackFiles(
                 files = videos.map { it.file },
                 mimePrefix = "video/",
                 muxer = muxer,
                 outputTrack = muxVideoTrack,
-                defaultFrameDurationUs = 33_333L
+                defaultFrameDurationUs = 1_000_000L / CollectCameraProfile.VIDEO_FRAME_RATE
             )
             val audioWritten = if (muxAudioTrack >= 0) {
                 appendTrackFiles(

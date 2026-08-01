@@ -12,6 +12,7 @@
 - `CollectRecorderCoordinator`가 web preview subscriber 수와 마지막 disconnect 시각을 관리한다.
 - `LocalSettingsHttpServer`의 `/camera/stream` 연결 lifecycle이 subscriber 증감 처리를 맡는다.
 - `CollectCameraSource`는 `webCameraEnabled`가 켜져 있어도 active subscriber가 있을 때만 preview JPEG를 인코딩한다.
+- preview JPEG는 collect 녹화와 같은 `640x480` 프레임을 사용하고, 모션 판단은 기존 `80x60` grayscale snapshot을 유지한다.
 - motion gray frame 경로, `collect`의 카메라 소유권, 닫힌 collect 파일 기반 `memory` 경로는 그대로 유지했다.
 - preview subscriber underflow를 막는 단위 테스트 `CollectRecorderCoordinatorTest`를 추가했다.
 

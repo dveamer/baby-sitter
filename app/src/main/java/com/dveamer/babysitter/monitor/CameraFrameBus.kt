@@ -8,7 +8,7 @@ data class CameraFrameSnapshot(
 )
 
 /**
- * Web preview JPEG frames derived inside collect.
+ * Full collect-resolution web preview JPEG frames derived inside collect.
  * Motion detection uses CollectFrameBus instead of this preview bus.
  */
 object CameraFrameBus {
