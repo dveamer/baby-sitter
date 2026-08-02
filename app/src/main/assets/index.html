@@ -132,10 +132,48 @@
       background: var(--secondary-soft);
       color: var(--on-secondary-soft);
     }
+    .camera-record-btn.is-ready {
+      border-color: var(--danger-text);
+      background: var(--danger-text);
+      color: #fff;
+      box-shadow: 0 6px 16px rgba(155, 63, 91, 0.28);
+    }
+    .camera-record-btn.is-unavailable {
+      border-color: var(--line);
+      background: var(--card-soft);
+      color: var(--muted);
+      cursor: not-allowed;
+      opacity: 0.48;
+      box-shadow: none;
+    }
+    .camera-record-btn.is-busy {
+      border-color: var(--secondary);
+      background: var(--secondary-soft);
+      color: var(--on-secondary-soft);
+      cursor: progress;
+      opacity: 1;
+      box-shadow: 0 0 0 3px rgba(244, 201, 138, 0.28);
+    }
     .camera-record-icon {
       width: 18px;
       height: 18px;
       display: block;
+    }
+    .camera-record-btn.is-busy .camera-record-ring {
+      stroke-dasharray: 18 39;
+      transform-origin: center;
+      animation: camera-memory-spin 0.9s linear infinite;
+    }
+    .camera-record-btn.is-busy .camera-record-dot {
+      opacity: 0.2;
+    }
+    @keyframes camera-memory-spin {
+      to { transform: rotate(360deg); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .camera-record-btn.is-busy .camera-record-ring {
+        animation: none;
+      }
     }
     .camera-hint {
       margin-bottom: 10px;
@@ -405,7 +443,7 @@
   <main>
     <h1>Settings</h1>
     <div id="error" class="error"></div>
-    <div id="success" class="success"></div>
+    <div id="success" class="success" role="status" aria-live="polite"></div>
     <div class="meta">
       <div id="updatedAt">Last updated: -</div>
       <button id="refreshBtn" class="btn" type="button">Refresh</button>
@@ -416,8 +454,8 @@
         <h2 class="title">Camera</h2>
         <button id="cameraMemoryBtn" class="btn icon-btn camera-record-btn" type="button" aria-label="Save memory" title="Save memory">
           <svg class="camera-record-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-            <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"></circle>
-            <circle cx="12" cy="12" r="5" fill="currentColor"></circle>
+            <circle class="camera-record-ring" cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"></circle>
+            <circle class="camera-record-dot" cx="12" cy="12" r="5" fill="currentColor"></circle>
           </svg>
           <span class="sr-only">Save memory</span>
         </button>
@@ -589,9 +627,18 @@
     const cameraMemorySavingLabel = isKoreanUser
       ? "Memory 저장 중"
       : "Saving memory";
+    const cameraMemoryStartedMessage = isKoreanUser
+      ? "Memory 저장을 시작했습니다. 전후 영상을 모으는 데 최대 5분 정도 걸릴 수 있습니다."
+      : "Memory saving has started. Collecting the surrounding video can take up to about 5 minutes.";
+    const cameraMemoryInProgressMessage = isKoreanUser
+      ? "Memory 저장이 이미 진행 중입니다. 완료까지 최대 5분 정도 걸릴 수 있습니다."
+      : "Memory saving is already in progress and can take up to about 5 minutes to finish.";
     const cameraMemoryHintText = isKoreanUser
       ? "녹화 버튼을 누르면 전후 총 5분 구간의 영상이 Memory 로 저장됩니다."
       : "Press the record button to save a 5-minute video around that moment as Memory.";
+    const cameraMemoryPreparingHintText = isKoreanUser
+      ? "최근 collect 영상이 닫히면 녹화 버튼이 활성화됩니다."
+      : "The record button will become available after a recent collect video is closed.";
     const cameraMemorySuccessMessage = isKoreanUser
       ? "전후 5분 Memory를 저장했습니다."
       : "Saved the surrounding 5-minute memory.";
@@ -605,8 +652,8 @@
       ? "Memory 저장에 실패했습니다."
       : "Failed to save the memory.";
     const cameraMemoryAlreadyPendingMessage = isKoreanUser
-      ? "이미 다른 수동 Memory 저장 요청이 진행 중입니다."
-      : "Another manual memory request is already running.";
+      ? "Memory 저장이 이미 진행 중입니다. 완료까지 최대 5분 정도 걸릴 수 있습니다."
+      : "Memory saving is already in progress and can take up to about 5 minutes to finish.";
     const lullabyVolumeHintPrefix = isKoreanUser
       ? "Baby Sitter 기기의 미디어 볼륨을 변경합니다."
       : "Changes the media volume on the Baby Sitter device.";
@@ -783,14 +830,21 @@
 
     function renderCameraMemoryControls() {
       const busy = manualMemorySaving || manualMemoryRequestInProgress || memoryBuildInProgress;
-      cameraMemoryBtn.disabled = manualMemorySaving || !cameraMemoryAvailable;
+      const ready = !busy && cameraMemoryAvailable;
+      cameraMemoryBtn.disabled = !busy && !cameraMemoryAvailable;
+      cameraMemoryBtn.classList.toggle("is-ready", ready);
+      cameraMemoryBtn.classList.toggle("is-busy", busy);
+      cameraMemoryBtn.classList.toggle("is-unavailable", !busy && !cameraMemoryAvailable);
+      cameraMemoryBtn.setAttribute("aria-disabled", String(!ready));
       cameraMemoryBtn.setAttribute("aria-label", busy ? cameraMemorySavingLabel : cameraMemoryButtonLabel);
       cameraMemoryBtn.title = busy ? cameraMemorySavingLabel : cameraMemoryButtonLabel;
       const srLabel = cameraMemoryBtn.querySelector(".sr-only");
       if (srLabel) {
         srLabel.textContent = busy ? cameraMemorySavingLabel : cameraMemoryButtonLabel;
       }
-      cameraMemoryHintEl.textContent = cameraMemoryHintText;
+      cameraMemoryHintEl.textContent = busy
+        ? cameraMemoryInProgressMessage
+        : (cameraMemoryAvailable ? cameraMemoryHintText : cameraMemoryPreparingHintText);
     }
 
     function formatBytes(bytes) {
@@ -1039,10 +1093,15 @@
     }
 
     async function saveCameraMemory() {
-      if (manualMemorySaving || manualMemoryRequestInProgress || memoryBuildInProgress || !cameraMemoryAvailable) return;
+      if (manualMemorySaving || manualMemoryRequestInProgress || memoryBuildInProgress) {
+        hideError();
+        showSuccess(cameraMemoryInProgressMessage);
+        return;
+      }
+      if (!cameraMemoryAvailable) return;
       manualMemorySaving = true;
       hideError();
-      hideSuccess();
+      showSuccess(cameraMemoryStartedMessage);
       renderCameraMemoryControls();
       try {
         const res = await fetch("/memory/manual", {
@@ -1147,7 +1206,9 @@
 
     function scheduleSleepStatusPoll() {
       clearSleepStatusPoll();
-      if (!sleepEnabled && !manualMemoryRequestInProgress && !memoryBuildInProgress) return;
+      // Web preview demand can start collect after this page's first settings response.
+      // Keep reflecting the server-authoritative manual-memory state while Camera is open.
+      if (!sleepEnabled && !webCameraEnabled && !manualMemoryRequestInProgress && !memoryBuildInProgress) return;
       sleepStatusPollTimeoutId = setTimeout(() => {
         loadSettings({ silent: true });
       }, SLEEP_STATUS_POLL_INTERVAL_MS);
